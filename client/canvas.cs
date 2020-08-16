@@ -34,7 +34,7 @@ function resetCanvas ()
 
 	if ( isObject (PlayGui) )
 	{
-		PlayGui.setHasRendered (0);
+		PlayGui.setHasRendered (false);
 	}
 }
 
