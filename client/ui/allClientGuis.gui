@@ -704,7 +704,7 @@ function getSaveFilename (%filespec, %callback, %currentFile)
 	{
 		SA_directoryList.setSelected (%unique[filePath (%currentFile)]);
 	}
-	else 
+	else
 	{
 		SA_directoryList.setSelected (1);
 	}
@@ -1374,7 +1374,7 @@ function NetGraph::ToggleNetGraph ()
 		Canvas.add (NetGraphGui);
 		NetGraph::updateStats ();
 	}
-	else 
+	else
 	{
 		Canvas.remove (NetGraphGui);
 		CANCEL ($NetGraphThread);
@@ -1426,7 +1426,7 @@ function NetGraph::toggleKey ()
 		Latency.visible = 1;
 		PacketLoss.visible = 1;
 	}
-	else 
+	else
 	{
 		GhostsActive.visible = 0;
 		GhostUpdates.visible = 0;

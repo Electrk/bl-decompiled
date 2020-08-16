@@ -36,7 +36,7 @@ function AddDamageType (%name, %deathMessageSuicide, %deathMessageMurder, %vehic
 		warn ("Warning: DamageType \"" @ %name @ "\" already exists.");
 		%idx = %exists;
 	}
-	else 
+	else
 	{
 		$MaxDamageType += 1;
 		%idx = $MaxDamageType;

@@ -36,7 +36,7 @@ function WebCom_PostServer ()
 	{
 		%passworded = 1;
 	}
-	else 
+	else
 	{
 		%passworded = 0;
 	}
@@ -46,7 +46,7 @@ function WebCom_PostServer ()
 		%steamTicket = "";
 		%dToken = getDedicatedToken ();
 	}
-	else 
+	else
 	{
 		%dedicated = 0;
 		%steamTicket = SteamGetAuthSessionTicket ();
@@ -90,7 +90,7 @@ function WebCom_PostServer ()
 				{
 					
 				}
-				else 
+				else
 				{
 					%brickGroup.abandonedTime += %elapsedMinutes;
 					if (%brickGroup.abandonedTime >= $Pref::Server::BrickPublicDomainTimeout)
@@ -193,7 +193,7 @@ function postServerTCPObj::onLine (%this, %line)
 			echo ("No matching server entry found, re-sending authentication request");
 			schedule (1000, 0, auth_Init_Server);
 		}
-		else 
+		else
 		{
 			echo ("Posting to master failed: " @ %reason);
 		}
@@ -233,14 +233,14 @@ function GameConnection::authCheck (%client)
 			%client.startLoad (%client);
 			return;
 		}
-		else 
+		else
 		{
 			echo ("AUTHCHECK: " @ %client.getPlayerName () @ " = internet client -> LAN game, rejecting");
 			%client.schedule (10, delete);
 			return;
 		}
 	}
-	else 
+	else
 	{
 		%client.setPlayerName ("au^timoamyo7zene", %client.netName);
 		%client.name = %client.netName;
@@ -272,7 +272,7 @@ function GameConnection::startLoad (%client)
 		%client.isAdmin = 1;
 		%client.isSuperAdmin = 1;
 	}
-	else 
+	else
 	{
 		%client.isAdmin = 0;
 		%client.isSuperAdmin = 0;
@@ -349,7 +349,7 @@ function GameConnection::startLoad (%client)
 			}
 		}
 	}
-	else 
+	else
 	{
 		%client.brickGroup = new SimGroup (("BrickGroup_" @ %client.getBLID ()));
 		mainBrickGroup.add (%client.brickGroup);
@@ -434,7 +434,7 @@ function GameConnection::killDupes (%client)
 		{
 			
 		}
-		else 
+		else
 		{
 			%cl.schedule (10, delete, "Someone using your Blockland ID joined the server from a different IP address.");
 		}
@@ -453,7 +453,7 @@ function servAuthTCPobj::onDNSFailed (%this)
 			error ("ERROR: - Authentication DNS Failed For Host.");
 			%this.client.schedule (60 * 1000 * 5, authCheck);
 		}
-		else 
+		else
 		{
 			error ("ERROR: - Authentication DNS Failed.");
 			%this.client.schedule (60 * 1000 * 5, authCheck);
@@ -464,7 +464,7 @@ function servAuthTCPobj::onDNSFailed (%this)
 		error ("ERROR: - Authentication DNS Failed when attempting to host.");
 		MessageBoxOK ("Cannot Host Internet Game", "Authentication DNS Failed.", "disconnect();");
 	}
-	else 
+	else
 	{
 		%this.schedule (0, disconnect);
 		%this.schedule (10, connect, %this.site @ ":" @ %this.port);
@@ -487,7 +487,7 @@ function servAuthTCPobj::onConnectFailed (%this)
 			error ("ERROR: - Authentication Connnection Failed For Host.");
 			%this.client.schedule (60 * 1000 * 5, authCheck);
 		}
-		else 
+		else
 		{
 			error ("ERROR: - Authentication Connection Failed.");
 			%this.client.schedule (60 * 1000 * 5, authCheck);
@@ -500,14 +500,14 @@ function servAuthTCPobj::onConnectFailed (%this)
 			error ("ERROR: - Authentication Connection Failed when attempting to host.");
 			MessageBoxOK ("Cannot Host Internet Game", "Authentication Connection Failed.", "disconnect();");
 		}
-		else 
+		else
 		{
 			%this.schedule (0, disconnect);
 			%this.schedule (10, connect, %this.site @ ":" @ %this.port);
 			error ("ERROR: - Authentication Connection Failed.  Retry ", %this.retryCount);
 		}
 	}
-	else 
+	else
 	{
 		%this.schedule (0, disconnect);
 		%this.schedule (10, connect, %this.site @ ":" @ %this.port);
@@ -597,7 +597,7 @@ function servAuthTCPobj::onLine (%this, %line)
 				}
 			}
 		}
-		else 
+		else
 		{
 			echo ("Auth Continue Successfull: " @ %this.client.getPlayerName ());
 			%this.client.schedule (60 * 1000 * 5, authCheck);
@@ -618,13 +618,13 @@ function servAuthTCPobj::onLine (%this, %line)
 				schedule (10, 0, disconnect);
 				schedule (11, 0, MessageBoxOK, "Server Shut Down", "Server shut down - Authentication Failed.");
 			}
-			else 
+			else
 			{
 				%this.client.schedule (10, delete, "Server could not verify your Blockland ID.");
 				return;
 			}
 		}
-		else 
+		else
 		{
 			error ("ERROR: servAuthTCPobj::onLine() - Orphan tcp object ", %this);
 		}
@@ -639,13 +639,13 @@ function servAuthTCPobj::onLine (%this, %line)
 				%this.client.schedule (10, delete, "Server experienced an authentication error.");
 				MessageAll ('', '\c2%1 Authentication Error (%2).', %this.client.getPlayerName (), %this.client.getRawIP ());
 			}
-			else 
+			else
 			{
 				%this.client.schedule (60 * 1000 * 5, authCheck);
 				%this.done = 1;
 			}
 		}
-		else 
+		else
 		{
 			error ("ERROR: servAuthTCPobj::onLine() - Orphan tcp object ", %this);
 		}
@@ -738,7 +738,7 @@ function createServer (%serverType)
 		{
 			portInit ($portArg);
 		}
-		else 
+		else
 		{
 			portInit ($Pref::Server::Port);
 		}
@@ -772,7 +772,7 @@ function createServer (%serverType)
 			EnvGuiServer::SetAdvancedMode ();
 		}
 	}
-	else 
+	else
 	{
 		$EnvGuiServer::SkyIdx = 0;
 		$EnvGuiServer::WaterIdx = 0;
@@ -815,7 +815,7 @@ function destroyServer ()
 	{
 		echo ("Destroying LAN Server");
 	}
-	else 
+	else
 	{
 		echo ("Destroying NET Server");
 	}
@@ -1067,7 +1067,7 @@ function chatMessageTeam (%sender, %team, %msgString, %a1, %a2, %a3, %a4, %a5, %
 	{
 		%mg.chatMessageAll (%sender, %msgString, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9, %a10);
 	}
-	else 
+	else
 	{
 		messageClient (%sender, '', '\c5Team chat disabled - You are not in a mini-game.');
 	}
@@ -1171,7 +1171,7 @@ function serverCmdSAD (%client, %password)
 		}
 		commandToClient (%client, 'setAdminLevel', %adminLevel);
 	}
-	else 
+	else
 	{
 		%client.adminTries += 1;
 		echo ("--Failure #", %client.adminTries);
@@ -1260,7 +1260,7 @@ function serverCmdTeamMessageSent (%client, %text)
 			%fullUrl = getSubStr (%text, %urlStart, strlen (%text) - %urlStart);
 			%url = getSubStr (%text, %urlStart + %protocolLen, (strlen (%text) - %urlStart) - %protocolLen);
 		}
-		else 
+		else
 		{
 			%fullUrl = getSubStr (%text, %urlStart, %urlEnd - %urlStart);
 			%url = getSubStr (%text, %urlStart + %protocolLen, (%urlEnd - %urlStart) - %protocolLen);
@@ -1273,7 +1273,7 @@ function serverCmdTeamMessageSent (%client, %text)
 			{
 				%newText = strreplace (%text, %fullUrl, "<a:" @ %url @ ">" @ %url @ "</a>\c6");
 			}
-			else 
+			else
 			{
 				%newText = strreplace (%text, %fullUrl, "<a:" @ %protocol @ %url @ ">" @ %url @ "</a>\c6");
 			}
@@ -1353,7 +1353,7 @@ function serverCmdMessageSent (%client, %text)
 			%fullUrl = getSubStr (%text, %urlStart, strlen (%text) - %urlStart);
 			%url = getSubStr (%text, %urlStart + %protocolLen, (strlen (%text) - %urlStart) - %protocolLen);
 		}
-		else 
+		else
 		{
 			%fullUrl = getSubStr (%text, %urlStart, %urlEnd - %urlStart);
 			%url = getSubStr (%text, %urlStart + %protocolLen, (%urlEnd - %urlStart) - %protocolLen);
@@ -1366,7 +1366,7 @@ function serverCmdMessageSent (%client, %text)
 			{
 				%newText = strreplace (%text, %fullUrl, "<a:" @ %url @ ">" @ %url @ "</a>\c6");
 			}
-			else 
+			else
 			{
 				%newText = strreplace (%text, %fullUrl, "<a:" @ %protocol @ %url @ ">" @ %url @ "</a>\c6");
 			}
@@ -1544,7 +1544,7 @@ function createMission ()
 			%client.brickGroup.name = %client.getPlayerName ();
 			%client.brickGroup.client = %client;
 		}
-		else 
+		else
 		{
 			%client.brickGroup = new SimGroup (("BrickGroup_" @ %client.getBLID ()));
 			mainBrickGroup.add (%client.brickGroup);
@@ -1586,7 +1586,7 @@ function createMission ()
 			%i += 1;
 		}
 	}
-	else 
+	else
 	{
 		%groupName = "BrickGroup_" @ getMyBLID ();
 		if (!isObject (%groupName))
@@ -1613,7 +1613,7 @@ function createMission ()
 		{
 			$MiniGame::PlayerDataBlock = PlayerStandardArmor.getId ();
 		}
-		else 
+		else
 		{
 			$MiniGame::PlayerDataBlock = $uiNameTable_Player[$MiniGame::PlayerDataBlockName];
 			if (!isObject ($MiniGame::PlayerDataBlock))
@@ -1632,7 +1632,7 @@ function createMission ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$MiniGame::StartEquip[%i] = $uiNameTable_Items[$MiniGame::StartEquipName[%i]];
 				if (isObject ($MiniGame::StartEquip[%i]))
@@ -1643,7 +1643,7 @@ function createMission ()
 				{
 					$MiniGame::StartEquip[%i] = $MiniGame::StartEquipName[%i];
 				}
-				else 
+				else
 				{
 					$MiniGame::StartEquip[%i] = 0;
 				}
@@ -1704,7 +1704,7 @@ function createMission ()
 		{
 			serverDirectSaveFileLoad ($SaveFileArg, 3, "", 1);
 		}
-		else 
+		else
 		{
 			serverDirectSaveFileLoad ($SaveFileArg, 3, "", 2);
 		}
@@ -1792,7 +1792,7 @@ function GameConnection::loadMission (%this)
 	{
 		%this.onClientEnterGame ();
 	}
-	else 
+	else
 	{
 		commandToClient (%this, 'MissionStartPhase1', $missionSequence);
 	}
@@ -1896,7 +1896,7 @@ function GameConnection::onConnectRequest (%client, %netAddress, %LANname, %blid
 			%LANname = "Blockhead";
 		}
 	}
-	else 
+	else
 	{
 		if (%blid !$= mFloor (%blid))
 		{
@@ -1935,7 +1935,7 @@ function GameConnection::onConnectRequest (%client, %netAddress, %LANname, %blid
 			{
 				
 			}
-			else 
+			else
 			{
 				%cl.schedule (10, delete, "Duplicate client removed (1)");
 			}
@@ -2059,7 +2059,7 @@ function GameConnection::setScore (%client, %val)
 		{
 			
 		}
-		else 
+		else
 		{
 			secureCommandToClient ("zbR4HmJcSY8hdRhr", %cl, 'ClientScoreChanged', mFloor (%client.score), %client);
 		}
@@ -2165,7 +2165,7 @@ function auth_Init_Server ()
 		%steamTicket = "";
 		%dToken = getDedicatedToken ();
 	}
-	else 
+	else
 	{
 		%steamTicket = SteamGetAuthSessionTicket ();
 		%dToken = "";

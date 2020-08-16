@@ -19,7 +19,7 @@ function initBaseServer ()
 	{
 		exec ("./server/mainServer.cs");
 	}
-	else 
+	else
 	{
 		exec ("./server/webCom.cs");
 		exec ("./server/authQuery.cs");

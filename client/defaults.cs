@@ -886,7 +886,7 @@ function setShaderDefaults ()
 		{
 			%quality = 1;
 		}
-		else 
+		else
 		{
 			%quality = 0;
 		}
@@ -897,7 +897,7 @@ function setShaderDefaults ()
 		{
 			echo ("  csm not supported by driver, reducing from " @ %quality @ " to 1");
 		}
-		else 
+		else
 		{
 			echo ("  csm not supported");
 		}
@@ -909,7 +909,7 @@ function setShaderDefaults ()
 		{
 			echo ("  csm not supported by driver, reducing from " @ %quality @ " to 1");
 		}
-		else 
+		else
 		{
 			echo ("  csm not supported");
 		}

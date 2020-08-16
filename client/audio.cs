@@ -11,7 +11,7 @@ function OpenALInit ()
 			error ("   Failed to initialize driver.");
 			$Audio::initFailed = 1;
 		}
-		else 
+		else
 		{
 			echo ("   Vendor: " @ alGetString ("AL_VENDOR"));
 			echo ("   Version: " @ alGetString ("AL_VERSION"));

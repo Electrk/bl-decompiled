@@ -23,7 +23,7 @@ function onBlobCacheCheckFinished ()
 	{
 		LoadingProgressTxt.setValue ("CHECKING CDN FOR 1 FILE");
 	}
-	else 
+	else
 	{
 		LoadingProgressTxt.setValue ("CHECKING CDN FOR " @ $totalPendingBlobs @ " FILES");
 	}

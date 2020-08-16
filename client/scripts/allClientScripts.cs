@@ -177,7 +177,7 @@ function getLine (%phrase, %lineNum)
 		{
 			%len = %pos - %offset;
 		}
-		else 
+		else
 		{
 			%len = 99999;
 		}
@@ -270,7 +270,7 @@ function getTimeString (%timeS)
 		}
 		return %minutes @ ":" @ %seconds;
 	}
-	else 
+	else
 	{
 		%seconds = %timeS;
 		if (%seconds < 10)
@@ -458,7 +458,7 @@ function secureClientCmd_ClientJoin (%clientName, %clientId, %bl_id, %score, %is
 	{
 		lstAdminPlayerList.addRow (%clientId, %name TAB %bl_id);
 	}
-	else 
+	else
 	{
 		lstAdminPlayerList.setRowById (%clientId, %name TAB %bl_id);
 	}
@@ -640,7 +640,7 @@ function SO_ClientTeamManager::setTeamName (%this, %teamID, %teamName)
 	{
 		%teamObj.name = %teamName;
 	}
-	else 
+	else
 	{
 		error ("ERROR: SO_ClientTeamManager::setTeamName - Team ID " @ %teamID @ " not found in manager");
 	}
@@ -680,7 +680,7 @@ function SO_ClientTeamManager::dumpTeams (%this)
 			{
 				echo ("      " @ %client @ " : " @ %clientName @ " <CAPT>");
 			}
-			else 
+			else
 			{
 				echo ("      " @ %client @ " : " @ %clientName);
 			}
@@ -741,7 +741,7 @@ function NewPlayerListGui::onWake (%this)
 		NPL_List.columns = "0 33 190 245 310";
 		NPL_BLIDButton.setVisible (1);
 	}
-	else 
+	else
 	{
 		NPL_List.columns = "0 33 190 9999 310";
 		NPL_BLIDButton.setVisible (0);
@@ -759,7 +759,7 @@ function NewPlayerListGui::toggle (%this)
 	{
 		Canvas.popDialog (%this);
 	}
-	else 
+	else
 	{
 		Canvas.pushDialog (%this);
 	}
@@ -784,7 +784,7 @@ function NewPlayerListGui::UpdateWindowTitle (%this)
 		{
 			%windowText = %windowText @ " - " @ $Server::Name;
 		}
-		else 
+		else
 		{
 			%name = $pref::Player::NetName;
 			if (strlen (%name) > 0)
@@ -794,7 +794,7 @@ function NewPlayerListGui::UpdateWindowTitle (%this)
 				{
 					%possessive = $pref::Player::NetName @ "\'";
 				}
-				else 
+				else
 				{
 					%possessive = $pref::Player::NetName @ "\'s";
 				}
@@ -804,7 +804,7 @@ function NewPlayerListGui::UpdateWindowTitle (%this)
 				}
 				%windowText = %windowText @ " - " @ %possessive @ " " @ $Server::Name;
 			}
-			else 
+			else
 			{
 				%windowText = %windowText @ " - " @ $Server::Name;
 			}
@@ -837,7 +837,7 @@ function NewPlayerListGui::update (%this, %clientId, %clientName, %bl_id, %isSup
 	{
 		%miniGameChar = "\c5";
 	}
-	else 
+	else
 	{
 		%miniGameChar = "";
 	}
@@ -850,7 +850,7 @@ function NewPlayerListGui::update (%this, %clientId, %clientName, %bl_id, %isSup
 	{
 		NPL_List.addRow (%clientId, %line);
 	}
-	else 
+	else
 	{
 		NPL_List.setRowById (%clientId, %line);
 	}
@@ -891,7 +891,7 @@ function NewPlayerListGui::updateTrust (%this, %clientId, %trustLevel)
 	{
 		%trust = "LAN";
 	}
-	else 
+	else
 	{
 		%trust = "-";
 	}
@@ -929,7 +929,7 @@ function NewPlayerListGui::updateInYourMiniGame (%this, %clientId, %val)
 	{
 		%row = "\c5" @ %admin TAB %name TAB %score TAB %bl_id TAB %trust TAB %val TAB %ignoring;
 	}
-	else 
+	else
 	{
 		%row = %admin TAB %name TAB %score TAB %bl_id TAB %trust TAB %val TAB %ignoring;
 	}
@@ -990,7 +990,7 @@ function NewPlayerListGui::clickList (%this)
 		NPL_TrustRemoveBuildBlocker.setVisible (1);
 		NPL_TrustRemoveFullBlocker.setVisible (1);
 	}
-	else 
+	else
 	{
 		%trust = getField (%row, 4);
 		if (%trust $= "")
@@ -1040,19 +1040,19 @@ function NewPlayerListGui::clickList (%this)
 				NPL_MiniGameInviteBlocker.setVisible (1);
 				NPL_MiniGameRemoveBlocker.setVisible (1);
 			}
-			else 
+			else
 			{
 				NPL_MiniGameInviteBlocker.setVisible (1);
 				NPL_MiniGameRemoveBlocker.setVisible (0);
 			}
 		}
-		else 
+		else
 		{
 			NPL_MiniGameInviteBlocker.setVisible (0);
 			NPL_MiniGameRemoveBlocker.setVisible (1);
 		}
 	}
-	else 
+	else
 	{
 		NPL_MiniGameInviteBlocker.setVisible (1);
 		NPL_MiniGameRemoveBlocker.setVisible (1);
@@ -1062,7 +1062,7 @@ function NewPlayerListGui::clickList (%this)
 	{
 		NPL_UnIgnoreBlocker.setVisible (0);
 	}
-	else 
+	else
 	{
 		NPL_UnIgnoreBlocker.setVisible (1);
 	}
@@ -1076,7 +1076,7 @@ function NewPlayerListGui::sortList (%this, %col)
 		NPL_List.sortedAsc = !NPL_List.sortedAsc;
 		NPL_List.sort (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
-	else 
+	else
 	{
 		NPL_List.sortedBy = %col;
 		NPL_List.sortedAsc = 0;
@@ -1092,7 +1092,7 @@ function NewPlayerListGui::sortNumList (%this, %col)
 		NPL_List.sortedAsc = !NPL_List.sortedAsc;
 		NPL_List.sortNumerical (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
-	else 
+	else
 	{
 		NPL_List.sortedBy = %col;
 		NPL_List.sortedAsc = 0;
@@ -1268,7 +1268,7 @@ function clientCmdTrustInvite (%name, %bl_id, %level)
 		TI_BuildMessageA.setVisible (1);
 		TI_BuildMessageB.setVisible (1);
 	}
-	else 
+	else
 	{
 		TI_FullMessageA.setVisible (1);
 		TI_FullMessageB.setVisible (1);
@@ -1283,7 +1283,7 @@ function TrustInviteGui::ClickAccept (%this)
 	{
 		%level = 1;
 	}
-	else 
+	else
 	{
 		%level = 2;
 	}
@@ -1330,7 +1330,7 @@ function clientCmdTrustInviteAccepted (%clientId, %bl_id, %level)
 		}
 		updateClientTrustList (%bl_id, %level, %name);
 	}
-	else 
+	else
 	{
 		error ("ERROR: clientCmdTrustInviteAccepted() - Server says we invited BL_ID:" @ %bl_id @ " for level:" @ %level @ " but we didn\'t!");
 	}
@@ -1415,7 +1415,7 @@ function loadTrustList ()
 		{
 			
 		}
-		else 
+		else
 		{
 			$Trust::Line[$Trust::Count] = %blid TAB %level TAB %name;
 			$Trust::Count += 1;
@@ -1487,7 +1487,7 @@ function clientCmdMiniGameInvite (%title, %name, %bl_id, %miniGameID)
 		error ("ERROR: Recieved mini-game invite from ignored user");
 		commandToServer ('RejectMiniGameInvite', %miniGameID);
 	}
-	else 
+	else
 	{
 		MiniGameInviteGui.miniGameID = %miniGameID;
 		Canvas.pushDialog (MiniGameInviteGui);
@@ -1530,7 +1530,7 @@ function joinMiniGameGui::onWake (%this)
 			CMG_EndBlocker.setVisible (0);
 		}
 	}
-	else 
+	else
 	{
 		JMG_JoinBlocker.setVisible (0);
 		JMG_LeaveBlocker.setVisible (1);
@@ -1563,7 +1563,7 @@ function clientCmdAddMiniGameLine (%line, %id, %colorIdx)
 	{
 		JMG_List.addRow (%id, %line);
 	}
-	else 
+	else
 	{
 		JMG_List.setRowById (%id, %line);
 	}
@@ -1593,7 +1593,7 @@ function joinMiniGameGui::clickList (%this)
 	{
 		JMG_JoinBlocker.setVisible (1);
 	}
-	else 
+	else
 	{
 		JMG_JoinBlocker.setVisible (0);
 	}
@@ -1620,7 +1620,7 @@ function joinMiniGameGui::ClickLeave (%this)
 	{
 		messageBoxYesNo ("End Mini-Game?", "Are you sure you want to end the current mini-game?", "joinMiniGameGui.end();");
 	}
-	else 
+	else
 	{
 		commandToServer ('LeaveMiniGame');
 	}
@@ -1646,7 +1646,7 @@ function clientCmdSetPlayingMiniGame (%val)
 		JMG_LeaveBlocker.setVisible (0);
 		Canvas.popDialog (joinMiniGameGui);
 	}
-	else 
+	else
 	{
 		NewPlayerListGui.ClearInYourMiniGame ();
 		JMG_LeaveBlocker.setVisible (1);
@@ -1663,7 +1663,7 @@ function clientCmdSetRunningMiniGame (%val)
 	{
 		CMG_EndBlocker.setVisible (0);
 	}
-	else 
+	else
 	{
 		CMG_EndBlocker.setVisible (1);
 	}
@@ -1703,7 +1703,7 @@ function joinMiniGameGui::sortList (%this, %col)
 		JMG_List.sortedAsc = !JMG_List.sortedAsc;
 		JMG_List.sort (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
-	else 
+	else
 	{
 		JMG_List.sortedBy = %col;
 		JMG_List.sortedAsc = 0;
@@ -1719,7 +1719,7 @@ function joinMiniGameGui::sortNumList (%this, %col)
 		JMG_List.sortedAsc = !JMG_List.sortedAsc;
 		JMG_List.sortNumerical (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
-	else 
+	else
 	{
 		JMG_List.sortedBy = %col;
 		JMG_List.sortedAsc = 0;
@@ -1738,7 +1738,7 @@ function CreateMiniGameGui::onWake (%this)
 		CMG_CreateButton.setText ("Update >>");
 		CMG_ColorBlocker.setVisible (1);
 	}
-	else 
+	else
 	{
 		CMG_Window.setText ("Create Mini-Game");
 		CMG_CreateButton.setText ("Create >>");
@@ -1780,7 +1780,7 @@ function CreateMiniGameGui::onWake (%this)
 				{
 					$MiniGameGui::Title = $pref::Player::LANName @ "\'s Mini-Game";
 				}
-				else 
+				else
 				{
 					$MiniGameGui::Title = $pref::Player::NetName @ "\'s Mini-Game";
 				}
@@ -1789,12 +1789,12 @@ function CreateMiniGameGui::onWake (%this)
 			{
 				$MiniGameGui::Title = $pref::Player::LANName @ "\'s Mini-Game";
 			}
-			else 
+			else
 			{
 				$MiniGameGui::Title = $pref::Player::NetName @ "\'s Mini-Game";
 			}
 		}
-		else 
+		else
 		{
 			$MiniGameGui::Title = "Default Mini-Game";
 		}
@@ -1953,7 +1953,7 @@ function CreateMiniGameGui::ClickCreate (%this)
 		CreateMiniGameGui.send ();
 		Canvas.popDialog (CreateMiniGameGui);
 	}
-	else 
+	else
 	{
 		%colorIdx = CMG_ColorList.getSelected ();
 		commandToServer ('createMiniGame', $MiniGameGui::Title, %colorIdx, $MiniGameGui::UseSpawnBricks);
@@ -2019,7 +2019,7 @@ function CreateMiniGameGui::ClickFav (%this, %idx)
 		export ("$MiniGameGui::*", %filename, 0);
 		CMG_FavsHelper.setVisible (0);
 	}
-	else 
+	else
 	{
 		if (!isFile (%filename))
 		{
@@ -2128,7 +2128,7 @@ function CreateMiniGameGui::send (%this)
 		%tempLine = trim (%tempLine);
 		commandToServer ('SetMiniGameData', %tempLine);
 	}
-	else 
+	else
 	{
 		commandToServer ('SetMiniGameData', %line);
 	}
@@ -2712,7 +2712,7 @@ function GameConnection::onConnectRequestRejected (%this, %msg)
 	{
 		%error = "You are banned from this server.  Reason: " @ getWords (%msg, 1, 99);
 	}
-	else 
+	else
 	{
 		%error = "Connection error.  Please try another server.  Error code: (" @ %msg @ ")";
 	}
@@ -2721,7 +2721,7 @@ function GameConnection::onConnectRequestRejected (%this, %msg)
 	{
 		MessageBoxOK ("REJECTED", %error, "MainMenuGui.showButtons();");
 	}
-	else 
+	else
 	{
 		MessageBoxOK ("REJECTED", %error);
 	}
@@ -2862,7 +2862,7 @@ function disconnectedCleanup (%doReconnect)
 		Canvas.repaint ();
 		$Connection::ReconnectEvent = schedule (2000, 0, ReConnectToServer);
 	}
-	else 
+	else
 	{
 		Canvas.setContent (MainMenuGui);
 		Canvas.pushDialog (MainMenuButtonsGui);
@@ -2987,7 +2987,7 @@ function optionsDlg::onWake (%this)
 		{
 			%obj.setValue (1);
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3006,7 +3006,7 @@ function optionsDlg::onWake (%this)
 		{
 			%obj.setValue (1);
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3027,14 +3027,14 @@ function optionsDlg::onWake (%this)
 			{
 				%obj.setValue (1);
 			}
-			else 
+			else
 			{
 				$Pref::ShaderQuality = 0;
 				OPT_ShaderQuality0.setValue (1);
 				%obj.setValue (0);
 			}
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3052,7 +3052,7 @@ function optionsDlg::onWake (%this)
 		{
 			%obj.setValue (1);
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3070,7 +3070,7 @@ function optionsDlg::onWake (%this)
 		{
 			%obj.setValue (1);
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3088,7 +3088,7 @@ function optionsDlg::onWake (%this)
 		{
 			%obj.setValue (1);
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -3183,7 +3183,7 @@ function optionsDlg::onSleep (%this)
 				%i += 1;
 			}
 		}
-		else 
+		else
 		{
 			alxStopAll ();
 		}
@@ -3199,7 +3199,7 @@ function optionsDlg::onSleep (%this)
 	{
 		exec ("config/server/prefs.cs");
 	}
-	else 
+	else
 	{
 		error ("ERROR: OptionsDlg::onSleep() - export of prefs failed.");
 	}
@@ -3239,7 +3239,7 @@ function OptGraphicsDriverMenu::onSelect (%this, %id, %text)
 	{
 		%prevRes = OptGraphicsResolutionMenu.getText ();
 	}
-	else 
+	else
 	{
 		%prevRes = getWords ($pref::Video::resolution, 0, 1);
 	}
@@ -3249,7 +3249,7 @@ function OptGraphicsDriverMenu::onSelect (%this, %id, %text)
 		OptGraphicsFullscreenToggle.setActive (0);
 		OptGraphicsFullscreenToggle.onAction ();
 	}
-	else 
+	else
 	{
 		OptGraphicsFullscreenToggle.setActive (1);
 	}
@@ -3259,7 +3259,7 @@ function OptGraphicsDriverMenu::onSelect (%this, %id, %text)
 		{
 			%prevBPP = OptGraphicsBPPMenu.getText ();
 		}
-		else 
+		else
 		{
 			%prevBPP = getWord ($pref::Video::resolution, 2);
 		}
@@ -3282,7 +3282,7 @@ function OptGraphicsDriverMenu::onSelect (%this, %id, %text)
 		OptGraphicsBPPMenu.setSelected (%selId);
 		OptGraphicsBPPMenu.setText (OptGraphicsBPPMenu.getTextById (%selId));
 	}
-	else 
+	else
 	{
 		OptGraphicsBPPMenu.setText ("Default");
 	}
@@ -3390,7 +3390,7 @@ function OptGraphicsBPPMenu::init (%this, %device)
 	{
 		%this.add (16, 0);
 	}
-	else 
+	else
 	{
 		%resList = getResolutionList (%device);
 		%resCount = getFieldCount (%resList);
@@ -3440,7 +3440,7 @@ function optionsDlg::applyGraphics (%this)
 		{
 			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen, %newHz);
 		}
-		else 
+		else
 		{
 			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen);
 		}
@@ -3450,7 +3450,7 @@ function optionsDlg::applyGraphics (%this)
 		setScreenMode (firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen, %newHz);
 		BringWindowToForeground ();
 	}
-	else 
+	else
 	{
 		setScreenMode (firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen);
 		BringWindowToForeground ();
@@ -3734,7 +3734,7 @@ function getMapDisplayName (%device, %action)
 			%instance = getSubStr (%object, strlen ("button"), 1000);
 			return %mods @ "mouse" @ %instance + 1;
 		}
-		else 
+		else
 		{
 			error ("Mouse input object other than button passed to getDisplayMapName!");
 		}
@@ -3749,7 +3749,7 @@ function getMapDisplayName (%device, %action)
 			%instance = getSubStr (%object, strlen ("button"), 1000);
 			return %mods @ "joystick" @ %instance + 1;
 		}
-		else 
+		else
 		{
 			%pos = strstr (%action, "pov");
 			if (%pos != -1)
@@ -3789,13 +3789,13 @@ function getMapDisplayName (%device, %action)
 				{
 					%object = "POV2 right";
 				}
-				else 
+				else
 				{
 					%object = "??";
 				}
 				return %mods @ %object;
 			}
-			else 
+			else
 			{
 				error ("Unsupported Joystick input object passed to getDisplayMapName!");
 			}
@@ -3815,7 +3815,7 @@ function buildFullMapString (%index)
 	{
 		%mapString = getMapDisplayName (%device, %object);
 	}
-	else 
+	else
 	{
 		%mapString = "";
 	}
@@ -3872,7 +3872,7 @@ function optionsDlg::RemapNext (%this, %idx)
 		optionsDlg.remappingAll = 0;
 		return;
 	}
-	else 
+	else
 	{
 		OptRemapText.setValue ("REMAP \"" @ %name @ "\"");
 		OptRemapInputCtrl.index = %idx;
@@ -3940,7 +3940,7 @@ function OptRemapInputCtrl::onInputEvent (%this, %device, %action)
 			moveMap.bind (%device, %action, %cmd);
 			OptRemapList.setRowById (%this.index, buildFullMapString (%this.index));
 		}
-		else 
+		else
 		{
 			%mapName = getMapDisplayName (%device, %action);
 			%prevMapIndex = findRemapCmdIndex (%prevMap);
@@ -3948,7 +3948,7 @@ function OptRemapInputCtrl::onInputEvent (%this, %device, %action)
 			{
 				MessageBoxOK ("REMAP FAILED", "\"" @ %mapName @ "\" is already bound to a non-remappable command!");
 			}
-			else 
+			else
 			{
 				%prevCmdName = $RemapName[%prevMapIndex];
 				messageBoxYesNo ("WARNING", "\"" @ %mapName @ "\" is already bound to \"" @ %prevCmdName @ "\"!\nDo you want to undo this mapping?", "redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\", " @ %prevMapIndex @ ", " @ %this.index @ ");", "");
@@ -3968,7 +3968,7 @@ function optionsDlg::clearAllBinds (%this, %confirm)
 	{
 		messageBoxYesNo ("Clear All Binds?", "Are you sure you want to clear your control configuration?", "optionsDlg.clearAllBinds(1);");
 	}
-	else 
+	else
 	{
 		%index = 0;
 		while (%index < $RemapCount)
@@ -4163,7 +4163,7 @@ function directSelectInv (%index)
 				commandToServer ('unUseTool');
 				setScrollMode ($SCROLLMODE_NONE);
 			}
-			else 
+			else
 			{
 				setActiveInv (%index);
 				$CurrScrollBrickSlot = %index;
@@ -4174,7 +4174,7 @@ function directSelectInv (%index)
 				}
 			}
 		}
-		else 
+		else
 		{
 			setScrollMode ($SCROLLMODE_BRICKS);
 			setActiveInv (%index);
@@ -4187,7 +4187,7 @@ function directSelectInv (%index)
 			HUD_BrickName.setText ($InvData[$CurrScrollBrickSlot].uiName);
 		}
 	}
-	else 
+	else
 	{
 		%direction = 1;
 		$CurrScrollBrickSlot -= 1;
@@ -4227,7 +4227,7 @@ function directSelectInv (%index)
 			HUD_BrickName.setText ($LastInstantUseData.uiName);
 			return 1;
 		}
-		else 
+		else
 		{
 			%device = getWord (moveMap.getBinding (openBSD), 0);
 			if (%device $= "Keyboard")
@@ -4242,7 +4242,7 @@ function directSelectInv (%index)
 			{
 				%hintKey = "JOYSTICK " @ strupr (getWord (moveMap.getBinding (openBSD), 1));
 			}
-			else 
+			else
 			{
 				%hintKey = moveMap.getBinding (openBSD);
 			}
@@ -4250,7 +4250,7 @@ function directSelectInv (%index)
 			{
 				clientCmdCenterPrint ("\c5Building is currently disabled.", 2);
 			}
-			else 
+			else
 			{
 				clientCmdCenterPrint ("\c5You don\'t have any bricks!\nPress " @ %hintKey @ " to open the brick selector.", 3);
 			}
@@ -4754,14 +4754,14 @@ function openAdminWindow (%val)
 			{
 				Canvas.popDialog (adminGui);
 			}
-			else 
+			else
 			{
 				Canvas.popDialog (escapeMenu);
 				Canvas.pushDialog (adminGui);
 			}
 		}
 	}
-	else 
+	else
 	{
 		$AdminCallback = "canvas.pushDialog(admingui);";
 		Canvas.pushDialog ("adminLoginGui");
@@ -4822,7 +4822,7 @@ function useTools (%val)
 			HUD_ToolName.setText (trim ($ToolData[$CurrScrollToolSlot].uiName));
 			commandToServer ('UseTool', $CurrScrollToolSlot);
 		}
-		else 
+		else
 		{
 			setScrollMode ($SCROLLMODE_NONE);
 		}
@@ -4861,7 +4861,7 @@ function useBricks (%val)
 		{
 			directSelectInv ($CurrScrollBrickSlot);
 		}
-		else 
+		else
 		{
 			directSelectInv (0);
 		}
@@ -4876,7 +4876,7 @@ function useSprayCan (%val)
 		{
 			commandToServer ('ActivateStuff');
 		}
-		else 
+		else
 		{
 			shiftPaintColumn (1);
 		}
@@ -4915,7 +4915,7 @@ function openBSD (%val)
 		{
 			BSD_BuyBricks ();
 		}
-		else 
+		else
 		{
 			Canvas.pushDialog (BrickSelectorDlg);
 		}
@@ -4959,7 +4959,7 @@ function scrollInventory (%val)
 	{
 		%val = 1;
 	}
-	else 
+	else
 	{
 		%val = -1;
 	}
@@ -4985,7 +4985,7 @@ function scrollInventory (%val)
 		{
 			directSelectInv ($CurrScrollBrickSlot);
 		}
-		else 
+		else
 		{
 			scrollBricks (%val);
 		}
@@ -5029,7 +5029,7 @@ function scrollBricks (%direction)
 		{
 			$CurrScrollBrickSlot = -1;
 		}
-		else 
+		else
 		{
 			$CurrScrollBrickSlot = 1;
 		}
@@ -5081,7 +5081,7 @@ function shiftPaintColumn (%direction)
 		PlayGui.UnFadePaintRow ($CurrPaintRow);
 		%canIndex = 0;
 	}
-	else 
+	else
 	{
 		PlayGui.FadePaintRow ($CurrPaintRow);
 		$CurrPaintRow += %direction;
@@ -5139,7 +5139,7 @@ function shiftPaintColumn (%direction)
 		}
 		commandToServer ('useFXCan', $CurrPaintSwatch);
 	}
-	else 
+	else
 	{
 		%numSwatches = $Paint_Row[$CurrPaintRow].numSwatches;
 		if (%numSwatches == 0)
@@ -5173,7 +5173,7 @@ function shiftPaintColumn (%direction)
 				{
 					
 				}
-				else 
+				else
 				{
 					$HUD_BrickIcon[%i].setColor (%color);
 				}
@@ -5241,7 +5241,7 @@ function scrollPaint (%direction)
 		}
 		commandToServer ('useFXCan', $CurrPaintSwatch);
 	}
-	else 
+	else
 	{
 		HUD_PaintName.setText (getSprayCanDivisionName ($CurrPaintRow) SPC "-" SPC $CurrPaintSwatch + 1);
 		%canIndex = 0;
@@ -5271,7 +5271,7 @@ function scrollPaint (%direction)
 				{
 					
 				}
-				else 
+				else
 				{
 					$HUD_BrickIcon[%i].setColor (%color);
 				}
@@ -5310,7 +5310,7 @@ function scrollTools (%direction)
 		{
 			$CurrScrollToolSlot = -1;
 		}
-		else 
+		else
 		{
 			$CurrScrollToolSlot = 1;
 		}
@@ -5338,7 +5338,7 @@ function scrollTools (%direction)
 		setActiveTool ($CurrScrollToolSlot);
 		commandToServer ('UseTool', $CurrScrollToolSlot);
 	}
-	else 
+	else
 	{
 		setActiveTool (-1);
 	}
@@ -5360,7 +5360,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hideBrickBox (64, 10, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hideBrickBox (87, 10, 0);
 			}
@@ -5377,7 +5377,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hidePaintBox ((getWord (HUD_PaintBox.extent, 0) - 100) + 5, 10, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hidePaintBox (getWord (HUD_PaintBox.extent, 0) + 5, 10, 0);
 			}
@@ -5390,7 +5390,7 @@ function setScrollMode (%newMode)
 		{
 			$InstantUse = 0;
 		}
-		else 
+		else
 		{
 			commandToServer ('UnUseTool');
 		}
@@ -5405,7 +5405,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hideToolBox ($HUD_NumToolSlots * 64, 20, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hideToolBox (($HUD_NumToolSlots * 64) + 25, 20, 0);
 			}
@@ -5418,7 +5418,7 @@ function setScrollMode (%newMode)
 		{
 			$InstantUse = 0;
 		}
-		else 
+		else
 		{
 			commandToServer ('UnUseTool');
 		}
@@ -5432,7 +5432,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hideBrickBox (-64, 10, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hideBrickBox (-87, 10, 0);
 			}
@@ -5446,7 +5446,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hidePaintBox (((-1 * getWord (HUD_PaintBox.extent, 0)) + 100) - 5, 1, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hidePaintBox (-1 * getWord (HUD_PaintBox.extent, 0) - 5, 1, 0);
 			}
@@ -5460,7 +5460,7 @@ function setScrollMode (%newMode)
 			{
 				PlayGui.hideToolBox (-$HUD_NumToolSlots * 64, 10, 0);
 			}
-			else 
+			else
 			{
 				PlayGui.hideToolBox (-$HUD_NumToolSlots * 64 - 25, 10, 0);
 			}
@@ -5555,7 +5555,7 @@ function superShiftBrickAwayProxy (%val)
 	{
 		shiftBrickAway (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickAway (%val);
 	}
@@ -5567,7 +5567,7 @@ function superShiftBrickTowardsProxy (%val)
 	{
 		shiftBrickTowards (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickTowards (%val);
 	}
@@ -5579,7 +5579,7 @@ function superShiftBrickLeftProxy (%val)
 	{
 		shiftBrickLeft (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickLeft (%val);
 	}
@@ -5591,7 +5591,7 @@ function superShiftBrickRightProxy (%val)
 	{
 		shiftBrickRight (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickRight (%val);
 	}
@@ -5603,7 +5603,7 @@ function superShiftBrickUpProxy (%val)
 	{
 		shiftBrickUp (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickUp (%val);
 	}
@@ -5615,7 +5615,7 @@ function superShiftBrickDownProxy (%val)
 	{
 		shiftBrickDown (%val);
 	}
-	else 
+	else
 	{
 		superShiftBrickDown (%val);
 	}
@@ -5877,7 +5877,7 @@ function ToggleCursor (%val)
 			Canvas.cursorOff ();
 			$NewChatSO.update ();
 		}
-		else 
+		else
 		{
 			if ($pref::HUD::showToolTips)
 			{
@@ -5942,7 +5942,7 @@ function SetConnectionType (%val)
 		RateToServerDisplay.setValue ($pref::Net::PacketRateToServer);
 		SliderRateToServer.setValue ($pref::Net::PacketRateToServer);
 	}
-	else 
+	else
 	{
 		CustomNetworkBlocker.setVisible (0);
 		PacketSizeDisplay.setValue ($pref::Net::Custom::PacketSize);
@@ -6355,7 +6355,7 @@ function optionsDlg::setShaderQuality (%this, %val)
 		$Shader::DynamicShadows2 = 1;
 		$Shader::DynamicShadows3 = 1;
 	}
-	else 
+	else
 	{
 		$Shader::Enabled = 0;
 		$Shader::ShadowCount = 0;
@@ -6505,7 +6505,7 @@ function ToggleShapeNameHud (%val)
 			NoHudGui_ShapeNameHud.setVisible (0);
 			Crosshair.setVisible (0);
 		}
-		else 
+		else
 		{
 			PlayGui_ShapeNameHud.setVisible (1);
 			NoHudGui_ShapeNameHud.setVisible (1);
@@ -6730,7 +6730,7 @@ function PlayGui::createInvHUD (%this)
 			{
 				%newIcon.setBitmap ("base/client/ui/brickIcons/unknown.png");
 			}
-			else 
+			else
 			{
 				%newIcon.setBitmap ($InvData[%i].iconName);
 			}
@@ -6849,7 +6849,7 @@ function PlayGui::createInvHUD (%this)
 		{
 			PlayGui.hideBrickBox (64, 10, 0);
 		}
-		else 
+		else
 		{
 			PlayGui.hideBrickBox (87, 10, 0);
 		}
@@ -6872,7 +6872,7 @@ function PlayGui::hideBrickBox (%this, %dist, %totalSteps, %currStep)
 		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
 		%stepDist = %dist - %sum;
 	}
-	else 
+	else
 	{
 		%stepDist = mFloor (%dist / %totalSteps);
 	}
@@ -6902,7 +6902,7 @@ function PlayGui::loadPaint (%this)
 		{
 			%numDivs += 1;
 		}
-		else 
+		else
 		{
 			break;
 		}
@@ -7028,7 +7028,7 @@ function PlayGui::loadPaint (%this)
 		{
 			%swatchNum = (%i - getSprayCanDivisionSlot (%currDiv - 1)) - 1;
 		}
-		else 
+		else
 		{
 			%swatchNum = %i;
 		}
@@ -7237,7 +7237,7 @@ function PlayGui::loadPaint (%this)
 		{
 			PlayGui.hidePaintBox ((getWord (HUD_PaintBox.extent, 0) - 100) + 5, 10, 0);
 		}
-		else 
+		else
 		{
 			PlayGui.hidePaintBox (getWord (HUD_PaintBox.extent, 0) + 5, 10, 0);
 		}
@@ -7261,7 +7261,7 @@ function PlayGui::hidePaintBox (%this, %dist, %totalSteps, %currStep)
 		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
 		%stepDist = %dist - %sum;
 	}
-	else 
+	else
 	{
 		%stepDist = mFloor (%dist / %totalSteps);
 	}
@@ -7424,12 +7424,12 @@ function PlayGui::createToolHUD (%this)
 				{
 					%newIcon.setBitmap (%letterFile);
 				}
-				else 
+				else
 				{
 					%newIcon.setBitmap ("base/client/ui/brickIcons/unknown.png");
 				}
 			}
-			else 
+			else
 			{
 				%newIcon.setBitmap ($ToolData[%i].iconName);
 			}
@@ -7438,7 +7438,7 @@ function PlayGui::createToolHUD (%this)
 		{
 			%newIcon.setColor ($ToolData[%i].colorShiftColor);
 		}
-		else 
+		else
 		{
 			%newIcon.setColor ("1 1 1 1");
 		}
@@ -7495,7 +7495,7 @@ function PlayGui::createToolHUD (%this)
 		{
 			PlayGui.hideToolBox ($HUD_NumToolSlots * 64, 10, 0);
 		}
-		else 
+		else
 		{
 			PlayGui.hideToolBox (($HUD_NumToolSlots * 64) + 25, 10, 0);
 		}
@@ -7518,7 +7518,7 @@ function PlayGui::createToolHUD (%this)
 		%y = %resY - %h;
 		HUD_SuperShift.resize (%x, %y, %w, %h);
 	}
-	else 
+	else
 	{
 		%w = getWord (HUD_SuperShift.getExtent (), 0);
 		%h = getWord (HUD_SuperShift.getExtent (), 1);
@@ -7539,7 +7539,7 @@ function PlayGui::hideToolBox (%this, %dist, %totalSteps, %currStep)
 		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
 		%stepDist = %dist - %sum;
 	}
-	else 
+	else
 	{
 		%stepDist = mFloor (%dist / %totalSteps);
 	}
@@ -7600,7 +7600,7 @@ function clientCmdCenterPrint (%message, %time, %size)
 			$CenterPrintDlg::removePrintEvent = 0;
 		}
 	}
-	else 
+	else
 	{
 		CenterPrintDlg.visible = 1;
 		$centerPrintActive = 1;
@@ -7622,7 +7622,7 @@ function clientCmdBottomPrint (%message, %time, %hideBar)
 			$bottomPrintDlg::removePrintEvent = 0;
 		}
 	}
-	else 
+	else
 	{
 		bottomPrintDlg.setVisible (1);
 		$bottomPrintActive = 1;
@@ -7632,7 +7632,7 @@ function clientCmdBottomPrint (%message, %time, %hideBar)
 	{
 		bottomPrintBar.setVisible (0);
 	}
-	else 
+	else
 	{
 		bottomPrintBar.setVisible (1);
 	}
@@ -7705,13 +7705,13 @@ function respawnCountDownTick (%time)
 	{
 		clientCmdCenterPrint ("\c5Click to respawn.", 300);
 	}
-	else 
+	else
 	{
 		if (%time == 1)
 		{
 			clientCmdCenterPrint ("\c5Respawning in 1 second...", 2);
 		}
-		else 
+		else
 		{
 			clientCmdCenterPrint ("\c5Respawning in " @ %time @ " seconds...", 2);
 		}
@@ -7817,7 +7817,7 @@ function handlePlantError (%msgType, %msgString)
 		%hudObj = HUD_PlantErrorSmall;
 		%bitmap = "base/client/ui/PlantErrors_Small/";
 	}
-	else 
+	else
 	{
 		%hudObj = HUD_PlantError;
 		%bitmap = "base/client/ui/PlantErrors/";
@@ -7862,7 +7862,7 @@ function handlePlantError (%msgType, %msgString)
 	{
 		%bitmap = %bitmap @ "PlantError_TooLoud";
 	}
-	else 
+	else
 	{
 		%bitmap = %bitmap @ "PlantError_Forbidden";
 	}
@@ -7891,7 +7891,7 @@ function handleItemPickup (%msgType, %msgString, %slot, %itemData, %silent)
 			{
 				$HUD_ToolIcon[%slot].setBitmap ("");
 			}
-			else 
+			else
 			{
 				%firstLetter = getSubStr (%itemData.uiName, 0, 1);
 				%letterFile = "Add-Ons/Print_Letters_Default/icons/" @ %firstLetter @ ".png";
@@ -7899,13 +7899,13 @@ function handleItemPickup (%msgType, %msgString, %slot, %itemData, %silent)
 				{
 					$HUD_ToolIcon[%slot].setBitmap (%letterFile);
 				}
-				else 
+				else
 				{
 					$HUD_ToolIcon[%slot].setBitmap ("base/client/ui/brickIcons/unknown.png");
 				}
 			}
 		}
-		else 
+		else
 		{
 			$HUD_ToolIcon[%slot].setBitmap (%itemData.iconName);
 		}
@@ -7913,7 +7913,7 @@ function handleItemPickup (%msgType, %msgString, %slot, %itemData, %silent)
 		{
 			$HUD_ToolIcon[%slot].setColor ($ToolData[%slot].colorShiftColor);
 		}
-		else 
+		else
 		{
 			$HUD_ToolIcon[%slot].setColor ("1 1 1 1");
 		}
@@ -8063,7 +8063,7 @@ function handleSetInvData (%msgType, %msgString, %slot, %data)
 		{
 			$HUD_BrickIcon[%slot].setBitmap ("base/client/ui/brickIcons/unknown.png");
 		}
-		else 
+		else
 		{
 			$HUD_BrickIcon[%slot].setBitmap (%data.iconName);
 		}
@@ -8073,7 +8073,7 @@ function handleSetInvData (%msgType, %msgString, %slot, %data)
 			setActiveInv (%slot);
 		}
 	}
-	else 
+	else
 	{
 		$HUD_BrickIcon[%slot].setBitmap ("");
 	}
@@ -8158,7 +8158,7 @@ function secureClientCmd_SetServerNameDisplay (%ownerName, %serverName)
 	{
 		%possessive = %ownerName @ "\'";
 	}
-	else 
+	else
 	{
 		%possessive = %ownerName @ "\'s";
 	}
@@ -8463,17 +8463,17 @@ function JoinServerGuiBS::join (%this)
 			{
 				$ServerInfo::Password = 1;
 			}
-			else 
+			else
 			{
 				$ServerInfo::Password = 0;
 			}
 		}
-		else 
+		else
 		{
 			return;
 		}
 	}
-	else 
+	else
 	{
 		echo ("Joining LAN game...");
 		%id = JS_ServerListBS.getSelectedId ();
@@ -8486,7 +8486,7 @@ function JoinServerGuiBS::join (%this)
 	{
 		Canvas.pushDialog ("joinServerPassGui");
 	}
-	else 
+	else
 	{
 		deleteDataBlocks ();
 		setParticleDisconnectMode (0);
@@ -8524,7 +8524,7 @@ function JoinServerGuiBS::join (%this)
 				%doDirect = 1;
 				%doArranged = 0;
 			}
-			else 
+			else
 			{
 				error ("ERROR: Strange ping value \"" @ $ServerInfo::Ping @ "\"");
 				%doDirect = 1;
@@ -8532,7 +8532,7 @@ function JoinServerGuiBS::join (%this)
 			}
 			ConnectToServer ($ServerInfo::Address, "", %doDirect, %doArranged);
 		}
-		else 
+		else
 		{
 			ConnectToServer ($ServerInfo::Address, "", 1, 0);
 		}
@@ -8549,7 +8549,7 @@ function handlePunchConnect (%address, %clientNonce)
 			cancelAllPendingConnections ();
 			return;
 		}
-		else 
+		else
 		{
 			echo ("Direct connection is no good, going with the arranged connection");
 			ServerConnection.cancelConnect ();
@@ -8601,7 +8601,7 @@ function JoinServerGuiBS::update (%this)
 	{
 		%text = %playerCount @ " Player / ";
 	}
-	else 
+	else
 	{
 		%text = %playerCount @ " Players / ";
 	}
@@ -8609,7 +8609,7 @@ function JoinServerGuiBS::update (%this)
 	{
 		%text = %text @ %sc @ " Server";
 	}
-	else 
+	else
 	{
 		%text = %text @ %sc @ " Servers";
 	}
@@ -8653,14 +8653,14 @@ function JS_sortList (%col, %defaultDescending)
 		JS_ServerListBS.sortedAsc = !JS_ServerListBS.sortedAsc;
 		JS_ServerListBS.sort (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
 	}
-	else 
+	else
 	{
 		JS_ServerListBS.sortedBy = %col;
 		if (%defaultDescending)
 		{
 			JS_ServerListBS.sortedAsc = 0;
 		}
-		else 
+		else
 		{
 			JS_ServerListBS.sortedAsc = 1;
 		}
@@ -8676,14 +8676,14 @@ function JS_sortNumList (%col, %defaultDescending)
 		JS_ServerListBS.sortedAsc = !JS_ServerListBS.sortedAsc;
 		JS_ServerListBS.sortNumerical (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
 	}
-	else 
+	else
 	{
 		JS_ServerListBS.sortedBy = %col;
 		if (%defaultDescending)
 		{
 			JS_ServerListBS.sortedAsc = 0;
 		}
-		else 
+		else
 		{
 			JS_ServerListBS.sortedAsc = 1;
 		}
@@ -8791,7 +8791,7 @@ function ServerInfoSO_DisplayAll ()
 	{
 		%text = %TotalPlayerCount @ " Player / ";
 	}
-	else 
+	else
 	{
 		%text = %TotalPlayerCount @ " Players / ";
 	}
@@ -8799,7 +8799,7 @@ function ServerInfoSO_DisplayAll ()
 	{
 		%text = %text @ %TotalServerCount @ " Server";
 	}
-	else 
+	else
 	{
 		%text = %text @ %TotalServerCount @ " Servers";
 	}
@@ -8819,7 +8819,7 @@ function ServerInfoSO_StartPingAll ()
 	{
 		%count = $ServerSO_Count;
 	}
-	else 
+	else
 	{
 		%count = $Pref::Net::MaxSimultaneousPings;
 	}
@@ -8845,7 +8845,7 @@ function ServerInfoSO_PingNext (%slot)
 			echo ("\c1Sending ping to    IP:" @ %addr);
 			pingSingleServer (%addr, %slot);
 		}
-		else 
+		else
 		{
 			return;
 		}
@@ -8886,7 +8886,7 @@ function ServerInfoSO_UpdatePing (%ip, %ping)
 		%obj.ping = %ping;
 		%obj.Display ();
 	}
-	else 
+	else
 	{
 		error ("ERROR: ServerInfoSO_UpdatePing() - No script object found for ip: ", %strIP);
 	}
@@ -8983,7 +8983,7 @@ function ReConnectToServer ()
 		{
 			ReconnectToServerB ("00000000000000000000000000000000");
 		}
-		else 
+		else
 		{
 			transmitJoinIP ($Connection::Address);
 		}
@@ -8992,7 +8992,7 @@ function ReConnectToServer ()
 	{
 		ReconnectToServerB ("00000000000000000000000000000000");
 	}
-	else 
+	else
 	{
 		transmitJoinIP ($Connection::Address);
 	}
@@ -9011,7 +9011,7 @@ function ReconnectToServerB ()
 		{
 			$conn.connectLocal ();
 		}
-		else 
+		else
 		{
 			$conn.connect ($Connection::Address);
 		}
@@ -9048,7 +9048,7 @@ function JoinServerPassGui::enterPass (%this)
 		{
 			echo ("Connecting to \"" @ %so.name @ "\" (" @ $ServerInfo::Address @ ", " @ %so.ping @ "ms) with password");
 		}
-		else 
+		else
 		{
 			echo ("Connecting to LAN game with password");
 		}
@@ -9075,7 +9075,7 @@ function JoinServerPassGui::enterPass (%this)
 				%doDirect = 1;
 				%doArranged = 0;
 			}
-			else 
+			else
 			{
 				error ("ERROR: Strange ping value \"" @ $ServerInfo::Ping @ "\"");
 				%doDirect = 1;
@@ -9083,7 +9083,7 @@ function JoinServerPassGui::enterPass (%this)
 			}
 			ConnectToServer ($ServerInfo::Address, %pass, %doDirect, %doArranged);
 		}
-		else 
+		else
 		{
 			ConnectToServer ($ServerInfo::Address, %pass, 1, 0);
 		}
@@ -9166,7 +9166,7 @@ function adminGui::onWake ()
 	{
 		adminGui_banBlocker.setVisible (1);
 	}
-	else 
+	else
 	{
 		adminGui_banBlocker.setVisible (0);
 	}
@@ -9208,7 +9208,7 @@ function adminGui::ClickClearBricks ()
 	{
 		messageBoxYesNo ("Clear Bricks?", "Are you sure you want to delete all bricks?", "commandToServer(\'ClearAllBricks\');canvas.popDialog(AdminGui);");
 	}
-	else 
+	else
 	{
 		Canvas.pushDialog (BrickManGui);
 		Canvas.popDialog (adminGui);
@@ -9260,7 +9260,7 @@ function adminGui::sortList (%this, %col)
 		lstAdminPlayerList.sortedAsc = !lstAdminPlayerList.sortedAsc;
 		lstAdminPlayerList.sort (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
-	else 
+	else
 	{
 		lstAdminPlayerList.sortedBy = %col;
 		lstAdminPlayerList.sortedAsc = 0;
@@ -9276,7 +9276,7 @@ function adminGui::sortNumList (%this, %col)
 		lstAdminPlayerList.sortedAsc = !lstAdminPlayerList.sortedAsc;
 		lstAdminPlayerList.sortNumerical (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
-	else 
+	else
 	{
 		lstAdminPlayerList.sortedBy = %col;
 		lstAdminPlayerList.sortedAsc = 0;
@@ -9358,7 +9358,7 @@ function addBanGui::clickForever ()
 	{
 		AddBan_TimeBlocker.setVisible (1);
 	}
-	else 
+	else
 	{
 		AddBan_TimeBlocker.setVisible (0);
 	}
@@ -9371,7 +9371,7 @@ function addBanGui::ban ()
 	{
 		%banTime = -1;
 	}
-	else 
+	else
 	{
 		%banTime = AddBan_Minutes.getSelected ();
 		%banTime += AddBan_Hours.getSelected () * 60;
@@ -9439,7 +9439,7 @@ function clientCmdAddUnBanLine (%line, %idx)
 		%timeLeftover = %timeMinutes % (24 * 60);
 		%timeString = %numDays @ "d " @ getTimeString (%timeLeftover);
 	}
-	else 
+	else
 	{
 		%timeString = getTimeString (%timeMinutes);
 	}
@@ -9461,7 +9461,7 @@ function unBanGui::sortList (%this, %col)
 		unBan_list.sortedAsc = !unBan_list.sortedAsc;
 		unBan_list.sort (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
-	else 
+	else
 	{
 		unBan_list.sortedBy = %col;
 		unBan_list.sortedAsc = 0;
@@ -9477,7 +9477,7 @@ function unBanGui::sortNumList (%this, %col)
 		unBan_list.sortedAsc = !unBan_list.sortedAsc;
 		unBan_list.sortNumerical (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
-	else 
+	else
 	{
 		unBan_list.sortedBy = %col;
 		unBan_list.sortedAsc = 0;
@@ -9507,7 +9507,7 @@ function clientCmdAddBrickManLine (%bl_id, %line)
 	{
 		BrickMan_list.addRow (%bl_id, %line);
 	}
-	else 
+	else
 	{
 		BrickMan_list.setRowById (%bl_id, %line);
 	}
@@ -9571,7 +9571,7 @@ function BrickManGui::sortList (%this, %col)
 		BrickMan_list.sortedAsc = !BrickMan_list.sortedAsc;
 		BrickMan_list.sort (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
-	else 
+	else
 	{
 		BrickMan_list.sortedBy = %col;
 		BrickMan_list.sortedAsc = 0;
@@ -9587,7 +9587,7 @@ function BrickManGui::sortNumList (%this, %col)
 		BrickMan_list.sortedAsc = !BrickMan_list.sortedAsc;
 		BrickMan_list.sortNumerical (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
-	else 
+	else
 	{
 		BrickMan_list.sortedBy = %col;
 		BrickMan_list.sortedAsc = 0;
@@ -9605,7 +9605,7 @@ function escapeMenu::toggle (%this)
 	{
 		disconnect ();
 	}
-	else 
+	else
 	{
 		Canvas.pushDialog (%this);
 	}
@@ -9624,7 +9624,7 @@ function escapeMenu::onWake (%this)
 		EM_Disconnect.mColor = "255 150   0 255";
 		EM_Quit.mColor = "255  75   0 255";
 	}
-	else 
+	else
 	{
 		EM_Options.mColor = "255 255 255 255";
 		EM_PlayerList.mColor = "255 255 255 255";
@@ -9643,7 +9643,7 @@ function escapeMenu::clickAdmin ()
 	{
 		Canvas.pushDialog ("adminGui");
 	}
-	else 
+	else
 	{
 		$AdminCallback = "canvas.pushDialog(admingui);";
 		Canvas.pushDialog ("adminLoginGui");
@@ -9656,7 +9656,7 @@ function escapeMenu::clickLoadBricks ()
 	{
 		Canvas.pushDialog ("loadBricksGui");
 	}
-	else 
+	else
 	{
 		$AdminCallback = "canvas.pushDialog(loadBricksGui);";
 		Canvas.pushDialog ("adminLoginGui");
@@ -9669,7 +9669,7 @@ function escapeMenu::clickSaveBricks ()
 	{
 		Canvas.pushDialog (saveBricksGui);
 	}
-	else 
+	else
 	{
 		Canvas.pushDialog (saveBricksWarningGui);
 	}
@@ -9681,7 +9681,7 @@ function escapeMenu::clickMinigames ()
 	{
 		Canvas.pushDialog (CreateMiniGameGui);
 	}
-	else 
+	else
 	{
 		Canvas.pushDialog (joinMiniGameGui);
 	}
@@ -9732,7 +9732,7 @@ function clientCmdSetAdminLevel (%newAdminLevel)
 	{
 		%adminChar = "S";
 	}
-	else 
+	else
 	{
 		%adminChar = mClamp (%newAdminLevel, 3, 9);
 	}
@@ -9746,7 +9746,7 @@ function clientCmdSetAdminLevel (%newAdminLevel)
 		{
 			
 		}
-		else 
+		else
 		{
 			%row = setField (%row, 0, %adminChar);
 			%rowID = NPL_List.getRowId (%i);
@@ -9791,7 +9791,7 @@ function clientCmdOpenPrintSelectorDlg (%aspectRatio, %startPrint, %numPrints)
 	{
 		PSD_PrintScrollerLetters.setVisible (1);
 	}
-	else 
+	else
 	{
 		%obj = "PSD_PrintScroller" @ %aspectRatio;
 		%obj.setVisible (1);
@@ -9818,7 +9818,7 @@ function PrintSelectorDlg::onSleep (%this)
 		{
 			$PSD_LettersVisible = 1;
 		}
-		else 
+		else
 		{
 			$PSD_LettersVisible = 0;
 		}
@@ -10072,7 +10072,7 @@ function clientCmdBSD_LoadBricks ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$HUD_BrickIcon[%i].setColor (%color);
 			}
@@ -10110,7 +10110,7 @@ function BSD_LoadBricks ()
 			{
 				
 			}
-			else 
+			else
 			{
 				BSD_addCategory (%cat);
 				%subCatObj = BSD_addSubCategory (%cat, %subCat);
@@ -10196,7 +10196,7 @@ function BSD_LoadBricks ()
 		{
 			
 		}
-		else 
+		else
 		{
 			BSD_CreateBrickButton (%db);
 		}
@@ -10312,7 +10312,7 @@ function BSD_addSubCategory (%cat, %newSubCat)
 		error ("Error: BSD_addSubCategory - category \"", %cat, "\" not found.");
 		return;
 	}
-	else 
+	else
 	{
 		%i = 0;
 		while (%i < $BSD_category[%catID].numSubCategories)
@@ -10553,12 +10553,12 @@ function BSD_ClickInv (%index)
 			{
 				$BSD_InvIcon[%index].setBitmap ("base/client/ui/brickIcons/unknown");
 			}
-			else 
+			else
 			{
 				$BSD_InvIcon[%index].setBitmap ($BSD_InvData[%index].iconName);
 			}
 		}
-		else 
+		else
 		{
 			$BSD_InvIcon[%index].setBitmap ("");
 		}
@@ -10568,12 +10568,12 @@ function BSD_ClickInv (%index)
 			{
 				$BSD_InvIcon[$BSD_CurrClickInv].setBitmap ("base/client/ui/brickIcons/unknown");
 			}
-			else 
+			else
 			{
 				$BSD_InvIcon[$BSD_CurrClickInv].setBitmap ($BSD_InvData[$BSD_CurrClickInv].iconName);
 			}
 		}
-		else 
+		else
 		{
 			$BSD_InvIcon[$BSD_CurrClickInv].setBitmap ("");
 		}
@@ -10589,7 +10589,7 @@ function BSD_ClickInv (%index)
 		{
 			$BSD_InvIcon[%index].setBitmap ("base/client/ui/brickIcons/unknown");
 		}
-		else 
+		else
 		{
 			$BSD_InvIcon[%index].setBitmap ($BSD_InvData[%index].iconName);
 		}
@@ -10597,7 +10597,7 @@ function BSD_ClickInv (%index)
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
 	}
-	else 
+	else
 	{
 		$BSD_InvActive[%index].setVisible (1);
 		$BSD_CurrClickData = -1;
@@ -10628,7 +10628,7 @@ function BSD_ClickIcon (%data)
 			{
 				$BSD_InvIcon[%openSlot].setBitmap ("base/client/ui/brickIcons/unknown");
 			}
-			else 
+			else
 			{
 				$BSD_InvIcon[%openSlot].setBitmap ($BSD_InvData[%openSlot].iconName);
 			}
@@ -10643,7 +10643,7 @@ function BSD_ClickIcon (%data)
 				{
 					$BSD_InvIcon[%i].setBitmap ("base/client/ui/brickIcons/unknown");
 				}
-				else 
+				else
 				{
 					$BSD_InvIcon[%i].setBitmap ($BSD_InvData[%i].iconName);
 				}
@@ -10654,7 +10654,7 @@ function BSD_ClickIcon (%data)
 			{
 				$BSD_InvIcon[$BSD_NumInventorySlots - 1].setBitmap ("base/client/ui/brickIcons/unknown");
 			}
-			else 
+			else
 			{
 				$BSD_InvIcon[$BSD_NumInventorySlots - 1].setBitmap ($BSD_InvData[$BSD_NumInventorySlots - 1].iconName);
 			}
@@ -10663,7 +10663,7 @@ function BSD_ClickIcon (%data)
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
 	}
-	else 
+	else
 	{
 		if ($BSD_CurrClickData != -1)
 		{
@@ -10701,7 +10701,7 @@ function BSD_ShowTab (%catID)
 			$BSD_category[%i].Scroll.setVisible (1);
 			$BSD_category[%i].tab.setBitmap ("base/client/ui/tab1use");
 		}
-		else 
+		else
 		{
 			$BSD_category[%i].Scroll.setVisible (0);
 			$BSD_category[%i].tab.setBitmap ("base/client/ui/tab1");
@@ -10740,7 +10740,7 @@ function BSD_SetFavs ()
 	{
 		BSD_SetFavsButton.setText ("Set Favs>");
 	}
-	else 
+	else
 	{
 		BSD_SetFavsButton.setText (" Cancel ");
 	}
@@ -10755,7 +10755,7 @@ function BSD_ClickFav (%idx)
 		BSD_SetFavsButton.setText ("Set Favs>");
 		BrickSelectorDlg.updateFavButtons ();
 	}
-	else 
+	else
 	{
 		BSD_BuyFavorites (%idx);
 	}
@@ -10783,7 +10783,7 @@ function BSD_SaveFavorites (%idx)
 		echo ("clearing brick favorites at index ", %idx);
 		deleteVariables ("$Favorite::Brick" @ %idx @ "*");
 	}
-	else 
+	else
 	{
 		echo ("saving brick favorites to index ", %idx);
 		%i = 0;
@@ -10822,12 +10822,12 @@ function BSD_BuyFavorites (%idx)
 			{
 				$BSD_InvIcon[%i].setBitmap ("base/client/ui/brickIcons/unknown");
 			}
-			else 
+			else
 			{
 				$BSD_InvIcon[%i].setBitmap ($BSD_InvData[%i].iconName);
 			}
 		}
-		else 
+		else
 		{
 			$BSD_InvIcon[%i].setBitmap ("");
 		}
@@ -10870,7 +10870,7 @@ function BrickSelectorDlg::updateFavButtons ()
 		{
 			eval ("BSD_FavButton" @ %i @ ".setColor(\"1 1 1 1\");");
 		}
-		else 
+		else
 		{
 			eval ("BSD_FavButton" @ %i @ ".setColor(\"1 1 1 0.5\");");
 		}
@@ -10985,7 +10985,7 @@ function saveBricks_ProcessWrenchExtras ()
 				{
 					%dir = 5;
 				}
-				else 
+				else
 				{
 					%dir = 0;
 				}
@@ -11055,7 +11055,7 @@ function saveBricks_ProcessWrenchExtras ()
 			{
 				%dir = 5;
 			}
-			else 
+			else
 			{
 				%dir = 2;
 			}
@@ -11301,14 +11301,14 @@ function saveBricks (%filename, %description)
 				{
 					
 				}
-				else 
+				else
 				{
 					%rowText = %obj.getDistanceFromGround ();
 					if (%rowText > 999999 || %rowText < 0)
 					{
 						%gotInvalidDFG = 1;
 					}
-					else 
+					else
 					{
 						%gotValidDFG = 1;
 					}
@@ -11320,7 +11320,7 @@ function saveBricks (%filename, %description)
 			%g += 1;
 		}
 	}
-	else 
+	else
 	{
 		%group = ServerConnection.getId ();
 		%count = %group.getCount ();
@@ -11356,14 +11356,14 @@ function saveBricks (%filename, %description)
 			{
 				
 			}
-			else 
+			else
 			{
 				%rowText = %obj.getDistanceFromGround ();
 				if (%rowText > 999999 || %rowText < 0)
 				{
 					%gotInvalidDFG = 1;
 				}
-				else 
+				else
 				{
 					%gotValidDFG = 1;
 				}
@@ -11427,7 +11427,7 @@ function SaveBricks_WriteSingleBrick (%file, %obj)
 		{
 			%printTexture = "/";
 		}
-		else 
+		else
 		{
 			%dirName = getSubStr (%path, strlen ("Add-Ons/"), strlen (%path) - strlen ("Add-Ons/"));
 			%posA = strpos (%dirName, "_");
@@ -11436,7 +11436,7 @@ function SaveBricks_WriteSingleBrick (%file, %obj)
 			%printTexture = %aspectRatio @ "/" @ %fileBase;
 		}
 	}
-	else 
+	else
 	{
 		%printTexture = "";
 	}
@@ -11478,7 +11478,7 @@ function SaveBricks_WriteSingleBrick (%file, %obj)
 				%NT = %obj.eventNT[%i];
 				%targetClass = "FxDTSBrick";
 			}
-			else 
+			else
 			{
 				%targetList = $InputEvent_TargetList[%class, %obj.eventInputIdx[%i]];
 				%target = getField (%targetList, %obj.eventTargetIdx[%i]);
@@ -11501,19 +11501,19 @@ function SaveBricks_WriteSingleBrick (%file, %obj)
 						{
 							%line = %line TAB %obj.eventOutputParameter[%i, %j + 1].getName ();
 						}
-						else 
+						else
 						{
 							%line = %line TAB -1;
 						}
 					}
-					else 
+					else
 					{
 						%line = %line TAB %obj.eventOutputParameter[%i, %j + 1];
 					}
 					%j += 1;
 				}
 			}
-			else 
+			else
 			{
 				%par1 = %obj.eventOutputParameter[%i, 1];
 				%par2 = %obj.eventOutputParameter[%i, 2];
@@ -11619,12 +11619,12 @@ function LoadBricks_GetColorDifference (%filename)
 		{
 			return "REPLACE";
 		}
-		else 
+		else
 		{
 			return "APPEND";
 		}
 	}
-	else 
+	else
 	{
 		return "SAME";
 	}
@@ -11641,7 +11641,7 @@ function LoadBricks_ClientServerCheck (%filename, %colorMethod)
 	{
 		%dirName = getSubStr (%path, strlen ("saves/"), strlen (%path) - strlen ("saves/"));
 	}
-	else 
+	else
 	{
 		%dirName = 0;
 	}
@@ -11658,7 +11658,7 @@ function LoadBricks_ClientServerCheck (%filename, %colorMethod)
 	{
 		serverDirectSaveFileLoad (%filename, %colorMethod, %dirName, %ownership);
 	}
-	else 
+	else
 	{
 		commandToServer ('SetColorMethod', %colorMethod);
 		commandToServer ('SetSaveUploadDirName', %dirName, %ownership);
@@ -11678,7 +11678,7 @@ function clientCmdLoadBricksConfirmHandshake (%val, %allowColorLoads)
 	{
 		LoadBricks_ColorCheck ();
 	}
-	else 
+	else
 	{
 		if (isEventPending ($LoadingBricks_HandShakeSchedule))
 		{
@@ -11701,7 +11701,7 @@ function clientCmdLoadBricksHandshake (%val, %allowColorLoads)
 			UploadSaveFile_Start ($LoadingBricks_FileName);
 		}
 	}
-	else 
+	else
 	{
 		if (isEventPending ($LoadingBricks_HandShakeSchedule))
 		{
@@ -11757,7 +11757,7 @@ function createUINameTable ()
 				{
 					$uiNameTable_Music[%db.uiName] = %db;
 				}
-				else 
+				else
 				{
 					$uiNameTable_Sounds[%db.uiName] = %db;
 				}
@@ -11802,7 +11802,7 @@ function LoadBricks_PopulateFileList ()
 		{
 			%displayName = %baseName;
 		}
-		else 
+		else
 		{
 			%filePath = strreplace (%filePath, "saves/", "");
 			%displayName = %filePath @ "/" @ %baseName;
@@ -11835,7 +11835,7 @@ function LoadBricks_FileClick ()
 	{
 		LoadBricks_Preview.setBitmap (%screenshotName);
 	}
-	else 
+	else
 	{
 		LoadBricks_Preview.setBitmap ("base/client/ui/loadingBG.png");
 	}
@@ -11858,7 +11858,7 @@ function LoadBricks_ClickLoadButton ()
 	{
 		LoadBricks_ColorCheck ();
 	}
-	else 
+	else
 	{
 		commandToServer ('InitUploadHandshake');
 		$LoadingBricks_HandShakeSchedule = schedule (30 * 1000, 0, eval, "$LoadingBricks_FileName = \"\";");
@@ -11887,7 +11887,7 @@ function LoadBricks_ColorCheck ()
 			Canvas.pushDialog (LoadBricksColorGui);
 		}
 	}
-	else 
+	else
 	{
 		LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 3);
 		Canvas.popDialog (LoadBricksGui);
@@ -11926,7 +11926,7 @@ function saveBricksGui::onWake (%this)
 	{
 		SaveBricks_FileName.maxLength = 27;
 	}
-	else 
+	else
 	{
 		SaveBricks_FileName.maxLength = 255;
 	}
@@ -11947,7 +11947,7 @@ function saveBricksGui::onWake (%this)
 		{
 			%displayName = %baseName;
 		}
-		else 
+		else
 		{
 			%filePath = strreplace (%filePath, "saves/", "");
 			%displayName = %filePath @ "/" @ %baseName;
@@ -12037,7 +12037,7 @@ function SaveBricks_ClickFileList ()
 	{
 		SaveBricks_Preview.setBitmap (%screenshotName);
 	}
-	else 
+	else
 	{
 		SaveBricks_Preview.setBitmap ("base/client/ui/loadingBG.png");
 	}
@@ -12093,13 +12093,13 @@ function SaveBricks_Save ()
 		{
 			%callback = "fileDelete(\"" @ %fullScreenshot @ "\");SaveBricks_DownloadWindow.setVisible(true);SaveBricks_StartInfoDownload();";
 		}
-		else 
+		else
 		{
 			%callback = "fileDelete(\"" @ %fullScreenshot @ "\");canvas.popDialog(SaveBricksGui);canvas.popDialog(EscapeMenu);canvas.pushDialog(SavingGui);";
 		}
 		messageBoxYesNo ("File Exists, Overwrite?", "Are you sure you want to overwrite the file \"" @ %filename @ "\"?", %callback);
 	}
-	else 
+	else
 	{
 		$SaveBricksPath = %fullPath;
 		$SaveBricksDescription = %description;
@@ -12108,7 +12108,7 @@ function SaveBricks_Save ()
 			SaveBricks_DownloadWindow.setVisible (1);
 			SaveBricks_StartInfoDownload ();
 		}
-		else 
+		else
 		{
 			Canvas.popDialog (saveBricksGui);
 			Canvas.popDialog (escapeMenu);
@@ -12142,7 +12142,7 @@ function SaveBricks_GetFileDescription (%filename)
 		{
 			%description = %line;
 		}
-		else 
+		else
 		{
 			%description = %description @ "\n" @ %line;
 		}
@@ -12301,13 +12301,13 @@ function LoadBricks_CreateFromLine (%line, %i)
 			%b.delete ();
 			$LastLoadedBrick = 0;
 		}
-		else 
+		else
 		{
 			$LastLoadedBrick = %b;
 			%brickCount += 1;
 		}
 	}
-	else 
+	else
 	{
 		warn ("WARNING: loadBricks() - DataBlock not found for brick named ", %uiName);
 		$failureCount += 1;
@@ -12348,14 +12348,14 @@ function sortList (%obj, %col, %defaultDescending)
 		%obj.sortedAsc = !%obj.sortedAsc;
 		%obj.sort (%obj.sortedBy, %obj.sortedAsc);
 	}
-	else 
+	else
 	{
 		%obj.sortedBy = %col;
 		if (%defaultDescending)
 		{
 			%obj.sortedAsc = 0;
 		}
-		else 
+		else
 		{
 			%obj.sortedAsc = 1;
 		}
@@ -12371,14 +12371,14 @@ function sortNumList (%obj, %col)
 		%obj.sortedAsc = !%obj.sortedAsc;
 		%obj.sortNumerical (%obj.sortedBy, %obj.sortedAsc);
 	}
-	else 
+	else
 	{
 		%obj.sortedBy = %col;
 		if (%defaultDescending)
 		{
 			%obj.sortedAsc = 0;
 		}
-		else 
+		else
 		{
 			%obj.sortedAsc = 1;
 		}
@@ -12398,7 +12398,7 @@ function updateListSort (%obj)
 	{
 		%obj.sortNumerical (%obj.sortedBy, %obj.sortedAsc);
 	}
-	else 
+	else
 	{
 		%obj.sort (%obj.sortedBy, %obj.sortedAsc);
 	}
@@ -12469,7 +12469,7 @@ function UploadSaveFile_Tick ()
 			Progress_Text.setText ("Uploading...");
 		}
 	}
-	else 
+	else
 	{
 		%prefix = getSubStr (%line, 0, 2);
 		if (%prefix !$= "+-")
@@ -12487,7 +12487,7 @@ function UploadSaveFile_Tick ()
 	{
 		$UploadSaveFile_Tick_Schedule = schedule (%time, 0, UploadSaveFile_Tick);
 	}
-	else 
+	else
 	{
 		UploadSaveFile_End ();
 	}
@@ -12569,12 +12569,12 @@ function SaveBricks_StartInfoDownload ()
 		{
 			commandToServer ('RequestEventTables');
 		}
-		else 
+		else
 		{
 			commandToServer ('RequestExtendedBrickInfo');
 		}
 	}
-	else 
+	else
 	{
 		error ("Error: SaveBricks_StartInfoDownload() - should not be called if neither box is checked");
 	}
@@ -12900,7 +12900,7 @@ function AvatarGui_CreatePartMenu (%name, %cmdString, %filename, %xPos, %yPos)
 	{
 		%w = 4 * 64;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 64;
 	}
@@ -12972,7 +12972,7 @@ function AvatarGui_CreatePartMenuFACE (%name, %cmdString, %filename, %xPos, %yPo
 	{
 		%w = 4 * 64;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 64;
 	}
@@ -13034,7 +13034,7 @@ function AvatarGui_CreateSubPartMenu (%name, %cmdString, %subPartList, %xPos, %y
 	{
 		%w = 4 * 64;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 64;
 	}
@@ -13107,7 +13107,7 @@ function AvatarGui_CreateColorMenu (%prefString, %colorList, %xPos, %yPos, %symm
 	{
 		%w = %rowLimit * 32;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 32;
 	}
@@ -13145,7 +13145,7 @@ function Avatar_ClickTorsoColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::TorsoColor", $torsoColors[%decalName], %x, %y);
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::TorsoColor", $normalColors, %x, %y);
 	}
@@ -13160,7 +13160,7 @@ function Avatar_ClickPackColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::PackColor", $packColors[%packName], %x, %y);
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::PackColor", $normalColors, %x, %y);
 	}
@@ -13175,7 +13175,7 @@ function Avatar_ClickSecondPackColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::SecondPackColor", $packColors[%packName], %x, %y);
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::SecondPackColor", $normalColors, %x, %y);
 	}
@@ -13190,7 +13190,7 @@ function Avatar_ClickHatColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::HatColor", $hatColors[%hatName], %x, %y);
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::HatColor", $normalColors, %x, %y);
 	}
@@ -13215,7 +13215,7 @@ function Avatar_ClickAccentColor ()
 			{
 				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", 1);
 			}
-			else 
+			else
 			{
 				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColors[%AccentName], %x, %y, "", 1);
 			}
@@ -13224,7 +13224,7 @@ function Avatar_ClickAccentColor ()
 		{
 			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", 1);
 		}
-		else 
+		else
 		{
 			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColorsUnAuth[%AccentName], %x, %y, "", 1);
 		}
@@ -13246,7 +13246,7 @@ function Avatar_ClickHipColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::HipColor", $basicColors, %x, %y);
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::HipColor", $normalColors, %x, %y);
 	}
@@ -13260,7 +13260,7 @@ function Avatar_ClickRightLegColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $basicColors, %x, %y, "$Pref::Avatar::LLegColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $normalColors, %x, %y, "$Pref::Avatar::LLegColor");
 	}
@@ -13274,7 +13274,7 @@ function Avatar_ClickRightArmColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $basicColors, %x, %y, "$Pref::Avatar::LArmColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $normalColors, %x, %y, "$Pref::Avatar::LArmColor");
 	}
@@ -13288,7 +13288,7 @@ function Avatar_ClickRightHandColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $basicColors, %x, %y, "$Pref::Avatar::LHandColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $normalColors, %x, %y, "$Pref::Avatar::LHandColor");
 	}
@@ -13302,7 +13302,7 @@ function Avatar_ClickLeftLegColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $basicColors, %x, %y, "$Pref::Avatar::RLegColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $normalColors, %x, %y, "$Pref::Avatar::RLegColor");
 	}
@@ -13316,7 +13316,7 @@ function Avatar_ClickLeftArmColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $basicColors, %x, %y, "$Pref::Avatar::RArmColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $normalColors, %x, %y, "$Pref::Avatar::RArmColor");
 	}
@@ -13330,7 +13330,7 @@ function Avatar_ClickLeftHandColor ()
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $basicColors, %x, %y, "$Pref::Avatar::RHandColor");
 	}
-	else 
+	else
 	{
 		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $normalColors, %x, %y, "$Pref::Avatar::RHandColor");
 	}
@@ -13593,7 +13593,7 @@ function Avatar_UpdatePreview ()
 	{
 		Avatar_Preview.setThreadPos ("", 0, 0);
 	}
-	else 
+	else
 	{
 		Avatar_Preview.setThreadPos ("", 0, 1);
 	}
@@ -13673,13 +13673,13 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $RLeg[$Pref::Avatar::RLeg]);
 			Avatar_Preview.hideNode ("", $LLeg[$Pref::Avatar::LLeg]);
 		}
-		else 
+		else
 		{
 			Avatar_Preview.hideNode ("", "SkirtTrimLeft");
 			Avatar_Preview.hideNode ("", "SkirtTrimRight");
 		}
 	}
-	else 
+	else
 	{
 		Avatar_Preview.hideNode ("", "SkirtTrimLeft");
 		Avatar_Preview.hideNode ("", "SkirtTrimRight");
@@ -13736,7 +13736,7 @@ function Avatar_UpdatePreview ()
 	{
 		Avatar_PackPreview.setBitmap (%iconDir @ "none");
 	}
-	else 
+	else
 	{
 		Avatar_PackPreview.setBitmap (%iconDir @ "pack/" @ $pack[$pref::Avatar::Pack]);
 	}
@@ -13756,7 +13756,7 @@ function Avatar_UpdatePreview ()
 	{
 		Avatar_AccentPreview.setBitmap (%iconDir @ "none");
 	}
-	else 
+	else
 	{
 		Avatar_AccentPreview.setBitmap (%iconDir @ "accent/" @ %accent);
 	}
@@ -13802,7 +13802,7 @@ function Avatar_Randomize ()
 		$Pref::Avatar::LHand = 0;
 		$Pref::Avatar::RHand = 0;
 	}
-	else 
+	else
 	{
 		$Pref::Avatar::LHand = getRandom ($numLHand - 1);
 		$Pref::Avatar::RHand = getRandom ($numRHand - 1);
@@ -13813,7 +13813,7 @@ function Avatar_Randomize ()
 		$Pref::Avatar::LLeg = 0;
 		$Pref::Avatar::RLeg = 0;
 	}
-	else 
+	else
 	{
 		$Pref::Avatar::LLeg = getRandom ($numLLeg - 1);
 		$Pref::Avatar::RLeg = getRandom ($numRLeg - 1);
@@ -13824,7 +13824,7 @@ function Avatar_Randomize ()
 	{
 		$Pref::Avatar::Hip = 0;
 	}
-	else 
+	else
 	{
 		$Pref::Avatar::Hip = getRandom ($numHip - 1);
 	}
@@ -13848,12 +13848,12 @@ function Avatar_Randomize ()
 		{
 			$pref::Avatar::Accent = getRandom (%count - 1) + 1;
 		}
-		else 
+		else
 		{
 			$pref::Avatar::Accent = 0;
 		}
 	}
-	else 
+	else
 	{
 		$pref::Avatar::Accent = 0;
 	}
@@ -13893,7 +13893,7 @@ function Avatar_Randomize ()
 		$pref::Avatar::RArmColor = $pref::Avatar::LArmColor;
 		$pref::Avatar::RHandColor = $pref::Avatar::LHandColor;
 	}
-	else 
+	else
 	{
 		%count = getWordCount (%RLegColorList) - 1;
 		$pref::Avatar::RLegColor = Avatar_GetRandomColor (0);
@@ -13936,7 +13936,7 @@ function Avatar_Done ()
 	{
 		clientCmdUpdatePrefs ();
 	}
-	else 
+	else
 	{
 		sendHatRequest ();
 	}
@@ -13967,7 +13967,7 @@ function AvatarGui::ClickFav (%this, %idx)
 		export ("$Pref::Avatar::*", %filename, 0);
 		AV_FavsHelper.setVisible (0);
 	}
-	else 
+	else
 	{
 		if (!isFile (%filename))
 		{
@@ -14085,7 +14085,7 @@ function AvatarGui::updateFavButtons ()
 		{
 			eval ("Avatar_FavButton" @ %i @ ".setColor(\"1 1 1 1\");");
 		}
-		else 
+		else
 		{
 			eval ("Avatar_FavButton" @ %i @ ".setColor(\"1 1 1 0.5\");");
 		}
@@ -14100,7 +14100,7 @@ function MainMenuGui::onWake (%this)
 	{
 		MM_Version.setText ("DEBUG BUILD");
 	}
-	else 
+	else
 	{
 		MM_Version.setText ("Revision " @ getBuildNumber ());
 	}
@@ -14131,7 +14131,7 @@ function MainMenuGui::onWake (%this)
 		Canvas.pushDialog (connectingGui);
 		%showButtons = 0;
 	}
-	else 
+	else
 	{
 		%showButtons = 1;
 	}
@@ -14532,7 +14532,7 @@ function buildIFLs ()
 		{
 			%fullPath = findNextFile (%search);
 		}
-		else 
+		else
 		{
 			%file.writeLine (%fullPath);
 			%fullPath = findNextFile (%search);
@@ -14549,7 +14549,7 @@ function buildIFLs ()
 		{
 			%fullPath = findNextFile (%search);
 		}
-		else 
+		else
 		{
 			%file.writeLine (%fullPath);
 			%fullPath = findNextFile (%search);
@@ -14650,7 +14650,7 @@ function MainMenuGui::clickUnlock (%this)
 	{
 		SteamOpenStore ();
 	}
-	else 
+	else
 	{
 		gotoWebPage ("http://blockland.us/Store.html");
 	}
@@ -14688,7 +14688,7 @@ function MainMenuGui::clickNameButton (%this)
 		MM_AuthText.setText ("Register name...");
 		Canvas.pushDialog ("regNameGui");
 	}
-	else 
+	else
 	{
 		MessageBoxOK ("Name registered", "Your name is already registered as \"" @ $Auth::name[0] @ "\"");
 	}
@@ -14795,7 +14795,7 @@ function WhoTalkSO::Display (%this)
 		}
 		%text.setText (%buff);
 	}
-	else 
+	else
 	{
 		error ("ERROR: WhoTalkSO::Display() - text object not found.");
 	}
@@ -14812,7 +14812,7 @@ function newMessageHud::onWake (%this)
 	{
 		NMH_Type.historySize = 10;
 	}
-	else 
+	else
 	{
 		NMH_Type.historySize = 0;
 	}
@@ -14836,7 +14836,7 @@ function newMessageHud::open (%this, %channel)
 	{
 		NMH_Channel.setText ("\c1" @ %channel @ ":");
 	}
-	else 
+	else
 	{
 		error ("ERROR(): newMessageHud::open() - unknown channel \"" @ %channel @ "\"");
 		return;
@@ -14913,7 +14913,7 @@ function NMH_Type::send (%this)
 		{
 			%cmd = %cmd @ ", $Pref::GreenlightCheck);";
 		}
-		else 
+		else
 		{
 			%wordCount = getWordCount (%newText);
 			%i = 1;
@@ -14927,7 +14927,7 @@ function NMH_Type::send (%this)
 		}
 		eval (%cmd);
 	}
-	else 
+	else
 	{
 		if (strlen (trim (%text)) <= 0)
 		{
@@ -14966,7 +14966,7 @@ function NMH_Type::send (%this)
 		{
 			commandToServer ('teamMessageSent', %text);
 		}
-		else 
+		else
 		{
 			error ("ERROR: NMH_Type::Send() - unknown channel \"" @ newMessageHuf.channel @ "\"");
 		}
@@ -15060,7 +15060,7 @@ function newChatHud_UpdateScrollDownIndicator ()
 	{
 		chatScrollDownIndicator.setVisible (0);
 	}
-	else 
+	else
 	{
 		chatScrollDownIndicator.setVisible (1);
 	}
@@ -15111,7 +15111,7 @@ function getCensor (%word)
 		{
 			%censor = %censor @ " ";
 		}
-		else 
+		else
 		{
 			%censor = %censor @ "*";
 		}
@@ -15153,7 +15153,7 @@ function censorString (%line)
 			%line = %start @ %censor @ %end;
 			%lwrText = strlwr (%line) @ " ";
 		}
-		else 
+		else
 		{
 			%offset += %wordLen + 1;
 		}
@@ -15221,7 +15221,7 @@ function NewChatSO::displayLatest (%this)
 		newMessageHud.updatePosition ();
 		newChatHud_UpdateScrollDownIndicator ();
 	}
-	else 
+	else
 	{
 		error ("ERROR: NewChatSO::displayLatest() - %this.textObj not defined");
 	}
@@ -15325,17 +15325,17 @@ function NewChatSO::pageUp (%this)
 			{
 				
 			}
-			else 
+			else
 			{
 				%this.pageUpEnd = %this.tail + %this.maxLines;
 			}
 		}
-		else 
+		else
 		{
 			%this.pageUpEnd -= %this.maxLines;
 		}
 	}
-	else 
+	else
 	{
 		%i = 0;
 		while (%i <= %this.maxLines * 2)
@@ -15374,7 +15374,7 @@ function NewChatSO::pageDown (%this)
 		%this.displayLatest ();
 		$Pref::Chat::ShowAllLines = 0;
 	}
-	else 
+	else
 	{
 		if (isEventPending (%this.displaySchedule))
 		{
@@ -15481,7 +15481,7 @@ function NewChatSO::update (%this)
 	{
 		%this.displayLatest ();
 	}
-	else 
+	else
 	{
 		%this.displayPage ();
 	}
@@ -15502,7 +15502,7 @@ function NewChatSO::dumpLines (%this)
 		{
 			echo ("line " @ %i @ " : " @ %this.line[%i] @ "\c1\c0<-TAIL");
 		}
-		else 
+		else
 		{
 			echo ("line " @ %i @ " : " @ %this.line[%i]);
 		}
@@ -15561,7 +15561,7 @@ function defaultControlsGui::onSleep ()
 			{
 				MessageBoxOK ("File Error", "Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory, mounted image or CD-ROM.\n\nMake sure you have copied the Blockland folder to your applications folder and are running the game from there.\n\nDo not run the game directly from the dmg file.");
 			}
-			else 
+			else
 			{
 				MessageBoxOK ("File Error", "Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory or CD-ROM.");
 			}
@@ -15588,7 +15588,7 @@ function defaultControlsGui::apply ()
 	{
 		%mouse = 3;
 	}
-	else 
+	else
 	{
 		MessageBoxOK ("Error", "Please select a mouse type.");
 		return;
@@ -15602,7 +15602,7 @@ function defaultControlsGui::apply ()
 	{
 		%keyboard = 1;
 	}
-	else 
+	else
 	{
 		MessageBoxOK ("Error", "Please select a keyboard type.");
 		return;
@@ -15645,7 +15645,7 @@ function defaultControlsGui::apply ()
 	{
 		moveMap.bind (keyboard, "ctrl z", undoBrick);
 	}
-	else 
+	else
 	{
 		moveMap.bind (keyboard, "cmd z", undoBrick);
 	}
@@ -15659,7 +15659,7 @@ function defaultControlsGui::apply ()
 		moveMap.bind (keyboard, "shift p", doHudScreenshot);
 		moveMap.bind (keyboard, "shift-ctrl p", doDofScreenShot);
 	}
-	else 
+	else
 	{
 		moveMap.bind (keyboard, "ropt", toggleSuperShift);
 		moveMap.bind (keyboard, "cmd a", openAdminWindow);
@@ -15688,7 +15688,7 @@ function defaultControlsGui::apply ()
 		{
 			moveMap.bind (keyboard, "+", shiftBrickUp);
 		}
-		else 
+		else
 		{
 			moveMap.bind (keyboard, "numpadadd", shiftBrickUp);
 		}
@@ -15704,7 +15704,7 @@ function defaultControlsGui::apply ()
 			moveMap.bind (keyboard, "ctrl numpad0", ToggleBuildMacroRecording);
 			moveMap.bind (keyboard, "ctrl numpadenter", PlayBackBuildMacro);
 		}
-		else 
+		else
 		{
 			moveMap.bind (keyboard, "cmd numpad0", ToggleBuildMacroRecording);
 			moveMap.bind (keyboard, "cmd numpadenter", PlayBackBuildMacro);
@@ -15717,14 +15717,14 @@ function defaultControlsGui::apply ()
 		moveMap.bind (keyboard, "alt +", superShiftBrickUpProxy);
 		moveMap.bind (keyboard, "alt numpad5", superShiftBrickDownProxy);
 	}
-	else 
+	else
 	{
 		if (isWindows ())
 		{
 			moveMap.bind (keyboard, "ctrl period", NextSeat);
 			moveMap.bind (keyboard, "ctrl comma", PrevSeat);
 		}
-		else 
+		else
 		{
 			moveMap.bind (keyboard, "cmd period", NextSeat);
 			moveMap.bind (keyboard, "cmd comma", PrevSeat);
@@ -15746,7 +15746,7 @@ function defaultControlsGui::apply ()
 			moveMap.bind (keyboard, "ctrl /", ToggleBuildMacroRecording);
 			moveMap.bind (keyboard, "ctrl return", PlayBackBuildMacro);
 		}
-		else 
+		else
 		{
 			moveMap.bind (keyboard, "cmd /", ToggleBuildMacroRecording);
 			moveMap.bind (keyboard, "cmd return", PlayBackBuildMacro);
@@ -15801,7 +15801,7 @@ function defaultControlsGui::clickClose ()
 	{
 		defaultControlsGui.apply ();
 	}
-	else 
+	else
 	{
 		Canvas.popDialog (defaultControlsGui);
 	}
@@ -15840,7 +15840,7 @@ function clientCmdOpenWrenchDlg (%id, %allowNamedTargets, %adminOverride, %admin
 	{
 		Wrench_EventsBlocker.setVisible (0);
 	}
-	else 
+	else
 	{
 		Wrench_EventsBlocker.setVisible (%adminOnlyEvents);
 	}
@@ -15903,7 +15903,7 @@ function clientCmdSetWrenchData (%data)
 					}
 					%obj.setValue (1);
 				}
-				else 
+				else
 				{
 					error ("ERROR: clientCmdSetWrenchData() - Bad emitter direction \"" @ %idx @ "\"");
 				}
@@ -15934,7 +15934,7 @@ function clientCmdSetWrenchData (%data)
 					}
 					%obj.setValue (1);
 				}
-				else 
+				else
 				{
 					error ("ERROR: clientCmdSetWrenchData() - Bad item position \"" @ %idx @ "\"");
 				}
@@ -15957,7 +15957,7 @@ function clientCmdSetWrenchData (%data)
 					}
 					%obj.setValue (1);
 				}
-				else 
+				else
 				{
 					error ("ERROR: clientCmdSetWrenchData() - Bad item direction \"" @ %idx @ "\"");
 				}
@@ -16030,7 +16030,7 @@ function clientCmdSetWrenchData (%data)
 				WrenchVehicleSpawn_Rendering.setValue (%val);
 			}
 		}
-		else 
+		else
 		{
 			error ("ERROR: clientCmdSetWrenchData() - unknown field type \"" @ %field @ "\"");
 		}
@@ -16157,7 +16157,7 @@ function wrenchDlg::send (%this)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -16226,7 +16226,7 @@ function clientCmdOpenWrenchSoundDlg (%id, %allowNamedTargets, %adminOverride, %
 	{
 		WrenchSound_EventsBlocker.setVisible (0);
 	}
-	else 
+	else
 	{
 		WrenchSound_EventsBlocker.setVisible (%adminOnlyEvents);
 	}
@@ -16255,7 +16255,7 @@ function wrenchSoundDlg::send (%this)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -16276,7 +16276,7 @@ function clientCmdOpenWrenchVehicleSpawnDlg (%id, %allowNamedTargets, %adminOver
 	{
 		WrenchVehicleSpawn_EventsBlocker.setVisible (0);
 	}
-	else 
+	else
 	{
 		WrenchVehicleSpawn_EventsBlocker.setVisible (%adminOnlyEvents);
 	}
@@ -16311,7 +16311,7 @@ function wrenchVehicleSpawnDlg::send (%this)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -16374,7 +16374,7 @@ function authTCPobj_Client::onConnectFailed (%this)
 		MM_AuthBar.blinkSuccess ();
 		MM_AuthRetryButton.setVisible (1);
 	}
-	else 
+	else
 	{
 		echo ("Retrying client auth...");
 		MM_AuthText.setText ("Retrying connection...");
@@ -16469,7 +16469,7 @@ function authTCPobj_Client::onLine (%this, %line)
 				setMyBLID ($Auth::blid[0]);
 				Canvas.pushDialog ("regNameGui");
 			}
-			else 
+			else
 			{
 				$pref::Player::NetName = $Auth::name[0];
 				setMyBLID ($Auth::blid[0]);
@@ -16493,7 +16493,7 @@ function authTCPobj_Client::onLine (%this, %line)
 					MM_AuthText.setText ("Welcome, " @ $pref::Player::NetName);
 					MM_AuthBar.blinkSuccess ();
 				}
-				else 
+				else
 				{
 					MM_AuthText.setText ("Select BLID...");
 					Canvas.pushDialog ("selectBLIDGui");
@@ -16502,7 +16502,7 @@ function authTCPobj_Client::onLine (%this, %line)
 				%i += 1;
 			}
 		}
-		else 
+		else
 		{
 			MM_AuthText.setText ("Select BLID...");
 			Canvas.pushDialog ("selectBLIDGui");
@@ -16691,7 +16691,7 @@ function selectBLIDGui::select ()
 	{
 		Canvas.pushDialog ("regNameGui");
 	}
-	else 
+	else
 	{
 		$pref::Player::NetName = %name;
 		MM_AuthText.setText ("Welcome, " @ %name);
@@ -16770,7 +16770,7 @@ function regNameGui::register ()
 		regName_tcpObj.cmd = "POST " @ regName_tcpObj.filePath @ " HTTP/1.0\r\n" @ "Host: " @ regName_tcpObj.site @ "\r\n" @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n" @ "Content-Type: application/x-www-form-urlencoded\r\n" @ "Content-Length: " @ regName_tcpObj.postTextLen @ "\r\n" @ "\r\n" @ regName_tcpObj.postText @ "\r\n";
 		regName_tcpObj.connect (regName_tcpObj.site @ ":" @ regName_tcpObj.port);
 	}
-	else 
+	else
 	{
 		regName_message.setText ("ERROR: Unknown gui state");
 	}
@@ -16893,7 +16893,7 @@ function regName_tcpObj::onLine (%this, %line)
 			{
 				
 			}
-			else 
+			else
 			{
 				$Auth::name[%i] = %name;
 			}
@@ -16934,7 +16934,7 @@ function colorGui::popUp (%this, %targetVar, %targetSwatch, %callback, %alpha)
 	{
 		ColorGui_Slider3.setVisible (1);
 	}
-	else 
+	else
 	{
 		%a = 1;
 		ColorGui_Slider3.setVisible (0);
@@ -16949,7 +16949,7 @@ function colorGui::popUp (%this, %targetVar, %targetSwatch, %callback, %alpha)
 		ColorGui_Slider2.setValue (%b);
 		ColorGui_Slider3.setValue (%a);
 	}
-	else 
+	else
 	{
 		%hsv = RGBtoHSV (%r, %g, %b);
 		%h = getWord (%hsv, 0);
@@ -17031,7 +17031,7 @@ function colorGui::update (%this)
 	{
 		%mode = $COLORMODE_HSV;
 	}
-	else 
+	else
 	{
 		%mode = $COLORMODE_RGB;
 	}
@@ -17066,7 +17066,7 @@ function colorGui::doCallbacks (%this)
 		%a = ColorGui_Slider3.getValue ();
 		%rgba = %r SPC %g SPC %b SPC %a;
 	}
-	else 
+	else
 	{
 		%h = ColorGui_Slider0.getValue ();
 		%s = ColorGui_Slider1.getValue ();
@@ -17136,7 +17136,7 @@ function ColorSetGui::load (%this)
 	{
 		exec ("config/client/avatarColors.cs");
 	}
-	else 
+	else
 	{
 		%this.defaults ();
 		%this.save ();
@@ -17194,7 +17194,7 @@ function ColorSetGui::Display (%this)
 		ColorSet_Box.clear ();
 		%newBox = ColorSet_Box;
 	}
-	else 
+	else
 	{
 		ColorSet_Scroll.clear ();
 		%newBox = new GuiSwatchCtrl (ColorSet_Box);
@@ -17227,7 +17227,7 @@ function ColorSetGui::Display (%this)
 	{
 		%w = %rowLimit * 32;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 32;
 	}
@@ -17241,7 +17241,7 @@ function ColorSetGui::AddColor (%this, %color)
 	{
 		$Avatar::Color[$Avatar::NumColors] = "0.5 0.5 0.5 1";
 	}
-	else 
+	else
 	{
 		$Avatar::Color[$Avatar::NumColors] = $Avatar::Color[ColorSetGui.currColor];
 	}
@@ -17291,7 +17291,7 @@ function ColorSetGui::selectColor (%this, %idx)
 		ColorSetGui_Slider2.setValue (%b);
 		ColorSetGui_Slider3.setValue (%a);
 	}
-	else 
+	else
 	{
 		%hsv = RGBtoHSV (%r, %g, %b);
 		%h = getWord (%hsv, 0);
@@ -17363,7 +17363,7 @@ function ColorSetGui::update ()
 	{
 		%mode = $COLORMODE_HSV;
 	}
-	else 
+	else
 	{
 		%mode = $COLORMODE_RGB;
 	}
@@ -17424,7 +17424,7 @@ function RGBtoHSV (%r, %g, %b)
 		{
 			%h = 2 + (%b - %r) / %delta;
 		}
-		else 
+		else
 		{
 			%h = 4 + (%r - %g) / %delta;
 		}
@@ -17434,7 +17434,7 @@ function RGBtoHSV (%r, %g, %b)
 			%h += 360;
 		}
 	}
-	else 
+	else
 	{
 		%s = 0;
 		%h = 0;
@@ -17492,7 +17492,7 @@ function HSVtoRGB (%h, %s, %v)
 		%g = %p;
 		%b = %v;
 	}
-	else 
+	else
 	{
 		%r = %v;
 		%g = %p;
@@ -17513,7 +17513,7 @@ function ToggleBuildMacroRecording (%val)
 		$BuildMacroSO.compress ();
 		clientCmdCenterPrint ("<color:FF0000>Build Macro Recording STOPPED", 2);
 	}
-	else 
+	else
 	{
 		if (isObject ($BuildMacroSO))
 		{
@@ -17558,7 +17558,7 @@ function BuildMacroSO::pushEvent (%this, %eventType, %event, %arg1, %arg2, %arg3
 	{
 		%val = %eventType TAB getTaggedString (%event) TAB %arg1 TAB %arg2 TAB %arg3 TAB %arg4 TAB %arg5 TAB %arg6;
 	}
-	else 
+	else
 	{
 		error ("ERROR: BuildMacroSO::PushEvent() - unknown event type \"" @ %eventType @ "\"");
 	}
@@ -17584,7 +17584,7 @@ function BuildMacroSO::compress (%this)
 				{
 					%this.deleteEvent (%j);
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -17615,7 +17615,7 @@ function BuildMacroSO::compress (%this)
 				{
 					%j += 1;
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -17651,7 +17651,7 @@ function BuildMacroSO::compress (%this)
 					%canIndex = getField (%stringB, 2);
 					%this.deleteEvent (%j);
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -17675,7 +17675,7 @@ function BuildMacroSO::compress (%this)
 				{
 					%j += 1;
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -17709,7 +17709,7 @@ function BuildMacroSO::PlayBack (%this, %line)
 	{
 		%time = $pref::Input::MacroRate;
 	}
-	else 
+	else
 	{
 		%time = 10;
 	}
@@ -17803,7 +17803,7 @@ function wrenchEventsDlg::onWake (%this)
 	{
 		WrenchEvents_SendBlocker.setVisible (WrenchSound_SendBlocker.isVisible ());
 	}
-	else 
+	else
 	{
 		WrenchEvents_SendBlocker.setVisible (Wrench_SendBlocker.isVisible ());
 	}
@@ -17835,7 +17835,7 @@ function wrenchEventsDlg::onWake (%this)
 		deleteVariables ("$OutputEvent_*");
 		commandToServer ('RequestEventTables');
 	}
-	else 
+	else
 	{
 		%this.newEvent ();
 		commandToServer ('RequestWrenchEvents');
@@ -17930,7 +17930,7 @@ function ClientCmdRegisterEventsDone ()
 	{
 		commandToServer ('RequestExtendedBrickInfo');
 	}
-	else 
+	else
 	{
 		$GotInputEvents = 1;
 		WrenchEvents_LoadingWindow.setVisible (0);
@@ -18009,7 +18009,7 @@ function wrenchEventsDlg::reshuffleScrollbox (%this, %target)
 		{
 			
 		}
-		else 
+		else
 		{
 			%objList = %objList SPC %obj;
 		}
@@ -18030,7 +18030,7 @@ function wrenchEventsDlg::reshuffleScrollbox (%this, %target)
 		{
 			
 		}
-		else 
+		else
 		{
 			WrenchEvents_Box.add (%obj);
 			%w = getWord (%obj.getExtent (), 0);
@@ -18143,7 +18143,7 @@ function wrenchEventsDlg::CreateNamedBrickList (%this, %box, %targetMenu, %input
 			%namedBrickMenu.forceOnAction ();
 		}
 	}
-	else 
+	else
 	{
 		%namedBrickMenu = new GuiTextCtrl ("");
 		%box.add (%namedBrickMenu);
@@ -18296,7 +18296,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 			{
 				%testVal = getMax (mAbs (%min) * 10, %max);
 			}
-			else 
+			else
 			{
 				%testVal = getMax (mAbs (%min), %max);
 			}
@@ -18386,7 +18386,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 					{
 						
 					}
-					else 
+					else
 					{
 						%gui.add (%db.uiName, %db);
 					}
@@ -18416,7 +18416,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 					{
 						
 					}
-					else 
+					else
 					{
 						%name = fileName (%db.fileName);
 						%gui.add (%name, %db);
@@ -18442,7 +18442,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 					%itr += 1;
 				}
 			}
-			else 
+			else
 			{
 				%itr = 0;
 				while (%itr < %dbCount)
@@ -18457,7 +18457,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 					{
 						
 					}
-					else 
+					else
 					{
 						%gui.add (%db.uiName, %db);
 					}
@@ -18533,7 +18533,7 @@ function wrenchEventsDlg::createOutputParameters (%this, %box, %outputMenu, %out
 			%button.command = "WrenchEventsDlg.CreateColorMenu(" @ %gui @ ");";
 			wrenchEventsDlg.pickColor (%gui, 0);
 		}
-		else 
+		else
 		{
 			error ("ERROR: wrenchEventsDlg::createOutputParameters() - unknown type \"" @ %type @ "\"");
 		}
@@ -18576,7 +18576,7 @@ function wrenchEventsDlg::send (%this)
 			{
 				%NTNameIdx = mFloor (%NTNameMenu.getValue ());
 			}
-			else 
+			else
 			{
 				%NTNameIdx = %NTNameMenu.getSelected ();
 			}
@@ -18616,12 +18616,12 @@ function wrenchEventsDlg::send (%this)
 					%zv = atof (%guiObj.getObject (2).getValue ());
 					%val = %xv SPC %yv SPC %zv;
 				}
-				else 
+				else
 				{
 					error ("ERROR: wrenchEventsDlg::Send() - unknown number of things in a swatch control: " @ %guiObj.getCount ());
 				}
 			}
-			else 
+			else
 			{
 				%val = %guiObj.getValue ();
 			}
@@ -18680,7 +18680,7 @@ function clientCmdAddEvent (%line)
 		%box.getObject (%x).setActive (0);
 		wrenchEventsDlg.createOutputList (%box, %box.getObject (%x), %inputIdx, fxDTSBrick);
 	}
-	else 
+	else
 	{
 		%box.getObject (%x += 1).setSelected (%targetIdx);
 	}
@@ -18709,12 +18709,12 @@ function clientCmdAddEvent (%line)
 				%guiObj.getObject (1).setText (%yv);
 				%guiObj.getObject (2).setText (%zv);
 			}
-			else 
+			else
 			{
 				error ("ERROR: clientCmdAddEvent() - unknown number of things in a swatch control: " @ %guiObj.getCount ());
 			}
 		}
-		else 
+		else
 		{
 			%guiObj.setValue (%par[%j - (%x - 1)]);
 		}
@@ -18770,7 +18770,7 @@ function SimGroup::CLIENTremoveNTName (%obj, %name)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.NTName[%i] = %obj.NTName[%obj.NTNameCount - 1];
 			%obj.NTName[%obj.NTNameCount - 1] = "";
@@ -18882,7 +18882,7 @@ function wrenchEventsDlg::CreateColorMenu (%this, %gui)
 	{
 		%w = %rowLimit * 18;
 	}
-	else 
+	else
 	{
 		%w = %itemCount * 18;
 	}
@@ -18981,7 +18981,7 @@ function metrics (%expr)
 		Canvas.pushDialog (FrameOverlayGui, 1000);
 		TextOverlayControl.setValue (%cb);
 	}
-	else 
+	else
 	{
 		GLEnableMetrics (0);
 		Canvas.popDialog (FrameOverlayGui);
@@ -19043,7 +19043,7 @@ function clientCmdMessageBoxOKCancel (%title, %message, %okServerCmd, %cancelSer
 	{
 		%okCallBack = "";
 	}
-	else 
+	else
 	{
 		%okCallBack = "commandToServer(\'" @ %okString @ "\');";
 	}
@@ -19075,7 +19075,7 @@ function clientCmdMessageBoxYesNo (%title, %message, %okServerCmd, %cancelServer
 	{
 		%okCallBack = "";
 	}
-	else 
+	else
 	{
 		%okCallBack = "commandToServer(\'" @ %okString @ "\');";
 	}
@@ -19320,7 +19320,7 @@ function doPanoramaScreenShot (%val)
 		{
 			panoramaScreenShot ("screenshots/Blockland_" @ formatImageNumber ($pref::screenshotNumber += 1), "PNG");
 		}
-		else 
+		else
 		{
 			panoramaScreenShot ("screenshots/Blockland_" @ formatImageNumber ($pref::screenshotNumber += 1), "PNG");
 		}
@@ -19389,7 +19389,7 @@ package CanvasCursor
 			{
 				cursorOn ();
 			}
-			else 
+			else
 			{
 				cursorOff ();
 			}
@@ -19516,7 +19516,7 @@ function recordingsDlg::onWake ()
 	{
 		%mod = "base";
 	}
-	else 
+	else
 	{
 		%mod = $currentMod;
 	}
@@ -19546,7 +19546,7 @@ function StartSelectedDemo ()
 	{
 		%mod = "base";
 	}
-	else 
+	else
 	{
 		%mod = $currentMod;
 	}
@@ -19559,7 +19559,7 @@ function StartSelectedDemo ()
 		Canvas.popDialog (recordingsDlg);
 		ServerConnection.prepDemoPlayback ();
 	}
-	else 
+	else
 	{
 		MessageBoxOK ("Playback Failed", "Demo playback failed for file \'" @ %file @ "\'.");
 		if (isObject (ServerConnection))
@@ -19581,7 +19581,7 @@ function startDemoRecord ()
 	{
 		%mod = "base";
 	}
-	else 
+	else
 	{
 		%mod = $currentMod;
 	}
@@ -20869,7 +20869,7 @@ function escapeFromGame ()
 	{
 		messageBoxYesNo ("Disconnect", "Stop hosting server?", "disconnect();", "");
 	}
-	else 
+	else
 	{
 		messageBoxYesNo ("Disconnect", "Disconnect from the server?", "disconnect();", "");
 	}
@@ -20972,7 +20972,7 @@ function pitch (%val)
 	{
 		%invert = $Pref::Input::VehicleMouseInvert;
 	}
-	else 
+	else
 	{
 		%invert = $pref::Input::MouseInvert;
 	}
@@ -20980,7 +20980,7 @@ function pitch (%val)
 	{
 		$mvPitch -= %sens * getMouseAdjustAmount (%val);
 	}
-	else 
+	else
 	{
 		$mvPitch += %sens * getMouseAdjustAmount (%val);
 	}
@@ -21002,7 +21002,7 @@ function Walk (%val)
 	{
 		$RunMultiplier = 0.4;
 	}
-	else 
+	else
 	{
 		$RunMultiplier = 1;
 	}
@@ -21063,7 +21063,7 @@ function toggleZoom (%val)
 		$ZoomOn = 1;
 		setFov ($Pref::player::CurrentFOV);
 	}
-	else 
+	else
 	{
 		$ZoomOn = 0;
 		setFov ($pref::Player::defaultFov);
@@ -21076,7 +21076,7 @@ function toggleFreeLook (%val)
 	{
 		$mvFreeLook = 1;
 	}
-	else 
+	else
 	{
 		$mvFreeLook = 0;
 	}
@@ -21090,7 +21090,7 @@ function toggleFirstPerson (%val)
 		{
 			$cameraSpeed = 1000;
 		}
-		else 
+		else
 		{
 			$cameraSpeed = 5;
 		}
@@ -21191,7 +21191,7 @@ function cycleDebugRenderMode (%val)
 			show ();
 		}
 	}
-	else 
+	else
 	{
 		echo ("Debug render modes only available when running a Debug build.");
 	}
@@ -21242,7 +21242,7 @@ function loadClientAddOns ()
 		{
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			%dirNameList[%dirCount] = %dirName;
 			%dirCount += 1;
@@ -21260,7 +21260,7 @@ function loadClientAddOns ()
 		{
 			deleteVariables ("$AddOn__" @ %varName);
 		}
-		else 
+		else
 		{
 			%name = %dirName;
 			%zipFile = "Add-Ons/" @ %dirName @ ".zip";
@@ -21269,7 +21269,7 @@ function loadClientAddOns ()
 				%zipCRC = getFileCRC (%zipFile);
 				echo ("\c4Loading Add-On: " @ %dirName @ " \c1(CRC:" @ %zipCRC @ ")");
 			}
-			else 
+			else
 			{
 				echo ("\c4Loading Add-On: " @ %dirName);
 			}
@@ -21277,7 +21277,7 @@ function loadClientAddOns ()
 			{
 				echo ("\c2ADD-ON \"" @ %dirName @ "\" CONTAINS SYNTAX ERRORS\n");
 			}
-			else 
+			else
 			{
 				exec ("Add-Ons/" @ %dirName @ "/client.cs");
 			}
@@ -21312,7 +21312,7 @@ function applyPhysicsPrefs ()
 		$Physics::enabled = 0;
 		$Physics::maxBricks = 0;
 	}
-	else 
+	else
 	{
 		$Physics::enabled = $pref::Physics::Enabled;
 		$Physics::maxBricks = $pref::Physics::MaxBricks;
@@ -21748,7 +21748,7 @@ function addAllFilesToCache_Tick ()
 			{
 				$AAFTC_file = findFirstFile ($AAFTC_pattern[$AAFTC_i]);
 			}
-			else 
+			else
 			{
 				CacheProgress_Text.setText ("Building Cache Database...");
 				$AAFTC_countedFiles = 1;
@@ -21756,7 +21756,7 @@ function addAllFilesToCache_Tick ()
 				$AAFTC_i = 0;
 			}
 		}
-		else 
+		else
 		{
 			$AAFTC_fileCount += 1;
 			CacheProgress_Text.setText ("Counting files: " @ $AAFTC_fileCount);
@@ -21770,13 +21770,13 @@ function addAllFilesToCache_Tick ()
 		{
 			$AAFTC_file = findFirstFile ($AAFTC_pattern[$AAFTC_i]);
 		}
-		else 
+		else
 		{
 			Canvas.popDialog (CacheProgressGui);
 			return;
 		}
 	}
-	else 
+	else
 	{
 		addFileToCache ($AAFTC_file);
 		CacheProgress_Bar.setValue (($AAFTC_processedFilesCount += 1) / $AAFTC_fileCount);
@@ -21827,7 +21827,7 @@ function EnvGui::onWake (%this)
 		commandToServer ('EnvGui_RequestLists');
 		EnvGui_LoadingOverlay.setVisible (1);
 	}
-	else 
+	else
 	{
 		EnvGui_LoadingOverlay.setVisible (1);
 		commandToServer ('EnvGui_RequestCurrentVars');
@@ -22028,7 +22028,7 @@ function clientCmdEnvGui_AddWater (%filename)
 	{
 		$EnvGui::WaterThumb[$EnvGui::WaterCount] = "base/client/ui/avataricons/none.png";
 	}
-	else 
+	else
 	{
 		$EnvGui::WaterThumb[$EnvGui::WaterCount] = filePath (%filename) @ "/" @ fileBase (%filename) @ "-thumb.jpg";
 	}
@@ -22102,7 +22102,7 @@ function clientCmdEnvGui_ListsDone ()
 		{
 			
 		}
-		else 
+		else
 		{
 			%cmd = "%val = " @ %obj.variable @ ";";
 			eval (%cmd);
@@ -22173,7 +22173,7 @@ function EnvGui::CreateIconMenu (%this, %parentGui, %name, %cmdString, %imgArray
 	{
 		%w = 4 * 64;
 	}
-	else 
+	else
 	{
 		%w = %imgCount * 64;
 	}
@@ -22510,7 +22510,7 @@ function GameModeGui::onRender (%this)
 			GameModeGui_Box.deleteAll ();
 			GameModeGui_LongDescription.setText ("");
 		}
-		else 
+		else
 		{
 			GameModeGui.CreateListItems ();
 			if ($GameModeGui::SelectedGameMode $= "")
@@ -22521,7 +22521,7 @@ function GameModeGui::onRender (%this)
 			GameModeGui.scrollToGameMode ($GameModeGui::SelectedGameMode);
 		}
 	}
-	else 
+	else
 	{
 		GameModeGui.CreateListItems ();
 		if ($Pref::Gui::SelectedGameMode !$= "")
@@ -22533,7 +22533,7 @@ function GameModeGui::onRender (%this)
 				{
 					
 				}
-				else 
+				else
 				{
 					GameModeGui.ClickGameMode (%i);
 					GameModeGui.scrollToGameMode (%i);
@@ -22542,7 +22542,7 @@ function GameModeGui::onRender (%this)
 				%i += 1;
 			}
 		}
-		else 
+		else
 		{
 			GameModeGui.ClickGameMode ($GameModeGui::GameModeCount - 1);
 			GameModeGui.scrollToGameMode ($GameModeGui::GameModeCount - 1);
@@ -22613,7 +22613,7 @@ function GameModeGui::CreateListItems ()
 		{
 			error ("ERROR: GameModeGui::CreateListItems() - null entry " @ %i);
 		}
-		else 
+		else
 		{
 			%descriptionFile = %path @ "/description.txt";
 			%previewFile = %path @ "/preview.jpg";
@@ -22633,7 +22633,7 @@ function GameModeGui::CreateListItems ()
 			{
 				%swatch.setColor ("255 0 0 110");
 			}
-			else 
+			else
 			{
 				%swatch.color = "0 0 0 110";
 			}
@@ -22674,14 +22674,14 @@ function GameModeGui::CreateListItems ()
 					{
 						
 					}
-					else 
+					else
 					{
 						%text = %text @ "<BR>* " @ %field;
 					}
 					%j += 1;
 				}
 			}
-			else 
+			else
 			{
 				%file = new FileObject ("");
 				%file.openForRead (%descriptionFile);
@@ -22776,7 +22776,7 @@ function GameModeGui::GetMissingAddOns (%filename)
 				{
 					%missingAddons = %missingAddons TAB %value;
 				}
-				else 
+				else
 				{
 					%missingAddons = %value;
 				}
@@ -22790,7 +22790,7 @@ function GameModeGui::GetMissingAddOns (%filename)
 				{
 					%missingAddons = %missingAddons TAB %value @ ".ogg";
 				}
-				else 
+				else
 				{
 					%missingAddons = %value;
 				}
@@ -22823,7 +22823,7 @@ function GameModeGui::ClickGameMode (%this, %idx)
 		{
 			%cmd = "GameModeGui_Swatch" @ %i @ ".setColor(\"255 0 0 110\");";
 		}
-		else 
+		else
 		{
 			%cmd = "GameModeGui_Swatch" @ %i @ ".setColor(\"0 0 0 110\");";
 		}
@@ -22843,7 +22843,7 @@ function GameModeGui::ClickGameMode (%this, %idx)
 		GameModeGui_SelectButton.setVisible (0);
 		GameModeGui_LongDescriptionBG.setColor ("255 0 0 110");
 	}
-	else 
+	else
 	{
 		GameModeGui_SelectButton.setVisible (1);
 		GameModeGui_LongDescriptionBG.setColor ("0 0 0 110");
@@ -22871,7 +22871,7 @@ function GameModeGui::scrollToGameMode (%this, %idx)
 	{
 		%y = -1 * getWord (%swatch.position, 1);
 	}
-	else 
+	else
 	{
 		%y = 0;
 	}
@@ -22893,7 +22893,7 @@ function GameModeGui::ClickSelect (%this)
 			Canvas.popDialog (GameModeGui);
 			Canvas.pushDialog (CustomGameGui);
 		}
-		else 
+		else
 		{
 			messageBoxYesNo ("Changing game mode requires restart", "Restart server?\n\n(bricks will NOT be saved)", "canvas.popDialog(GameModeGui); commandToServer(\'GameModeGuiServer_ChangeGameMode\', " @ $GameModeGui::CurrGameModeIdx @ ");", "");
 		}
@@ -22904,7 +22904,7 @@ function GameModeGui::ClickSelect (%this)
 		Canvas.popDialog (GameModeGui);
 		Canvas.pushDialog (CustomGameGui);
 	}
-	else 
+	else
 	{
 		$GameModeArg = %filename;
 		Canvas.popDialog (GameModeGui);
@@ -22918,7 +22918,7 @@ function clientCmdGameModeChange ()
 	{
 		
 	}
-	else 
+	else
 	{
 		schedule (10, 0, disconnect, 1);
 	}
@@ -22954,7 +22954,7 @@ function ServerSettingsGui::onWake (%this)
 			ServerSettingsGui_LAN.setValue (1);
 			ServerSettingsGui.clickLAN ();
 		}
-		else 
+		else
 		{
 			ServerSettingsGui_Internet.setValue (1);
 			ServerSettingsGui.clickInternet ();
@@ -22979,7 +22979,7 @@ function ServerSettingsGui::onWake (%this)
 		ServerSettingsGui_Internet.enabled = 1;
 		ServerSettingsGui_LAN.enabled = 1;
 	}
-	else 
+	else
 	{
 		deleteVariables ("$ServerSettingsGui::*");
 		ServerSettingsGui.ApplyVariablesToGui ();
@@ -23016,7 +23016,7 @@ function ServerSettingsGui::onRender (%this)
 	{
 		
 	}
-	else 
+	else
 	{
 		commandToServer ('ServerSettingsGui_RequestVariables');
 	}
@@ -23179,7 +23179,7 @@ function GuiControl::ScaleText (%this)
 	{
 		ImpactRadioProfile.bitmap = "base/client/ui/impactRadio_small.png";
 	}
-	else 
+	else
 	{
 		ImpactRadioProfile.bitmap = "base/client/ui/impactRadio.png";
 	}
@@ -23189,7 +23189,7 @@ function GuiControl::ScaleText (%this)
 	{
 		ImpactCheckProfile.bitmap = "base/client/ui/impactRadio_small.png";
 	}
-	else 
+	else
 	{
 		ImpactCheckProfile.bitmap = "base/client/ui/impactRadio.png";
 	}
@@ -23208,7 +23208,7 @@ function GuiControl::ScaleText (%this)
 		{
 			
 		}
-		else 
+		else
 		{
 			%text = %obj.getText ();
 			%justRight = stripos (%text, "<just:right>") >= 0;
@@ -23242,7 +23242,7 @@ function ServerSettingsGui::ClickBack (%this)
 			Canvas.pushDialog (GameModeGui);
 		}
 	}
-	else 
+	else
 	{
 		Canvas.popDialog (ServerSettingsGui);
 	}
@@ -23268,7 +23268,7 @@ function ServerSettingsGui::clickLaunchGame (%this)
 		{
 			setTimeScale (10);
 		}
-		else 
+		else
 		{
 			setTimeScale (1);
 		}
@@ -23284,7 +23284,7 @@ function ServerSettingsGui::clickLaunchGame (%this)
 		setParticleDisconnectMode (0);
 		ConnectToServer ("local", $Client::Password, 1, 0);
 	}
-	else 
+	else
 	{
 		ServerSettingsGui.getVariablesFromGui ();
 		commandToServer ('ServerSettingsGui_SetVariable', "ServerType", $ServerSettingsGui::ServerType);
@@ -23347,7 +23347,7 @@ function CustomGameGui::onWake (%this)
 		{
 			exec ("config/server/ADD_ON_LIST.cs");
 		}
-		else 
+		else
 		{
 			exec ("base/server/defaultAddOnList.cs");
 		}
@@ -23356,7 +23356,7 @@ function CustomGameGui::onWake (%this)
 		{
 			exec ("config/server/musicList.cs");
 		}
-		else 
+		else
 		{
 			exec ("base/server/defaultMusicList.cs");
 		}
@@ -23373,7 +23373,7 @@ function CustomGameGui::onWake (%this)
 			CustomGameGui.populateMusicList ();
 		}
 	}
-	else 
+	else
 	{
 		CustomGameGui_SelectButton.setVisible (1);
 	}
@@ -23390,7 +23390,7 @@ function CustomGameGui::onRender (%this)
 		CustomGameGui_SelectButton.setVisible (1);
 		CustomGameGui.clickAddOns ();
 	}
-	else 
+	else
 	{
 		$CustomGameGui::AddOnCount = 0;
 		$CustomGameGui::MusicCount = 0;
@@ -23418,7 +23418,7 @@ function clientCmdCustomGameGui_AddAddOn (%varName, %enabled)
 	{
 		%enabled = 1;
 	}
-	else 
+	else
 	{
 		%enabled = 0;
 	}
@@ -23434,7 +23434,7 @@ function clientCmdCustomGameGui_AddMusic (%base, %enabled)
 	{
 		%enabled = 1;
 	}
-	else 
+	else
 	{
 		%enabled = 0;
 	}
@@ -23546,7 +23546,7 @@ function clientCmdCustomGameGui_AddAdvancedConfig (%varName, %value)
 	{
 		$CustomGameGui::BrickPublicDomainTimeout = %intVal;
 	}
-	else 
+	else
 	{
 		error ("ERROR: clientCmdCustomGameGui_AddAdvancedConfig(" @ %varName @ ", " @ %value @ ") - unknown %varName");
 	}
@@ -23578,7 +23578,7 @@ function CustomGameGui::populateAddOnList (%this)
 		{
 			%filename = findNextFile (%pattern);
 		}
-		else 
+		else
 		{
 			$CustomGameGui::AddOn[$CustomGameGui::AddOnCount] = %dirName;
 			$CustomGameGui::AddOnEnabled[%varName] = $AddOn__[%varName];
@@ -23606,7 +23606,7 @@ function CustomGameGui::populateMusicList (%this)
 		{
 			%filename = findNextFile (%pattern);
 		}
-		else 
+		else
 		{
 			$CustomGameGui::Music[$CustomGameGui::MusicCount] = %base;
 			$CustomGameGui::MusicEnabled[%varName] = $Music__[%varName];
@@ -23644,7 +23644,7 @@ function CustomGameGui::CreateAddOnListGui (%this)
 		{
 			%newCB.setValue (1);
 		}
-		else 
+		else
 		{
 			%newCB.setValue (0);
 		}
@@ -23686,7 +23686,7 @@ function CustomGameGui::CreateMusicListGui (%this)
 		{
 			%newCB.setValue (1);
 		}
-		else 
+		else
 		{
 			%newCB.setValue (0);
 		}
@@ -23824,7 +23824,7 @@ function CustomGameGui::AddAdvancedGuiElement (%this, %label, %varName, %type, %
 	{
 		%labelWidth = getWord (%box.getExtent (), 0) * 0.5;
 	}
-	else 
+	else
 	{
 		%labelWidth = getWord (%box.getExtent (), 0) * 0.4;
 	}
@@ -23852,7 +23852,7 @@ function CustomGameGui::AddAdvancedGuiElement (%this, %label, %varName, %type, %
 			%newText.variable = %varName;
 			%newText.setValue (%default);
 		}
-		else 
+		else
 		{
 			%newText.variable = %varName;
 			%newText.setValue (%varValue);
@@ -23879,7 +23879,7 @@ function CustomGameGui::AddAdvancedGuiElement (%this, %label, %varName, %type, %
 			%newCB.variable = %varName;
 			%newCB.setValue (%default);
 		}
-		else 
+		else
 		{
 			%newCB.variable = %varName;
 			%newCB.setValue (%varValue);
@@ -24044,7 +24044,7 @@ function CustomGameGui::clickDefault (%this)
 			{
 				
 			}
-			else 
+			else
 			{
 				%obj.setValue (%obj.defaultValue);
 			}
@@ -24062,7 +24062,7 @@ function CustomGameGui::clickAll (%this)
 		%box = CustomGameGui_MusicBox;
 		$CustomGameGui::MusicDirty = 1;
 	}
-	else 
+	else
 	{
 		%box = CustomGameGui_AddOnsBox;
 		$CustomGameGui::AddOnsDirty = 1;
@@ -24080,7 +24080,7 @@ function CustomGameGui::clickAll (%this)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.setValue (1);
 		}
@@ -24096,7 +24096,7 @@ function CustomGameGui::clickNone (%this)
 		%box = CustomGameGui_MusicBox;
 		$CustomGameGui::MusicDirty = 1;
 	}
-	else 
+	else
 	{
 		%box = CustomGameGui_AddOnsBox;
 		$CustomGameGui::AddOnsDirty = 1;
@@ -24114,7 +24114,7 @@ function CustomGameGui::clickNone (%this)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.setValue (0);
 		}
@@ -24136,7 +24136,7 @@ function CustomGameGui::ClickSelect (%this)
 			{
 				
 			}
-			else 
+			else
 			{
 				%varName = %obj.varName;
 				$Music__[%varName] = %obj.getValue () ? 1 : -1;
@@ -24154,7 +24154,7 @@ function CustomGameGui::ClickSelect (%this)
 			{
 				
 			}
-			else 
+			else
 			{
 				%varName = %obj.varName;
 				$AddOn__[%varName] = %obj.getValue () ? 1 : -1;
@@ -24171,7 +24171,7 @@ function CustomGameGui::ClickSelect (%this)
 		Canvas.popDialog (CustomGameGui);
 		Canvas.pushDialog (ServerSettingsGui);
 	}
-	else 
+	else
 	{
 		if ($CustomGameGui::AddOnsDirty)
 		{
@@ -24206,14 +24206,14 @@ function CustomGameGui::ClickSelect (%this)
 				{
 					
 				}
-				else 
+				else
 				{
 					%varName = %obj.variable;
 					if (%varName $= "")
 					{
 						
 					}
-					else 
+					else
 					{
 						%varName = strreplace (%varName, "$CustomGameGui::", "$Pref::Server::");
 						%value = %obj.getValue ();
@@ -24471,7 +24471,7 @@ function steamOnLobbyEnter (%yourLobby)
 				%serverIP = $MyTCPIPAddress;
 				%serverPort = $Server::Port;
 			}
-			else 
+			else
 			{
 				%serverIP = ServerConnection.getRawIP ();
 				%serverPort = ServerConnection.getPort ();
@@ -24522,7 +24522,7 @@ function ConsoleEntry::eval ()
 	{
 		quit ();
 	}
-	else 
+	else
 	{
 		eval (%text);
 	}
@@ -24543,7 +24543,7 @@ function toggleConsole (%make)
 			Canvas.popDialog (ConsoleDlg);
 			$ConsoleActive = 0;
 		}
-		else 
+		else
 		{
 			if ($enableDirectInput && isWindows ())
 			{
@@ -24654,7 +24654,7 @@ function hatTCPObj::onLine (%this, %line)
 		{
 			echo ("Hat ticket signature verified");
 		}
-		else 
+		else
 		{
 			echo ("ERROR: bad hat ticket signature from master server");
 			$HatTicket = "";

@@ -20,7 +20,7 @@ function initClient ()
 				$pref::Video::resolution = "800 600 32";
 			}
 		}
-		else 
+		else
 		{
 			%desktopW = getWord (getDesktopResolution (), 0);
 			%desktopH = getWord (getDesktopResolution (), 1);
@@ -34,7 +34,7 @@ function initClient ()
 			{
 				$pref::Video::resolution = "1280 720 " @ %desktopBpp;
 			}
-			else 
+			else
 			{
 				$pref::Video::resolution = "800 600 " @ %desktopBpp;
 			}
@@ -168,7 +168,7 @@ function notifyArrangedFinish (%nonceA, %nonceB, %spamConnect)
 	{
 		%isClient = 0;
 	}
-	else 
+	else
 	{
 		%isClient = 1;
 		%spamConnect = 0;
@@ -233,7 +233,7 @@ function onSendPunchPacket (%ip)
 	{
 		Connecting_Text.setText (Connecting_Text.getText () @ "\nSending punch packet...");
 	}
-	else 
+	else
 	{
 		echo ("Sending punch packet to " @ %ip);
 	}

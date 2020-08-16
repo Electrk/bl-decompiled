@@ -25,7 +25,7 @@ function registerInputEvent (%class, %name, %targetList, %adminOnly)
 		{
 			$InputEvent_ClassList = %class;
 		}
-		else 
+		else
 		{
 			$InputEvent_ClassList = $InputEvent_ClassList SPC %class;
 		}
@@ -143,7 +143,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 		{
 			
 		}
-		else 
+		else
 		{
 			%foundOne = 1;
 			break;
@@ -162,7 +162,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 	{
 		%quotaObject = getQuotaObjectFromBrick (%obj);
 	}
-	else 
+	else
 	{
 		if (getBuildString () !$= "Ship")
 		{
@@ -213,21 +213,21 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 				{
 					
 				}
-				else 
+				else
 				{
 					%target.cancelEvents ();
 				}
 				%j += 1;
 			}
 		}
-		else 
+		else
 		{
 			%target = $InputTarget_[%obj.eventTarget[%i]];
 			if (!isObject (%target))
 			{
 				
 			}
-			else 
+			else
 			{
 				%target.cancelEvents ();
 			}
@@ -262,14 +262,14 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 				{
 					
 				}
-				else 
+				else
 				{
 					%eventCount += 1;
 				}
 				%j += 1;
 			}
 		}
-		else 
+		else
 		{
 			%eventCount += 1;
 		}
@@ -287,7 +287,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 		{
 			%client.SQH_StartTime = %currTime;
 		}
-		else 
+		else
 		{
 			if (%currTime - %client.SQH_LastTime < 2000)
 			{
@@ -324,7 +324,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 		{
 			
 		}
-		else 
+		else
 		{
 			%delay = %obj.eventDelay[%i];
 			%outputEvent = %obj.eventOutput[%i];
@@ -345,7 +345,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 					{
 						
 					}
-					else 
+					else
 					{
 						%targetClass = "fxDTSBrick";
 						%numParameters = outputEvent_GetNumParametersFromIdx (%targetClass, %outputEventIdx);
@@ -371,7 +371,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 							{
 								%scheduleID = %target.schedule (%delay, %outputEvent, %par1, %par2, %par3, %par4, %client);
 							}
-							else 
+							else
 							{
 								error ("ERROR: SimObject::ProcessInputEvent() - bad number of parameters on event \'" @ %outputEvent @ "\' (" @ numParameters @ ")");
 							}
@@ -396,7 +396,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 						{
 							%scheduleID = %target.schedule (%delay, %outputEvent, %par1, %par2, %par3, %par4);
 						}
-						else 
+						else
 						{
 							error ("ERROR: SimObject::ProcessInputEvent() - bad number of parameters on event \'" @ %outputEvent @ "\' (" @ numParameters @ ")");
 						}
@@ -408,14 +408,14 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 					%j += 1;
 				}
 			}
-			else 
+			else
 			{
 				%target = $InputTarget_[%obj.eventTarget[%i]];
 				if (!isObject (%target))
 				{
 					
 				}
-				else 
+				else
 				{
 					%targetClass = inputEvent_GetTargetClass ("fxDTSBrick", %obj.eventInputIdx[%i], %obj.eventTargetIdx[%i]);
 					%numParameters = outputEvent_GetNumParametersFromIdx (%targetClass, %outputEventIdx);
@@ -441,7 +441,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 						{
 							%scheduleID = %target.schedule (%delay, %outputEvent, %par1, %par2, %par3, %par4, %client);
 						}
-						else 
+						else
 						{
 							error ("ERROR: SimObject::ProcessInputEvent() - bad number of parameters on event \'" @ %outputEvent @ "\' (" @ numParameters @ ")");
 						}
@@ -466,7 +466,7 @@ function SimObject::processInputEvent (%obj, %EventName, %client)
 					{
 						%scheduleID = %target.schedule (%delay, %outputEvent, %par1, %par2, %par3, %par4);
 					}
-					else 
+					else
 					{
 						error ("ERROR: SimObject::ProcessInputEvent() - bad number of parameters on event \'" @ %outputEvent @ "\' (" @ numParameters @ ")");
 					}
@@ -507,7 +507,7 @@ function SimObject::SetEventEnabled (%obj, %idxList, %val)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.eventEnabled[%idx] = %val;
 		}
@@ -540,7 +540,7 @@ function SimObject::ToggleEventEnabled (%obj, %idxList)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.eventEnabled[%idx] = !%obj.eventEnabled[%idx];
 		}
@@ -558,7 +558,7 @@ function SimObject::addScheduledEvent (%obj, %scheduleID)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.scheduledEvent[%i] = %scheduleID;
 			return;
@@ -616,7 +616,7 @@ function registerOutputEvent (%class, %name, %parameterList, %appendClient)
 		{
 			$OutputEvent_ClassList = %class;
 		}
-		else 
+		else
 		{
 			$OutputEvent_ClassList = $OutputEvent_ClassList SPC %class;
 		}
@@ -807,7 +807,7 @@ function verifyOutputParameterList (%class, %idx)
 		{
 			%verifiedField = "paintColor";
 		}
-		else 
+		else
 		{
 			error ("WARNING: Unknown output parameter type \"" @ %type @ "\" on class:" @ %class @ ", event:" @ $OutputEvent_Name[%class, %idx]);
 			%verifiedField = %field;
@@ -816,7 +816,7 @@ function verifyOutputParameterList (%class, %idx)
 		{
 			%verifiedList = %verifiedField;
 		}
-		else 
+		else
 		{
 			%verifiedList = %verifiedList TAB %verifiedField;
 		}
@@ -851,7 +851,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 	{
 		%clientIsAdmin = %client.isAdmin;
 	}
-	else 
+	else
 	{
 		%client.isAdmin = 1;
 	}
@@ -913,7 +913,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 	{
 		%targetClass = "fxDTSBrick";
 	}
-	else 
+	else
 	{
 		%targetClass = getWord (getField ($InputEvent_TargetList[%brickClass, %inputEventIdx], %targetIdx), 1);
 	}
@@ -952,7 +952,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 			{
 				%verifiedPar[%i] = "ALL";
 			}
-			else 
+			else
 			{
 				%verifiedPar[%i] = "";
 				%w = 0;
@@ -963,7 +963,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 					{
 						%verifiedPar[%i] = %word;
 					}
-					else 
+					else
 					{
 						%verifiedPar[%i] = %verifiedPar[%i] SPC %word;
 					}
@@ -993,7 +993,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 			{
 				%verifiedPar[%i] = 1;
 			}
-			else 
+			else
 			{
 				%verifiedPar[%i] = 0;
 			}
@@ -1038,7 +1038,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 			{
 				%newDB = -1;
 			}
-			else 
+			else
 			{
 				if (%dbClassName $= "FxLightData")
 				{
@@ -1054,7 +1054,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 					{
 						%newDB = "gunProjectile";
 					}
-					else 
+					else
 					{
 						%newDB = "deathProjectile";
 					}
@@ -1079,7 +1079,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 				{
 					%newDB = "PlayerStandardArmor";
 				}
-				else 
+				else
 				{
 					%newDB = -1;
 				}
@@ -1087,7 +1087,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 				{
 					%newDB = %newDB.getId ();
 				}
-				else 
+				else
 				{
 					%newDB = -1;
 				}
@@ -1140,7 +1140,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 						return;
 					}
 				}
-				else 
+				else
 				{
 					if (%newDB.getClassName () !$= %dbClassName)
 					{
@@ -1208,7 +1208,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 			}
 			%verifiedPar[%i] = mClamp (%color, 0, $maxSprayColors);
 		}
-		else 
+		else
 		{
 			error ("ERROR: serverCmdAddEvent() - default type validation for type \"" @ %type @ "\"");
 			%verifiedPar[%i] = strreplace (%par[%i], ";", "");
@@ -1228,7 +1228,7 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 		%brick.eventTarget[%i] = -1;
 		%brick.eventNT[%i] = %brick.getGroup ().NTName[%NTNameIdx];
 	}
-	else 
+	else
 	{
 		%brick.eventTarget[%i] = getWord (getField ($InputEvent_TargetList[%brickClass, %inputEventIdx], %targetIdx), 0);
 		%brick.eventNT[%i] = "";
@@ -1265,14 +1265,14 @@ function serverCmdAddEvent (%client, %enabled, %inputEventIdx, %delay, %targetId
 			{
 				
 			}
-			else 
+			else
 			{
 				%outputEvent = %obj.eventOutput[%i];
 				if (%outputEvent !$= "fireRelay")
 				{
 					
 				}
-				else 
+				else
 				{
 					%obj.implicitCancelEvents = 1;
 					break;
@@ -1375,7 +1375,7 @@ function SimObject::serializeEvent (%obj, %idx)
 			{
 				
 			}
-			else 
+			else
 			{
 				%NTNameIdx = %i;
 				break;
@@ -1383,7 +1383,7 @@ function SimObject::serializeEvent (%obj, %idx)
 			%i += 1;
 		}
 	}
-	else 
+	else
 	{
 		%NTNameIdx = "";
 	}
@@ -1398,7 +1398,7 @@ function SimObject::serializeEventToString (%obj, %idx, %client)
 	{
 		%targetClass = "fxDTSBrick";
 	}
-	else 
+	else
 	{
 		%targetClass = getWord (getField ($InputEvent_TargetList["fxDTSBrick", %obj.eventInputIdx[%idx]], %obj.eventTargetIdx[%idx]), 1);
 	}
@@ -1413,12 +1413,12 @@ function SimObject::serializeEventToString (%obj, %idx, %client)
 			{
 				%line = %line TAB %obj.eventOutputParameter[%idx, %i + 1].getName ();
 			}
-			else 
+			else
 			{
 				%line = %line TAB -1;
 			}
 		}
-		else 
+		else
 		{
 			%line = %line TAB %obj.eventOutputParameter[%idx, %i + 1];
 		}
@@ -1456,7 +1456,7 @@ function SimObject::serializeEventToString (%obj, %idx, %client)
 				}
 			}
 		}
-		else 
+		else
 		{
 			%targetClass = inputEvent_GetTargetClass ("fxDTSBrick", %obj.eventInputIdx[%idx], %obj.eventTargetIdx[%idx]);
 			if (%targetClass $= "fxDTSBrick")
@@ -1574,7 +1574,7 @@ function SimObject::clearNTObjectName (%obj)
 		{
 			
 		}
-		else 
+		else
 		{
 			%group.NTObject[%oldName, %i] = %group.NTObject[%oldName, %group.NTObjectCount[%oldName] - 1];
 			%group.NTObject[%oldName, %group.NTObjectCount[%oldName] - 1] = "";
@@ -1616,7 +1616,7 @@ function SimGroup::addNTName (%obj, %name)
 		{
 			
 		}
-		else 
+		else
 		{
 			commandToClient (%client, 'AddNTName', %name);
 		}
@@ -1634,7 +1634,7 @@ function SimGroup::removeNTName (%obj, %name)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.NTName[%i] = %obj.NTName[%obj.NTNameCount - 1];
 			%obj.NTName[%obj.NTNameCount - 1] = "";
@@ -1656,7 +1656,7 @@ function SimGroup::removeNTName (%obj, %name)
 		{
 			
 		}
-		else 
+		else
 		{
 			commandToClient (%client, 'RemoveNTName', %name);
 		}
@@ -1789,7 +1789,7 @@ function GameConnection::TransmitExtendedBrickInfo (%client, %groupIdx, %brickId
 				{
 					commandToClient (%client, 'TransmitBrickOwner', %ghostID, %brick.bl_id);
 				}
-				else 
+				else
 				{
 					commandToClient (%client, 'TransmitBrickOwner', %ghostID, %brick.getGroup ().bl_id);
 				}
@@ -1898,7 +1898,7 @@ function QueueSO::pop (%obj)
 		%obj.val[%obj.head] = 0;
 		return %ret;
 	}
-	else 
+	else
 	{
 		return 0;
 	}
@@ -1933,7 +1933,7 @@ function serverCmdClearColors (%client)
 	{
 		
 	}
-	else 
+	else
 	{
 		%name = $LoadingBricks_Client.getPlayerName ();
 		messageClient (%client, '', %name SPC "is loading bricks right now. Try again later.");
@@ -1954,7 +1954,7 @@ function serverCmdSetColorMethod (%client, %val)
 	{
 		$LoadingBricks_ColorMethod = %val;
 	}
-	else 
+	else
 	{
 		$LoadingBricks_ColorMethod = 3;
 	}
@@ -2009,7 +2009,7 @@ function serverCmdInitUploadHandshake (%client)
 		{
 			%name = $LoadingBricks_Client.getPlayerName ();
 		}
-		else 
+		else
 		{
 			%name = $LoadingBricks_Name;
 		}
@@ -2024,7 +2024,7 @@ function serverCmdInitUploadHandshake (%client)
 		$LoadBrick_FileObj.openForWrite ("base/server/temp/temp.bls");
 		$LoadingBricks_TimeoutSchedule = schedule (30 * 1000, 0, serverLoadBricks_Timeout);
 	}
-	else 
+	else
 	{
 		%name = $LoadingBricks_Client.getPlayerName ();
 		messageClient (%client, '', %name SPC "is loading bricks right now. Try again later.");
@@ -2045,7 +2045,7 @@ function serverCmdStartSaveFileUpload (%client, %colorMethod)
 		{
 			$LoadingBricks_ColorMethod = %colorMethod;
 		}
-		else 
+		else
 		{
 			$LoadingBricks_ColorMethod = 3;
 		}
@@ -2089,7 +2089,7 @@ function serverCmdStartSaveFileUpload (%client, %colorMethod)
 				{
 					$LoadingBricks_divCount += 1;
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -2106,7 +2106,7 @@ function serverCmdStartSaveFileUpload (%client, %colorMethod)
 			
 		}
 	}
-	else 
+	else
 	{
 		%name = $LoadingBricks_Client.getPlayerName ();
 		messageClient (%client, '', %name SPC "is loading bricks right now. Try again later.");
@@ -2139,7 +2139,7 @@ function serverLoadBricks_Timeout ()
 	{
 		%name = $LoadingBricks_Client.getPlayerName ();
 	}
-	else 
+	else
 	{
 		%name = $LoadingBricks_Name;
 	}
@@ -2171,7 +2171,7 @@ function ServerLoadSaveFile_Start (%filename)
 	{
 		$Server_LoadFileObj.openForRead (%filename);
 	}
-	else 
+	else
 	{
 		$Server_LoadFileObj.openForRead ("base/server/temp/temp.bls");
 	}
@@ -2225,7 +2225,7 @@ function ServerLoadSaveFile_ProcessColorData ()
 			{
 				%divCount += 1;
 			}
-			else 
+			else
 			{
 				break;
 			}
@@ -2305,7 +2305,7 @@ function ServerLoadSaveFile_ProcessColorData ()
 			{
 				
 			}
-			else 
+			else
 			{
 				%minDiff = 99999;
 				%matchIdx = -1;
@@ -2325,7 +2325,7 @@ function ServerLoadSaveFile_ProcessColorData ()
 					{
 						%diff += 1000;
 					}
-					else 
+					else
 					{
 						%diff += mAbs (mAbs (%checkAlpha) - mAbs (%alpha)) * 0.5;
 					}
@@ -2340,7 +2340,7 @@ function ServerLoadSaveFile_ProcessColorData ()
 				{
 					error ("ERROR - LoadBricks() - Nearest match failed - wtf.");
 				}
-				else 
+				else
 				{
 					$colorTranslation[%i] = %matchIdx;
 				}
@@ -2404,7 +2404,7 @@ function ServerLoadSaveFile_Tick ()
 			{
 				%targetClass = "fxDTSBrick";
 			}
-			else 
+			else
 			{
 				%field = getField ($InputEvent_TargetList["fxDTSBrick", %inputEventIdx], %targetIdx);
 				%targetClass = getWord (%field, 1);
@@ -2469,7 +2469,7 @@ function ServerLoadSaveFile_Tick ()
 					%enabled = 1;
 				}
 			}
-			else 
+			else
 			{
 				%enabled = 1;
 			}
@@ -2494,7 +2494,7 @@ function ServerLoadSaveFile_Tick ()
 			{
 				%db = 0;
 			}
-			else 
+			else
 			{
 				%db = $uiNameTable_Emitters[%dbName];
 			}
@@ -2528,7 +2528,7 @@ function ServerLoadSaveFile_Tick ()
 			{
 				%db = 0;
 			}
-			else 
+			else
 			{
 				%db = $uiNameTable_Items[%dbName];
 			}
@@ -2628,14 +2628,14 @@ function ServerLoadSaveFile_Tick ()
 				{
 					
 				}
-				else 
+				else
 				{
 					%ownerBrickGroup = "BrickGroup_" @ %ownerBLID;
 					if (isObject (%ownerBrickGroup))
 					{
 						%ownerBrickGroup = %ownerBrickGroup.getId ();
 					}
-					else 
+					else
 					{
 						%ownerBrickGroup = new SimGroup (("BrickGroup_" @ %ownerBLID));
 						%ownerBrickGroup.client = 0;
@@ -2662,7 +2662,7 @@ function ServerLoadSaveFile_Tick ()
 			}
 		}
 	}
-	else 
+	else
 	{
 		if (getBrickCount () >= getBrickLimit ())
 		{
@@ -2700,7 +2700,7 @@ function ServerLoadSaveFile_Tick ()
 				%printId = $printNameTable["Letters/-space"];
 			}
 		}
-		else 
+		else
 		{
 			%printId = $printNameTable[%printName];
 		}
@@ -2744,7 +2744,7 @@ function ServerLoadSaveFile_Tick ()
 			{
 				$LoadingBricks_BrickGroup.add (%b);
 			}
-			else 
+			else
 			{
 				error ("ERROR: ServerLoadSaveFile_Tick() - $LoadingBricks_BrickGroup does not exist!");
 				MessageAll ('', "ERROR: ServerLoadSaveFile_Tick() - $LoadingBricks_BrickGroup does not exist!");
@@ -2762,7 +2762,7 @@ function ServerLoadSaveFile_Tick ()
 				%b.delete ();
 				$LastLoadedBrick = 0;
 			}
-			else 
+			else
 			{
 				if (%rayCasting !$= "")
 				{
@@ -2802,13 +2802,13 @@ function ServerLoadSaveFile_Tick ()
 						}
 					}
 				}
-				else 
+				else
 				{
 					$LastLoadedBrick.client = $LoadingBricks_Client;
 				}
 			}
 		}
-		else 
+		else
 		{
 			if (!$Load_MissingBrickWarned[%uiName])
 			{
@@ -2835,12 +2835,12 @@ function ServerLoadSaveFile_Tick ()
 		{
 			$LoadSaveFile_Tick_Schedule = schedule (0, 0, ServerLoadSaveFile_Tick);
 		}
-		else 
+		else
 		{
 			$LoadSaveFile_Tick_Schedule = schedule (0, 0, ServerLoadSaveFile_Tick);
 		}
 	}
-	else 
+	else
 	{
 		ServerLoadSaveFile_End ();
 	}
@@ -2964,7 +2964,7 @@ function createUINameTable ()
 				{
 					$uiNameTable_Music[%db.uiName] = %db;
 				}
-				else 
+				else
 				{
 					$uiNameTable_Sounds[%db.uiName] = %db;
 				}
@@ -3056,12 +3056,12 @@ function serverDirectSaveFileLoad (%filename, %colorMethod, %dirName, %ownership
 		{
 			$LoadingBricks_BrickGroup = "BrickGroup_888888";
 		}
-		else 
+		else
 		{
 			$LoadingBricks_BrickGroup = $LoadingBricks_Client.brickGroup;
 		}
 	}
-	else 
+	else
 	{
 		if ($Server::LAN)
 		{
@@ -3069,7 +3069,7 @@ function serverDirectSaveFileLoad (%filename, %colorMethod, %dirName, %ownership
 			{
 				$LoadingBricks_BrickGroup = "BrickGroup_888888";
 			}
-			else 
+			else
 			{
 				$LoadingBricks_BrickGroup = "BrickGroup_999999";
 			}
@@ -3078,7 +3078,7 @@ function serverDirectSaveFileLoad (%filename, %colorMethod, %dirName, %ownership
 		{
 			$LoadingBricks_BrickGroup = "BrickGroup_888888";
 		}
-		else 
+		else
 		{
 			$LoadingBricks_BrickGroup = "BrickGroup_" @ getMyBLID ();
 		}
@@ -3140,7 +3140,7 @@ function serverCmdEndSaveFileUpload (%client)
 		{
 			$LoadingBricks_BrickGroup = "BrickGroup_888888";
 		}
-		else 
+		else
 		{
 			$LoadingBricks_BrickGroup = $LoadingBricks_Client.brickGroup;
 		}
@@ -3156,7 +3156,7 @@ function serverCmdEndSaveFileUpload (%client)
 		}
 		ServerLoadSaveFile_Start ();
 	}
-	else 
+	else
 	{
 		messageClient (%client, '', "Error: serverCmdEndSaveFileUpload() - you are not currently loading bricks.");
 	}
@@ -3373,7 +3373,7 @@ function getLine (%phrase, %lineNum)
 		{
 			%len = %pos - %offset;
 		}
-		else 
+		else
 		{
 			%len = 99999;
 		}
@@ -3466,7 +3466,7 @@ function getTimeString (%timeS)
 		}
 		return %minutes @ ":" @ %seconds;
 	}
-	else 
+	else
 	{
 		%seconds = %timeS;
 		if (%seconds < 10)
@@ -3519,7 +3519,7 @@ function serverCmdKick (%client, %victim)
 			{
 				messageClient (%client, '', '\c5You can\'t kick the server owner.');
 			}
-			else 
+			else
 			{
 				echo ("\c2You can\'t kick the server owner.");
 			}
@@ -3541,13 +3541,13 @@ function serverCmdKick (%client, %victim)
 			}
 			return;
 		}
-		else 
+		else
 		{
 			if ($Server::LAN)
 			{
 				MessageAll ('MsgAdminForce', '\c3%1\c2 kicked \c3%2', %client.getPlayerName (), %victim.getPlayerName ());
 			}
-			else 
+			else
 			{
 				MessageAll ('MsgAdminForce', '\c3%1\c2 kicked \c3%2\c2(ID: %3)', %client.getPlayerName (), %victim.getPlayerName (), %victim.getBLID (), %victim.getRawIP ());
 			}
@@ -3560,13 +3560,13 @@ function serverCmdKick (%client, %victim)
 			{
 				%victim.delete ("You have been kicked.");
 			}
-			else 
+			else
 			{
 				%victim.delete ("You have been kicked by " @ %client.getPlayerName () @ " (BLID: " @ %client.getBLID () @ ")");
 			}
 		}
 	}
-	else 
+	else
 	{
 		%victim.delete ('You have been kicked.');
 	}
@@ -3610,7 +3610,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 				{
 					messageClient (%client, '', '\c5You can\'t ban Super-Admins.');
 				}
-				else 
+				else
 				{
 					echo ("\c2You can\'t ban Super-Admins.");
 				}
@@ -3622,7 +3622,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 				{
 					messageClient (%client, '', '\c5You can\'t ban the local client.');
 				}
-				else 
+				else
 				{
 					echo ("\c2You can\'t ban the local client.");
 				}
@@ -3637,7 +3637,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 		{
 			messageClient (%client, '', '\c5You can\'t ban the server owner.');
 		}
-		else 
+		else
 		{
 			echo ("\c2You can\'t ban the server owner.");
 		}
@@ -3647,7 +3647,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 	{
 		%victimName = %victimID.getPlayerName ();
 	}
-	else 
+	else
 	{
 		%brickGroup = "BrickGroup_" @ %victimBL_ID;
 		if (isObject (%brickGroup))
@@ -3659,7 +3659,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 	{
 		echo ("BAN issued by ", %client.getPlayerName (), " BL_ID:", %client.getBLID (), " IP:", %client.getRawIP ());
 	}
-	else 
+	else
 	{
 		echo ("BAN issued by CONSOLE");
 	}
@@ -3675,7 +3675,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 	{
 		%adminName = %client.getPlayerName ();
 	}
-	else 
+	else
 	{
 		%adminName = "CONSOLE";
 	}
@@ -3685,7 +3685,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 	{
 		MessageAll ('MsgAdminForce', '\c3%1\c2 permanently banned \c3%2\c2 (ID: %3) - \c2\"%4\"', %adminName, %victimName, %victimBL_ID, %reason);
 	}
-	else 
+	else
 	{
 		MessageAll ('MsgAdminForce', '\c3%1\c2 banned \c3%2\c2 (ID: %3) for %4 minutes - \c2\"%5\"', %adminName, %victimName, %victimBL_ID, %banTime, %reason);
 	}
@@ -3707,7 +3707,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 				{
 					%cl.schedule (0, delete, "\nYou have been banned for " @ %banTime @ " minute by " @ %client.getPlayerName () @ " (BLID: " @ %client.getBLID () @ ")\n\nReason: " @ %reason);
 				}
-				else 
+				else
 				{
 					%cl.schedule (0, delete, "\nYou have been banned for " @ %banTime @ " minutes by " @ %client.getPlayerName () @ " (BLID: " @ %client.getBLID () @ ")\n\nReason: " @ %reason);
 				}
@@ -3716,7 +3716,7 @@ function serverCmdBan (%client, %victimID, %victimBL_ID, %banTime, %reason)
 			{
 				%cl.schedule (0, delete, "\nYou have been banned for " @ %banTime @ " minute.\n\nReason: " @ %reason);
 			}
-			else 
+			else
 			{
 				%cl.schedule (0, delete, "\nYou have been banned for " @ %banTime @ " minutes.\n\nReason: " @ %reason);
 			}
@@ -3750,7 +3750,7 @@ function BanManagerSO::addBan (%this, %adminID, %victimID, %victimBL_ID, %reason
 		%adminName = %adminID.getPlayerName ();
 		%adminBL_ID = %adminID.getBLID ();
 	}
-	else 
+	else
 	{
 		%adminName = "CONSOLE";
 		%adminBL_ID = -1;
@@ -3759,7 +3759,7 @@ function BanManagerSO::addBan (%this, %adminID, %victimID, %victimBL_ID, %reason
 	{
 		%victimName = %victimID.getPlayerName ();
 	}
-	else 
+	else
 	{
 		%brickGroup = "BrickGroup_" @ %victimBL_ID;
 		if (isObject (%brickGroup))
@@ -3771,7 +3771,7 @@ function BanManagerSO::addBan (%this, %adminID, %victimID, %victimBL_ID, %reason
 	{
 		%victimIP = %victimID.getRawIP ();
 	}
-	else 
+	else
 	{
 		%victimIP = "";
 	}
@@ -3782,7 +3782,7 @@ function BanManagerSO::addBan (%this, %adminID, %victimID, %victimBL_ID, %reason
 		%banOverYear = -1;
 		%banOverTime = -1;
 	}
-	else 
+	else
 	{
 		%currTime = getCurrentMinuteOfYear ();
 		%banOverYear = getCurrentYear ();
@@ -3945,7 +3945,7 @@ function BanManagerSO::sendBanList (%this, %client)
 			%line = %line TAB -1;
 			commandToClient (%client, 'AddUnBanLine', %line, %i);
 		}
-		else 
+		else
 		{
 			%timeLeft = %this.expirationMinute[%i] - getCurrentMinuteOfYear ();
 			%timeLeft += (%this.expirationYear[%i] - getCurrentYear ()) * 525600;
@@ -3988,12 +3988,12 @@ function BanManagerSO::isBanned (%this, %testBL_ID)
 					%this.removeBan (%i);
 					%i -= 1;
 				}
-				else 
+				else
 				{
 					return 1 TAB %this.Reason[%i];
 				}
 			}
-			else 
+			else
 			{
 				return 1 TAB %this.Reason[%i];
 			}
@@ -4308,7 +4308,7 @@ function GameConnection::applyBodyParts (%client)
 		%player.unHideNode (skirtTrimLeft);
 		%player.unHideNode (skirtTrimRight);
 	}
-	else 
+	else
 	{
 		%player.unHideNode ($Hip[%client.hip]);
 		%player.unHideNode ($LLeg[%client.lleg]);
@@ -4322,7 +4322,7 @@ function GameConnection::applyBodyParts (%client)
 	{
 		%player.setHeadUp (0);
 	}
-	else 
+	else
 	{
 		%player.setHeadUp (1);
 	}
@@ -4360,7 +4360,7 @@ function GameConnection::applyBodyColors (%client)
 		%player.setNodeColor ("head", "0 0 0 1");
 		return;
 	}
-	else 
+	else
 	{
 		%player.setNodeColor ("ALL", %client.chestColor);
 		return;
@@ -4404,7 +4404,7 @@ function GameConnection::applyBodyColors (%client)
 		%player.setNodeColor ("SkirtTrimLeft", %client.llegColor);
 		%player.setNodeColor ("SkirtTrimRight", %client.rlegColor);
 	}
-	else 
+	else
 	{
 		if (%LLegName !$= "none")
 		{
@@ -4865,7 +4865,7 @@ function findclientbyname (%partialName)
 	{
 		return %bestCL;
 	}
-	else 
+	else
 	{
 		return 0;
 	}
@@ -4895,7 +4895,7 @@ function serverCmdFetch (%client, %victimName)
 				%victimPlayer.setTransform (%player.getTransform ());
 				%victimPlayer.setVelocity ("0 0 0");
 			}
-			else 
+			else
 			{
 				%mount = %victimPlayer;
 				%i = 0;
@@ -4943,7 +4943,7 @@ function serverCmdFind (%client, %victimName)
 				%player.setVelocity ("0 0 0");
 				%player.teleportEffect ();
 			}
-			else 
+			else
 			{
 				%mount = %player;
 				%i = 0;
@@ -4991,12 +4991,12 @@ function serverCmdSpy (%client, %victimName)
 			%client.setControlObject (%client.Camera);
 			%client.isSpying = 1;
 		}
-		else 
+		else
 		{
 			messageClient (%client, '', "Client does not have a player object");
 		}
 	}
-	else 
+	else
 	{
 		%victimClient = findclientbyname (%victimName);
 		if (%victimClient)
@@ -5008,12 +5008,12 @@ function serverCmdSpy (%client, %victimName)
 				%client.setControlObject (%client.Camera);
 				%client.isSpying = 1;
 			}
-			else 
+			else
 			{
 				messageClient (%client, '', "Client does not have a player object");
 			}
 		}
-		else 
+		else
 		{
 			messageClient (%client, '', "Client not found");
 		}
@@ -5085,7 +5085,7 @@ function serverCmdRealBrickCount (%client)
 	{
 		messageClient (%client, '', %brickCount @ " brick");
 	}
-	else 
+	else
 	{
 		messageClient (%client, '', %brickCount @ " bricks");
 	}
@@ -5097,7 +5097,7 @@ function serverCmdBrickCount (%client)
 	{
 		messageClient (%client, '', getBrickCount () @ " brick");
 	}
-	else 
+	else
 	{
 		messageClient (%client, '', getBrickCount () @ " bricks");
 	}
@@ -5146,7 +5146,7 @@ function serverCmdLight (%client)
 		ServerPlay3D (lightOffSound, %player.getPosition ());
 		%player.playAudio (0, lightOff);
 	}
-	else 
+	else
 	{
 		%player.light = new fxLight ("")
 		{
@@ -5228,7 +5228,7 @@ function serverCmdDropPlayerAtCamera (%client)
 				{
 					%pos = posFromRaycast (%raycast);
 				}
-				else 
+				else
 				{
 					%pos = VectorSub (%pos, %offset);
 				}
@@ -5237,7 +5237,7 @@ function serverCmdDropPlayerAtCamera (%client)
 				%client.setControlObject (%player);
 				%player.teleportEffect ();
 			}
-			else 
+			else
 			{
 				%mount = %player;
 				%i = 0;
@@ -5263,7 +5263,7 @@ function serverCmdDropPlayerAtCamera (%client)
 				}
 			}
 		}
-		else 
+		else
 		{
 			if (isObject (%client.miniGame))
 			{
@@ -5275,7 +5275,7 @@ function serverCmdDropPlayerAtCamera (%client)
 			%client.spawnPlayer ();
 		}
 	}
-	else 
+	else
 	{
 		if (isObject (%client.miniGame))
 		{
@@ -5372,7 +5372,7 @@ function serverCmdCancelAllEvents (%client)
 		{
 			
 		}
-		else 
+		else
 		{
 			cancelQuotaSchedules (%quotaObject);
 			if (isObject (%brickGroup.client))
@@ -5446,7 +5446,7 @@ function GameConnection::ClearEventObjects (%client, %mask)
 	{
 		%quotaObject.killObjects ();
 	}
-	else 
+	else
 	{
 		%quotaObject.killObjects (%mask);
 	}
@@ -5470,7 +5470,7 @@ function ServerCmdResetVehicles (%client)
 			{
 				%obj.spawnBrick.schedule (10, spawnVehicle);
 			}
-			else 
+			else
 			{
 				%obj.schedule (10, delete);
 			}
@@ -5585,7 +5585,7 @@ function serverCmdDFG (%client)
 			{
 				%obj.setColor (0);
 			}
-			else 
+			else
 			{
 				%obj.setColor (%dist);
 			}
@@ -5688,7 +5688,7 @@ function ServerCmdUseInventory (%client, %slot)
 	{
 		%item = %client.inventory[%slot].getId ();
 	}
-	else 
+	else
 	{
 		%item = 0;
 	}
@@ -5717,7 +5717,7 @@ function serverCmdInstantUseBrick (%client, %data)
 			%client.currInv = -1;
 			%client.currInvSlot = -1;
 		}
-		else 
+		else
 		{
 			messageClient (%client, '', 'Nice try.  Brick DataBlocks only please.');
 			return;
@@ -5881,7 +5881,7 @@ function ServerCmdShiftBrick (%client, %x, %y, %z)
 				%x = %newX;
 				%y = %newY;
 			}
-			else 
+			else
 			{
 				%newY = -1 * %x;
 				%newX = 1 * %y;
@@ -5901,7 +5901,7 @@ function ServerCmdShiftBrick (%client, %x, %y, %z)
 			%x = %newX;
 			%y = %newY;
 		}
-		else 
+		else
 		{
 			%newY = -1 * %x;
 			%newX = 1 * %y;
@@ -5983,7 +5983,7 @@ function ServerCmdSuperShiftBrick (%client, %x, %y, %z)
 				%x = %newX;
 				%y = %newY;
 			}
-			else 
+			else
 			{
 				%newY = -1 * %x;
 				%newX = 1 * %y;
@@ -6003,7 +6003,7 @@ function ServerCmdSuperShiftBrick (%client, %x, %y, %z)
 			%x = %newX;
 			%y = %newY;
 		}
-		else 
+		else
 		{
 			%newY = -1 * %x;
 			%newX = 1 * %y;
@@ -6057,7 +6057,7 @@ function ServerCmdRotateBrick (%client, %dir)
 	{
 		%player.playThread (3, rotCW);
 	}
-	else 
+	else
 	{
 		%player.playThread (3, rotCCW);
 	}
@@ -6079,7 +6079,7 @@ function ServerCmdRotateBrick (%client, %dir)
 		%shiftX = 0.25;
 		%shiftY = 0.25;
 	}
-	else 
+	else
 	{
 		%shiftX = -0.25;
 		%shiftY = -0.25;
@@ -6099,7 +6099,7 @@ function ServerCmdRotateBrick (%client, %dir)
 		{
 			%x += %shiftX;
 		}
-		else 
+		else
 		{
 			%y -= %shiftY;
 			%x -= %shiftX;
@@ -6114,7 +6114,7 @@ function ServerCmdRotateBrick (%client, %dir)
 	{
 		%x += %shiftX;
 	}
-	else 
+	else
 	{
 		%y -= %shiftY;
 		%x -= %shiftX;
@@ -6203,7 +6203,7 @@ function ServerCmdUndoBrick (%client)
 			{
 				%obj.undoTrustCheck ();
 			}
-			else 
+			else
 			{
 				%obj.killBrick ();
 			}
@@ -6261,7 +6261,7 @@ function ServerCmdUndoBrick (%client)
 			%obj.setNodeColor ("ALL", %oldColor);
 			%obj.color = %oldColor;
 		}
-		else 
+		else
 		{
 			error ("ERROR: ServerCmdUndoBrick() - unknown undo state \"" @ %line @ "\"");
 		}
@@ -6321,7 +6321,7 @@ function ServerCmdPlantBrick (%client)
 	{
 		%brickRadius = %brickData.brickSizeX;
 	}
-	else 
+	else
 	{
 		%brickRadius = %brickData.brickSizeY;
 	}
@@ -6365,7 +6365,7 @@ function ServerCmdPlantBrick (%client)
 			{
 				%plantBrick.stackBL_ID = %plantBrick.getUpBrick (0).stackBL_ID;
 			}
-			else 
+			else
 			{
 				%plantBrick.stackBL_ID = %client.getBLID ();
 			}
@@ -6379,7 +6379,7 @@ function ServerCmdPlantBrick (%client)
 		{
 			%plantBrick.trustCheckFinished ();
 		}
-		else 
+		else
 		{
 			%plantBrick.PlantedTrustCheck ();
 		}
@@ -6412,7 +6412,7 @@ function ServerCmdPlantBrick (%client)
 				%player.tempBrick.setColor (7);
 			}
 		}
-		else 
+		else
 		{
 			%player.tempBrick.setColor (%client.currentColor);
 		}
@@ -6443,7 +6443,7 @@ function ServerCmdPlantBrick (%client)
 		%plantBrick.delete ();
 		messageClient (%client, 'MsgPlantError_Buried');
 	}
-	else 
+	else
 	{
 		%plantBrick.delete ();
 		messageClient (%client, 'MsgPlantError_Forbidden');
@@ -6523,7 +6523,7 @@ function serverCmdUseFXCan (%client, %index)
 	{
 		%image = jelloSprayCanImage;
 	}
-	else 
+	else
 	{
 		return;
 	}
@@ -6561,7 +6561,7 @@ function serverCmdUseSprayCan (%client, %index)
 		%player.updateArm (%image);
 		%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
 	}
-	else 
+	else
 	{
 		return;
 	}
@@ -6585,14 +6585,14 @@ function serverCmdUseSprayCan (%client, %index)
 		%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
 		%client.color = %color;
 	}
-	else 
+	else
 	{
 		if (%color !$= "")
 		{
 			%image = nameToID ("color" @ %color @ "SprayCanImage");
 			%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
 		}
-		else 
+		else
 		{
 			%image = nameToID ("color0SprayCanImage");
 			%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
@@ -6653,14 +6653,14 @@ function serverCmdUseSprayCan (%client, %index)
 		}
 		%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
 	}
-	else 
+	else
 	{
 		if (%color !$= "")
 		{
 			%image = nameToID (%color @ "SprayCanImage");
 			%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
 		}
-		else 
+		else
 		{
 			%image = redSprayCanImage;
 			%player.mountImage (%image, $RightHandSlot, 1, %image.skinName);
@@ -6696,14 +6696,14 @@ function serverCmdUseHammer (%client)
 			messageClient (%player.client, 'MsgHilightInv', '', -1);
 			%player.currWeaponSlot = -1;
 		}
-		else 
+		else
 		{
 			%player.mountImage (hammerImage, %mountPoint);
 			messageClient (%player.client, 'MsgHilightInv', '', -1);
 			%player.currWeaponSlot = -1;
 		}
 	}
-	else 
+	else
 	{
 		%player.mountImage (hammerImage, %mountPoint);
 		messageClient (%player.client, 'MsgHilightInv', '', -1);
@@ -6809,7 +6809,7 @@ function serverCmdBuyBrick (%client, %position, %data)
 		%client.inventory[%position] = %data;
 		messageClient (%client, 'MsgSetInvData', "", %position, %data);
 	}
-	else 
+	else
 	{
 		%client.inventory[%position] = "";
 	}
@@ -6880,12 +6880,12 @@ function serverCmdNextSeat (%client)
 			%vehicle = %motherVehicle;
 			%vehicleData = %motherVehicleData;
 		}
-		else 
+		else
 		{
 			warn ("WARNING: Multi-Seat turrets are not implemented yet");
 		}
 	}
-	else 
+	else
 	{
 		if (%vehicleData.nummountpoints <= 1)
 		{
@@ -6965,12 +6965,12 @@ function serverCmdPrevSeat (%client)
 			%vehicle = %motherVehicle;
 			%vehicleData = %motherVehicleData;
 		}
-		else 
+		else
 		{
 			warn ("WARNING: Multi-Seat turrets are not implemented yet");
 		}
 	}
-	else 
+	else
 	{
 		if (%vehicleData.nummountpoints <= 1)
 		{
@@ -7110,7 +7110,7 @@ function doIconScreenshot ()
 	{
 		%brickName = $IconName;
 	}
-	else 
+	else
 	{
 		%brickName = "ERROR";
 	}
@@ -7512,14 +7512,14 @@ function Observer::onTrigger (%this, %obj, %trigger, %state)
 						{
 							
 						}
-						else 
+						else
 						{
 							%testDistance = VectorLen (VectorSub (%player.getPosition (), %pos));
 							if (%testDistance > %bestDistance)
 							{
 								
 							}
-							else 
+							else
 							{
 								%bestDistance = %testDistance;
 								%bestPlayer = %player;
@@ -7543,7 +7543,7 @@ function Observer::onTrigger (%this, %obj, %trigger, %state)
 				%playerDead = 1;
 			}
 		}
-		else 
+		else
 		{
 			%playerDead = 1;
 		}
@@ -7626,7 +7626,7 @@ function Observer::onTrigger (%this, %obj, %trigger, %state)
 							{
 								
 							}
-							else 
+							else
 							{
 								%obj.setOrbitMode (%player, %obj.getTransform (), 0, 8, 8);
 								break;
@@ -7654,7 +7654,7 @@ function Observer::onTrigger (%this, %obj, %trigger, %state)
 							{
 								
 							}
-							else 
+							else
 							{
 								%obj.setOrbitMode (%player, %obj.getTransform (), 0, 8, 8);
 								break;
@@ -7733,7 +7733,7 @@ function SimObject::onCameraEnterOrbit (%obj, %camera)
 	{
 		commandToClient (%client, 'BottomPrint', "\c3" @ %obj.observerCount @ " observer", 2, 1);
 	}
-	else 
+	else
 	{
 		commandToClient (%client, 'BottomPrint', "\c3" @ %obj.observerCount @ " observers", 2, 1);
 	}
@@ -7770,7 +7770,7 @@ function SimObject::onCameraLeaveOrbit (%obj, %camera)
 			{
 				commandToClient (%client, 'BottomPrint', "\c3" @ %obj.observerCount @ " observer", 2, 1);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'BottomPrint', "\c3" @ %obj.observerCount @ " observers", 2, 1);
 			}
@@ -7931,7 +7931,7 @@ function ShapeBase::setInventory (%this, %data, %value)
 	{
 		%value = 0;
 	}
-	else 
+	else
 	{
 		%max = %this.maxInventory (%data);
 		if (%value > %max)
@@ -8022,7 +8022,7 @@ function Item::fadeOut (%obj)
 		%color = getWords (%obj.getDataBlock ().colorShiftColor, 0, 2);
 		%obj.setNodeColor ("ALL", %color SPC 0.25);
 	}
-	else 
+	else
 	{
 		%obj.setNodeColor ("ALL", "1 1 1 0.25");
 	}
@@ -8046,7 +8046,7 @@ function Item::fadeIn (%obj, %delay)
 	{
 		%obj.setNodeColor ("ALL", %obj.getDataBlock ().image.colorShiftColor);
 	}
-	else 
+	else
 	{
 		%obj.setNodeColor ("ALL", "1 1 1 1");
 	}
@@ -8060,7 +8060,7 @@ function Item::Respawn (%obj)
 	{
 		%obj.fadeIn (%obj.spawnBrick.itemRespawnTime);
 	}
-	else 
+	else
 	{
 		%obj.fadeIn ($Game::Item::RespawnTime);
 	}
@@ -8083,7 +8083,7 @@ function Item::schedulePop (%obj)
 		%obj.schedule ($Game::Item::PopTime - 400, "setNodeColor", "ALL", %color SPC 0.2);
 		%obj.schedule ($Game::Item::PopTime - 200, "setNodeColor", "ALL", %color SPC 0.1);
 	}
-	else 
+	else
 	{
 		%obj.schedule ($Game::Item::PopTime - 1000, "setNodeColor", "ALL", "1 1 1 0.5");
 		%obj.schedule ($Game::Item::PopTime - 800, "setNodeColor", "ALL", "1 1 1 0.4");
@@ -8177,7 +8177,7 @@ function ItemData::onPickup (%this, %obj, %user, %amount)
 			{
 				%msg = "This item is not part of the mini-game.";
 			}
-			else 
+			else
 			{
 				%msg = "This item is part of a mini-game.";
 			}
@@ -8210,7 +8210,7 @@ function ItemData::onPickup (%this, %obj, %user, %amount)
 		{
 			%obj.Respawn ();
 		}
-		else 
+		else
 		{
 			%obj.delete ();
 		}
@@ -8362,14 +8362,14 @@ function Weapon::onUse (%this, %player, %invPosition)
 			messageClient (%player.client, 'MsgHilightInv', '', -1);
 			%player.currWeaponSlot = -1;
 		}
-		else 
+		else
 		{
 			%player.mountImage (%this.image, %mountPoint);
 			messageClient (%player.client, 'MsgHilightInv', '', %invPosition);
 			%player.currWeaponSlot = %invPosition;
 		}
 	}
-	else 
+	else
 	{
 		%player.mountImage (%this.image, %mountPoint);
 		messageClient (%player.client, 'MsgHilightInv', '', %invPosition);
@@ -8429,7 +8429,7 @@ function Weapon::onPickup (%this, %obj, %shape, %amount)
 			{
 				%msg = "This item is not part of the mini-game.";
 			}
-			else 
+			else
 			{
 				%msg = "This item is part of a mini-game.";
 			}
@@ -8462,13 +8462,13 @@ function Weapon::onPickup (%this, %obj, %shape, %amount)
 		{
 			
 		}
-		else 
+		else
 		{
 			if (%obj.isStatic ())
 			{
 				%obj.Respawn ();
 			}
-			else 
+			else
 			{
 				%obj.delete ();
 			}
@@ -8535,7 +8535,7 @@ function WeaponImage::onFire (%this, %obj, %slot)
 			%dataMuzzleVelocity *= %ratio;
 		}
 	}
-	else 
+	else
 	{
 		%initPos = %obj.getMuzzlePoint (%slot);
 		%muzzlevector = %obj.getMuzzleVector (%slot);
@@ -8549,7 +8549,7 @@ function WeaponImage::onFire (%this, %obj, %slot)
 			{
 				%mount = %obj.getObjectMount ();
 			}
-			else 
+			else
 			{
 				%mount = 0;
 			}
@@ -8622,7 +8622,7 @@ function WeaponImage::onMount (%this, %obj, %slot)
 			%obj.setImageAmmo (%slot, 1);
 		}
 	}
-	else 
+	else
 	{
 		%obj.setImageAmmo (%slot, 1);
 	}
@@ -8669,7 +8669,7 @@ function radiusDamage (%sourceObject, %position, %radius, %damage, %damageType, 
 		{
 			
 		}
-		else 
+		else
 		{
 			%dist = containerSearchCurrRadiusDist ();
 			%distScale = %dist < %halfRadius ? 1 : 1 - (%dist - %halfRadius) / %halfRadius;
@@ -8733,7 +8733,7 @@ function ProjectileData::onCollision (%this, %obj, %col, %fade, %pos, %normal, %
 		{
 			%respawnTime = %mg.BrickRespawnTime;
 		}
-		else 
+		else
 		{
 			%respawnTime = mClampF ($Server::BrickRespawnTime, 1000, 60000);
 		}
@@ -8817,7 +8817,7 @@ function ProjectileData::onExplode (%this, %obj, %pos)
 	{
 		%respawnTime = %mg.BrickRespawnTime;
 	}
-	else 
+	else
 	{
 		%respawnTime = mClampF ($Server::BrickRespawnTime, 1000, 60000);
 	}
@@ -8928,7 +8928,7 @@ function ProjectileData::onExplode (%this, %obj, %pos)
 	{
 		%radius = %explosion.damageRadius;
 	}
-	else 
+	else
 	{
 		%radius = %explosion.impulseRadius;
 	}
@@ -8951,7 +8951,7 @@ function ProjectileData::onExplode (%this, %obj, %pos)
 		{
 			%searchPos = %searchObj.getHackPosition ();
 		}
-		else 
+		else
 		{
 			%searchPos = %searchObj.getWorldBoxCenter ();
 		}
@@ -8995,7 +8995,7 @@ function ProjectileData::Damage (%this, %obj, %col, %fade, %pos, %normal)
 	{
 		%col.Damage (%obj, %pos, %directDamage, %damageType);
 	}
-	else 
+	else
 	{
 		%col.Damage (%obj, %pos, %directDamage, %damageType);
 	}
@@ -9062,7 +9062,7 @@ function ProjectileData::radiusImpulse (%this, %obj, %col, %distanceFactor, %pos
 		{
 			%colPos = %col.getHackPosition ();
 		}
-		else 
+		else
 		{
 			%colPos = %col.getWorldBoxCenter ();
 		}
@@ -9088,7 +9088,7 @@ function ProjectileData::radiusImpulse (%this, %obj, %col, %distanceFactor, %pos
 		{
 			%impulseVec = VectorScale (%obj.upVector, %verticalAmt * %distanceFactor);
 		}
-		else 
+		else
 		{
 			%impulseVec = VectorScale ("0 0 1", %verticalAmt * %distanceFactor);
 		}
@@ -9577,7 +9577,7 @@ function Armor::onNewDataBlock (%this, %player)
 	{
 		applyDefaultCharacterPrefs (%player);
 	}
-	else 
+	else
 	{
 		applyCharacterPrefs (%player.client);
 	}
@@ -9594,7 +9594,7 @@ function Armor::onNewDataBlock (%this, %player)
 			{
 				%list = %rider;
 			}
-			else 
+			else
 			{
 				%list = %list SPC %rider;
 			}
@@ -9628,7 +9628,7 @@ function Armor::onNewDataBlock (%this, %player)
 			%i += 1;
 		}
 	}
-	else 
+	else
 	{
 		%count = %player.getMountedObjectCount ();
 		%i = 0;
@@ -9659,7 +9659,7 @@ function Armor::onMount (%this, %obj, %vehicle, %node)
 			%vehicle.lastDrivingClient = %obj.client;
 		}
 	}
-	else 
+	else
 	{
 		%obj.setControlObject (%obj);
 	}
@@ -9796,7 +9796,7 @@ function Armor::onCollision (%this, %obj, %col, %vec, %speed)
 					%canUse = 1;
 				}
 			}
-			else 
+			else
 			{
 				%canUse = 1;
 			}
@@ -9826,7 +9826,7 @@ function Armor::onCollision (%this, %obj, %col, %vec, %speed)
 					{
 						%msg = "This vehicle is not part of the mini-game.";
 					}
-					else 
+					else
 					{
 						%msg = "This vehicle is part of a mini-game.";
 					}
@@ -9848,7 +9848,7 @@ function Armor::onCollision (%this, %obj, %col, %vec, %speed)
 				{
 					%mountNode = %i;
 				}
-				else 
+				else
 				{
 					%mountNode = %this.mountNode[%i];
 				}
@@ -9944,7 +9944,7 @@ function Armor::onImpact (%this, %obj, %collidedObject, %vec, %vecLen)
 		{
 			%damageType = $DamageType::Fall;
 		}
-		else 
+		else
 		{
 			%damageType = $DamageType::Impact;
 		}
@@ -9991,7 +9991,7 @@ function Armor::Damage (%data, %obj, %sourceObject, %position, %damage, %damageT
 	{
 		%obj.painLevel = %damage;
 	}
-	else 
+	else
 	{
 		%obj.painLevel += %damage;
 	}
@@ -10002,7 +10002,7 @@ function Armor::Damage (%data, %obj, %sourceObject, %position, %damage, %damageT
 		{
 			%damage = %damage * 2.1;
 		}
-		else 
+		else
 		{
 			%damage = %damage * 0.75;
 		}
@@ -10018,12 +10018,12 @@ function Armor::Damage (%data, %obj, %sourceObject, %position, %damage, %damageT
 		{
 			%sourceClient = %sourceObject;
 		}
-		else 
+		else
 		{
 			%sourceClient = %sourceObject.client;
 		}
 	}
-	else 
+	else
 	{
 		%sourceClient = 0;
 	}
@@ -10050,7 +10050,7 @@ function Armor::Damage (%data, %obj, %sourceObject, %position, %damage, %damageT
 			{
 				%obj.spawnBrick.spawnVehicle (%mg.VehicleRespawnTime);
 			}
-			else 
+			else
 			{
 				%obj.spawnBrick.spawnVehicle (5000);
 			}
@@ -10085,7 +10085,7 @@ function Armor::Damage (%data, %obj, %sourceObject, %position, %damage, %damageT
 	{
 		%obj.emote (PainMidImage, 1);
 	}
-	else 
+	else
 	{
 		%obj.emote (PainLowImage, 1);
 	}
@@ -10285,7 +10285,7 @@ function Player::ActivateStuff (%player)
 	{
 		%exempt = %player.getObjectMount ();
 	}
-	else 
+	else
 	{
 		%exempt = %player;
 	}
@@ -10296,7 +10296,7 @@ function Player::ActivateStuff (%player)
 	{
 		%player.activateLevel += 1;
 	}
-	else 
+	else
 	{
 		%player.activateLevel = 0;
 	}
@@ -10305,7 +10305,7 @@ function Player::ActivateStuff (%player)
 	{
 		%player.playThread (3, activate2);
 	}
-	else 
+	else
 	{
 		%player.playThread (3, activate);
 	}
@@ -10321,13 +10321,13 @@ function Player::ActivateStuff (%player)
 				%victim.onActivate (%player, %client, %pos, %vec);
 			}
 		}
-		else 
+		else
 		{
 			%victim.onActivate (%player, %client, %pos, %vec);
 		}
 		return %victim;
 	}
-	else 
+	else
 	{
 		return 0;
 	}
@@ -10393,7 +10393,7 @@ function Player::playDeathCry (%obj)
 			%obj.playAudio (0, %data.deathSound);
 		}
 	}
-	else 
+	else
 	{
 		%obj.playAudio (0, DeathCrySound);
 	}
@@ -10410,7 +10410,7 @@ function Player::playPain (%obj)
 			%obj.playAudio (0, %data.painSound);
 		}
 	}
-	else 
+	else
 	{
 		%obj.playAudio (0, PainCrySound);
 	}
@@ -10436,7 +10436,7 @@ function fixArmReady (%obj)
 		{
 			%obj.playThread (1, armReadyBoth);
 		}
-		else 
+		else
 		{
 			%obj.playThread (1, armReadyRight);
 		}
@@ -10445,7 +10445,7 @@ function fixArmReady (%obj)
 	{
 		%obj.playThread (1, armReadyLeft);
 	}
-	else 
+	else
 	{
 		%obj.playThread (1, root);
 	}
@@ -10461,12 +10461,12 @@ function Player::updateArm (%player, %newImage)
 			{
 				%player.playThread (1, armReadyBoth);
 			}
-			else 
+			else
 			{
 				%player.playThread (1, armReadyRight);
 			}
 		}
-		else 
+		else
 		{
 			%oldImage = %player.getMountedImage ($RightHandSlot);
 			if (%oldImage)
@@ -10476,7 +10476,7 @@ function Player::updateArm (%player, %newImage)
 					%player.playThread (1, armReadyRight);
 				}
 			}
-			else 
+			else
 			{
 				%player.playThread (1, armReadyRight);
 			}
@@ -10557,7 +10557,7 @@ function Player::setTempColor (%player, %color, %time, %position, %projectileDat
 		{
 			%player.setNodeColor ("headskin", %color);
 		}
-		else 
+		else
 		{
 			if (%client.hat > 0)
 			{
@@ -10648,7 +10648,7 @@ function Player::setTempColor (%player, %color, %time, %position, %projectileDat
 		{
 			%player.setNodeColor ("headskin", %color);
 		}
-		else 
+		else
 		{
 			%i = 1;
 			while (%i < $num["Hat"])
@@ -10664,7 +10664,7 @@ function Player::setTempColor (%player, %color, %time, %position, %projectileDat
 			}
 		}
 	}
-	else 
+	else
 	{
 		%player.setNodeColor ("ALL", %color);
 		%player.setDecalName ("AAA-None");
@@ -10719,7 +10719,7 @@ function Player::burn (%player, %time)
 	{
 		%player.setTempColor ("0 0 0 1", %time);
 	}
-	else 
+	else
 	{
 		%player.setTempColor ("0 0 0 1", -1);
 	}
@@ -11327,7 +11327,7 @@ function hammerImage::onFire (%this, %player, %slot)
 	{
 		%range = 5.5;
 	}
-	else 
+	else
 	{
 		%range = 5;
 	}
@@ -11338,7 +11338,7 @@ function hammerImage::onFire (%this, %player, %slot)
 	{
 		%raycast = containerRayCast (%start, %end, %mask, %player, %player.getObjectMount ());
 	}
-	else 
+	else
 	{
 		%raycast = containerRayCast (%start, %end, %mask, %player);
 	}
@@ -11422,7 +11422,7 @@ function hammerImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 		{
 			%vehicleOwner = findClientByBL_ID (%hitObj.spawnBrick.getGroup ().bl_id);
 		}
-		else 
+		else
 		{
 			%vehicleOwner = 0;
 		}
@@ -11433,7 +11433,7 @@ function hammerImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 				%doFlip = 1;
 			}
 		}
-		else 
+		else
 		{
 			%doFlip = 1;
 		}
@@ -11695,7 +11695,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 			{
 				%adminOverride = 1;
 			}
-			else 
+			else
 			{
 				%client.sendTrustFailureMessage (%hitObj.getGroup ());
 				ServerPlay3D (wrenchMissSound, %hitPos);
@@ -11737,7 +11737,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 			%client.wrenchBrick = "";
 			%client.adminWrenchBrick = %hitObj;
 		}
-		else 
+		else
 		{
 			%client.wrenchBrick = %hitObj;
 			%client.adminWrenchBrick = "";
@@ -11746,7 +11746,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 		{
 			%allowNamedTargets = 1;
 		}
-		else 
+		else
 		{
 			%allowNamedTargets = 0;
 		}
@@ -11761,7 +11761,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 			{
 				commandToClient (%client, 'openWrenchSoundDlg', %lanHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'openWrenchSoundDlg', %netHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
@@ -11773,7 +11773,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 			{
 				commandToClient (%client, 'openWrenchVehicleSpawnDlg', %lanHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'openWrenchVehicleSpawnDlg', %netHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
@@ -11785,19 +11785,19 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 			{
 				commandToClient (%client, 'openWrenchBotSpawnDlg', %lanHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'openWrenchBotSpawnDlg', %netHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
 			%hitObj.sendWrenchBotSpawnData (%client);
 		}
-		else 
+		else
 		{
 			if ($Server::LAN)
 			{
 				commandToClient (%client, 'openWrenchDlg', %lanHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'openWrenchDlg', %netHeading, %allowNamedTargets, %adminOverride, $Server::WrenchEventsAdminOnly);
 			}
@@ -11806,7 +11806,7 @@ function WrenchImage::onHitObject (%this, %player, %slot, %hitObj, %hitPos, %hit
 		ServerPlay3D (wrenchHitSound, %hitPos);
 		return;
 	}
-	else 
+	else
 	{
 		ServerPlay3D (wrenchMissSound, %hitPos);
 	}
@@ -11978,14 +11978,14 @@ function fxDTSBrick::setLight (%obj, %data, %client)
 			{
 				return;
 			}
-			else 
+			else
 			{
 				%obj.light.delete ();
 				%obj.light = 0;
 			}
 		}
 	}
-	else 
+	else
 	{
 		if (isObject (%obj.light))
 		{
@@ -12016,7 +12016,7 @@ function fxDTSBrick::setLight (%obj, %data, %client)
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::QuotaLAN::Environment @ " lights/emitters!", 3);
 		}
-		else 
+		else
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::Quota::Environment @ " lights/emitters!", 3);
 		}
@@ -12070,7 +12070,7 @@ function fxDTSBrick::setEmitter (%obj, %data, %client)
 	{
 		%nodeData = %data.pointEmitterNode;
 	}
-	else 
+	else
 	{
 		%nodeData = %data.emitterNode;
 	}
@@ -12089,7 +12089,7 @@ function fxDTSBrick::setEmitter (%obj, %data, %client)
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::QuotaLAN::Environment @ " lights/emitters!", 3);
 		}
-		else 
+		else
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::Quota::Environment @ " lights/emitters!", 3);
 		}
@@ -12120,7 +12120,7 @@ function fxDTSBrick::setEmitterDirection (%obj, %dir)
 	{
 		%scaleX = %scaleY = %scaleZ = 0;
 	}
-	else 
+	else
 	{
 		%wbox = %obj.getWorldBox ();
 		%scaleX = mAbs (getWord (%wbox, 0) - getWord (%wbox, 3));
@@ -12178,7 +12178,7 @@ function fxDTSBrick::setEmitterDirection (%obj, %dir)
 			%scaleX = %scaleZ;
 			%scaleZ = %temp;
 		}
-		else 
+		else
 		{
 			%rot = "0 0 1 0";
 		}
@@ -12221,7 +12221,7 @@ function fxDTSBrick::setItem (%obj, %data, %client)
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::QuotaLAN::Item @ " items!", 3);
 		}
-		else 
+		else
 		{
 			commandToClient (%client, 'CenterPrint', "\c6You can\'t have more than " @ $Server::Quota::Item @ " items!", 3);
 		}
@@ -12268,7 +12268,7 @@ function fxDTSBrick::setItemDirection (%obj, %dir)
 	{
 		%rot = "0 0 -1 " @ $piOver2;
 	}
-	else 
+	else
 	{
 		%rot = "0 0 1 0";
 	}
@@ -12461,7 +12461,7 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 					{
 						commandToClient (%client, 'CenterPrint', "\c1\c0You already have a player-vehicle", 2);
 					}
-					else 
+					else
 					{
 						commandToClient (%client, 'CenterPrint', "\c1\c0You already have " @ $Server::Quota::Player @ " player-vehicles", 2);
 					}
@@ -12470,7 +12470,7 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 				{
 					commandToClient (%client, 'CenterPrint', "\c1\c0" @ %brickGroup.name @ " already has a player-vehicle", 2);
 				}
-				else 
+				else
 				{
 					commandToClient (%client, 'CenterPrint', "\c1\c0" @ %brickGroup.name @ " already has " @ $Server::Quota::Player @ " player-vehicles", 2);
 				}
@@ -12483,14 +12483,14 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 			{
 				commandToClient (%client, 'CenterPrint', "\c1\c0Server is limited to 1 player-vehicle", 2);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'CenterPrint', "\c1\c0Server is limited to " @ $Server::MaxPlayerVehicles_Total @ " player-vehicles", 2);
 			}
 			return;
 		}
 	}
-	else 
+	else
 	{
 		%brickGroup = %obj.getGroup ();
 		if (!$Server::LAN)
@@ -12503,7 +12503,7 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 					{
 						commandToClient (%client, 'CenterPrint', "\c1\c0You already have a physics-vehicle", 2);
 					}
-					else 
+					else
 					{
 						commandToClient (%client, 'CenterPrint', "\c1\c0You already have " @ $Server::Quota::Vehicle @ " physics-vehicles", 2);
 					}
@@ -12512,7 +12512,7 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 				{
 					commandToClient (%client, 'CenterPrint', "\c1\c0" @ %brickGroup.name @ " already has a physics-vehicle", 2);
 				}
-				else 
+				else
 				{
 					commandToClient (%client, 'CenterPrint', "\c1\c0" @ %brickGroup.name @ " already has " @ $Server::Quota::Vehicle @ " physics-vehicles", 2);
 				}
@@ -12526,7 +12526,7 @@ function fxDTSBrick::setVehicle (%obj, %data, %client)
 			{
 				commandToClient (%client, 'CenterPrint', "\c1\c0Server is limited to 1 physics-vehicle", 2);
 			}
-			else 
+			else
 			{
 				commandToClient (%client, 'CenterPrint', "\c1\c0Server is limited to " @ $Server::MaxPhysVehicles_Total @ " physics-vehicles", 2);
 			}
@@ -12567,7 +12567,7 @@ function fxDTSBrick::setReColorVehicle (%obj, %val)
 	{
 		%obj.colorVehicle ();
 	}
-	else 
+	else
 	{
 		%obj.unColorVehicle ();
 	}
@@ -12585,7 +12585,7 @@ function fxDTSBrick::sendWrenchVehicleSpawnData (%obj, %client)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -12593,7 +12593,7 @@ function fxDTSBrick::sendWrenchVehicleSpawnData (%obj, %client)
 	{
 		%db = %obj.vehicleDataBlock.getId ();
 	}
-	else 
+	else
 	{
 		%db = 0;
 	}
@@ -12602,7 +12602,7 @@ function fxDTSBrick::sendWrenchVehicleSpawnData (%obj, %client)
 	{
 		%val = 1;
 	}
-	else 
+	else
 	{
 		%val = 0;
 	}
@@ -12623,7 +12623,7 @@ function fxDTSBrick::sendWrenchSoundData (%obj, %client)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -12633,12 +12633,12 @@ function fxDTSBrick::sendWrenchSoundData (%obj, %client)
 		{
 			%emitterDB = %obj.AudioEmitter.profile.getId ();
 		}
-		else 
+		else
 		{
 			%emitterDB = 0;
 		}
 	}
-	else 
+	else
 	{
 		%emitterDB = 0;
 	}
@@ -12656,7 +12656,7 @@ function fxDTSBrick::sendWrenchData (%obj, %client)
 	{
 		%data = %data TAB "N" SPC %name;
 	}
-	else 
+	else
 	{
 		%data = %data TAB "N" SPC " ";
 	}
@@ -12664,7 +12664,7 @@ function fxDTSBrick::sendWrenchData (%obj, %client)
 	{
 		%lightDB = %obj.light.getDataBlock ();
 	}
-	else 
+	else
 	{
 		%lightDB = 0;
 	}
@@ -12675,12 +12675,12 @@ function fxDTSBrick::sendWrenchData (%obj, %client)
 		{
 			%emitterDB = %obj.emitter.emitter.getId ();
 		}
-		else 
+		else
 		{
 			%emitterDB = 0;
 		}
 	}
-	else 
+	else
 	{
 		%emitterDB = 0;
 	}
@@ -12690,7 +12690,7 @@ function fxDTSBrick::sendWrenchData (%obj, %client)
 	{
 		%itemDB = %obj.Item.getDataBlock ();
 	}
-	else 
+	else
 	{
 		%itemDB = 0;
 	}
@@ -12971,7 +12971,7 @@ function WandImage::onFire (%this, %player, %slot)
 	{
 		%range = 5.5;
 	}
-	else 
+	else
 	{
 		%range = 5;
 	}
@@ -12982,7 +12982,7 @@ function WandImage::onFire (%this, %player, %slot)
 	{
 		%exempt = %player.getObjectMount ();
 	}
-	else 
+	else
 	{
 		%exempt = %player;
 	}
@@ -13310,7 +13310,7 @@ function paintProjectile::onCollision (%this, %obj, %col, %fade, %pos, %normal)
 			%col.setNodeColor ("ALL", %rgba);
 			%col.color = %rgba;
 		}
-		else 
+		else
 		{
 			%color = getColorIDTable (%this.colorID);
 			%rgba = getWords (%color, 0, 2) SPC 1;
@@ -13462,7 +13462,7 @@ function setSprayCanColors ()
 			{
 				setSprayCanColor (%i += 1, %r SPC %g SPC %b SPC %a);
 			}
-			else 
+			else
 			{
 				setSprayCanColorI (%i += 1, %r SPC %g SPC %b SPC %a);
 			}
@@ -13525,7 +13525,7 @@ function setSprayCanColor (%id, %color)
 	{
 		%invalpha = 1;
 	}
-	else 
+	else
 	{
 		%invalpha = 0;
 		if (%red < 8 / 255 && %green < 8 / 255 && %blue < 8 / 255)
@@ -13563,7 +13563,7 @@ function setSprayCanColor (%id, %color)
 	{
 		%shapeFile = "base/data/shapes/spraycan.dts";
 	}
-	else 
+	else
 	{
 		%shapeFile = "base/data/shapes/transspraycan.dts";
 	}
@@ -13794,7 +13794,7 @@ function AdminWandImage::onFire (%this, %player, %slot)
 	{
 		%range = 5.5;
 	}
-	else 
+	else
 	{
 		%range = 5;
 	}
@@ -13806,7 +13806,7 @@ function AdminWandImage::onFire (%this, %player, %slot)
 	{
 		%exempt = %player.getObjectMount ();
 	}
-	else 
+	else
 	{
 		%exempt = %player;
 	}
@@ -13887,7 +13887,7 @@ function serverCmdMagicWand (%client)
 	{
 		%client.bottomPrint ("\c6Destroy public bricks is \c0ON \c6-  use /dpb to toggle", 4);
 	}
-	else 
+	else
 	{
 		%client.bottomPrint ("\c6Destroy public bricks is \c2OFF \c6-  use /dpb to toggle", 4);
 	}
@@ -13904,7 +13904,7 @@ function serverCmdDPB (%client)
 	{
 		%client.bottomPrint ("\c6Destroy public bricks is \c0ON", 4);
 	}
-	else 
+	else
 	{
 		%client.bottomPrint ("\c6Destroy public bricks is \c2OFF", 4);
 	}
@@ -15954,7 +15954,7 @@ function getAngleIDFromPlayer (%player)
 		{
 			return 1;
 		}
-		else 
+		else
 		{
 			return 3;
 		}
@@ -15967,7 +15967,7 @@ function getAngleIDFromPlayer (%player)
 	{
 		return 1;
 	}
-	else 
+	else
 	{
 		return 3;
 	}
@@ -16011,7 +16011,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 			{
 				%player.tempBrick.setPrint (%client.lastPrint[%aspectRatio]);
 			}
-			else 
+			else
 			{
 				%player.tempBrick.setPrint ($printNameTable["letters/A"]);
 			}
@@ -16038,7 +16038,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 		{
 			%posZ = getWord (%pos, 2) + ((%data.brickSizeZ / 2) * 0.2) + 0.05;
 		}
-		else 
+		else
 		{
 			%posZ = (getWord (%pos, 2) + ((%data.brickSizeZ / 2) * 0.2)) - 0.05;
 		}
@@ -16049,7 +16049,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 		%pos = %posX SPC %posY SPC %posZ;
 		%player.tempBrick.setTransform (%pos SPC %rot);
 	}
-	else 
+	else
 	{
 		%b = new fxDTSBrick ("")
 		{
@@ -16060,7 +16060,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 		{
 			%client.brickGroup.add (%b);
 		}
-		else 
+		else
 		{
 			error ("ERROR: brickDeployProjectile::onCollision() - client \"" @ %client.getPlayerName () @ "\" has no brick group.");
 		}
@@ -16071,7 +16071,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 			{
 				%b.setPrint (%client.lastPrint[%aspectRatio]);
 			}
-			else 
+			else
 			{
 				%b.setPrint ($printNameTable["letters/A"]);
 			}
@@ -16098,7 +16098,7 @@ function brickDeployProjectile::onCollision (%this, %obj, %col, %fade, %pos, %no
 		{
 			%posZ = getWord (%pos, 2) + ((%data.brickSizeZ / 2) * 0.2) + 0.05;
 		}
-		else 
+		else
 		{
 			%posZ = (getWord (%pos, 2) + ((%data.brickSizeZ / 2) * 0.2)) - 0.05;
 		}
@@ -17413,7 +17413,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 	{
 		%client.instantUseData = %this;
 	}
-	else 
+	else
 	{
 		%client.instantUseData = 0;
 	}
@@ -17456,7 +17456,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 		{
 			%shiftX = -0.2;
 		}
-		else 
+		else
 		{
 			%shiftX = 0;
 		}
@@ -17468,7 +17468,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 		{
 			%shiftY = -0.2;
 		}
-		else 
+		else
 		{
 			%shiftY = 0;
 		}
@@ -17491,7 +17491,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 			{
 				%x += %shiftX;
 			}
-			else 
+			else
 			{
 				%y += %shiftY;
 			}
@@ -17505,7 +17505,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 		{
 			%x += %shiftX;
 		}
-		else 
+		else
 		{
 			%y += %shiftY;
 		}
@@ -17517,7 +17517,7 @@ function fxDTSBrickData::onUse (%this, %player, %InvSlot)
 			{
 				%player.tempBrick.setPrint ($printNameTable["letters/A"]);
 			}
-			else 
+			else
 			{
 				%player.tempBrick.setPrint (%client.lastPrint[%aspectRatio]);
 			}
@@ -17744,7 +17744,7 @@ function fxDTSBrick::ChainTrustCheckUp (%obj, %idx)
 			{
 				%obj.ChainTrustCheckVolume ();
 			}
-			else 
+			else
 			{
 				%obj.trustCheckFinished ();
 			}
@@ -17943,7 +17943,7 @@ function fxDTSBrick::spawnVehicle (%obj, %delay)
 	{
 		%pos = %v.getHackPosition ();
 	}
-	else 
+	else
 	{
 		%pos = %v.getWorldBoxCenter ();
 	}
@@ -17983,7 +17983,7 @@ function fxDTSBrick::colorVehicle (%obj)
 		%RGB = getWords (getColorIDTable (%obj.colorID), 0, 2);
 		%obj.Vehicle.setNodeColor ("ALL", %RGB SPC 1);
 	}
-	else 
+	else
 	{
 		if (%obj.Vehicle.color $= "")
 		{
@@ -18148,7 +18148,7 @@ function fxDTSBrick::onActivate (%obj, %player, %client, %pos, %vec)
 	{
 		$InputTarget_["MiniGame"] = getMiniGameFromObject (%obj);
 	}
-	else 
+	else
 	{
 		$InputTarget_["MiniGame"] = 0;
 	}
@@ -18191,7 +18191,7 @@ function fxDTSBrickData::onPlayerTouch (%data, %obj, %player)
 	{
 		$InputTarget_["MiniGame"] = getMiniGameFromObject (%obj);
 	}
-	else 
+	else
 	{
 		$InputTarget_["MiniGame"] = 0;
 	}
@@ -18222,7 +18222,7 @@ function fxDTSBrickData::onPlayerTouch (%data, %obj, %player)
 					%client = ClientGroup.getObject (0);
 				}
 			}
-			else 
+			else
 			{
 				if (isObject (%player.spawnBrick))
 				{
@@ -18241,7 +18241,7 @@ function fxDTSBrickData::onPlayerTouch (%data, %obj, %player)
 		{
 			%obj.processInputEvent ("OnBotTouch", %client);
 		}
-		else 
+		else
 		{
 			%obj.processInputEvent ("OnPlayerTouch", %client);
 		}
@@ -18261,7 +18261,7 @@ function fxDTSBrick::onBlownUp (%obj, %client, %player)
 	{
 		$InputTarget_["MiniGame"] = getMiniGameFromObject (%obj);
 	}
-	else 
+	else
 	{
 		$InputTarget_["MiniGame"] = 0;
 	}
@@ -18313,7 +18313,7 @@ function fxDTSBrick::onProjectileHit (%obj, %projectile, %client)
 	{
 		$InputTarget_["Client"] = %player.client;
 	}
-	else 
+	else
 	{
 		$InputTarget_["Client"] = "";
 	}
@@ -18326,7 +18326,7 @@ function fxDTSBrick::onProjectileHit (%obj, %projectile, %client)
 	{
 		$InputTarget_["MiniGame"] = getMiniGameFromObject (%obj);
 	}
-	else 
+	else
 	{
 		$InputTarget_["MiniGame"] = 0;
 	}
@@ -18368,7 +18368,7 @@ function fxDTSBrick::onToolBreak (%obj, %client)
 	{
 		$InputTarget_["MiniGame"] = getMiniGameFromObject (%obj);
 	}
-	else 
+	else
 	{
 		$InputTarget_["MiniGame"] = 0;
 	}
@@ -18383,7 +18383,7 @@ function fxDTSBrick::onMiniGameReset (%obj, %client)
 		$InputTarget_["Player"] = %client.Player;
 		$InputTarget_["Client"] = %client;
 	}
-	else 
+	else
 	{
 		$InputTarget_["Player"] = 0;
 		$InputTarget_["Client"] = 0;
@@ -18573,7 +18573,7 @@ function fxDTSBrick::spawnItem (%obj, %vector, %itemData)
 	{
 		%rot = "0 0 -1 " @ $piOver2;
 	}
-	else 
+	else
 	{
 		%rot = "0 0 1 0";
 	}
@@ -18846,7 +18846,7 @@ function fxDTSBrick::fireRelayFromBox (%obj, %pos, %size, %client)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.addScheduledEvent (%searchObj.schedule (33, fireRelay, %client));
 		}
@@ -18923,7 +18923,7 @@ function fxDTSBrick::radiusImpulse (%obj, %radius, %force, %verticalForce, %clie
 		{
 			%searchPos = %searchObj.getHackPosition ();
 		}
-		else 
+		else
 		{
 			%searchPos = %searchObj.getWorldBoxCenter ();
 		}
@@ -19138,7 +19138,7 @@ function fxDTSBrick::eventFloodCheck (%obj, %maxFlood)
 			return 1;
 		}
 	}
-	else 
+	else
 	{
 		%obj.eventFloodCount = 0;
 		%obj.lastEventFloodTime = %currTime;
@@ -19158,7 +19158,7 @@ function GameConnection::eventFloodCheck (%obj, %maxFlood)
 			return 1;
 		}
 	}
-	else 
+	else
 	{
 		%obj.eventFloodCount = 0;
 		%obj.lastEventFloodTime = %currTime;
@@ -19392,7 +19392,7 @@ function Player::AddHealth (%player, %amt)
 	{
 		%player.setDamageLevel (%player.getDamageLevel () - %amt);
 	}
-	else 
+	else
 	{
 		%player.Damage (%player, %player.getPosition (), %amt * -1, $DamageType::Default);
 	}
@@ -19408,7 +19408,7 @@ function Player::SetHealth (%player, %health)
 	{
 		%player.Damage (%player, %player.getPosition, %player.getDataBlock ().maxDamage, $DamageType::Default);
 	}
-	else 
+	else
 	{
 		%damageLevel = %player.getDataBlock ().maxDamage - %health;
 		if (%damageLevel < 0)
@@ -19465,7 +19465,7 @@ function Projectile::Redirect (%obj, %vector, %normalized, %client)
 		%len = VectorLen (%vel);
 		%bounceVel = VectorScale (%vec, %len);
 	}
-	else 
+	else
 	{
 		%bounceVel = %vector;
 	}
@@ -19521,7 +19521,7 @@ function Vehicle::onActivate (%vehicle, %activatingObj, %activatingClient, %pos,
 	{
 		%vehicleOwner = findClientByBL_ID (%vehicle.spawnBrick.getGroup ().bl_id);
 	}
-	else 
+	else
 	{
 		%vehicleOwner = 0;
 	}
@@ -19532,7 +19532,7 @@ function Vehicle::onActivate (%vehicle, %activatingObj, %activatingClient, %pos,
 			%doFlip = 1;
 		}
 	}
-	else 
+	else
 	{
 		%doFlip = 1;
 	}
@@ -19686,7 +19686,7 @@ function WheeledVehicleData::onAdd (%this, %obj)
 		%obj.setWheelPowered (4, 1);
 		%obj.setWheelPowered (5, 1);
 	}
-	else 
+	else
 	{
 		%obj.setWheelSteering (0, 1);
 		%obj.setWheelSteering (1, 1);
@@ -19726,7 +19726,7 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 	{
 		%vehicleOwner = findClientByBL_ID (%obj.spawnBrick.getGroup ().bl_id);
 	}
-	else 
+	else
 	{
 		%vehicleOwner = 0;
 	}
@@ -19737,7 +19737,7 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 			%canUse = 1;
 		}
 	}
-	else 
+	else
 	{
 		%canUse = 1;
 	}
@@ -19753,7 +19753,7 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 	{
 		%canDamage = 1;
 	}
-	else 
+	else
 	{
 		%canDamage = 0;
 	}
@@ -19804,7 +19804,7 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 						break;
 					}
 				}
-				else 
+				else
 				{
 					%ownerName = %obj.spawnBrick.getGroup ().name;
 					%msg = %ownerName @ " does not trust you enough to do that";
@@ -19818,7 +19818,7 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 						{
 							%msg = "This vehicle is not part of the mini-game.";
 						}
-						else 
+						else
 						{
 							%msg = "This vehicle is part of a mini-game.";
 						}
@@ -19835,13 +19835,13 @@ function WheeledVehicleData::onCollision (%this, %obj, %col, %vec, %speed)
 					%runOver = 1;
 				}
 			}
-			else 
+			else
 			{
 				%runOver = 1;
 			}
 		}
 	}
-	else 
+	else
 	{
 		%runOver = 1;
 	}
@@ -19929,7 +19929,7 @@ function WheeledVehicleData::Damage (%this, %obj, %sourceObject, %position, %dam
 		{
 			%client = %obj.lastDamageClient;
 		}
-		else 
+		else
 		{
 			%client = %obj.spawnBrick.getGroup ().client;
 		}
@@ -19945,12 +19945,12 @@ function WheeledVehicleData::Damage (%this, %obj, %sourceObject, %position, %dam
 			{
 				%projectileData = %this.initialExplosionProjectile;
 			}
-			else 
+			else
 			{
 				%projectileData = vehicleExplosionProjectile;
 			}
 		}
-		else 
+		else
 		{
 			%projectileData = vehicleExplosionProjectile;
 		}
@@ -19976,7 +19976,7 @@ function WheeledVehicleData::Damage (%this, %obj, %sourceObject, %position, %dam
 		{
 			%respawnTime = %mg.VehicleRespawnTime;
 		}
-		else 
+		else
 		{
 			%respawnTime = 0;
 		}
@@ -20033,7 +20033,7 @@ function FlyingVehicleData::Damage (%this, %obj, %sourceObject, %position, %dama
 		{
 			%client = %obj.lastDamageClient;
 		}
-		else 
+		else
 		{
 			%client = %obj.spawnBrick.getGroup ().client;
 		}
@@ -20041,7 +20041,7 @@ function FlyingVehicleData::Damage (%this, %obj, %sourceObject, %position, %dama
 		{
 			%projectileData = %this.initialExplosionProjectile;
 		}
-		else 
+		else
 		{
 			%projectileData = vehicleExplosionProjectile;
 		}
@@ -20069,7 +20069,7 @@ function FlyingVehicleData::Damage (%this, %obj, %sourceObject, %position, %dama
 				%obj.spawnBrick.spawnVehicle (%mg.VehicleRespawnTime);
 			}
 		}
-		else 
+		else
 		{
 			%obj.spawnBrick.spawnVehicle (5000);
 		}
@@ -20092,7 +20092,7 @@ function Vehicle::finalExplosion (%obj)
 	{
 		%client = %obj.lastDamageClient;
 	}
-	else 
+	else
 	{
 		%client = %obj.spawnBrick.getGroup ().client;
 	}
@@ -20106,7 +20106,7 @@ function Vehicle::finalExplosion (%obj)
 	{
 		%projectileData = %data.finalExplosionProjectile;
 	}
-	else 
+	else
 	{
 		%projectileData = vehicleFinalExplosionProjectile;
 	}
@@ -20265,7 +20265,7 @@ function shutDown (%text)
 			{
 				%cl.schedule (10, delete, %text);
 			}
-			else 
+			else
 			{
 				%cl.schedule (10, delete, "The server was shut down.");
 			}
@@ -20373,7 +20373,7 @@ function writeFuncOffCheck (%file, %fnNamespace, %fnName, %protectANY)
 		%file.writeLine ("if(  fnNamespace && !dStricmp(fnName, \"" @ %fnName @ "\") && (ip != " @ %offset @ ")  )");
 		%file.writeLine ("   fail = true;");
 	}
-	else 
+	else
 	{
 		%file.writeLine ("if(  fnNamespace && !dStricmp(fnNamespace, \"" @ %fnNamespace @ "\") && !dStricmp(fnName, \"" @ %fnName @ "\") && (ip != " @ %offset @ ")  )");
 		%file.writeLine ("   fail = true;");
@@ -20402,7 +20402,7 @@ function removeEmptyBrickGroups ()
 		{
 			%i += 1;
 		}
-		else 
+		else
 		{
 			%brickGroup.delete ();
 		}
@@ -21135,7 +21135,7 @@ function createGameModeMusicDataBlocks ()
 		{
 			error ("ERROR: createGameModeMusicDataBlocks() - Music file \"" @ %filename @ "\" > 1mb - ignoring");
 		}
-		else 
+		else
 		{
 			%dbName = "musicData_" @ %varName;
 			%command = "datablock AudioProfile(" @ %dbName @ ") {" @ "filename = \"" @ %filename @ "\";" @ "description = AudioMusicLooping3d;" @ "preload = true;" @ "uiName = \"" @ %uiName @ "\";" @ "};";
@@ -21150,7 +21150,7 @@ function createGameModeMusicDataBlocks ()
 				{
 					fileDelete (%filename);
 				}
-				else 
+				else
 				{
 					warning ("WARNING: \'" @ %filename @ "\' is a stereo music block and would be deleted if this was the public build!");
 				}
@@ -21190,7 +21190,7 @@ function createMusicDatablocks ()
 			error ("ERROR: Music file \"" @ %filename @ "\" > 1mb - ignoring");
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			if ($Music__[%varName] $= 1)
 			{
@@ -21207,7 +21207,7 @@ function createMusicDatablocks ()
 					{
 						fileDelete (%filename);
 					}
-					else 
+					else
 					{
 						warning ("WARNING: \'" @ %filename @ "\' is a stereo music block and would be deleted if this was the public build!");
 					}
@@ -21226,7 +21226,7 @@ function updateMusicList ()
 	{
 		exec ("config/server/musicList.cs");
 	}
-	else 
+	else
 	{
 		exec ("base/server/defaultMusicList.cs");
 	}
@@ -21242,13 +21242,13 @@ function updateMusicList ()
 		{
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			if (mFloor ($Music__[%varName]) <= 0)
 			{
 				$Music__[%varName] = -1;
 			}
-			else 
+			else
 			{
 				$Music__[%varName] = 1;
 			}
@@ -21366,7 +21366,7 @@ function fxDTSBrick::getSpawnPoint (%brick)
 		%pos = VectorAdd (%pos, "0 0 0.1");
 		%trans = %pos SPC %rot;
 	}
-	else 
+	else
 	{
 		%trans = %x SPC %y SPC %z SPC %rot;
 	}
@@ -21385,7 +21385,7 @@ function SimGroup::dumpSpawnPoints (%group)
 		{
 			echo ("  ", %group.spawnBrick[%i]);
 		}
-		else 
+		else
 		{
 			echo ("  ", %group.spawnBrick[%i], " <---- NOT AN OBJECT");
 		}
@@ -21411,7 +21411,7 @@ function ServerCmdRequestBrickManList (%client)
 			%line = "LAN" TAB "Everyone" TAB %brickCount;
 			commandToClient (%client, 'AddBrickManLine', -1, %line);
 		}
-		else 
+		else
 		{
 			%line = %subGroup.bl_id TAB %subGroup.name TAB %brickCount;
 			commandToClient (%client, 'AddBrickManLine', %subGroup.bl_id, %line);
@@ -21478,7 +21478,7 @@ function ServerCmdHilightBrickGroup (%client, %bl_id)
 	{
 		%time = 1500;
 	}
-	else 
+	else
 	{
 		%time = 1000;
 	}
@@ -21494,7 +21494,7 @@ function SimGroup::chainBlink (%group, %idx, %count, %firstPass, %timeBetween)
 		{
 			return;
 		}
-		else 
+		else
 		{
 			%group.isChainBlinking = 1;
 		}
@@ -21506,13 +21506,13 @@ function SimGroup::chainBlink (%group, %idx, %count, %firstPass, %timeBetween)
 		{
 			%obj = %group.getObject (%idx);
 		}
-		else 
+		else
 		{
 			if (%count != 0)
 			{
 				%group.schedule (%timeBetween, chainBlink, 0, %count -= 1, 0, %timeBetween);
 			}
-			else 
+			else
 			{
 				%group.isChainBlinking = 0;
 			}
@@ -21535,7 +21535,7 @@ function SimGroup::chainBlink (%group, %idx, %count, %firstPass, %timeBetween)
 					%obj.oldColor = "";
 					%obj.oldColorFX = "";
 				}
-				else 
+				else
 				{
 					%x = %count % 2;
 					if (%x == 0)
@@ -21547,7 +21547,7 @@ function SimGroup::chainBlink (%group, %idx, %count, %firstPass, %timeBetween)
 					{
 						%obj.setColor ($HilightColor);
 					}
-					else 
+					else
 					{
 						echo ("wtf should not happen");
 					}
@@ -21584,7 +21584,7 @@ function serverCmdClearBrickGroup (%client, %bl_id)
 	{
 		MessageAll ('MsgClearBricks', '\c3%1\c2 cleared the bricks', %client.getPlayerName ());
 	}
-	else 
+	else
 	{
 		MessageAll ('MsgClearBricks', '\c3%1\c2 cleared \c3%2\c2\'s bricks', %client.getPlayerName (), %group.name);
 	}
@@ -21620,7 +21620,7 @@ function serverCmdClearAllBricks (%client)
 		{
 			%x += 1;
 		}
-		else 
+		else
 		{
 			%subGroup.ChainDeleteAll ();
 			%x += 1;
@@ -21654,7 +21654,7 @@ function SimGroup::ChainDeleteAll (%group)
 		}
 		%obj.delete ();
 	}
-	else 
+	else
 	{
 		%group.chainDeleteSchedule = 0;
 		%oldQuotaObject = getCurrentQuotaObject ();
@@ -21782,7 +21782,7 @@ function serverCmdTrust_Invite (%client, %targetClient, %targetBL_ID, %level)
 		%targetClient.StartInvitationTimeout ();
 		commandToClient (%targetClient, 'TrustInvite', %client.getPlayerName (), %client.getBLID (), 2);
 	}
-	else 
+	else
 	{
 		commandToClient (%client, 'MessageBoxOK', 'Trust Invite Error', 'Invalid trust level specified.');
 		return;
@@ -21857,7 +21857,7 @@ function serverCmdRejectTrustInvite (%client, %targetBL_ID)
 			}
 		}
 	}
-	else 
+	else
 	{
 		%invitingClient.lastTrustRejectionTime = 0;
 		%invitingClient.trustRejectionCount = 0;
@@ -21958,7 +21958,7 @@ function serverCmdTrust_Demote (%client, %targetBL_ID, %level)
 		secureCommandToClient ("zbR4HmJcSY8hdRhr", %client, 'ClientTrust', %targetClient, 1);
 		secureCommandToClient ("zbR4HmJcSY8hdRhr", %targetClient, 'TrustDemoted', %client, %client.getBLID (), %level);
 	}
-	else 
+	else
 	{
 		commandToClient (%client, 'MessageBoxOK', 'Trust Demote Error', 'Invalid trust level specified.');
 	}
@@ -21992,7 +21992,7 @@ function GameConnection::getBL_IDTrustLevel (%client, %targetBL_ID)
 	{
 		return %ourLevel;
 	}
-	else 
+	else
 	{
 		return 0;
 	}
@@ -22056,7 +22056,7 @@ function GameConnection::InitializeTrustListUpload (%client)
 			{
 				secureCommandToClient ("zbR4HmJcSY8hdRhr", %client, 'ClientTrust', %otherClient, -1);
 			}
-			else 
+			else
 			{
 				%level = 10;
 				secureCommandToClient ("zbR4HmJcSY8hdRhr", %client, 'ClientTrust', %otherClient, %level);
@@ -22152,7 +22152,7 @@ function serverCmdTrustListUpload_Done (%client)
 		{
 			secureCommandToClient ("zbR4HmJcSY8hdRhr", %client, 'ClientTrust', %otherClient, -1);
 		}
-		else 
+		else
 		{
 			%level = mFloor (%ourBrickGroup.Trust[%otherClient.getBLID ()]);
 			secureCommandToClient ("zbR4HmJcSY8hdRhr", %client, 'ClientTrust', %otherClient, %level);
@@ -22247,7 +22247,7 @@ function getTrustLevel (%obj1, %obj2)
 		error ("ERROR: getTrustLevel() - trust levels between " @ %bl_id1 @ " and " @ %bl_id2 @ " are assymetrical.");
 		return $TrustLevel::None;
 	}
-	else 
+	else
 	{
 		$lastError = $LastError::Trust;
 		return %brickGroup1.Trust[%bl_id2];
@@ -22266,7 +22266,7 @@ function getBL_IDFromObject (%obj)
 	{
 		return %brickGroup.bl_id;
 	}
-	else 
+	else
 	{
 		return -1;
 	}
@@ -22305,7 +22305,7 @@ function getBrickGroupFromObject (%obj)
 		{
 			%brickGroup = %obj.spawnBrick.getGroup ();
 		}
-		else 
+		else
 		{
 			%brickGroup = "BrickGroup_" @ %obj.bl_id;
 		}
@@ -22328,7 +22328,7 @@ function getBrickGroupFromObject (%obj)
 			%brickGroup = %obj.client.brickGroup;
 		}
 	}
-	else 
+	else
 	{
 		if (isObject (%obj.spawnBrick))
 		{
@@ -22680,12 +22680,12 @@ function serverCmdEndMiniGame (%client)
 			%mg.endGame ();
 			%mg.delete ();
 		}
-		else 
+		else
 		{
 			error ("ERROR: serverCmdEndMiniGame() - \"" @ %client.getPlayerName () @ "\" tried to end a minigame that he\'s not in charge of.");
 		}
 	}
-	else 
+	else
 	{
 		error ("ERROR: serverCmdEndMiniGame() - \"" @ %client.getPlayerName () @ "\" tried to end a minigame when he\'s not even in one.");
 	}
@@ -22776,7 +22776,7 @@ function ServerCmdSetMiniGameData (%client, %line)
 					%time = $Game::MaxRespawnTime;
 				}
 			}
-			else 
+			else
 			{
 				%time = -1;
 			}
@@ -22796,7 +22796,7 @@ function ServerCmdSetMiniGameData (%client, %line)
 					%time = $Game::MaxVehicleRespawnTime;
 				}
 			}
-			else 
+			else
 			{
 				%time = -1;
 			}
@@ -22839,12 +22839,12 @@ function ServerCmdSetMiniGameData (%client, %line)
 					{
 						%mg.PlayerDataBlock = PlayerStandardArmor.getId ();
 					}
-					else 
+					else
 					{
 						%mg.PlayerDataBlock = %db;
 					}
 				}
-				else 
+				else
 				{
 					%mg.PlayerDataBlock = PlayerStandardArmor.getId ();
 				}
@@ -22913,7 +22913,7 @@ function ServerCmdSetMiniGameData (%client, %line)
 					{
 						%mg.startEquip[%idx] = %db;
 					}
-					else 
+					else
 					{
 						%mg.startEquip[%idx] = 0;
 					}
@@ -22921,7 +22921,7 @@ function ServerCmdSetMiniGameData (%client, %line)
 				%mg.forceEquip (%idx);
 			}
 		}
-		else 
+		else
 		{
 			error ("ERROR: ServerCmdSetMiniGameData() - Unknown type \"" @ %type @ "\"");
 		}
@@ -23056,7 +23056,7 @@ function MiniGameSO::addMember (%obj, %client)
 	{
 		%client.InstantRespawn ();
 	}
-	else 
+	else
 	{
 		if (isObject (%client.Player))
 		{
@@ -23209,7 +23209,7 @@ function MiniGameSO::checkLastManStanding (%obj)
 		{
 			
 		}
-		else 
+		else
 		{
 			%livePlayerCount += 1;
 			%liveClient = %client;
@@ -23240,7 +23240,7 @@ function MiniGameSO::checkLastManStanding (%obj)
 				{
 					
 				}
-				else 
+				else
 				{
 					%camera.setOrbitMode (%player, %camera.getTransform (), 0, 8, 8);
 					%camera.mode = "Corpse";
@@ -23297,7 +23297,7 @@ function MiniGameSO::Report (%obj)
 		{
 			echo ("    " @ %obj.member[%i] @ ": " @ %obj.member[%i].getPlayerName (), " <--- Owner");
 		}
-		else 
+		else
 		{
 			echo ("    " @ %obj.member[%i] @ ": " @ %obj.member[%i].getPlayerName ());
 		}
@@ -23338,7 +23338,7 @@ function MiniGameSO::endGame (%obj)
 					{
 						%item.onUse (%player, %player.currTool);
 					}
-					else 
+					else
 					{
 						%player.unmountImage (0);
 					}
@@ -23349,7 +23349,7 @@ function MiniGameSO::endGame (%obj)
 					%cl.InstantRespawn ();
 					%cl.miniGame = 0;
 				}
-				else 
+				else
 				{
 					%cl.Player.setDamageLevel (0);
 					if (isObject (%cl.Player.getMountedImage (0)))
@@ -23365,14 +23365,14 @@ function MiniGameSO::endGame (%obj)
 					applyCharacterPrefs (%cl);
 				}
 			}
-			else 
+			else
 			{
 				%cl.miniGame = %obj;
 				%cl.InstantRespawn ();
 				%cl.miniGame = 0;
 			}
 		}
-		else 
+		else
 		{
 			%cl.InstantRespawn ();
 		}
@@ -23440,7 +23440,7 @@ function MiniGameSO::Reset (%obj, %client)
 			%i += 1;
 		}
 	}
-	else 
+	else
 	{
 		if (%obj.UseAllPlayersBricks)
 		{
@@ -23553,7 +23553,7 @@ function MiniGameSO::Reset (%obj, %client)
 		{
 			commandToClient (%cl, 'CenterPrint', "\c3" @ %client.getPlayerName () @ "\c5 reset the mini-game", 1);
 		}
-		else 
+		else
 		{
 			commandToClient (%cl, 'CenterPrint', "\c5Mini-game reset", 1);
 		}
@@ -23589,7 +23589,7 @@ function MiniGameSO::timeLimitTick (%obj, %echo)
 	{
 		%obj.timeLimitSchedule = %obj.schedule (%timeRemaining - 30000, timeLimitTick, 1);
 	}
-	else 
+	else
 	{
 		%obj.timeLimitSchedule = %obj.schedule (%timeRemaining - 60000, timeLimitTick, 1);
 	}
@@ -23669,7 +23669,7 @@ function MiniGameSO::forceEquip (%obj, %slot)
 						{
 							%obj.startEquip[%slot].onUse (%player, %slot);
 						}
-						else 
+						else
 						{
 							%player.unmountImage (0);
 						}
@@ -23895,12 +23895,12 @@ function MiniGameSO::pickSpawnPoint (%obj, %client)
 				{
 					return %brickGroup.getBrickSpawnPoint ();
 				}
-				else 
+				else
 				{
 					return BrickGroup_888888.getBrickSpawnPoint ();
 				}
 			}
-			else 
+			else
 			{
 				%totalSpawnPoints = 0;
 				$currCheckVal += 1;
@@ -23932,7 +23932,7 @@ function MiniGameSO::pickSpawnPoint (%obj, %client)
 					{
 						%brickGroup = BrickGroup_888888;
 					}
-					else 
+					else
 					{
 						%brickGroup = %obj.member[%i].brickGroup;
 					}
@@ -23955,27 +23955,27 @@ function MiniGameSO::pickSpawnPoint (%obj, %client)
 				{
 					return %finalBrickGroup.getBrickSpawnPoint ();
 				}
-				else 
+				else
 				{
 					error ("MiniGameSO::PickSpawnPoint() - no brick group found");
 					return pickSpawnPoint ();
 				}
 			}
 		}
-		else 
+		else
 		{
 			%brickGroup = %obj.owner.brickGroup;
 			if (%brickGroup.spawnBrickCount > 0)
 			{
 				return %brickGroup.getBrickSpawnPoint ();
 			}
-			else 
+			else
 			{
 				return BrickGroup_888888.getBrickSpawnPoint ();
 			}
 		}
 	}
-	else 
+	else
 	{
 		return pickSpawnPoint ();
 	}
@@ -23987,7 +23987,7 @@ function MiniGameSO::getLine (%mg)
 	{
 		%line = %mg.owner.getPlayerName () TAB %mg.owner.getBLID () TAB %mg.title TAB %mg.InviteOnly;
 	}
-	else 
+	else
 	{
 		%line = " " TAB -1 TAB %mg.title TAB %mg.InviteOnly;
 	}
@@ -24061,18 +24061,18 @@ function miniGameCanUse (%player, %thing)
 			{
 				return 1;
 			}
-			else 
+			else
 			{
 				$lastError = $LastError::MiniGameNotYours;
 				return 0;
 			}
 		}
-		else 
+		else
 		{
 			return 1;
 		}
 	}
-	else 
+	else
 	{
 		if (%thing.client)
 		{
@@ -24086,7 +24086,7 @@ function miniGameCanUse (%player, %thing)
 		{
 			return 1;
 		}
-		else 
+		else
 		{
 			$lastError = $LastError::NotInMiniGame;
 			return 0;
@@ -24108,7 +24108,7 @@ function miniGameCanDamage (%client, %victimObject)
 			%botNum1 = 1;
 			%botCount += 1;
 		}
-		else 
+		else
 		{
 			%otherBotCount += 1;
 		}
@@ -24123,7 +24123,7 @@ function miniGameCanDamage (%client, %victimObject)
 			%botNum2 = 1;
 			%botCount += 1;
 		}
-		else 
+		else
 		{
 			%otherBotCount += 1;
 		}
@@ -24164,7 +24164,7 @@ function miniGameCanDamage (%client, %victimObject)
 					{
 						return 1;
 					}
-					else 
+					else
 					{
 						return 0;
 					}
@@ -24186,7 +24186,7 @@ function miniGameCanDamage (%client, %victimObject)
 						{
 							return 1;
 						}
-						else 
+						else
 						{
 							return 0;
 						}
@@ -24198,7 +24198,7 @@ function miniGameCanDamage (%client, %victimObject)
 						{
 							return 1;
 						}
-						else 
+						else
 						{
 							return 0;
 						}
@@ -24210,14 +24210,14 @@ function miniGameCanDamage (%client, %victimObject)
 						{
 							return 1;
 						}
-						else 
+						else
 						{
 							return 0;
 						}
 					}
 					return 1;
 				}
-				else 
+				else
 				{
 					return 0;
 				}
@@ -24281,7 +24281,7 @@ function miniGameCanDamage (%client, %victimObject)
 				{
 					return 1;
 				}
-				else 
+				else
 				{
 					return 0;
 				}
@@ -24303,7 +24303,7 @@ function miniGameCanDamage (%client, %victimObject)
 					{
 						return 1;
 					}
-					else 
+					else
 					{
 						return 0;
 					}
@@ -24315,7 +24315,7 @@ function miniGameCanDamage (%client, %victimObject)
 					{
 						return 1;
 					}
-					else 
+					else
 					{
 						return 0;
 					}
@@ -24327,14 +24327,14 @@ function miniGameCanDamage (%client, %victimObject)
 					{
 						return 1;
 					}
-					else 
+					else
 					{
 						return 0;
 					}
 				}
 				return 1;
 			}
-			else 
+			else
 			{
 				return 0;
 			}
@@ -24349,17 +24349,17 @@ function miniGameCanDamage (%client, %victimObject)
 					{
 						return 1;
 					}
-					else 
+					else
 					{
 						return 0;
 					}
 				}
-				else 
+				else
 				{
 					return 1;
 				}
 			}
-			else 
+			else
 			{
 				return 0;
 			}
@@ -24395,7 +24395,7 @@ function miniGameCanDamage (%client, %victimObject)
 	{
 		return 1;
 	}
-	else 
+	else
 	{
 		%victimBL_ID = getBL_IDFromObject (%victimObject);
 		if (%victimBL_ID == %miniGame1.owner.getBLID ())
@@ -24423,7 +24423,7 @@ function getMiniGameFromObject (%obj)
 		{
 			%miniGame = %obj;
 		}
-		else 
+		else
 		{
 			%miniGame = -1;
 		}
@@ -24476,7 +24476,7 @@ function getMiniGameFromObject (%obj)
 				%miniGame = %obj.spawnBrick.getGroup ().getClient ().miniGame;
 			}
 		}
-		else 
+		else
 		{
 			%miniGame = %obj.miniGame;
 		}
@@ -24531,7 +24531,7 @@ function getMiniGameFromObject (%obj)
 			%miniGame = %obj.client.miniGame;
 		}
 	}
-	else 
+	else
 	{
 		if (!isObject (%miniGame))
 		{
@@ -24605,17 +24605,17 @@ function getMiniGameLevel (%obj1, %obj2)
 			{
 				return $MiniGameLevel::Full;
 			}
-			else 
+			else
 			{
 				return $MiniGameLevel::Damage;
 			}
 		}
-		else 
+		else
 		{
 			return $MiniGameLevel::Full;
 		}
 	}
-	else 
+	else
 	{
 		if (%obj1.getType () & $TypeMasks::PlayerObjectType)
 		{
@@ -24641,7 +24641,7 @@ function getMiniGameLevel (%obj1, %obj2)
 			{
 				return $MiniGameLevel::Full;
 			}
-			else 
+			else
 			{
 				return $MiniGameLevel::Damage;
 			}
@@ -24652,7 +24652,7 @@ function getMiniGameLevel (%obj1, %obj2)
 			{
 				return $MiniGameLevel::Full;
 			}
-			else 
+			else
 			{
 				return $MiniGameLevel::Damage;
 			}
@@ -24661,7 +24661,7 @@ function getMiniGameLevel (%obj1, %obj2)
 		{
 			return $MiniGameLevel::Full;
 		}
-		else 
+		else
 		{
 			return $MiniGameLevel::None;
 		}
@@ -24676,7 +24676,7 @@ function updateAddOnList ()
 	{
 		exec ("config/server/ADD_ON_LIST.cs");
 	}
-	else 
+	else
 	{
 		exec ("base/server/defaultAddOnList.cs");
 	}
@@ -24699,13 +24699,13 @@ function updateAddOnList ()
 			deleteVariables ("$AddOn__" @ %varName);
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			if (mFloor ($AddOn__[%varName]) <= 0)
 			{
 				$AddOn__[%varName] = -1;
 			}
-			else 
+			else
 			{
 				$AddOn__[%varName] = 1;
 			}
@@ -24740,7 +24740,7 @@ function loadGameModeAddOns ()
 		{
 			error ("ERROR: Invalid add-on \'" @ %dirName @ "\' specified for game mode \'" @ $GameModeArg @ "\'");
 		}
-		else 
+		else
 		{
 			$AddOnLoaded__[%varName] = 1;
 			%zipFile = "Add-Ons/" @ %dirName @ ".zip";
@@ -24749,7 +24749,7 @@ function loadGameModeAddOns ()
 				%zipCRC = getFileCRC (%zipFile);
 				echo ("\c4Loading Add-On: " @ %dirName @ " \c1(CRC:" @ %zipCRC @ ")");
 			}
-			else 
+			else
 			{
 				echo ("\c4Loading Add-On: " @ %dirName);
 			}
@@ -24757,7 +24757,7 @@ function loadGameModeAddOns ()
 			{
 				echo ("\c2ADD-ON \"" @ %dirName @ "\" CONTAINS SYNTAX ERRORS\n");
 			}
-			else 
+			else
 			{
 				%oldDBCount = DataBlockGroup.getCount ();
 				exec ("Add-Ons/" @ %dirName @ "/server.cs");
@@ -24794,7 +24794,7 @@ function loadAddOns ()
 		{
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			%dirNameList[%dirCount] = %dirName;
 			%dirCount += 1;
@@ -24841,7 +24841,7 @@ function loadAddOns ()
 			%zipCRC = getFileCRC (%zipFile);
 			echo ("\c4Loading Add-On: " @ %dirName @ " \c1(CRC:" @ %zipCRC @ ")");
 		}
-		else 
+		else
 		{
 			echo ("\c4Loading Add-On: " @ %dirName);
 		}
@@ -24892,7 +24892,7 @@ function LoadRequiredAddOn (%dirName)
 				%dirName = "Support_LegacyDoors";
 			}
 		}
-		else 
+		else
 		{
 			%foundJVSContent = 0;
 			%i = 0;
@@ -24930,7 +24930,7 @@ function LoadRequiredAddOn (%dirName)
 			{
 				
 			}
-			else 
+			else
 			{
 				%foundIt = 1;
 				break;
@@ -24967,7 +24967,7 @@ function LoadRequiredAddOn (%dirName)
 		$AddOnLoaded__[%varName] = 1;
 		return $Error::None;
 	}
-	else 
+	else
 	{
 		return $Error::AddOn_Disabled;
 	}
@@ -24984,7 +24984,7 @@ function ForceRequiredAddOn (%dirName)
 				%dirName = "Support_LegacyDoors";
 			}
 		}
-		else 
+		else
 		{
 			%foundJVSContent = 0;
 			%i = 0;
@@ -25022,7 +25022,7 @@ function ForceRequiredAddOn (%dirName)
 			{
 				
 			}
-			else 
+			else
 			{
 				%foundIt = 1;
 				break;
@@ -25065,7 +25065,7 @@ function ForceRequiredAddOn (%dirName)
 	{
 		return $Error::None;
 	}
-	else 
+	else
 	{
 		return $Error::AddOn_Disabled;
 	}
@@ -25374,7 +25374,7 @@ function loadGameModePrintedBrickTextures ()
 		{
 			
 		}
-		else 
+		else
 		{
 			%start = strlen ("Print_");
 			%end = stripos ($GameMode::AddOn[%i], "_", %start + 1);
@@ -25383,7 +25383,7 @@ function loadGameModePrintedBrickTextures ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$printARStart[%loadingAR] = $globalPrintCount;
 				%localPrintCount = 0;
@@ -25394,7 +25394,7 @@ function loadGameModePrintedBrickTextures ()
 					{
 						
 					}
-					else 
+					else
 					{
 						%start = strlen ("Print_");
 						%end = stripos ($GameMode::AddOn[%j], "_", %start + 1);
@@ -25403,7 +25403,7 @@ function loadGameModePrintedBrickTextures ()
 						{
 							
 						}
-						else 
+						else
 						{
 							echo ("Loading " @ $GameMode::AddOn[%j]);
 							%pattern = "Add-Ons/" @ $GameMode::AddOn[%j] @ "/prints/*.png";
@@ -25422,7 +25422,7 @@ function loadGameModePrintedBrickTextures ()
 									warn ("WARNING: loadGameModePrintedBrickTextures() - Print \"" @ %filename @ "\" has no icon - skipping");
 									%filename = findNextFile (%dir);
 								}
-								else 
+								else
 								{
 									%idString = %loadingAR @ "/" @ %fileBase;
 									if ($printNameTable[%idString] !$= "")
@@ -25430,7 +25430,7 @@ function loadGameModePrintedBrickTextures ()
 										warn ("WARNING: loadGameModePrintedBrickTextures() - Print \"" @ %filename @ "\" - " @ %idString @ " already exists - skipping");
 										%filename = findNextFile (%dir);
 									}
-									else 
+									else
 									{
 										$printNameTable[%idString] = $globalPrintCount;
 										setPrintTexture ($globalPrintCount, %filename);
@@ -25465,7 +25465,7 @@ function loadPrintedBrickTextures ()
 		{
 			
 		}
-		else 
+		else
 		{
 			%newAR = %db.printAspectRatio;
 			if (%newAR $= "")
@@ -25484,7 +25484,7 @@ function loadPrintedBrickTextures ()
 			{
 				warn ("WARNING: loadPrintedBrickTextures() - Bad aspect ratio name \"" @ %newAR @ "\" on " @ %db.getName () @ " - Cannot have \"\'s");
 			}
-			else 
+			else
 			{
 				%arCount = getFieldCount (%arList);
 				%addtoList = 1;
@@ -25507,7 +25507,7 @@ function loadPrintedBrickTextures ()
 				{
 					%arList = %newAR;
 				}
-				else 
+				else
 				{
 					%arList = %arList TAB %newAR;
 				}
@@ -25548,28 +25548,28 @@ function loadDefaultLetterPrints ()
 		{
 			%filename = findNextFile (%dir);
 		}
-		else 
+		else
 		{
 			%fileBase = fileBase (%filename);
 			if (strpos (%fileBase, " ") != -1)
 			{
 				%filename = findNextFile (%dir);
 			}
-			else 
+			else
 			{
 				%iconFileName = "Add-Ons/" @ %dirName @ "/icons/" @ %fileBase @ ".png";
 				if (!isFile (%iconFileName))
 				{
 					%filename = findNextFile (%dir);
 				}
-				else 
+				else
 				{
 					%idString = "Letters/" @ %fileBase;
 					if ($printNameTable[%idString] !$= "")
 					{
 						%filename = findNextFile (%dir);
 					}
-					else 
+					else
 					{
 						$printNameTable[%idString] = $globalPrintCount;
 						setPrintTexture ($globalPrintCount, %filename);
@@ -25592,7 +25592,7 @@ function loadPrintedBrickTexture (%aspectRatio)
 	{
 		%localPrintCount = loadDefaultLetterPrints ();
 	}
-	else 
+	else
 	{
 		%localPrintCount = 0;
 	}
@@ -25617,7 +25617,7 @@ function loadPrintedBrickTexture (%aspectRatio)
 		{
 			
 		}
-		else 
+		else
 		{
 			%fileBase = fileBase (%filename);
 			if (strpos (%fileBase, " ") != -1)
@@ -25625,7 +25625,7 @@ function loadPrintedBrickTexture (%aspectRatio)
 				warn ("WARNING: loadPrintedBrickTexture() - Bad print file name \"" @ %filename @ "\" - Cannot have spaces");
 				%filename = findNextFile (%dir);
 			}
-			else 
+			else
 			{
 				%iconFileName = "Add-Ons/" @ %dirName @ "/icons/" @ %fileBase @ ".png";
 				if (!isFile (%iconFileName))
@@ -25633,7 +25633,7 @@ function loadPrintedBrickTexture (%aspectRatio)
 					warn ("WARNING: loadPrintedBrickTexture() - Print \"" @ %filename @ "\" has no icon - skipping");
 					%filename = findNextFile (%dir);
 				}
-				else 
+				else
 				{
 					%idString = %aspectRatio @ "/" @ %fileBase;
 					if ($printNameTable[%idString] !$= "")
@@ -25641,7 +25641,7 @@ function loadPrintedBrickTexture (%aspectRatio)
 						warn ("WARNING: loadPrintedBrickTexture() - Print \"" @ %filename @ "\" - " @ %idString @ " already exists - skipping");
 						%filename = findNextFile (%dir);
 					}
-					else 
+					else
 					{
 						$printNameTable[%idString] = $globalPrintCount;
 						setPrintTexture ($globalPrintCount, %filename);
@@ -25921,7 +25921,7 @@ function getQuotaObjectFromBrickGroup (%brickGroup)
 	{
 		return %quotaObject;
 	}
-	else 
+	else
 	{
 		%oldQuotaObject = getCurrentQuotaObject ();
 		if (%oldQuotaObject != 0)
@@ -25967,7 +25967,7 @@ function getQuotaObjectFromBrickGroup (%brickGroup)
 			%quotaObject.setAllocs_Player ($Server::QuotaLAN::Player, 5465489);
 			%quotaObject.setAllocs_Vehicle ($Server::QuotaLAN::Vehicle, 5465489);
 		}
-		else 
+		else
 		{
 			%quotaObject = new QuotaObject ("");
 			%quotaObject.setAllocs_Schedules ($Server::Quota::Schedules, 5465489);
@@ -26549,7 +26549,7 @@ function pingMatchMakerLoop ()
 	{
 		
 	}
-	else 
+	else
 	{
 		pingMatchmaker ();
 	}
@@ -26607,7 +26607,7 @@ function loadDayCycle (%filename)
 		{
 			%line = %file.readLine ();
 		}
-		else 
+		else
 		{
 			if (%label $= "FRACTION")
 			{
@@ -26642,7 +26642,7 @@ function loadDayCycle (%filename)
 			{
 				DayCycle.targetUseDefaultVector[%idx] = mClamp (%value, 0, 1);
 			}
-			else 
+			else
 			{
 				error ("WARNING: loadDayCycle(" @ %filename @ ") - unknown label \"" @ %label @ "\"");
 			}
@@ -27005,7 +27005,7 @@ function parseEnvironmentFile (%filename)
 		{
 			
 		}
-		else 
+		else
 		{
 			if (%label $= "$Sky::visibleDistance")
 			{
@@ -27455,7 +27455,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 		{
 			
 		}
-		else 
+		else
 		{
 			$EnvGuiServer::SkyIdx = %i;
 			break;
@@ -27469,7 +27469,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 		{
 			
 		}
-		else 
+		else
 		{
 			$EnvGuiServer::WaterIdx = %i;
 			break;
@@ -27483,7 +27483,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 		{
 			
 		}
-		else 
+		else
 		{
 			$EnvGuiServer::GroundIdx = %i;
 			break;
@@ -27499,7 +27499,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$EnvGuiServer::SunFlareTopIdx = %i;
 				break;
@@ -27513,7 +27513,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$EnvGuiServer::SunFlareBottomIdx = %i;
 				break;
@@ -27527,7 +27527,7 @@ function EnvGuiServer::getIdxFromFilenames ()
 			{
 				
 			}
-			else 
+			else
 			{
 				$EnvGuiServer::DayCycleIdx = %i;
 				break;
@@ -27709,7 +27709,7 @@ function serverCmdEnvGui_SetVar (%client, %varName, %value)
 				EnvGuiServer::SetAdvancedMode ();
 				serverCmdEnvGui_RequestCurrentVars (%client);
 			}
-			else 
+			else
 			{
 				EnvGuiServer::SetAdvancedMode ();
 			}
@@ -28072,7 +28072,7 @@ function EnvGuiServer::SendVignette (%client)
 	{
 		commandToClient (%client, 'setVignette', $Sky::VignetteMultiply, $Sky::VignetteColor);
 	}
-	else 
+	else
 	{
 		commandToClient (%client, 'setVignette', $EnvGuiServer::VignetteMultiply, $EnvGuiServer::VignetteColor);
 	}
@@ -28242,7 +28242,7 @@ function GameModeGuiServer::ParseGameModeFile (%filename, %append)
 		{
 			
 		}
-		else 
+		else
 		{
 			if (%label $= "ADDON")
 			{
@@ -28730,7 +28730,7 @@ function changeGameMode (%newGameMode)
 	{
 		%serverType = "LAN";
 	}
-	else 
+	else
 	{
 		%serverType = "Internet";
 	}
@@ -28754,7 +28754,7 @@ function changeGameMode (%newGameMode)
 		schedule (%delay + 50, 0, createServer, %serverType);
 		schedule (%delay + 60, 0, ConnectToServer, "local", $Pref::Server::Password, 1, 0);
 	}
-	else 
+	else
 	{
 		schedule (%delay + 0, 0, destroyServer);
 		schedule (%delay + 50, 0, createServer, %serverType);
@@ -28779,7 +28779,7 @@ function GameModeGuiServer::PopulateGameModeList ()
 		{
 			$GameModeGuiServer::Preview[$GameModeGuiServer::GameModeCount] = %previewFile;
 		}
-		else 
+		else
 		{
 			$GameModeGuiServer::Preview[$GameModeGuiServer::GameModeCount] = "";
 		}
@@ -28787,7 +28787,7 @@ function GameModeGuiServer::PopulateGameModeList ()
 		{
 			$GameModeGuiServer::Thumb[$GameModeGuiServer::GameModeCount] = %thumbFile;
 		}
-		else 
+		else
 		{
 			$GameModeGuiServer::Thumb[$GameModeGuiServer::GameModeCount] = "";
 		}
@@ -28864,7 +28864,7 @@ function GameModeGuiServer::GetMissingAddOns (%filename)
 				{
 					%missingAddons = %missingAddons TAB %value;
 				}
-				else 
+				else
 				{
 					%missingAddons = %value;
 				}
@@ -28878,7 +28878,7 @@ function GameModeGuiServer::GetMissingAddOns (%filename)
 				{
 					%missingAddons = %missingAddons TAB %value @ ".ogg";
 				}
-				else 
+				else
 				{
 					%missingAddons = %value;
 				}
@@ -28907,7 +28907,7 @@ function CustomGameGuiServer::populateAddOnList ()
 		{
 			%filename = findNextFile (%pattern);
 		}
-		else 
+		else
 		{
 			$CustomGameGuiServer::AddOn[$CustomGameGuiServer::AddOnCount] = %dirName;
 			$CustomGameGuiServer::AddOnCount += 1;
@@ -28934,7 +28934,7 @@ function CustomGameGuiServer::populateMusicList ()
 		{
 			%filename = findNextFile (%pattern);
 		}
-		else 
+		else
 		{
 			$CustomGameGuiServer::Music[$CustomGameGuiServer::MusicCount] = %base;
 			$CustomGameGuiServer::MusicCount += 1;
@@ -29019,7 +29019,7 @@ function serverCmdCustomGameGui_SetAddOnEnabled (%client, %varName, %enabled)
 	{
 		%enabled = 1;
 	}
-	else 
+	else
 	{
 		%enabled = -1;
 	}
@@ -29044,7 +29044,7 @@ function serverCmdCustomGameGui_SetMusicEnabled (%client, %varName, %enabled)
 	{
 		%enabled = 1;
 	}
-	else 
+	else
 	{
 		%enabled = -1;
 	}
@@ -29196,7 +29196,7 @@ function serverCmdCustomGameGui_SetPref (%client, %varName, %value)
 	{
 		return;
 	}
-	else 
+	else
 	{
 		error ("ERROR: serverCmdCustomGameGui_SetPref() - " @ %client.getSimpleName () @ " tried to set invalid variable name \"" @ %varName @ "\" to \'" @ %value @ "\'");
 	}
@@ -29291,7 +29291,7 @@ package snowBallPackage
 				%color = %brick.getColorID ();
 				%color = getColorIDTable (%color);
 			}
-			else 
+			else
 			{
 				%color = getWord (%brick.color, 0) / 255 SPC getWord (%brick.color, 1) / 255 SPC getWord (%brick.color, 2) / 255;
 				if (%brick.topTexture !$= "Add-Ons/Ground_Plate/plate.png" && %brick.topTexture !$= "Add-Ons/Ground_White/white.png")
@@ -29511,7 +29511,7 @@ function blankaBallProjectile::onCollision (%this, %obj, %col, %fade, %pos, %nor
 		}
 		ServerPlay3D (blankaBallExplosionSound, %col.getPosition ());
 	}
-	else 
+	else
 	{
 		ServerPlay3D (blankaBallExplosionSound, %pos);
 	}
@@ -29654,7 +29654,7 @@ function serverCmdClearSpamBricks (%client)
 			{
 				
 			}
-			else 
+			else
 			{
 				%brickData = %brick.getDataBlock ().getId ();
 				if (%brickData.category $= "Baseplates")
@@ -29672,7 +29672,7 @@ function serverCmdClearSpamBricks (%client)
 						}
 					}
 				}
-				else 
+				else
 				{
 					%brick.killBrick ();
 				}
@@ -29719,7 +29719,7 @@ function serverCmdClearFloatingBricks (%client)
 			{
 				
 			}
-			else 
+			else
 			{
 				%brick.killBrick ();
 			}
@@ -29772,7 +29772,7 @@ function serverCmdClearFarAwayBricks (%client)
 			{
 				
 			}
-			else 
+			else
 			{
 				%brickPos = %brick.getPosition ();
 				%delta = VectorSub (%brickPos, %playerPos);
@@ -29781,7 +29781,7 @@ function serverCmdClearFarAwayBricks (%client)
 				{
 					
 				}
-				else 
+				else
 				{
 					%brick.killBrick ();
 				}

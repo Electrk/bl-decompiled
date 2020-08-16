@@ -52,12 +52,12 @@ function serverPart2 ()
 		{
 			initDedicatedLAN ();
 		}
-		else 
+		else
 		{
 			initDedicated ();
 		}
 	}
-	else 
+	else
 	{
 		initClient ();
 	}

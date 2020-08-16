@@ -124,7 +124,7 @@ function onServerCreated ()
 		$GameModeArg = "";
 		$GameModeDisplayName = "Custom";
 	}
-	else 
+	else
 	{
 		%filename = $GameModeArg;
 		if (!isFile (%filename))
@@ -140,7 +140,7 @@ function onServerCreated ()
 			error ("ERROR: Could not find matching game mode for \'" @ $GameModeArg @ "\'");
 			$GameModeArg = "";
 		}
-		else 
+		else
 		{
 			$GameModeArg = %filename;
 			%filename = findFirstFile ($GameModeArg);
@@ -196,7 +196,7 @@ function onServerCreated ()
 	{
 		loadAddOns ();
 	}
-	else 
+	else
 	{
 		loadGameModeAddOns ();
 	}
@@ -213,7 +213,7 @@ function onServerCreated ()
 	{
 		createMusicDatablocks ();
 	}
-	else 
+	else
 	{
 		createGameModeMusicDataBlocks ();
 	}
@@ -233,7 +233,7 @@ function onServerCreated ()
 	{
 		loadPrintedBrickTextures ();
 	}
-	else 
+	else
 	{
 		loadGameModePrintedBrickTextures ();
 	}
@@ -271,7 +271,7 @@ function onServerCreated ()
 		{
 			$SaveFileArg = "";
 		}
-		else 
+		else
 		{
 			$SaveFileArg = %filename;
 		}
@@ -449,7 +449,7 @@ function GameConnection::onClientEnterGame (%client)
 	{
 		$DefaultMiniGame.addMember (%client);
 	}
-	else 
+	else
 	{
 		%client.spawnPlayer ();
 	}
@@ -552,7 +552,7 @@ function GameConnection::onClientLeaveGame (%client)
 				%client.brickGroup.delete ();
 			}
 		}
-		else 
+		else
 		{
 			if (%client.bl_id $= "" || %client.getBLID () == -1)
 			{
@@ -598,7 +598,7 @@ function cleanUpBrickEmptyGroups ()
 		{
 			
 		}
-		else 
+		else
 		{
 			%brickGroup.delete ();
 			%i -= 1;
@@ -643,7 +643,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 		}
 		%player.client = 0;
 	}
-	else 
+	else
 	{
 		warn ("WARNING: No player object in GameConnection::onDeath() for client \'" @ %client @ "\'");
 	}
@@ -653,7 +653,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 		{
 			%client.Camera.setControlObject (%client.dummyCamera);
 		}
-		else 
+		else
 		{
 			%client.Camera.setMode ("Corpse", %client.Player);
 			%client.setControlObject (%client.Camera);
@@ -686,7 +686,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 	{
 		%message = $DeathMessage_Suicide[%damageType];
 	}
-	else 
+	else
 	{
 		%message = $DeathMessage_Murder[%damageType];
 	}
@@ -696,7 +696,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 		{
 			%playerVelocity = ((VectorLen (VectorSub (%player.preHitVelocity, %sourceClient.Player.getVelocity ())) / 2.64) * 6 * 3600) / 5280;
 		}
-		else 
+		else
 		{
 			%playerVelocity = ((VectorLen (%player.preHitVelocity) / 2.64) * 6 * 3600) / 5280;
 		}
@@ -731,7 +731,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 		{
 			%client.incScore (%client.miniGame.Points_Die);
 		}
-		else 
+		else
 		{
 			if (!%sourceClientIsBot)
 			{
@@ -749,7 +749,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 	{
 		%sourceClientName = %sourceObject.sourceObject.name;
 	}
-	else 
+	else
 	{
 		%sourceClientName = "";
 	}
@@ -764,7 +764,7 @@ function GameConnection::onDeath (%client, %sourceObject, %sourceClient, %damage
 		}
 		%mg.checkLastManStanding ();
 	}
-	else 
+	else
 	{
 		messageAllExcept (%client, -1, 'MsgClientKilled', %message, %client.getPlayerName (), %sourceClientName);
 		messageClient (%client, 'MsgYourDeath', %message, %client.getPlayerName (), %sourceClientName, $Game::MinRespawnTime);
@@ -821,7 +821,7 @@ function GameConnection::getSpawnPoint (%client)
 	{
 		%spawnPoint = %client.miniGame.pickSpawnPoint (%client);
 	}
-	else 
+	else
 	{
 		%spawnPoint = %client.brickGroup.getBrickSpawnPoint ();
 	}
@@ -840,12 +840,12 @@ function GameConnection::createPlayer (%client, %spawnPoint)
 		{
 			%data = %client.miniGame.PlayerDataBlock;
 		}
-		else 
+		else
 		{
 			%data = PlayerStandardArmor;
 		}
 	}
-	else 
+	else
 	{
 		%data = PlayerStandardArmor;
 	}
@@ -889,7 +889,7 @@ function GameConnection::createPlayer (%client, %spawnPoint)
 				{
 					%player.tool[%i] = %mg.startEquip[%i];
 				}
-				else 
+				else
 				{
 					%player.tool[%i] = 0;
 				}
@@ -897,13 +897,13 @@ function GameConnection::createPlayer (%client, %spawnPoint)
 				%i += 1;
 			}
 		}
-		else 
+		else
 		{
 			%player.setShapeNameColor ("1 1 1");
 			%player.GiveDefaultEquipment (1);
 		}
 	}
-	else 
+	else
 	{
 		%player.setShapeNameColor ("1 1 1");
 		%player.GiveDefaultEquipment (1);
@@ -969,7 +969,7 @@ function pickSpawnPoint ()
 				{
 					
 				}
-				else 
+				else
 				{
 					%transX += %offsetX;
 					%transY += %offsetY;
@@ -995,19 +995,19 @@ function pickSpawnPoint ()
 			{
 				%spawnAngle = " " @ getWords (%spawn.getTransform (), 3, 6);
 			}
-			else 
+			else
 			{
 				%spawnAngle = " 0 0 1 " @ getRandom ($pi * 2 * 100) / 100;
 			}
 			%returnTrans = %transX @ " " @ %transY @ " " @ %transZ @ %spawnAngle;
 			return %returnTrans;
 		}
-		else 
+		else
 		{
 			error ("No spawn points found in " @ %groupName);
 		}
 	}
-	else 
+	else
 	{
 		error ("Missing spawn points group " @ %groupName);
 	}
@@ -1085,7 +1085,7 @@ function GameConnection::resetVehicles (%client)
 		{
 			
 		}
-		else 
+		else
 		{
 			%obj.spawnBrick.schedule (10, spawnVehicle);
 		}
@@ -1218,7 +1218,7 @@ function GameConnection::onInfiniteLag (%client)
 		{
 			%player = %controlObj;
 		}
-		else 
+		else
 		{
 			return;
 		}
@@ -1241,7 +1241,7 @@ function GameConnection::onInfiniteLag (%client)
 	{
 		
 	}
-	else 
+	else
 	{
 		%player.lastInfiniteLagPos = %pos;
 		%pos = VectorAdd (%pos, "0 0 0.2");
@@ -1291,7 +1291,7 @@ function SimGroup::getTrustFailureMessage (%group)
 	{
 		return "You cannot modify public bricks";
 	}
-	else 
+	else
 	{
 		if (%group.name $= "")
 		{
