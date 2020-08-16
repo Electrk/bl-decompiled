@@ -117,7 +117,7 @@ function AddDamageType ( %name, %deathMessageSuicide, %deathMessageMurder, %vehi
 
 	if ( %direct $= "" )
 	{
-		%direct = false;
+		%direct = 0;
 	}
 
 	$Damage::Direct[%idx] = %direct;
@@ -127,15 +127,15 @@ function initDefaultDamageTypes ()
 {
 	$MaxDamageType = 0;
 
-	AddDamageType ("Default", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1!', 1, false);
-	AddDamageType ("Suicide", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1', 1, false);
-	AddDamageType ("Direct", '<bitmap:base/client/ui/ci/generic> %1', '%2 <bitmap:base/client/ui/ci/generic> %1', 1, true);
-	AddDamageType ("Radius", '<bitmap:base/client/ui/ci/bomb> %1', '%2 <bitmap:base/client/ui/ci/splat> %1', 1, false);
-	AddDamageType ("Impact", '<bitmap:base/client/ui/ci/splat> %1', '%2 <bitmap:base/client/ui/ci/splat> %1', 1, false);
-	AddDamageType ("Fall", '<bitmap:base/client/ui/ci/crater> %1', '%2 <bitmap:base/client/ui/ci/crater> %1', 1, false);
-	AddDamageType ("Vehicle", '<bitmap:base/client/ui/ci/car> %1', '%2 <bitmap:base/client/ui/ci/car> %1', 1, true);
-	AddDamageType ("VehicleExplosion", '<bitmap:base/client/ui/CI/carExplosion> %1', '%2 <bitmap:base/client/ui/CI/carExplosion> %1', 1, false);
-	AddDamageType ("Lava", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1!', 1, false);
+	AddDamageType ("Default", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1!', 1, 0);
+	AddDamageType ("Suicide", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1', 1, 0);
+	AddDamageType ("Direct", '<bitmap:base/client/ui/ci/generic> %1', '%2 <bitmap:base/client/ui/ci/generic> %1', 1, 1);
+	AddDamageType ("Radius", '<bitmap:base/client/ui/ci/bomb> %1', '%2 <bitmap:base/client/ui/ci/splat> %1', 1, 0);
+	AddDamageType ("Impact", '<bitmap:base/client/ui/ci/splat> %1', '%2 <bitmap:base/client/ui/ci/splat> %1', 1, 0);
+	AddDamageType ("Fall", '<bitmap:base/client/ui/ci/crater> %1', '%2 <bitmap:base/client/ui/ci/crater> %1', 1, 0);
+	AddDamageType ("Vehicle", '<bitmap:base/client/ui/ci/car> %1', '%2 <bitmap:base/client/ui/ci/car> %1', 1, 1);
+	AddDamageType ("VehicleExplosion", '<bitmap:base/client/ui/CI/carExplosion> %1', '%2 <bitmap:base/client/ui/CI/carExplosion> %1', 1, 0);
+	AddDamageType ("Lava", '<bitmap:base/client/ui/ci/skull> %1', '%2 <bitmap:base/client/ui/ci/skull> %1!', 1, 0);
 }
 
 function dumpDamageTypes ()
