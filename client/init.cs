@@ -1,36 +1,40 @@
 function initClient ()
 {
-	%dashes = "";
+	%dashes  = "";
 	%version = atoi ($Version);
 	%version = mClampF (%version, 0, 25);
-	%i = 0;
-	while (%i < %version)
+
+	for ( %i = 0; %i < %version; %i++ )
 	{
 		%dashes = %dashes @ "-";
-		%i += 1;
 	}
+
 	echo ("\n--------- Initializing Base: Client " @ %dashes);
-	if ($pref::Video::resolution $= "")
+
+	if ( $pref::Video::resolution $= "" )
 	{
-		if ($pref::Video::fullScreen)
+		if ( $pref::Video::fullScreen )
 		{
 			$pref::Video::resolution = getDesktopResolution ();
-			if ($pref::Video::resolution $= "")
+
+			if ( $pref::Video::resolution $= "" )
 			{
 				$pref::Video::resolution = "800 600 32";
 			}
 		}
 		else
 		{
-			%desktopW = getWord (getDesktopResolution (), 0);
-			%desktopH = getWord (getDesktopResolution (), 1);
+			%desktopW   = getWord (getDesktopResolution (), 0);
+			%desktopH   = getWord (getDesktopResolution (), 1);
 			%desktopBpp = getWord (getDesktopResolution (), 2);
+
 			%fudge = 30;
-			if (%desktopW > 1680 + %fudge && %desktopH > 1050 + %fudge)
+
+			if ( %desktopW > 1680 + %fudge && %desktopH > 1050 + %fudge )
 			{
 				$pref::Video::resolution = "1680 1050 " @ %desktopBpp;
 			}
-			else if (%desktopW > 1280 + %fudge && %desktopH > 720 + %fudge)
+			else if ( %desktopW > 1280 + %fudge && %desktopH > 720 + %fudge )
 			{
 				$pref::Video::resolution = "1280 720 " @ %desktopBpp;
 			}
@@ -40,28 +44,54 @@ function initClient ()
 			}
 		}
 	}
-	$Server::Dedicated = 0;
-	$Client::GameTypeQuery = "Blockland";
+
+	// Make sure this variable reflects the correct state.
+	$Server::Dedicated = false;
+
+	// Game information used to query the master server
+	$Client::GameTypeQuery    = "Blockland";
 	$Client::MissionTypeQuery = "Any";
+
+	// The common module provides basic client functionality
 	initBaseClient ();
+
+	// InitCanvas starts up the graphics system.
+	// The canvas needs to be constructed before the gui scripts are run
+	// because many of the controls assume the canvas exists at load time.
 	initCanvas ("Blockland");
+
+	// Load up the client scripts
 	exec ("./scripts/allClientScripts.cs");
+
+	// Load up the Game GUIs
 	exec ("base/client/ui/allClientGuis.gui");
-	if (isFile ("config/client/config.cs"))
+
+	// Default player key bindings
+	if ( isFile ("config/client/config.cs") )
 	{
 		exec ("config/client/config.cs");
 	}
+
 	JoinServerGuiBS.lastQueryTime = 0;
+
 	echo ("\n--------- Loading Client Add-Ons ---------");
+
 	loadClientAddOns ();
 	$numClientPackages = getNumActivePackages ();
+
 	setNetPort (getRandom (64511) + 1024);
+
+	// Copy saved script prefs into C++ code.
 	optionsDlg.setShaderQuality ($Pref::ShaderQuality);
 	setDefaultFov ($pref::Player::defaultFov);
 	setZoomSpeed ($pref::Player::zoomSpeed);
+
 	loadMainMenu ();
+
+	// The most annoying, pointless thing on the planet
 	BringWindowToForeground ();
 	schedule (1000, 0, BringWindowToForeground);
+
 	loadTrustList ();
 	updateTempBrickSettings ();
 }
@@ -77,159 +107,210 @@ function loadMainMenu ()
 	Canvas.setCursor ("DefaultCursor");
 }
 
-function convertFile (%inFileName, %outFileName)
+//-----------------------------------------------------------------------------
+
+
+function convertFile ( %inFileName, %outFileName )
 {
-	if (getBuildString () !$= "Debug" && getBuildString () !$= "Release")
+	if ( getBuildString () !$= "Debug" && getBuildString () !$= "Release" )
 	{
 		return;
 	}
-	if (!isFile (%inFileName))
+
+	if ( !isFile (%inFileName) )
 	{
 		return;
 	}
-	%outFile = new FileObject ("");
+
+	%outFile = new FileObject ();
 	%outFile.openForWrite (%outFileName);
-	%file = new FileObject ("");
+
+	%file = new FileObject ();
 	%file.openForRead (%inFileName);
+
 	%buff = "";
 	%line = %file.readLine ();
-	while (!%file.isEOF ())
+
+	while ( !%file.isEOF () )
 	{
 		%line = %file.readLine ();
 		%line = trim (%line);
+
 		%commentPos = strpos (%line, "//");
-		if (%commentPos == 0)
+
+		if ( %commentPos == 0 )
 		{
 			continue;
 		}
-		else if (%commentPos > -1)
+		else if ( %commentPos > -1 )
 		{
 			%line = getSubStr (%line, 0, %commentPos);
 		}
+
 		%line = strreplace (%line, "\t", " ");
 		%line = trim (%line);
-		while (1)
+
+		while ( true )
 		{
-			if (strpos (%line, "  ") == -1)
+			if ( strpos (%line, "  ") == -1 )
 			{
 				break;
 			}
+
 			%line = strreplace (%line, "  ", " ");
 		}
+
 		%buff = %buff @ %line @ " ";
 	}
+
 	%outFile.writeLine (%buff);
+
 	%file.close ();
 	%file.delete ();
+
 	%outFile.close ();
 	%outFile.delete ();
 }
 
-$ArrangedActive = 0;
+//-----------------------------------------------------------------------------
+
+
+$ArrangedActive    = false;
 $ArrangedAddyCount = 0;
-function notifyArrangedStart (%addy)
+
+function notifyArrangedStart ( %addy )
 {
-	if (!isObject (ServerGroup))
+	if ( !isObject (ServerGroup) )
 	{
 		%timeDelta = getSimTime () - $arrangedConnectionRequestTime;
-		if (%timeDelta > 5000 || %timeDelta < 0)
+
+		if ( %timeDelta > 5000 || %timeDelta < 0 )
 		{
 			warn ("Warning: notifyArrangedStart() - got notify without making a request");
 			return;
 		}
 	}
+
 	%addy = strreplace (%addy, "IP:", "");
-	$ArrangedActive = 1;
+
+	$ArrangedActive    = true;
 	$ArrangedAddyCount = 0;
 }
 
-function notifyArrangedAddress (%addy)
+function notifyArrangedAddress ( %addy )
 {
-	if (!$ArrangedActive)
+	if ( !$ArrangedActive )
 	{
 		echo ("Got notifyArrangedAddress when no arranged connection active.");
 		return;
 	}
-	$ArrangedAddyCount = mFloor ($ArrangedAddyCount);
+
+	$ArrangedAddyCount                 = mFloor ($ArrangedAddyCount);
 	$ArrangedAddys[$ArrangedAddyCount] = %addy;
-	$ArrangedAddyCount += 1;
+
+	$ArrangedAddyCount++;
 }
 
-function notifyArrangedFinish (%nonceA, %nonceB, %spamConnect)
+function notifyArrangedFinish ( %nonceA, %nonceB, %spamConnect )
 {
-	if (!$ArrangedActive)
+	if ( !$ArrangedActive )
 	{
 		echo ("Got notifyArrangedFinish when no arranged connection active.");
 		return;
 	}
-	$ArrangedActive = 0;
-	$ArrangedConnection = new GameConnection ("");
-	if (isObject (ServerGroup))
+
+	$ArrangedActive     = false;
+	$ArrangedConnection = new GameConnection ();
+
+	if ( isObject (ServerGroup) )
 	{
-		%isClient = 0;
+		%isClient = false;
 	}
 	else
 	{
-		%isClient = 1;
-		%spamConnect = 0;
+		%isClient    = true;
+		%spamConnect = false;
+
 		Connecting_Text.setText (Connecting_Text.getText () @ "\nStarting arranged connection...");
 	}
-	if ($ArrangedAddyCount == 1)
+
+	switch ( $ArrangedAddyCount )
 	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0]);
-		return;
+		case 1:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0]);
+
+			return;
+
+		case 2:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1]);
+
+			return;
+
+		case 3:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2]);
+
+			return;
+
+		case 4:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3]);
+
+			return;
+
+		case 5:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4]);
+
+			return;
+
+		case 6:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4], $ArrangedAddys[5]);
+
+			return;
+
+		case 7:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6]);
+
+			return;
+
+		case 8:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7]);
+
+			return;
+
+		case 9:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7],
+				$ArrangedAddys[8]);
+
+			return;
+
+		case 10:
+			$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB,
+				$ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3],
+				$ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7],
+				$ArrangedAddys[8], $ArrangedAddys[9]);
+
+			return;
 	}
-	else if ($ArrangedAddyCount == 2)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 3)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 4)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 5)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 6)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4], $ArrangedAddys[5]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 7)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 8)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 9)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7], $ArrangedAddys[8]);
-		return;
-	}
-	else if ($ArrangedAddyCount == 10)
-	{
-		$ArrangedConnection.connectArranged (%spamConnect, %isClient, %nonceA, %nonceB, $ArrangedAddys[0], $ArrangedAddys[1], $ArrangedAddys[2], $ArrangedAddys[3], $ArrangedAddys[4], $ArrangedAddys[5], $ArrangedAddys[6], $ArrangedAddys[7], $ArrangedAddys[8], $ArrangedAddys[9]);
-		return;
-	}
+
 	error ("notifyArrangedFinish - Failed to call with addyCount = " @ $ArrangedAddyCount);
 }
 
-function onSendPunchPacket (%ip)
+function onSendPunchPacket ( %ip )
 {
-	if (isObject (Connecting_Text))
+	if ( isObject (Connecting_Text) )
 	{
 		Connecting_Text.setText (Connecting_Text.getText () @ "\nSending punch packet...");
 	}
@@ -238,4 +319,3 @@ function onSendPunchPacket (%ip)
 		echo ("Sending punch packet to " @ %ip);
 	}
 }
-
