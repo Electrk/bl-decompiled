@@ -5796,12 +5796,10 @@ function shiftPaintColumn ( %direction )
 			{
 				if ( !isObject ($HUD_BrickIcon[%i]) )
 				{
+					continue;
+				}
 
-				}
-				else
-				{
-					$HUD_BrickIcon[%i].setColor (%color);
-				}
+				$HUD_BrickIcon[%i].setColor (%color);
 			}
 		}
 		if ( $RecordingBuildMacro && isObject ($BuildMacroSO) )
@@ -5901,12 +5899,10 @@ function scrollPaint ( %direction )
 			{
 				if ( !isObject ($HUD_BrickIcon[%i]) )
 				{
+					continue;
+				}
 
-				}
-				else
-				{
-					$HUD_BrickIcon[%i].setColor (%color);
-				}
+				$HUD_BrickIcon[%i].setColor (%color);
 			}
 		}
 	}
@@ -12676,33 +12672,33 @@ function saveBricks ( %filename, %description )
 
 				if ( !(%obj.getType () & $TypeMasks::FxBrickAlwaysObjectType) )
 				{
-
+					continue;
 				}
-				else if ( !%obj.isPlanted () )
-				{
 
+				if ( !%obj.isPlanted () )
+				{
+					continue;
 				}
-				else if ( %obj.isDead () )
-				{
 
+				if ( %obj.isDead () )
+				{
+					continue;
+				}
+
+				%rowText = %obj.getDistanceFromGround ();
+
+				if ( %rowText > 999999 || %rowText < 0 )
+				{
+					%gotInvalidDFG = 1;
 				}
 				else
 				{
-					%rowText = %obj.getDistanceFromGround ();
-
-					if ( %rowText > 999999 || %rowText < 0 )
-					{
-						%gotInvalidDFG = 1;
-					}
-					else
-					{
-						%gotValidDFG = 1;
-					}
-
-					%list.addRow (%obj.getId (), %rowText);
-
-					%rowCount++;
+					%gotValidDFG = 1;
 				}
+
+				%list.addRow (%obj.getId (), %rowText);
+
+				%rowCount++;
 			}
 		}
 	}
@@ -18508,9 +18504,10 @@ function authTCPobj_Client::onLine ( %this, %line )
 			{
 				if ( $Auth::blid[%i] != $Pref::Player::SelectedBLID )
 				{
-
+					continue;
 				}
-				else if ( strlen ($Auth::name[%i]) > 0 )
+
+				if ( strlen ($Auth::name[%i]) > 0 )
 				{
 					$pref::Player::NetName = $Auth::name[%i];
 
@@ -18969,12 +18966,10 @@ function regName_tcpObj::onLine ( %this, %line )
 		{
 			if ( $Auth::blid[%i] != regName_blid.getValue () )
 			{
+				continue;
+			}
 
-			}
-			else
-			{
-				$Auth::name[%i] = %name;
-			}
+			$Auth::name[%i] = %name;
 		}
 
 		$pref::Player::NetName = %name;
@@ -25223,15 +25218,13 @@ function GameModeGui::onRender ( %this )
 			{
 				if ( $GameModeGui::GameMode[%i] !$= $Pref::Gui::SelectedGameMode )
 				{
-
+					continue;
 				}
-				else
-				{
-					GameModeGui.ClickGameMode (%i);
-					GameModeGui.scrollToGameMode (%i);
 
-					break;
-				}
+				GameModeGui.ClickGameMode (%i);
+				GameModeGui.scrollToGameMode (%i);
+
+				break;
 			}
 		}
 		else
@@ -27004,13 +26997,11 @@ function CustomGameGui::ClickSelect ( %this )
 
 			if ( %obj.getClassName () !$= "GuiCheckBoxCtrl" )
 			{
+				continue;
+			}
 
-			}
-			else
-			{
-				%varName = %obj.varName;
-				$Music__[%varName] = %obj.getValue () ? 1 : -1;
-			}
+			%varName = %obj.varName;
+			$Music__[%varName] = %obj.getValue () ? 1 : -1;
 		}
 
 		export ("$Music__*", "config/server/musicList.cs");
@@ -27024,13 +27015,11 @@ function CustomGameGui::ClickSelect ( %this )
 
 			if ( %obj.getClassName () !$= "GuiCheckBoxCtrl" )
 			{
+				continue;
+			}
 
-			}
-			else
-			{
-				%varName = %obj.varName;
-				$AddOn__[%varName] = %obj.getValue () ? 1 : -1;
-			}
+			%varName = %obj.varName;
+			$AddOn__[%varName] = %obj.getValue () ? 1 : -1;
 		}
 
 		export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
@@ -27075,24 +27064,20 @@ function CustomGameGui::ClickSelect ( %this )
 
 				if ( %className !$= "GuiCheckBoxCtrl" && %className !$= "GuiTextEditCtrl" )
 				{
-
+					continue;
 				}
-				else
+
+				%varName = %obj.variable;
+
+				if ( %varName $= "" )
 				{
-					%varName = %obj.variable;
-
-					if ( %varName $= "" )
-					{
-
-					}
-					else
-					{
-						%varName = strreplace (%varName, "$CustomGameGui::", "$Pref::Server::");
-						%value = %obj.getValue ();
-
-						commandToServer ('CustomGameGui_SetPref', %varName, %value);
-					}
+					continue;
 				}
+
+				%varName = strreplace (%varName, "$CustomGameGui::", "$Pref::Server::");
+				%value = %obj.getValue ();
+
+				commandToServer ('CustomGameGui_SetPref', %varName, %value);
 			}
 		}
 
