@@ -1,132 +1,163 @@
 $currCheckVal = 10;
+
 $RightHandSlot = 0;
 $LeftHandSlot  = 1;
-$BackSlot = 2;
+$BackSlot      = 2;
 $RightFootSlot = 3;
-$LeftFootSlot = 4;
-$HeadSlot = 5;
-$VisorSlot = 6;
-$HipSlot = 7;
-$pi = 3.1415927;
+$LeftFootSlot  = 4;
+$HeadSlot      = 5;
+$VisorSlot     = 6;
+$HipSlot       = 7;
+
+$pi      = 3.1415927;
 $piOver2 = 1.5707963;
-$m2pi = 6.2831853;
-$ItemTime = 10000;
+$m2pi    = 6.2831853;
+
+$ItemTime     = 10000;
 $ItemDropTime = 1000;
+
 $tallestBrick = 6 * 0.6;
-$Game::MinRespawnTime = 1000;
-$Game::MaxRespawnTime = 30000;
+
+$Game::MinRespawnTime        = 1000;
+$Game::MaxRespawnTime        = 30000;
 $Game::MinVehicleRespawnTime = 0;
 $Game::MaxVehicleRespawnTime = 360000;
-$Game::MinBrickRespawnTime = 2000;
-$Game::MaxBrickRespawnTime = 360000;
-$Game::MinBotRespawnTime = 0;
-$Game::MaxBotRespawnTime = 360000;
-$Game::Item::PopTime = 10 * 1000;
-$Game::Item::RespawnTime = 4000;
+$Game::MinBrickRespawnTime   = 2000;
+$Game::MaxBrickRespawnTime   = 360000;
+$Game::MinBotRespawnTime     = 0;
+$Game::MaxBotRespawnTime     = 360000;
+
+$Game::Item::PopTime        = 10 * 1000;
+$Game::Item::RespawnTime    = 4000;
 $Game::Item::MinRespawnTime = 1000;
 $Game::Item::MaxRespawnTime = 360000;
+
 $Game::MiniGameJoinTime = 5000;
-$Game::MaxAdminTries = 3;
-$Game::DefaultMinImpactSpeed = 30;
-$Game::DefaultSpeedDamageScale = 3.8;
-$Game::DefaultMinRunOverSpeed = 2;
+$Game::MaxAdminTries    = 3;
+
+$Game::DefaultMinImpactSpeed     = 30;
+$Game::DefaultSpeedDamageScale   = 3.8;
+$Game::DefaultMinRunOverSpeed    = 2;
 $Game::DefaultRunOverDamageScale = 5;
-$Game::DefaultRunOverPushScale = 1.2;
-$Game::MinMountTime = 2000;
-$Game::OnTouchImmuneTime = 2000;
-$Game::PlayerInvulnerabilityTime = 2500;
+$Game::DefaultRunOverPushScale   = 1.2;
+
+$Game::MinMountTime               = 2000;
+$Game::OnTouchImmuneTime          = 2000;
+$Game::PlayerInvulnerabilityTime  = 2500;
 $Game::VehicleInvulnerabilityTime = 100;
+
 $Game::MaxEventsPerBrick = 100;
+
 $Game::BrickActivateRange = 5;
-$Max::Quota::Schedules = 1000;
-$Max::Quota::Misc = 9999;
-$Max::Quota::Projectile = 200;
-$Max::Quota::Item = 1000;
+
+$Max::Quota::Schedules   = 1000;
+$Max::Quota::Misc        = 9999;
+$Max::Quota::Projectile  = 200;
+$Max::Quota::Item        = 1000;
 $Max::Quota::Environment = 5000;
-$Max::Quota::Player = 250;
-$Max::Quota::Vehicle = 100;
-$Min::Quota::Schedules = 10;
-$Min::Quota::Misc = 10;
-$Min::Quota::Projectile = 5;
-$Min::Quota::Item = 5;
+$Max::Quota::Player      = 250;
+$Max::Quota::Vehicle     = 100;
+$Min::Quota::Schedules   = 10;
+$Min::Quota::Misc        = 10;
+$Min::Quota::Projectile  = 5;
+$Min::Quota::Item        = 5;
 $Min::Quota::Environment = 20;
-$Min::Quota::Player = 0;
-$Min::Quota::Vehicle = 0;
-$Default::Quota::Schedules = 50;
-$Default::Quota::Misc = 100;
-$Default::Quota::Projectile = 25;
-$Default::Quota::Item = 25;
+$Min::Quota::Player      = 0;
+$Min::Quota::Vehicle     = 0;
+
+$Default::Quota::Schedules   = 50;
+$Default::Quota::Misc        = 100;
+$Default::Quota::Projectile  = 25;
+$Default::Quota::Item        = 25;
 $Default::Quota::Environment = 100;
-$Default::Quota::Player = 10;
-$Default::Quota::Vehicle = 5;
-$Max::QuotaLAN::Schedules = 1000;
-$Max::QuotaLAN::Misc = 9999;
-$Max::QuotaLAN::Projectile = 500;
-$Max::QuotaLAN::Item = 1000;
+$Default::Quota::Player      = 10;
+$Default::Quota::Vehicle     = 5;
+
+$Max::QuotaLAN::Schedules   = 1000;
+$Max::QuotaLAN::Misc        = 9999;
+$Max::QuotaLAN::Projectile  = 500;
+$Max::QuotaLAN::Item        = 1000;
 $Max::QuotaLAN::Environment = 5000;
-$Max::QuotaLAN::Player = 250;
-$Max::QuotaLAN::Vehicle = 100;
-$Min::QuotaLAN::Schedules = 10;
-$Min::QuotaLAN::Misc = 10;
-$Min::QuotaLAN::Projectile = 5;
-$Min::QuotaLAN::Item = 5;
+$Max::QuotaLAN::Player      = 250;
+$Max::QuotaLAN::Vehicle     = 100;
+$Min::QuotaLAN::Schedules   = 10;
+$Min::QuotaLAN::Misc        = 10;
+$Min::QuotaLAN::Projectile  = 5;
+$Min::QuotaLAN::Item        = 5;
 $Min::QuotaLAN::Environment = 20;
-$Min::QuotaLAN::Player = 0;
-$Min::QuotaLAN::Vehicle = 0;
-$Default::QuotaLAN::Schedules = 50;
-$Default::QuotaLAN::Misc = 100;
-$Default::QuotaLAN::Projectile = 25;
-$Default::QuotaLAN::Item = 25;
+$Min::QuotaLAN::Player      = 0;
+$Min::QuotaLAN::Vehicle     = 0;
+
+$Default::QuotaLAN::Schedules   = 50;
+$Default::QuotaLAN::Misc        = 100;
+$Default::QuotaLAN::Projectile  = 25;
+$Default::QuotaLAN::Item        = 25;
 $Default::QuotaLAN::Environment = 100;
-$Default::QuotaLAN::Player = 50;
-$Default::QuotaLAN::Vehicle = 20;
-$Min::MaxPhysVehicles_Total = 0;
-$Max::MaxPhysVehicles_Total = 20;
+$Default::QuotaLAN::Player      = 50;
+$Default::QuotaLAN::Vehicle     = 20;
+
+$Min::MaxPhysVehicles_Total     = 0;
+$Max::MaxPhysVehicles_Total     = 20;
 $Default::MaxPhysVehicles_Total = 10;
-$Min::MaxPlayerVehicles_Total = 0;
-$Max::MaxPlayerVehicles_Total = 200;
+
+$Min::MaxPlayerVehicles_Total     = 0;
+$Max::MaxPlayerVehicles_Total     = 200;
 $Default::MaxPlayerVehicles_Total = 50;
-$Min::Net::PacketRateToClient = 10;
-$Max::Net::PacketRateToClient = 32;
+
+$Min::Net::PacketRateToClient     = 10;
+$Max::Net::PacketRateToClient     = 32;
 $Default::Net::PacketRateToClient = 32;
-$Min::Net::PacketRateToServer = 8;
-$Max::Net::PacketRateToServer = 32;
+
+$Min::Net::PacketRateToServer     = 8;
+$Max::Net::PacketRateToServer     = 32;
 $Default::Net::PacketRateToServer = 32;
-$Min::Net::PacketSize = 200;
-$Max::Net::PacketSize = 1023;
+
+$Min::Net::PacketSize     = 200;
+$Max::Net::PacketSize     = 1023;
 $Default::Net::PacketSize = 1023;
-$Min::Net::LagThreshold = 200;
-$Max::Net::LagThreshold = 600;
+
+$Min::Net::LagThreshold     = 200;
+$Max::Net::LagThreshold     = 600;
 $Default::Net::LagThreshold = 400;
+
 $Default::Port = 28000;
-$Default::BrickLimit = 256000;
+
+$Default::BrickLimit         = 256000;
 $Default::MaxBricksPerSecond = 10;
-$Default::TooFarDistance = 9999;
-$Default::RandomBrickColor = 0;
-$Default::MaxChatLen = 120;
-$Default::ETardFilter = 1;
-$Default::FallingDamage = 0;
+$Default::TooFarDistance     = 9999;
+$Default::RandomBrickColor   = false;
+
+$Default::MaxChatLen  = 120;
+$Default::ETardFilter = true;
+
+$Default::FallingDamage = false;
+
 $Default::BrickPublicDomainTimeout = -1;
-$Default::BrickRespawnTime = 30000;
-$Default::ClearEventsOnClientExit = 1;
-$Default::WrenchEventsAdminOnly = 0;
-$Min::GhostLimit = 32768;
-$Max::GhostLimit = 1048576;
+$Default::BrickRespawnTime         = 30000;
+
+$Default::ClearEventsOnClientExit = true;
+$Default::WrenchEventsAdminOnly   = false;
+
+$Min::GhostLimit     = 32768;
+$Max::GhostLimit     = 1048576;
 $Default::GhostLimit = 262144;
-$LastError::Trust = 1;
+
+$LastError::Trust             = 1;
 $LastError::MiniGameDifferent = 2;
-$LastError::MiniGameNotYours = 3;
-$LastError::NotInMiniGame = 4;
+$LastError::MiniGameNotYours  = 3;
+$LastError::NotInMiniGame     = 4;
 
 function eulerToMatrix ( %euler )
 {
-	%euler = VectorScale (%euler, $pi / 180);
+	%euler  = VectorScale (%euler, $pi / 180);
 	%matrix = MatrixCreateFromEuler (%euler);
+
 	%xvec = getWord (%matrix, 3);
 	%yvec = getWord (%matrix, 4);
 	%zvec = getWord (%matrix, 5);
-	%ang = getWord (%matrix, 6);
-	%ang = (%ang * 180) / $pi;
+	%ang  = getWord (%matrix, 6);
+	%ang  = (%ang * 180) / $pi;
+
 	%rotationMatrix = %xvec @ " " @ %yvec @ " " @ %zvec @ " " @ %ang;
 
 	return %rotationMatrix;
@@ -135,10 +166,12 @@ function eulerToMatrix ( %euler )
 function eulerRadToMatrix ( %euler )
 {
 	%matrix = MatrixCreateFromEuler (%euler);
+
 	%xvec = getWord (%matrix, 3);
 	%yvec = getWord (%matrix, 4);
 	%zvec = getWord (%matrix, 5);
-	%ang = getWord (%matrix, 6);
+	%ang  = getWord (%matrix, 6);
+
 	%rotationMatrix = %xvec @ " " @ %yvec @ " " @ %zvec @ " " @ %ang;
 
 	return %rotationMatrix;
@@ -146,12 +179,14 @@ function eulerRadToMatrix ( %euler )
 
 function eulerToQuat ( %euler )
 {
-	%euler = VectorScale (%euler, $pi / 180);
+	%euler  = VectorScale (%euler, $pi / 180);
 	%matrix = MatrixCreateFromEuler (%euler);
+
 	%xvec = getWord (%matrix, 3);
 	%yvec = getWord (%matrix, 4);
 	%zvec = getWord (%matrix, 5);
-	%ang = getWord (%matrix, 6);
+	%ang  = getWord (%matrix, 6);
+
 	%quat = %xvec SPC %yvec SPC %zvec SPC %ang;
 
 	return %quat;
@@ -159,13 +194,15 @@ function eulerToQuat ( %euler )
 
 function eulerToQuat_degrees ( %euler )
 {
-	%euler = VectorScale (%euler, $pi / 180);
+	%euler  = VectorScale (%euler, $pi / 180);
 	%matrix = MatrixCreateFromEuler (%euler);
+
 	%xvec = getWord (%matrix, 3);
 	%yvec = getWord (%matrix, 4);
 	%zvec = getWord (%matrix, 5);
-	%ang = getWord (%matrix, 6);
-	%ang = (%ang * 180) / $pi;
+	%ang  = getWord (%matrix, 6);
+	%ang  = (%ang * 180) / $pi;
+
 	%quat = %xvec SPC %yvec SPC %zvec SPC %ang;
 
 	return %quat;
@@ -173,7 +210,7 @@ function eulerToQuat_degrees ( %euler )
 
 function getLine ( %phrase, %lineNum )
 {
-	%offset = 0;
+	%offset    = 0;
 	%lineCount = 0;
 
 	while ( %lineCount <= %lineNum )
@@ -263,8 +300,10 @@ function getTimeString ( %timeS )
 	{
 		%hours = mFloor (%timeS / 3600);
 		%timeS -= %hours * 3600;
+
 		%minutes = mFloor (%timeS / 60);
 		%timeS -= %minutes * 60;
+
 		%seconds = %timeS;
 
 		if ( %minutes < 10 )
@@ -282,6 +321,7 @@ function getTimeString ( %timeS )
 	{
 		%minutes = mFloor (%timeS / 60);
 		%timeS -= %minutes * 60;
+
 		%seconds = %timeS;
 
 		if ( %seconds < 10 )
@@ -319,150 +359,176 @@ function isListenServer ()
 }
 
 
-$GuiAudioType = 1;
-$SimAudioType = 2;
+$GuiAudioType     = 1;
+$SimAudioType     = 2;
 $MessageAudioType = 3;
 
 new AudioDescription (AudioGui)
 {
-	volume = 1;
-	isLooping = 0;
-	is3D = 0;
-	type = $GuiAudioType;
+	volume    = 1;
+	isLooping = false;
+	is3D      = false;
+	type      = $GuiAudioType;
 };
+
 new AudioDescription (AudioMessage)
 {
-	volume = 1;
-	isLooping = 0;
-	is3D = 0;
-	type = $MessageAudioType;
+	volume    = 1;
+	isLooping = false;
+	is3D      = false;
+	type      = $MessageAudioType;
 };
+
 new AudioProfile (AudioButtonOver)
 {
-	fileName = "~/data/sound/buttonOver.wav";
+	fileName    = "~/data/sound/buttonOver.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (AudioError)
 {
-	fileName = "~/data/sound/error.wav";
+	fileName    = "~/data/sound/error.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ItemPickup)
 {
-	fileName = "~/data/sound/error.wav";
+	fileName    = "~/data/sound/error.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (AdminSound)
 {
-	fileName = "~/data/sound/admin.wav";
+	fileName    = "~/data/sound/admin.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (BrickClearSound)
 {
-	fileName = "~/data/sound/brickClear.wav";
+	fileName    = "~/data/sound/brickClear.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ClientJoinSound)
 {
-	fileName = "~/data/sound/playerConnect.wav";
+	fileName    = "~/data/sound/playerConnect.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ClientDropSound)
 {
-	fileName = "~/data/sound/playerLeave.wav";
+	fileName    = "~/data/sound/playerLeave.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (UploadStartSound)
 {
-	fileName = "~/data/sound/uploadStart.wav";
+	fileName    = "~/data/sound/uploadStart.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (UploadEndSound)
 {
-	fileName = "~/data/sound/uploadEnd.wav";
+	fileName    = "~/data/sound/uploadEnd.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ProcessCompleteSound)
 {
-	fileName = "~/data/sound/processComplete.wav";
+	fileName    = "~/data/sound/processComplete.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ClickMoveSound)
 {
-	fileName = "base/data/sound/ClickMove.wav";
+	fileName    = "base/data/sound/ClickMove.wav";
 	description = "AudioGui";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (ClickPlantSound : ClickMoveSound)
 {
 	fileName = "base/data/sound/ClickPlant.wav";
 };
+
 new AudioDescription (AudioBGMusic2D)
 {
-	volume = 0.8;
-	isLooping = 1;
-	is3D = 1;
+	volume    = 0.8;
+	isLooping = true;
+	is3D      = true;
+
 	ReferenceDistance = 10;
-	maxDistance = 60;
+	maxDistance       = 60;
+
 	type = $GuiAudioType;
 };
+
 new AudioProfile (TitleMusic)
 {
-	fileName = "~/data/sound/music/Ambient Deep.ogg";
+	fileName    = "~/data/sound/music/Ambient Deep.ogg";
 	description = "AudioBGMusic2D";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioDescription (AudioClientClose3d)
 {
-	volume = 1;
-	isLooping = 0;
-	is3D = 1;
+	volume    = 1;
+	isLooping = false;
+	is3D      = true;
+
 	ReferenceDistance = 10;
-	maxDistance = 60;
+	maxDistance       = 60;
+
 	type = $SimAudioType;
 };
+
 new AudioProfile (BrickBreak)
 {
-	fileName = "~/data/sound/breakBrick.wav";
+	fileName    = "~/data/sound/breakBrick.wav";
 	description = "AudioClientClose3d";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (BrickMove)
 {
-	fileName = "~/data/sound/clickMove.wav";
+	fileName    = "~/data/sound/clickMove.wav";
 	description = "AudioClientClose3d";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (BrickPlant)
 {
-	fileName = "~/data/sound/clickPlant.wav";
+	fileName    = "~/data/sound/clickPlant.wav";
 	description = "AudioClientClose3d";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (BrickRotate)
 {
-	fileName = "~/data/sound/clickRotate.wav";
+	fileName    = "~/data/sound/clickRotate.wav";
 	description = "AudioClientClose3d";
-	preload = 1;
+	preload     = true;
 };
+
 new AudioProfile (BrickChange)
 {
-	fileName = "~/data/sound/clickChange.wav";
+	fileName    = "~/data/sound/clickChange.wav";
 	description = "AudioClientClose3d";
-	preload = 1;
+	preload     = true;
 };
 
 loadBrickSounds ();
+
 addMessageCallback ('MsgClientInYourMiniGame', handleClientInYourMiniGame);
 addMessageCallback ('MsgClientJoin', handleClientJoin);
 
@@ -473,9 +539,9 @@ function handleClientJoin ()
 
 function secureClientCmd_ClientJoin ( %clientName, %clientId, %bl_id, %score, %isAI, %isAdmin, %isSuperAdmin, %trust, %inYourMiniGame )
 {
-	%name = StripMLControlChars (detag (%clientName));
-	%bl_id = mFloor (%bl_id);
-	%trust = mFloor (%trust);
+	%name           = StripMLControlChars (detag (%clientName));
+	%bl_id          = mFloor (%bl_id);
+	%trust          = mFloor (%trust);
 	%inYourMiniGame = mFloor (%inYourMiniGame);
 
 	NewPlayerListGui.update (%clientId, %name, %bl_id, %isSuperAdmin, %isAdmin, %score, %trust, %inYourMiniGame);
@@ -484,6 +550,7 @@ function secureClientCmd_ClientJoin ( %clientName, %clientId, %bl_id, %score, %i
 	{
 		%bl_id = "LAN";
 	}
+
 	if ( lstAdminPlayerList.getRowNumById (%clientId) == -1 )
 	{
 		lstAdminPlayerList.addRow (%clientId, %name TAB %bl_id);
@@ -492,6 +559,7 @@ function secureClientCmd_ClientJoin ( %clientName, %clientId, %bl_id, %score, %i
 	{
 		lstAdminPlayerList.setRowById (%clientId, %name TAB %bl_id);
 	}
+
 	if ( NPL_List.rowCount () >= 32 )
 	{
 		steamGetAchievement ("ACH_FULL_HOUSE", "steamGetAchievement");
@@ -501,14 +569,15 @@ function secureClientCmd_ClientJoin ( %clientName, %clientId, %bl_id, %score, %i
 function secureClientCmd_ClientDrop ( %clientName, %clientId )
 {
 	alxPlay (ClientDropSound);
+
 	lstAdminPlayerList.removeRowById (%clientId);
 	NPL_List.removeRowById (%clientId);
 }
 
 function secureClientCmd_ClientScoreChanged ( %score, %clientId )
 {
-	%score = mFloor (%score);
-	%row = NPL_List.getRowTextById (%clientId);
+	%score      = mFloor (%score);
+	%row        = NPL_List.getRowTextById (%clientId);
 	%trustLevel = getField (%row, 4);
 
 	if ( %trustLevel $= "You" )
@@ -529,7 +598,7 @@ function secureClientCmd_ClientScoreChanged ( %score, %clientId )
 function secureClientCmd_ClientTrust ( %clientId, %trustLevel )
 {
 	%trustLevel = mFloor (%trustLevel);
-	%clientId = mFloor (%clientId);
+	%clientId   = mFloor (%clientId);
 
 	NewPlayerListGui.updateTrust (%clientId, %trustLevel);
 }
@@ -537,7 +606,7 @@ function secureClientCmd_ClientTrust ( %clientId, %trustLevel )
 function handleClientInYourMiniGame ( %msgType, %msgString, %clientId, %val )
 {
 	%clientId = mFloor (%clientId);
-	%val = mFloor (%val);
+	%val      = mFloor (%val);
 
 	NewPlayerListGui.updateInYourMiniGame (%clientId, %val);
 }
@@ -580,7 +649,6 @@ function handleAddClientToTeam ( %msgType, %msgString, %clientId, %clientName, %
 	if ( %teamObj == 0 )
 	{
 		error ("ERROR: handleAddClientToTeam - Team ID " @ %teamID @ " not found in manager");
-
 		return 0;
 	}
 
@@ -594,7 +662,6 @@ function handleRemoveClientFromTeam ( %msgType, %msgString, %clientId, %teamID )
 	if ( %teamObj == 0 )
 	{
 		error ("ERROR: handleRemoveClientFromTeam - Team ID " @ %teamID @ " not found in manager");
-
 		return 0;
 	}
 
@@ -608,7 +675,6 @@ function handleSetTeamCaptain ( %msgType, %msgString, %clientId, %teamID )
 	if ( %teamObj == 0 )
 	{
 		error ("ERROR: handleSetTeamCaptain - Team ID " @ %teamID @ " not found in manager");
-
 		return 0;
 	}
 
@@ -632,7 +698,7 @@ function InitClientTeamManager ()
 
 	new ScriptObject (ClientTeamManager)
 	{
-		class = SO_ClientTeamManager;
+		class     = SO_ClientTeamManager;
 		teamCount = 0;
 	};
 }
@@ -642,17 +708,18 @@ function SO_ClientTeamManager::addTeam ( %this, %teamID, %teamName )
 	if ( %this.findTeamByID (%teamID) != 0 )
 	{
 		error ("ERROR: SO_ClientTeamManager::addTeam - Team ID " @ %teamID @ " is already in use");
-
 		return 0;
 	}
 
-	%newTeam = new ScriptObject ("")
+	%newTeam = new ScriptObject ()
 	{
 		class = SO_ClientTeam;
+
 		memberCount = 0;
-		serverID = %teamID;
-		name = %teamName;
+		serverID    = %teamID;
+		name        = %teamName;
 	};
+
 	%this.team[%this.teamCount] = %newTeam;
 	%this.teamCount++;
 }
@@ -723,7 +790,9 @@ function SO_ClientTeamManager::dumpTeams ( %this )
 	{
 		%currTeam = %this.team[%i];
 
-		echo ("   Team " @ %i @ " = " @ %currTeam @ "(server:" @ %currTeam.serverID @ ") : " @ %currTeam.name @ " : " @ %currTeam.memberCount @ " members");
+		echo ("   Team " @ %i @ " = " @ %currTeam @ "(server:" @ %currTeam.serverID @ ") : "
+			@ %currTeam.name @ " : "
+			@ %currTeam.memberCount @ " members");
 
 		for ( %j = 0; %j < %currTeam.memberCount; %j++ )
 		{
@@ -746,7 +815,7 @@ function SO_ClientTeamManager::dumpTeams ( %this )
 
 function SO_ClientTeam::addMember ( %this, %clientId, %name )
 {
-	%this.memberID[%this.memberCount] = %clientId;
+	%this.memberID[%this.memberCount]   = %clientId;
 	%this.memberName[%this.memberCount] = %name;
 	%this.memberCount++;
 }
@@ -759,11 +828,11 @@ function SO_ClientTeam::removeMember ( %this, %clientId )
 		{
 			for ( %j = %i; %j < %this.memberCount - 1; %j++ )
 			{
-				%this.memberID[%j] = %this.memberID[%j + 1];
+				%this.memberID[%j]   = %this.memberID[%j + 1];
 				%this.memberName[%j] = %this.memberName[%j + 1];
 			}
 
-			%this.memberID[%this.memberCount] = "";
+			%this.memberID[%this.memberCount]   = "";
 			%this.memberName[%this.memberCount] = "";
 			%this.memberCount--;
 
@@ -771,7 +840,8 @@ function SO_ClientTeam::removeMember ( %this, %clientId )
 		}
 	}
 
-	error ("ERROR: SO_ClientTeam::removeMember - Client ID " @ %clientId @ " not found in team " @ %this @ "(server:" @ %this.serverID @ ")");
+	error ("ERROR: SO_ClientTeam::removeMember - Client ID " @ %clientId @ " not found in team "
+		@ %this @ "(server:" @ %this.serverID @ ")");
 }
 
 function SO_ClientTeam::setCaptain ( %this, %clientId )
@@ -788,19 +858,18 @@ function NewPlayerListGui::onWake ( %this )
 
 	NewPlayerListGui.UpdateWindowTitle ();
 	NewPlayerListGui.clickList ();
+
 	commandToServer ('OpenPlayerList');
 
 	if ( $Pref::Gui::ShowPlayerListBLIDs )
 	{
 		NPL_List.columns = "0 33 190 245 310";
-
-		NPL_BLIDButton.setVisible (1);
+		NPL_BLIDButton.setVisible (true);
 	}
 	else
 	{
 		NPL_List.columns = "0 33 190 9999 310";
-
-		NPL_BLIDButton.setVisible (0);
+		NPL_BLIDButton.setVisible (false);
 	}
 }
 
@@ -824,8 +893,9 @@ function NewPlayerListGui::toggle ( %this )
 function clientCmdNewPlayerListGui_UpdateWindowTitle ( %serverTitle, %maxPlayers )
 {
 	%serverTitle = getSubStr (%serverTitle, 0, 100);
-	%maxPlayers = mFloor (%maxPlayers);
-	$ServerInfo::Name = %serverTitle;
+	%maxPlayers  = mFloor (%maxPlayers);
+
+	$ServerInfo::Name       = %serverTitle;
 	$ServerInfo::MaxPlayers = %maxPlayers;
 
 	NewPlayerListGui.UpdateWindowTitle ();
@@ -834,7 +904,7 @@ function clientCmdNewPlayerListGui_UpdateWindowTitle ( %serverTitle, %maxPlayers
 function NewPlayerListGui::UpdateWindowTitle ( %this )
 {
 	%playerCount = NPL_List.rowCount ();
-	%windowText = %playerCount @ " / " @ $ServerInfo::MaxPlayers @ " Players";
+	%windowText  = %playerCount @ " / " @ $ServerInfo::MaxPlayers @ " Players";
 
 	if ( ServerConnection.isLocal () )
 	{
@@ -858,6 +928,7 @@ function NewPlayerListGui::UpdateWindowTitle ( %this )
 				{
 					%possessive = $pref::Player::NetName @ "\'s";
 				}
+
 				if ( stripos ($Server::Name, %possessive) == 0 )
 				{
 					$Server::Name = trim (strreplace ($Server::Name, %possessive, ""));
@@ -892,11 +963,11 @@ function NewPlayerListGui::update ( %this, %clientId, %clientName, %bl_id, %isSu
 		%adminChar = "A";
 	}
 
-	%row = NPL_List.getRowTextById (%clientId);
-	%oldAdminChar = getField (%row, 0);
-	%trust = getField (%row, 4);
+	%row            = NPL_List.getRowTextById (%clientId);
+	%oldAdminChar   = getField (%row, 0);
+	%trust          = getField (%row, 4);
 	%inYourMiniGame = getField (%row, 5);
-	%ignoring = mFloor (getField (%row, 6));
+	%ignoring       = mFloor (getField (%row, 6));
 
 	if ( strlen (%oldAdminChar) > 1 )
 	{
@@ -906,12 +977,14 @@ function NewPlayerListGui::update ( %this, %clientId, %clientName, %bl_id, %isSu
 	{
 		%miniGameChar = "";
 	}
+
 	if ( %bl_id == getLAN_BLID () )
 	{
 		%bl_id = "LAN";
 	}
 
-	%line = %miniGameChar @ %adminChar TAB %clientName TAB %score TAB %bl_id TAB %trust TAB %inYourMiniGame TAB %ignoring;
+	%line = %miniGameChar @ %adminChar TAB %clientName TAB %score TAB %bl_id TAB %trust
+	    TAB %inYourMiniGame TAB %ignoring;
 
 	if ( NPL_List.getRowNumById (%clientId) == -1 )
 	{
@@ -927,18 +1000,19 @@ function NewPlayerListGui::updateTrust ( %this, %clientId, %trustLevel )
 {
 	if ( NPL_List.getRowNumById (%clientId) == -1 )
 	{
-		error ("ERROR: NewPlayerListGui::UpdateTrust() - trust update recieved for non-existant client (" @ %clientId @ ")");
-
+		error ("ERROR: NewPlayerListGui::UpdateTrust() - trust update recieved for non-existant client ("
+			@ %clientId @ ")");
 		return;
 	}
 
-	%row = NPL_List.getRowTextById (%clientId);
-	%admin = getField (%row, 0);
-	%name = getField (%row, 1);
-	%score = getField (%row, 2);
-	%bl_id = getField (%row, 3);
+	%row            = NPL_List.getRowTextById (%clientId);
+	%admin          = getField (%row, 0);
+	%name           = getField (%row, 1);
+	%score          = getField (%row, 2);
+	%bl_id          = getField (%row, 3);
 	%inYourMiniGame = getField (%row, 5);
-	%ignoring = mFloor (getField (%row, 6));
+	%ignoring       = mFloor (getField (%row, 6));
+
 	%trust = "-";
 
 	if ( %trustLevel == -1 )
@@ -965,6 +1039,7 @@ function NewPlayerListGui::updateTrust ( %this, %clientId, %trustLevel )
 	{
 		%trust = "-";
 	}
+
 	if ( %trust $= "You" )
 	{
 		if ( %admin $= "A" )
@@ -987,17 +1062,17 @@ function NewPlayerListGui::updateInYourMiniGame ( %this, %clientId, %val )
 {
 	if ( NPL_List.getRowNumById (%clientId) == -1 )
 	{
-		error ("ERROR: NewPlayerListGui::UpdateInYourMiniGame() - InYourMiniGame update recieved for non-existant client (" @ %clientId @ ")");
-
+		error ("ERROR: NewPlayerListGui::UpdateInYourMiniGame() - InYourMiniGame update recieved for non-existant client ("
+			@ %clientId @ ")");
 		return;
 	}
 
-	%row = NPL_List.getRowTextById (%clientId);
-	%admin = StripMLControlChars (getField (%row, 0));
-	%name = getField (%row, 1);
-	%score = getField (%row, 2);
-	%bl_id = getField (%row, 3);
-	%trust = getField (%row, 4);
+	%row      = NPL_List.getRowTextById (%clientId);
+	%admin    = StripMLControlChars (getField (%row, 0));
+	%name     = getField (%row, 1);
+	%score    = getField (%row, 2);
+	%bl_id    = getField (%row, 3);
+	%trust    = getField (%row, 4);
 	%ignoring = mFloor (getField (%row, 6));
 
 	if ( %val )
@@ -1022,17 +1097,17 @@ function NewPlayerListGui::ClearInYourMiniGame ( %this )
 		if ( %row $= "" )
 		{
 			NewPlayerListGui.clickList ();
-
 			return;
 		}
 
-		%id = NPL_List.getRowId (%i);
-		%admin = StripMLControlChars (getField (%row, 0));
-		%name = getField (%row, 1);
-		%score = getField (%row, 2);
-		%bl_id = getField (%row, 3);
-		%trust = getField (%row, 4);
+		%id       = NPL_List.getRowId (%i);
+		%admin    = StripMLControlChars (getField (%row, 0));
+		%name     = getField (%row, 1);
+		%score    = getField (%row, 2);
+		%bl_id    = getField (%row, 3);
+		%trust    = getField (%row, 4);
 		%ignoring = mFloor (getField (%row, 6));
+
 		%row = %admin TAB %name TAB %score TAB %bl_id TAB %trust TAB 0 TAB %ignoring;
 
 		NPL_List.setRowById (%id, %row);
@@ -1043,18 +1118,19 @@ function NewPlayerListGui::updateScore ( %this, %clientId, %score )
 {
 	if ( NPL_List.getRowNumById (%clientId) == -1 )
 	{
-		error ("ERROR: NewPlayerListGui::UpdateTrust() - score update recieved for non-existant client (" @ %clientId @ ")");
-
+		error ("ERROR: NewPlayerListGui::UpdateTrust() - score update recieved for non-existant client ("
+			@ %clientId @ ")");
 		return;
 	}
 
-	%row = NPL_List.getRowTextById (%clientId);
-	%admin = getField (%row, 0);
-	%name = getField (%row, 1);
-	%bl_id = getField (%row, 3);
-	%trust = getField (%row, 4);
+	%row            = NPL_List.getRowTextById (%clientId);
+	%admin          = getField (%row, 0);
+	%name           = getField (%row, 1);
+	%bl_id          = getField (%row, 3);
+	%trust          = getField (%row, 4);
 	%inYourMiniGame = getField (%row, 5);
-	%ignoring = mFloor (getField (%row, 6));
+	%ignoring       = mFloor (getField (%row, 6));
+
 	%line = %admin TAB %name TAB %score TAB %bl_id TAB %trust TAB %inYourMiniGame TAB %ignoring;
 
 	NPL_List.setRowById (%clientId, %line);
@@ -1062,15 +1138,15 @@ function NewPlayerListGui::updateScore ( %this, %clientId, %score )
 
 function NewPlayerListGui::clickList ( %this )
 {
-	%id = NPL_List.getSelectedId ();
+	%id  = NPL_List.getSelectedId ();
 	%row = NPL_List.getRowTextById (%id);
 
 	if ( $RemoteServer::LAN )
 	{
-		NPL_TrustInviteBuildBlocker.setVisible (1);
-		NPL_TrustInviteFullBlocker.setVisible (1);
-		NPL_TrustRemoveBuildBlocker.setVisible (1);
-		NPL_TrustRemoveFullBlocker.setVisible (1);
+		NPL_TrustInviteBuildBlocker.setVisible (true);
+		NPL_TrustInviteFullBlocker.setVisible (true);
+		NPL_TrustRemoveBuildBlocker.setVisible (true);
+		NPL_TrustRemoveFullBlocker.setVisible (true);
 	}
 	else
 	{
@@ -1078,38 +1154,38 @@ function NewPlayerListGui::clickList ( %this )
 
 		if ( %trust $= "" )
 		{
-			NPL_TrustInviteBuildBlocker.setVisible (0);
-			NPL_TrustInviteFullBlocker.setVisible (0);
-			NPL_TrustRemoveBuildBlocker.setVisible (1);
-			NPL_TrustRemoveFullBlocker.setVisible (1);
+			NPL_TrustInviteBuildBlocker.setVisible (false);
+			NPL_TrustInviteFullBlocker.setVisible (false);
+			NPL_TrustRemoveBuildBlocker.setVisible (true);
+			NPL_TrustRemoveFullBlocker.setVisible (true);
 		}
 		else if ( %trust $= "-" )
 		{
-			NPL_TrustInviteBuildBlocker.setVisible (0);
-			NPL_TrustInviteFullBlocker.setVisible (0);
-			NPL_TrustRemoveBuildBlocker.setVisible (1);
-			NPL_TrustRemoveFullBlocker.setVisible (1);
+			NPL_TrustInviteBuildBlocker.setVisible (false);
+			NPL_TrustInviteFullBlocker.setVisible (false);
+			NPL_TrustRemoveBuildBlocker.setVisible (true);
+			NPL_TrustRemoveFullBlocker.setVisible (true);
 		}
 		else if ( %trust $= "Build" )
 		{
-			NPL_TrustInviteBuildBlocker.setVisible (1);
-			NPL_TrustInviteFullBlocker.setVisible (0);
-			NPL_TrustRemoveBuildBlocker.setVisible (0);
-			NPL_TrustRemoveFullBlocker.setVisible (1);
+			NPL_TrustInviteBuildBlocker.setVisible (true);
+			NPL_TrustInviteFullBlocker.setVisible (false);
+			NPL_TrustRemoveBuildBlocker.setVisible (false);
+			NPL_TrustRemoveFullBlocker.setVisible (true);
 		}
 		else if ( %trust $= "Full" )
 		{
-			NPL_TrustInviteBuildBlocker.setVisible (1);
-			NPL_TrustInviteFullBlocker.setVisible (1);
-			NPL_TrustRemoveBuildBlocker.setVisible (0);
-			NPL_TrustRemoveFullBlocker.setVisible (0);
+			NPL_TrustInviteBuildBlocker.setVisible (true);
+			NPL_TrustInviteFullBlocker.setVisible (true);
+			NPL_TrustRemoveBuildBlocker.setVisible (false);
+			NPL_TrustRemoveFullBlocker.setVisible (false);
 		}
 		else if ( %trust $= "You" )
 		{
-			NPL_TrustInviteBuildBlocker.setVisible (1);
-			NPL_TrustInviteFullBlocker.setVisible (1);
-			NPL_TrustRemoveBuildBlocker.setVisible (1);
-			NPL_TrustRemoveFullBlocker.setVisible (1);
+			NPL_TrustInviteBuildBlocker.setVisible (true);
+			NPL_TrustInviteFullBlocker.setVisible (true);
+			NPL_TrustRemoveBuildBlocker.setVisible (true);
+			NPL_TrustRemoveFullBlocker.setVisible (true);
 		}
 	}
 	if ( $RunningMiniGame )
@@ -1122,53 +1198,52 @@ function NewPlayerListGui::clickList ( %this )
 
 			if ( %trust $= "You" )
 			{
-				NPL_MiniGameInviteBlocker.setVisible (1);
-				NPL_MiniGameRemoveBlocker.setVisible (1);
+				NPL_MiniGameInviteBlocker.setVisible (true);
+				NPL_MiniGameRemoveBlocker.setVisible (true);
 			}
 			else
 			{
-				NPL_MiniGameInviteBlocker.setVisible (1);
-				NPL_MiniGameRemoveBlocker.setVisible (0);
+				NPL_MiniGameInviteBlocker.setVisible (true);
+				NPL_MiniGameRemoveBlocker.setVisible (false);
 			}
 		}
 		else
 		{
-			NPL_MiniGameInviteBlocker.setVisible (0);
-			NPL_MiniGameRemoveBlocker.setVisible (1);
+			NPL_MiniGameInviteBlocker.setVisible (false);
+			NPL_MiniGameRemoveBlocker.setVisible (true);
 		}
 	}
 	else
 	{
-		NPL_MiniGameInviteBlocker.setVisible (1);
-		NPL_MiniGameRemoveBlocker.setVisible (1);
+		NPL_MiniGameInviteBlocker.setVisible (true);
+		NPL_MiniGameRemoveBlocker.setVisible (true);
 	}
 
 	%ignoring = mFloor (getField (%row, 6));
 
 	if ( %ignoring )
 	{
-		NPL_UnIgnoreBlocker.setVisible (0);
+		NPL_UnIgnoreBlocker.setVisible (false);
 	}
 	else
 	{
-		NPL_UnIgnoreBlocker.setVisible (1);
+		NPL_UnIgnoreBlocker.setVisible (true);
 	}
 }
 
 function NewPlayerListGui::sortList ( %this, %col )
 {
-	NPL_List.sortedNumerical = 0;
+	NPL_List.sortedNumerical = false;
 
 	if ( NPL_List.sortedBy == %col )
 	{
 		NPL_List.sortedAsc = !NPL_List.sortedAsc;
-
 		NPL_List.sort (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
 	else
 	{
-		NPL_List.sortedBy = %col;
-		NPL_List.sortedAsc = 0;
+		NPL_List.sortedBy  = %col;
+		NPL_List.sortedAsc = false;
 
 		NPL_List.sort (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
@@ -1176,18 +1251,17 @@ function NewPlayerListGui::sortList ( %this, %col )
 
 function NewPlayerListGui::sortNumList ( %this, %col )
 {
-	NPL_List.sortedNumerical = 1;
+	NPL_List.sortedNumerical = true;
 
 	if ( NPL_List.sortedBy == %col )
 	{
 		NPL_List.sortedAsc = !NPL_List.sortedAsc;
-
 		NPL_List.sortNumerical (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
 	else
 	{
-		NPL_List.sortedBy = %col;
-		NPL_List.sortedAsc = 0;
+		NPL_List.sortedBy  = %col;
+		NPL_List.sortedAsc = false;
 
 		NPL_List.sortNumerical (NPL_List.sortedBy, NPL_List.sortedAsc);
 	}
@@ -1202,11 +1276,12 @@ function NewPlayerListGui::ClickTrustInviteBuild ( %this )
 		return;
 	}
 
-	%bl_id = getField (%row, 3);
+	%bl_id        = getField (%row, 3);
 	%targetClient = NPL_List.getSelectedId ();
 
 	commandToServer ('Trust_Invite', %targetClient, %bl_id, 1);
 	rememberSentTrustInvite (%bl_id, 1);
+
 	NewPlayerListGui.showTrustMessage ();
 }
 
@@ -1219,11 +1294,12 @@ function NewPlayerListGui::ClickTrustInviteFull ( %this )
 		return;
 	}
 
-	%bl_id = getField (%row, 3);
+	%bl_id        = getField (%row, 3);
 	%targetClient = NPL_List.getSelectedId ();
 
 	commandToServer ('Trust_Invite', %targetClient, %bl_id, 2);
 	rememberSentTrustInvite (%bl_id, 2);
+
 	NewPlayerListGui.showTrustMessage ();
 }
 
@@ -1234,8 +1310,7 @@ function NewPlayerListGui::showTrustMessage ( %this )
 		cancel (%this.showTrustSchedule);
 	}
 
-	NPL_TrustWindow.setVisible (1);
-
+	NPL_TrustWindow.setVisible (true);
 	%this.showTrustSchedule = NPL_TrustWindow.schedule (800, setVisible, 0);
 }
 
@@ -1249,11 +1324,9 @@ function NewPlayerListGui::ClickTrustDemoteNONE ( %this )
 	}
 
 	%bl_id = getField (%row, 3);
-
 	commandToServer ('Trust_Demote', %bl_id, 0);
 
 	%name = getField (%row, 1);
-
 	updateClientTrustList (%bl_id, 0, %name);
 }
 
@@ -1267,11 +1340,9 @@ function NewPlayerListGui::ClickTrustDemoteBUILD ( %this )
 	}
 
 	%bl_id = getField (%row, 3);
-
 	commandToServer ('Trust_Demote', %bl_id, 1);
 
 	%name = getField (%row, 1);
-
 	updateClientTrustList (%bl_id, 1, %name);
 }
 
@@ -1309,7 +1380,7 @@ function NewPlayerListGui::ClickUnIgnore ( %this )
 	}
 
 	commandToServer ('UnIgnore', %victimID);
-	NewPlayerListGui.setIgnoring (%victimID, 0);
+	NewPlayerListGui.setIgnoring (%victimID, false);
 }
 
 function NewPlayerListGui::setIgnoring ( %this, %clientId, %val )
@@ -1322,30 +1393,29 @@ function NewPlayerListGui::setIgnoring ( %this, %clientId, %val )
 	}
 
 	%bl_id = getField (%row, 3);
-
 	NewPlayerListGui.setIgnoringBL_ID (%bl_id, %val);
 }
 
 function NewPlayerListGui::setIgnoringBL_ID ( %this, %targetBL_ID, %val )
 {
-	%i = 0;
+	%i   = 0;
 	%row = NPL_List.getRowText (%i);
 
 	while ( %row !$= "" )
 	{
-		%rowID = NPL_List.getRowId (%i);
-		%admin = getField (%row, 0);
-		%name = getField (%row, 1);
-		%score = getField (%row, 2);
-		%bl_id = getField (%row, 3);
-		%trust = getField (%row, 4);
+		%rowID          = NPL_List.getRowId (%i);
+		%admin          = getField (%row, 0);
+		%name           = getField (%row, 1);
+		%score          = getField (%row, 2);
+		%bl_id          = getField (%row, 3);
+		%trust          = getField (%row, 4);
 		%inYourMiniGame = getField (%row, 5);
+
 		%ignoring = %val;
 
 		if ( %bl_id == %targetBL_ID )
 		{
 			%line = %admin TAB %name TAB %score TAB %bl_id TAB %trust TAB %inYourMiniGame TAB %ignoring;
-
 			NPL_List.setRowById (%rowID, %line);
 		}
 
@@ -1357,13 +1427,13 @@ function NewPlayerListGui::setIgnoringBL_ID ( %this, %targetBL_ID, %val )
 
 function NewPlayerListGui::getIgnoringBL_ID ( %this, %targetBL_ID )
 {
-	%i = 0;
+	%i   = 0;
 	%row = NPL_List.getRowText (%i);
 
 	while ( %row !$= "" )
 	{
-		%rowID = NPL_List.getRowId (%i);
-		%bl_id = getField (%row, 3);
+		%rowID    = NPL_List.getRowId (%i);
+		%bl_id    = getField (%row, 3);
 		%ignoring = getField (%row, 6);
 
 		if ( %bl_id == %targetBL_ID )
@@ -1390,20 +1460,20 @@ function clientCmdTrustInvite ( %name, %bl_id, %level )
 
 	TI_Name.setText (%name);
 	TI_BL_ID.setText (%bl_id);
-	TI_BuildMessageA.setVisible (0);
-	TI_BuildMessageB.setVisible (0);
-	TI_FullMessageA.setVisible (0);
-	TI_FullMessageB.setVisible (0);
+	TI_BuildMessageA.setVisible (false);
+	TI_BuildMessageB.setVisible (false);
+	TI_FullMessageA.setVisible (false);
+	TI_FullMessageB.setVisible (false);
 
 	if ( %level == 1 )
 	{
-		TI_BuildMessageA.setVisible (1);
-		TI_BuildMessageB.setVisible (1);
+		TI_BuildMessageA.setVisible (true);
+		TI_BuildMessageB.setVisible (true);
 	}
 	else
 	{
-		TI_FullMessageA.setVisible (1);
-		TI_FullMessageB.setVisible (1);
+		TI_FullMessageA.setVisible (true);
+		TI_FullMessageB.setVisible (true);
 	}
 
 	Canvas.pushDialog (TrustInviteGui);
@@ -1426,29 +1496,32 @@ function TrustInviteGui::ClickAccept ( %this )
 
 	updateClientTrustList (%targetBL_ID, %level, %name);
 	commandToServer ('AcceptTrustInvite', %targetBL_ID);
+
 	Canvas.popDialog (TrustInviteGui);
 }
 
 function TrustInviteGui::ClickReject ( %this )
 {
 	%targetBL_ID = mFloor (TI_BL_ID.getText ());
-
 	commandToServer ('RejectTrustInvite', %targetBL_ID);
+
 	Canvas.popDialog (TrustInviteGui);
 }
 
 function TrustInviteGui::ClickIgnore ( %this )
 {
-	messageBoxYesNo ("Ignore User?", "Ignore all future trust invites from this person?", "TrustInviteGui.ignore();");
+	messageBoxYesNo ("Ignore User?", "Ignore all future trust invites from this person?",
+		"TrustInviteGui.ignore();");
 }
 
 function TrustInviteGui::Ignore ( %this )
 {
 	%targetBL_ID = mFloor (TI_BL_ID.getText ());
-
 	commandToServer ('IgnoreTrustInvite', %targetBL_ID);
+
 	Canvas.popDialog (TrustInviteGui);
-	NewPlayerListGui.setIgnoringBL_ID (%targetBL_ID, 1);
+
+	NewPlayerListGui.setIgnoringBL_ID (%targetBL_ID, true);
 }
 
 function rememberSentTrustInvite ( %bl_id, %level )
@@ -1460,7 +1533,7 @@ function clientCmdTrustInviteAccepted ( %clientId, %bl_id, %level )
 {
 	if ( $TrustInvite[%bl_id] == %level )
 	{
-		%row = NPL_List.getRowTextById (%clientId);
+		%row  = NPL_List.getRowTextById (%clientId);
 		%name = getField (%row, 1);
 
 		if ( %name $= "" )
@@ -1472,13 +1545,14 @@ function clientCmdTrustInviteAccepted ( %clientId, %bl_id, %level )
 	}
 	else
 	{
-		error ("ERROR: clientCmdTrustInviteAccepted() - Server says we invited BL_ID:" @ %bl_id @ " for level:" @ %level @ " but we didn\'t!");
+		error ("ERROR: clientCmdTrustInviteAccepted() - Server says we invited BL_ID:" @ %bl_id
+			@ " for level:" @ %level @ " but we didn\'t!");
 	}
 }
 
 function secureClientCmd_TrustDemoted ( %clientId, %bl_id, %level )
 {
-	%row = NPL_List.getRowTextById (%clientId);
+	%row  = NPL_List.getRowTextById (%clientId);
 	%name = getField (%row, 1);
 
 	if ( %name $= "" )
@@ -1509,6 +1583,7 @@ function updateClientTrustList ( %bl_id, %level, %name )
 	}
 
 	%i = mFloor ($Trust::Count);
+
 	$Trust::Line[%i] = %bl_id TAB %level TAB %name;
 	$Trust::Count++;
 
@@ -1517,16 +1592,15 @@ function updateClientTrustList ( %bl_id, %level, %name )
 
 function saveTrustList ()
 {
-	%file = new FileObject ("");
-
+	%file = new FileObject ();
 	%file.openForWrite ("config/client/prefs-trustList.txt");
 
 	for ( %i = 0; %i < $Trust::Count; %i++ )
 	{
-		%blid = mFloor (getField ($Trust::Line[%i], 0));
+		%blid  = mFloor (getField ($Trust::Line[%i], 0));
 		%level = mFloor (getField ($Trust::Line[%i], 1));
-		%name = getField ($Trust::Line[%i], 2);
-		%line = %blid TAB %level TAB %name;
+		%name  = getField ($Trust::Line[%i], 2);
+		%line  = %blid TAB %level TAB %name;
 
 		%file.writeLine (%line);
 	}
@@ -1545,16 +1619,16 @@ function loadTrustList ()
 	deleteVariables ("$Trust::*");
 
 	$Trust::Count = 0;
-	%file = new FileObject ("");
 
+	%file = new FileObject ();
 	%file.openForRead ("config/client/prefs-trustList.txt");
 
 	while ( !%file.isEOF () )
 	{
-		%line = %file.readLine ();
-		%blid = getField (%line, 0);
+		%line  = %file.readLine ();
+		%blid  = getField (%line, 0);
 		%level = getField (%line, 1);
-		%name = getField (%line, 2);
+		%name  = getField (%line, 2);
 
 		if ( mFloor (%blid) != %blid || %blid $= "" )
 		{
@@ -1589,9 +1663,9 @@ function dumpTrustList ()
 
 	for ( %i = 0; %i < %count; %i++ )
 	{
-		%blid = getField ($Trust::Line[%i], 0);
+		%blid  = getField ($Trust::Line[%i], 0);
 		%level = getField ($Trust::Line[%i], 1);
-		%name = getField ($Trust::Line[%i], 2);
+		%name  = getField ($Trust::Line[%i], 2);
 
 		if ( %level == 1 )
 		{
@@ -1618,7 +1692,6 @@ function clientCmdTrustListUpload_Start ()
 		if ( %level > 0 )
 		{
 			%line = %bl_id SPC %level;
-
 			commandToServer ('TrustListUpload_Line', %line);
 		}
 	}
@@ -1628,12 +1701,12 @@ function clientCmdTrustListUpload_Start ()
 
 function MiniGameInviteGui::onWake ( %this )
 {
-
+	// Stub
 }
 
 function MiniGameInviteGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function clientCmdMiniGameInvite ( %title, %name, %bl_id, %miniGameID )
@@ -1650,7 +1723,6 @@ function clientCmdMiniGameInvite ( %title, %name, %bl_id, %miniGameID )
 	else
 	{
 		MiniGameInviteGui.miniGameID = %miniGameID;
-
 		Canvas.pushDialog (MiniGameInviteGui);
 	}
 }
@@ -1669,36 +1741,37 @@ function MiniGameInviteGui::ClickReject ( %this )
 
 function MiniGameInviteGui::ClickIgnore ( %this )
 {
-	messageBoxYesNo ("Ignore User?", "Are you sure you want to ignore mini-game invites from this user?", "MiniGameInviteGui.ignore();");
+	messageBoxYesNo ("Ignore User?", "Are you sure you want to ignore mini-game invites from this user?",
+		"MiniGameInviteGui.ignore();");
 }
 
 function MiniGameInviteGui::Ignore ( %this )
 {
 	commandToServer ('IgnoreMiniGameInvite', MiniGameInviteGui.miniGameID);
+
 	Canvas.popDialog (MiniGameInviteGui);
 
 	%targetBL_ID = mFloor (MGI_BL_ID.getText ());
-
-	NewPlayerListGui.setIgnoringBL_ID (%targetBL_ID, 1);
+	NewPlayerListGui.setIgnoringBL_ID (%targetBL_ID, true);
 }
 
 function joinMiniGameGui::onWake ( %this )
 {
 	if ( $PlayingMiniGame )
 	{
-		JMG_JoinBlocker.setVisible (1);
-		JMG_LeaveBlocker.setVisible (0);
+		JMG_JoinBlocker.setVisible (true);
+		JMG_LeaveBlocker.setVisible (false);
 
 		if ( $RunningMiniGame )
 		{
-			CMG_EndBlocker.setVisible (0);
+			CMG_EndBlocker.setVisible (false);
 		}
 	}
 	else
 	{
-		JMG_JoinBlocker.setVisible (0);
-		JMG_LeaveBlocker.setVisible (1);
-		CMG_EndBlocker.setVisible (1);
+		JMG_JoinBlocker.setVisible (false);
+		JMG_LeaveBlocker.setVisible (true);
+		CMG_EndBlocker.setVisible (true);
 	}
 
 	joinMiniGameGui.clickList ();
@@ -1706,13 +1779,14 @@ function joinMiniGameGui::onWake ( %this )
 
 function joinMiniGameGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function clientCmdAddMiniGameLine ( %line, %id, %colorIdx )
 {
 	%colorIdx = mFloor (%colorIdx);
-	%id = mFloor (%id);
+	%id       = mFloor (%id);
+
 	%CC0 = "\c1\c0";
 	%CC1 = "\c1";
 	%CC2 = "\c2";
@@ -1723,6 +1797,7 @@ function clientCmdAddMiniGameLine ( %line, %id, %colorIdx )
 	%CC7 = "\c7";
 	%CC8 = "\c8";
 	%CC9 = "\c9";
+
 	%line = %CC[%colorIdx] @ %line;
 
 	if ( JMG_List.getRowNumById (%id) == -1 )
@@ -1738,7 +1813,6 @@ function clientCmdAddMiniGameLine ( %line, %id, %colorIdx )
 function clientCmdRemoveMiniGameLine ( %id )
 {
 	%id = mFloor (%id);
-
 	JMG_List.removeRowById (%id);
 }
 
@@ -1753,8 +1827,7 @@ function joinMiniGameGui::clickList ( %this )
 
 	if ( %row $= "" )
 	{
-		JMG_JoinBlocker.setVisible (1);
-
+		JMG_JoinBlocker.setVisible (true);
 		return;
 	}
 
@@ -1762,11 +1835,11 @@ function joinMiniGameGui::clickList ( %this )
 
 	if ( %inviteOnly )
 	{
-		JMG_JoinBlocker.setVisible (1);
+		JMG_JoinBlocker.setVisible (true);
 	}
 	else
 	{
-		JMG_JoinBlocker.setVisible (0);
+		JMG_JoinBlocker.setVisible (false);
 	}
 }
 
@@ -1787,12 +1860,13 @@ function joinMiniGameGui::ClickLeave ( %this )
 	if ( !$PlayingMiniGame )
 	{
 		error ("ERROR: JoinMiniGameGui::ClickLeave() - You shouldn\'t have been able to click this unless you\'re playing a minigame");
-
 		return;
 	}
+
 	if ( $RunningMiniGame )
 	{
-		messageBoxYesNo ("End Mini-Game?", "Are you sure you want to end the current mini-game?", "joinMiniGameGui.end();");
+		messageBoxYesNo ("End Mini-Game?", "Are you sure you want to end the current mini-game?",
+			"joinMiniGameGui.end();");
 	}
 	else
 	{
@@ -1817,17 +1891,19 @@ function clientCmdSetPlayingMiniGame ( %val )
 
 	if ( $PlayingMiniGame )
 	{
-		JMG_JoinBlocker.setVisible (1);
-		JMG_LeaveBlocker.setVisible (0);
+		JMG_JoinBlocker.setVisible (true);
+		JMG_LeaveBlocker.setVisible (false);
+
 		Canvas.popDialog (joinMiniGameGui);
 	}
 	else
 	{
 		NewPlayerListGui.ClearInYourMiniGame ();
-		JMG_LeaveBlocker.setVisible (1);
 
-		$BuildingDisabled = 0;
-		$PaintingDisabled = 0;
+		JMG_LeaveBlocker.setVisible (true);
+
+		$BuildingDisabled = false;
+		$PaintingDisabled = false;
 	}
 
 	joinMiniGameGui.clickList ();
@@ -1839,11 +1915,11 @@ function clientCmdSetRunningMiniGame ( %val )
 
 	if ( $RunningMiniGame )
 	{
-		CMG_EndBlocker.setVisible (0);
+		CMG_EndBlocker.setVisible (false);
 	}
 	else
 	{
-		CMG_EndBlocker.setVisible (1);
+		CMG_EndBlocker.setVisible (true);
 	}
 }
 
@@ -1858,7 +1934,7 @@ function clientCmdSetBuildingDisabled ( %val )
 			setScrollMode ($SCROLLMODE_NONE);
 		}
 
-		$SuperShift = 0;
+		$SuperShift = false;
 
 		HUD_SuperShift.setVisible ($SuperShift);
 	}
@@ -1879,18 +1955,17 @@ function clientCmdSetPaintingDisabled ( %val )
 
 function joinMiniGameGui::sortList ( %this, %col )
 {
-	JMG_List.sortedNumerical = 0;
+	JMG_List.sortedNumerical = false;
 
 	if ( JMG_List.sortedBy == %col )
 	{
 		JMG_List.sortedAsc = !JMG_List.sortedAsc;
-
 		JMG_List.sort (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
 	else
 	{
-		JMG_List.sortedBy = %col;
-		JMG_List.sortedAsc = 0;
+		JMG_List.sortedBy  = %col;
+		JMG_List.sortedAsc = false;
 
 		JMG_List.sort (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
@@ -1898,18 +1973,17 @@ function joinMiniGameGui::sortList ( %this, %col )
 
 function joinMiniGameGui::sortNumList ( %this, %col )
 {
-	JMG_List.sortedNumerical = 1;
+	JMG_List.sortedNumerical = true;
 
 	if ( JMG_List.sortedBy == %col )
 	{
 		JMG_List.sortedAsc = !JMG_List.sortedAsc;
-
 		JMG_List.sortNumerical (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
 	else
 	{
-		JMG_List.sortedBy = %col;
-		JMG_List.sortedAsc = 0;
+		JMG_List.sortedBy  = %col;
+		JMG_List.sortedAsc = false;
 
 		JMG_List.sortNumerical (JMG_List.sortedBy, JMG_List.sortedAsc);
 	}
@@ -1917,50 +1991,61 @@ function joinMiniGameGui::sortNumList ( %this, %col )
 
 function CreateMiniGameGui::onWake ( %this )
 {
-	CMG_FavsHelper.setVisible (0);
+	CMG_FavsHelper.setVisible (false);
 	CMG_ColorList.clear ();
+
 	commandToServer ('RequestMiniGameColorList');
 
 	if ( $RunningMiniGame )
 	{
 		CMG_Window.setText ("Edit Mini-Game");
 		CMG_CreateButton.setText ("Update >>");
-		CMG_ColorBlocker.setVisible (1);
+		CMG_ColorBlocker.setVisible (true);
 	}
 	else
 	{
 		CMG_Window.setText ("Create Mini-Game");
 		CMG_CreateButton.setText ("Create >>");
-		CMG_ColorBlocker.setVisible (0);
+		CMG_ColorBlocker.setVisible (false);
 	}
+
 	if ( !$cmg_hasLoaded )
 	{
-		$cmg_hasLoaded = 1;
-		$MiniGameGui::BrickDamage = 1;
+		$cmg_hasLoaded = true;
+
+		$MiniGameGui::BrickDamage      = true;
 		$MiniGameGui::BrickRespawnTime = 30;
+
 		$MiniGameGui::ColorName = "Red";
-		$MiniGameGui::EnableBuilding = 1;
-		$MiniGameGui::EnablePainting = 1;
-		$MiniGameGui::EnableWand = 1;
-		$MiniGameGui::FallingDamage = 1;
-		$MiniGameGui::InviteOnly = 0;
+
+		$MiniGameGui::EnableBuilding   = true;
+		$MiniGameGui::EnablePainting   = true;
+		$MiniGameGui::EnableWand       = true;
+		$MiniGameGui::FallingDamage    = true;
+		$MiniGameGui::InviteOnly       = false;
+
 		$MiniGameGui::PlayerDataBlock = "Standard Player";
-		$MiniGameGui::PlayersUseOwnBricks = 0;
+
+		$MiniGameGui::PlayersUseOwnBricks = false;
+
 		$MiniGameGui::Points::BreakBrick = 0;
-		$MiniGameGui::Points::Die = 0;
+		$MiniGameGui::Points::Die        = 0;
 		$MiniGameGui::Points::KillPlayer = 1;
-		$MiniGameGui::Points::KillSelf = -1;
+		$MiniGameGui::Points::KillSelf   = -1;
 		$MiniGameGui::Points::PlantBrick = 0;
-		$MiniGameGui::RespawnTime = 1;
-		$MiniGameGui::SelfDamage = 1;
+		$MiniGameGui::RespawnTime        = 1;
+
+		$MiniGameGui::SelfDamage = true;
+
 		$MiniGameGui::StartEquip0 = "Hammer ";
 		$MiniGameGui::StartEquip1 = "Wrench";
 		$MiniGameGui::StartEquip2 = "Printer";
 		$MiniGameGui::StartEquip3 = "Gun";
 		$MiniGameGui::StartEquip4 = "Rocket L.";
-		$MiniGameGui::BotRespawnTime = 5;
+
+		$MiniGameGui::BotRespawnTime  = 5;
 		$MiniGameGui::Points::KillBot = 1;
-		$MiniGameGui::BotDamage = 1;
+		$MiniGameGui::BotDamage       = true;
 
 		if ( isObject (ServerConnection) )
 		{
@@ -1989,18 +2074,18 @@ function CreateMiniGameGui::onWake ( %this )
 			$MiniGameGui::Title = "Default Mini-Game";
 		}
 
-		$MiniGameGui::UseAllPlayersBricks = 0;
-		$MiniGameGui::UseSpawnBricks = 1;
-		$MiniGameGui::VehicleDamage = 1;
+		$MiniGameGui::UseAllPlayersBricks = false;
+		$MiniGameGui::UseSpawnBricks      = true;
+
+		$MiniGameGui::VehicleDamage      = true;
 		$MiniGameGui::VehicleRespawnTime = 5;
-		$MiniGameGui::WeaponDamage = 1;
+		$MiniGameGui::WeaponDamage       = true;
 
 		CreateMiniGameGui.Refresh ();
 
 		for ( %i = 0; %i < 5; %i++ )
 		{
 			%obj = "CMG_StartEquip" @ %i;
-
 			%obj.setSelected (%obj.findText ($MiniGameGui::StartEquip[%i]));
 		}
 	}
@@ -2033,7 +2118,6 @@ function CreateMiniGameGui::LoadDataBlocks ()
 				for ( %i = 0; %i < 5; %i++ )
 				{
 					%obj = "CMG_StartEquip" @ %i;
-
 					%obj.add (%db.uiName, %db);
 				}
 			}
@@ -2043,41 +2127,45 @@ function CreateMiniGameGui::LoadDataBlocks ()
 			if ( %db.uiName !$= "" )
 			{
 				%obj = "CMG_PlayerDataBlock";
-
 				%obj.add (%db.uiName, %db);
 			}
 		}
 	}
+
 	for ( %i = 0; %i < 5; %i++ )
 	{
 		%obj = "CMG_StartEquip" @ %i;
-
 		%obj.sort ();
 	}
 
 	%obj = "CMG_PlayerDataBlock";
-
 	%obj.sort ();
 
 	$MiniGameGui::InviteOnly = mFloor ($MiniGameGui::InviteOnly);
+
 	$MiniGameGui::UseAllPlayersBricks = mFloor ($MiniGameGui::UseAllPlayersBricks);
 	$MiniGameGui::PlayersUseOwnBricks = mFloor ($MiniGameGui::PlayersUseOwnBricks);
-	$MiniGameGui::UseSpawnBricks = mFloor ($MiniGameGui::UseSpawnBricks);
+	$MiniGameGui::UseSpawnBricks      = mFloor ($MiniGameGui::UseSpawnBricks);
+
 	$MiniGameGui::Points::BreakBrick = mFloor ($MiniGameGui::Points::BreakBrick);
 	$MiniGameGui::Points::PlantBrick = mFloor ($MiniGameGui::Points::PlantBrick);
 	$MiniGameGui::Points::KillPlayer = mFloor ($MiniGameGui::Points::KillPlayer);
-	$MiniGameGui::Points::KillSelf = mFloor ($MiniGameGui::Points::KillSelf);
-	$MiniGameGui::Points::Die = mFloor ($MiniGameGui::Points::Die);
-	$MiniGameGui::RespawnTime = mFloor ($MiniGameGui::RespawnTime);
+	$MiniGameGui::Points::KillSelf   = mFloor ($MiniGameGui::Points::KillSelf);
+	$MiniGameGui::Points::Die        = mFloor ($MiniGameGui::Points::Die);
+
+	$MiniGameGui::RespawnTime        = mFloor ($MiniGameGui::RespawnTime);
 	$MiniGameGui::VehicleRespawnTime = mFloor ($MiniGameGui::VehicleRespawnTime);
-	$MiniGameGui::BrickRespawnTime = mFloor ($MiniGameGui::BrickRespawnTime);
+	$MiniGameGui::BrickRespawnTime   = mFloor ($MiniGameGui::BrickRespawnTime);
+
 	$MiniGameGui::JetLevel = mFloor ($MiniGameGui::JetLevel);
+
 	$MiniGameGui::FallingDamage = mFloor ($MiniGameGui::FallingDamage);
-	$MiniGameGui::WeaponDamage = mFloor ($MiniGameGui::WeaponDamage);
+	$MiniGameGui::WeaponDamage  = mFloor ($MiniGameGui::WeaponDamage);
 	$MiniGameGui::VehicleDamage = mFloor ($MiniGameGui::VehicleDamage);
-	$MiniGameGui::BrickDamage = mFloor ($MiniGameGui::BrickDamage);
-	$MiniGameGui::SelfDamage = mFloor ($MiniGameGui::SelfDamage);
-	$MiniGameGui::EnableWand = mFloor ($MiniGameGui::EnableWand);
+	$MiniGameGui::BrickDamage   = mFloor ($MiniGameGui::BrickDamage);
+	$MiniGameGui::SelfDamage    = mFloor ($MiniGameGui::SelfDamage);
+
+	$MiniGameGui::EnableWand     = mFloor ($MiniGameGui::EnableWand);
 	$MiniGameGui::EnableBuilding = mFloor ($MiniGameGui::EnableBuilding);
 
 	if ( $MiniGameGui::PlayerDataBlock $= "" )
@@ -2086,7 +2174,6 @@ function CreateMiniGameGui::LoadDataBlocks ()
 	}
 
 	%obj = "CMG_PlayerDataBlock";
-
 	%obj.setSelected (%obj.findText ($MiniGameGui::PlayerDataBlock));
 
 	for ( %i = 0; %i < 5; %i++ )
@@ -2097,7 +2184,6 @@ function CreateMiniGameGui::LoadDataBlocks ()
 		}
 
 		%obj = "CMG_StartEquip" @ %i;
-
 		%obj.setSelected (%obj.findText ($MiniGameGui::StartEquip[%i]));
 	}
 
@@ -2105,6 +2191,7 @@ function CreateMiniGameGui::LoadDataBlocks ()
 	{
 		$MiniGameGui::RespawnTime = 1;
 	}
+
 	if ( $MiniGameGui::Title $= "" )
 	{
 		$MiniGameGui::Title = "Default Mini-Game";
@@ -2113,13 +2200,12 @@ function CreateMiniGameGui::LoadDataBlocks ()
 
 function CreateMiniGameGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function ClientCmdAddMiniGameColor ( %idx, %name, %RGB )
 {
 	CMG_ColorList.add (%name, %idx);
-
 	CMG_ColorList.colorF[%idx] = getColorF (%RGB);
 
 	if ( CMG_ColorList.getText () $= "" )
@@ -2132,10 +2218,10 @@ function ClientCmdAddMiniGameColor ( %idx, %name, %RGB )
 
 function CreateMiniGameGui::clickColorList ()
 {
-	%idx = CMG_ColorList.getSelected ();
+	%idx   = CMG_ColorList.getSelected ();
 	%color = getColorI (CMG_ColorList.colorF[%idx]);
-	%RGB = getWords (%color, 0, 2);
-	%rgba = %RGB @ " 255";
+	%RGB   = getWords (%color, 0, 2);
+	%rgba  = %RGB @ " 255";
 
 	CMG_Swatch.setColor (%rgba);
 }
@@ -2158,7 +2244,6 @@ function CreateMiniGameGui::ClickCreate ( %this )
 	else
 	{
 		%colorIdx = CMG_ColorList.getSelected ();
-
 		commandToServer ('createMiniGame', $MiniGameGui::Title, %colorIdx, $MiniGameGui::UseSpawnBricks);
 	}
 }
@@ -2177,7 +2262,8 @@ function CreateMiniGameGui::clickEnd ( %this )
 {
 	if ( $RunningMiniGame )
 	{
-		messageBoxYesNo ("End Mini-Game?", "Are you sure you want to end the mini-game?", "CreateMiniGameGui.end();");
+		messageBoxYesNo ("End Mini-Game?", "Are you sure you want to end the mini-game?",
+			"CreateMiniGameGui.end();");
 	}
 }
 
@@ -2205,12 +2291,13 @@ function CreateMiniGameGui::clickSetFavs ( %this )
 
 function CreateMiniGameGui::ClickFav ( %this, %idx )
 {
-	%idx = mFloor (%idx);
+	%idx      = mFloor (%idx);
 	%filename = "config/client/MiniGameFavorites/" @ %idx @ ".cs";
 
 	if ( CMG_FavsHelper.isVisible () )
 	{
 		$MiniGameGui::ColorName = CMG_ColorList.getText ();
+
 		%obj = "CMG_PlayerDataBlock";
 		$MiniGameGui::PlayerDataBlock = %obj.getText ();
 
@@ -2221,7 +2308,8 @@ function CreateMiniGameGui::ClickFav ( %this, %idx )
 		}
 
 		export ("$MiniGameGui::*", %filename, 0);
-		CMG_FavsHelper.setVisible (0);
+
+		CMG_FavsHelper.setVisible (false);
 	}
 	else
 	{
@@ -2240,7 +2328,6 @@ function CreateMiniGameGui::ClickFav ( %this, %idx )
 		for ( %i = 0; %i < 5; %i++ )
 		{
 			%obj = "CMG_StartEquip" @ %i;
-
 			%obj.setSelected (%obj.findText ($MiniGameGui::StartEquip[%i]));
 		}
 
@@ -2250,8 +2337,8 @@ function CreateMiniGameGui::ClickFav ( %this, %idx )
 		}
 
 		%obj = "CMG_PlayerDataBlock";
-
 		%obj.setSelected (%obj.findText ($MiniGameGui::PlayerDataBlock));
+
 		CreateMiniGameGui.Refresh ();
 	}
 }
@@ -2279,7 +2366,6 @@ function CreateMiniGameGui::Refresh ( %this, %parentObj )
 		if ( %var !$= "" )
 		{
 			%var = strreplace (%var, ";", "");
-
 			eval (%obj @ ".setValue(" @ %var @ ");");
 		}
 	}
@@ -2288,36 +2374,37 @@ function CreateMiniGameGui::Refresh ( %this, %parentObj )
 function CreateMiniGameGui::send ( %this )
 {
 	%line = "";
-	%line = %line TAB "T" SPC $MiniGameGui::Title;
-	%line = %line TAB "IO" SPC $MiniGameGui::InviteOnly;
+	%line = %line TAB "T"    SPC $MiniGameGui::Title;
+	%line = %line TAB "IO"   SPC $MiniGameGui::InviteOnly;
 	%line = %line TAB "UAPB" SPC $MiniGameGui::UseAllPlayersBricks;
 	%line = %line TAB "PUOB" SPC $MiniGameGui::PlayersUseOwnBricks;
-	%line = %line TAB "USB" SPC $MiniGameGui::UseSpawnBricks;
-	%line = %line TAB "PBB" SPC $MiniGameGui::Points::BreakBrick;
-	%line = %line TAB "PPB" SPC $MiniGameGui::Points::PlantBrick;
-	%line = %line TAB "PKP" SPC $MiniGameGui::Points::KillPlayer;
-	%line = %line TAB "PKB" SPC $MiniGameGui::Points::KillBot;
-	%line = %line TAB "PKS" SPC $MiniGameGui::Points::KillSelf;
-	%line = %line TAB "PD" SPC $MiniGameGui::Points::Die;
-	%line = %line TAB "RT" SPC $MiniGameGui::RespawnTime;
-	%line = %line TAB "VRT" SPC $MiniGameGui::VehicleRespawnTime;
-	%line = %line TAB "BRT" SPC $MiniGameGui::BrickRespawnTime;
+	%line = %line TAB "USB"  SPC $MiniGameGui::UseSpawnBricks;
+	%line = %line TAB "PBB"  SPC $MiniGameGui::Points::BreakBrick;
+	%line = %line TAB "PPB"  SPC $MiniGameGui::Points::PlantBrick;
+	%line = %line TAB "PKP"  SPC $MiniGameGui::Points::KillPlayer;
+	%line = %line TAB "PKB"  SPC $MiniGameGui::Points::KillBot;
+	%line = %line TAB "PKS"  SPC $MiniGameGui::Points::KillSelf;
+	%line = %line TAB "PD"   SPC $MiniGameGui::Points::Die;
+	%line = %line TAB "RT"   SPC $MiniGameGui::RespawnTime;
+	%line = %line TAB "VRT"  SPC $MiniGameGui::VehicleRespawnTime;
+	%line = %line TAB "BRT"  SPC $MiniGameGui::BrickRespawnTime;
 	%line = %line TAB "BtRT" SPC $MiniGameGui::BotRespawnTime;
-	%line = %line TAB "FD" SPC $MiniGameGui::FallingDamage;
-	%line = %line TAB "WD" SPC $MiniGameGui::WeaponDamage;
-	%line = %line TAB "SD" SPC $MiniGameGui::SelfDamage;
-	%line = %line TAB "VD" SPC $MiniGameGui::VehicleDamage;
-	%line = %line TAB "BD" SPC $MiniGameGui::BrickDamage;
-	%line = %line TAB "BtD" SPC $MiniGameGui::BotDamage;
-	%line = %line TAB "EW" SPC $MiniGameGui::EnableWand;
-	%line = %line TAB "EB" SPC $MiniGameGui::EnableBuilding;
-	%line = %line TAB "EP" SPC $MiniGameGui::EnablePainting;
-	%line = %line TAB "DB" SPC CMG_PlayerDataBlock.getSelected ();
+	%line = %line TAB "FD"   SPC $MiniGameGui::FallingDamage;
+	%line = %line TAB "WD"   SPC $MiniGameGui::WeaponDamage;
+	%line = %line TAB "SD"   SPC $MiniGameGui::SelfDamage;
+	%line = %line TAB "VD"   SPC $MiniGameGui::VehicleDamage;
+	%line = %line TAB "BD"   SPC $MiniGameGui::BrickDamage;
+	%line = %line TAB "BtD"  SPC $MiniGameGui::BotDamage;
+	%line = %line TAB "EW"   SPC $MiniGameGui::EnableWand;
+	%line = %line TAB "EB"   SPC $MiniGameGui::EnableBuilding;
+	%line = %line TAB "EP"   SPC $MiniGameGui::EnablePainting;
+	%line = %line TAB "DB"   SPC CMG_PlayerDataBlock.getSelected ();
 
 	for ( %i = 0; %i < 5; %i++ )
 	{
 		%listObj = "CMG_StartEquip" @ %i;
 		%listObj = %listObj.getId ();
+
 		%line = %line TAB "SE" SPC %i SPC %listObj.getSelected ();
 	}
 
@@ -2325,7 +2412,7 @@ function CreateMiniGameGui::send ( %this )
 
 	if ( strlen (%line) > 200 )
 	{
-		%tempLine = "";
+		%tempLine   = "";
 		%fieldCount = getFieldCount (%line);
 
 		for ( %i = 0; %i < %fieldCount; %i++ )
@@ -2335,9 +2422,7 @@ function CreateMiniGameGui::send ( %this )
 			if ( strlen (%tempLine TAB %field) > 200 )
 			{
 				%tempLine = trim (%tempLine);
-
 				commandToServer ('SetMiniGameData', %tempLine);
-
 				%tempLine = "";
 			}
 
@@ -2356,7 +2441,7 @@ function CreateMiniGameGui::send ( %this )
 
 function connectingGui::onWake ()
 {
-
+	// Stub
 }
 
 function onSendConnectChallengeRequest ()
@@ -2373,7 +2458,7 @@ function connectingGui::cancel ()
 		$conn.delete ();
 	}
 
-	$ArrangedActive = 0;
+	$ArrangedActive    = false;
 	$ArrangedAddyCount = 0;
 
 	if ( isObject ($ArrangedConnection) )
@@ -2395,7 +2480,9 @@ function connectingGui::cancel ()
 function OnSubnetError ( %code )
 {
 	echo ("Subnet error: " @ %code);
-	Connecting_Text.setText (Connecting_Text.getText () @ "\nSubnet error: " @ %code @ "\n\nYou cannot join an internet game because the game has not authenticated with the master server.");
+
+	Connecting_Text.setText (Connecting_Text.getText () @ "\nSubnet error: " @ %code
+		@ "\n\nYou cannot join an internet game because the game has not authenticated with the master server.");
 
 	if ( isObject ($conn) )
 	{
@@ -2584,10 +2671,12 @@ function clickSpam ( %val )
 	{
 		return;
 	}
+
 	if ( isEventPending ($CS) )
 	{
 		cancel ($CS);
 	}
+
 	if ( !%val )
 	{
 		return;
@@ -2605,8 +2694,7 @@ function cacheImpactFont ()
 		return;
 	}
 
-	%text = new GuiMLTextCtrl ("");
-
+	%text = new GuiMLTextCtrl ();
 	MainMenuGui.add (%text);
 
 	%val = "";
@@ -2622,18 +2710,18 @@ function cacheImpactFont ()
 
 function clientCmdSetRemoteServerData ( %serverLAN, %listenServer )
 {
-	$RemoteServer::LAN = mFloor (%serverLAN);
+	$RemoteServer::LAN    = mFloor (%serverLAN);
 	$RemoteServer::Listen = mFloor (%listenServer);
 }
 
 function clientCmdSyncClock ( %time )
 {
-
+	// Stub
 }
 
 function GameConnection::prepDemoRecord ( %this )
 {
-
+	// Stub
 }
 
 function GameConnection::prepDemoPlayback ( %this )
@@ -2662,14 +2750,13 @@ function onPhase1Progress ( %progress )
 	if ( getSimTime () - $lastProgressBarTime > 200 )
 	{
 		$lastProgressBarTime = getSimTime ();
-
 		Canvas.repaint ();
 	}
 }
 
 function onPhase1Complete ()
 {
-
+	// Stub
 }
 
 function onMissionDownloadPhase2 ()
@@ -2677,6 +2764,7 @@ function onMissionDownloadPhase2 ()
 	LoadingProgress.setValue (0);
 	LoadingSecondaryProgress.setValue (0);
 	LoadingProgressTxt.setValue ("LOADING OBJECTS");
+
 	Canvas.repaint ();
 }
 
@@ -2688,14 +2776,13 @@ function onPhase2Progress ( %progress )
 	if ( getSimTime () - $lastProgressBarTime > 200 )
 	{
 		$lastProgressBarTime = getSimTime ();
-
 		Canvas.repaint ();
 	}
 }
 
 function onPhase2Complete ()
 {
-
+	// Stub
 }
 
 function onMissionDownloadPhase3 ()
@@ -2703,6 +2790,7 @@ function onMissionDownloadPhase3 ()
 	LoadingProgress.setValue (0);
 	LoadingSecondaryProgress.setValue (0);
 	LoadingProgressTxt.setValue ("LIGHTING MISSION (This only happens once)");
+
 	Canvas.repaint ();
 }
 
@@ -2717,16 +2805,15 @@ function onPhase3Complete ()
 	{
 		quit ();
 	}
+
 	if ( ServerConnection.isLocal () && $loadBlsArg !$= "" )
 	{
 		serverDirectSaveFileLoad ($loadBlsArg, 3);
-
 		$loadBlsArg = "";
 	}
 
 	LoadingProgress.setValue (1);
-
-	$lightingMission = 0;
+	$lightingMission = false;
 }
 
 function onMissionDownloadComplete ()
@@ -2735,10 +2822,10 @@ function onMissionDownloadComplete ()
 	clientCmdWrench_LoadMenus ();
 	CreateMiniGameGui.LoadDataBlocks ();
 
-	$RunningMiniGame = 0;
-	$PlayingMiniGame = 0;
-	$BuildingDisabled = 0;
-	$PaintingDisabled = 0;
+	$RunningMiniGame  = false;
+	$PlayingMiniGame  = false;
+	$BuildingDisabled = false;
+	$PaintingDisabled = false;
 
 	NewPlayerListGui.ClearInYourMiniGame ();
 
@@ -2756,9 +2843,10 @@ function onMissionDownloadComplete ()
 function getValidSaveName ( %saveName )
 {
 	%invalidChars = strreplace (%saveName, " ", "");
-	%letters = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0";
+
+	%letters  = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0";
 	%currWord = 0;
-	%letter = getWord (%letters, %currWord);
+	%letter   = getWord (%letters, %currWord);
 
 	while ( %letter !$= "" )
 	{
@@ -2773,7 +2861,7 @@ function getValidSaveName ( %saveName )
 
 		for ( %i = 0; %i < %len; %i++ )
 		{
-			%badchar = getSubStr (%invalidChars, %i, 1);
+			%badchar  = getSubStr (%invalidChars, %i, 1);
 			%saveName = strreplace (%saveName, %badchar, "");
 		}
 	}
@@ -2843,20 +2931,22 @@ function GameConnection::setLagIcon ( %this, %state )
 function GameConnection::onConnectionAccepted ( %this )
 {
 	echo ("Connected successfully, killing other pending connections");
+
 	cancelAllPendingConnections ();
 	setParticleDisconnectMode (0);
+
 	Canvas.setContent ("LoadingGui");
 	LoadingProgressTxt.setValue ("CONNECTION ACCEPTED");
-	LagIcon.setVisible (0);
+	LagIcon.setVisible (false);
 
 	$IamAdmin = 0;
-	$PlayingMiniGame = 0;
-	$RunningMiniGame = 0;
+
+	$PlayingMiniGame = false;
+	$RunningMiniGame = false;
 
 	if ( !%this.isLocal () )
 	{
 		deleteVariables ("$GameModeGui::*");
-
 		$GameModeGui::GameModeCount = 0;
 	}
 
@@ -2916,8 +3006,9 @@ function GameConnection::onConnectRequestRejected ( %this, %msg )
 	{
 		if ( $connectArg || $Connection::Reconnecting )
 		{
-			$JoinNetServer = 1;
-			$ServerInfo::Ping = "???";
+			$JoinNetServer = true;
+
+			$ServerInfo::Ping    = "???";
 			$ServerInfo::Address = $connectArg;
 
 			Canvas.popDialog (connectingGui);
@@ -2988,12 +3079,12 @@ function disconnect ( %doReconnect )
 	if ( isEventPending ($disconnectEvent) )
 	{
 		cancel ($disconnectEvent);
-
 		$disconnectEvent = 0;
 	}
+
 	if ( %doReconnect $= "" )
 	{
-		%doReconnect = 0;
+		%doReconnect = false;
 	}
 
 	setParticleDisconnectMode (1);
@@ -3022,7 +3113,7 @@ function disconnectedCleanup ( %doReconnect )
 {
 	if ( %doReconnect $= "" )
 	{
-		%doReconnect = 0;
+		%doReconnect = false;
 	}
 
 	alxStopAll ();
@@ -3032,16 +3123,21 @@ function disconnectedCleanup ( %doReconnect )
 		MusicPlayer.stop ();
 	}
 
-	LagIcon.setVisible (0);
+	LagIcon.setVisible (false);
+
 	NPL_List.clear ();
 	lstAdminPlayerList.clear ();
 	NPL_List.clear ();
 	JMG_List.clear ();
+
 	clientCmdclearBottomPrint ();
 	clientCmdClearCenterPrint ();
+
 	clearTextureHolds ();
 	purgeResources ();
+
 	PSD_KillPrints ();
+
 	WhoTalk_Kill ();
 
 	if ( isEventPending ($LoadingBricks_HandShakeSchedule) )
@@ -3072,7 +3168,7 @@ function disconnectedCleanup ( %doReconnect )
 
 	setTimeScale (1);
 
-	$GotInputEvents = 0;
+	$GotInputEvents = false;
 
 	deleteVariables ("$InputEvent_*");
 	deleteVariables ("$OutputEvent_*");
@@ -3090,17 +3186,20 @@ function disconnectedCleanup ( %doReconnect )
 	deleteVariables ("$printAREnd*");
 	deleteVariables ("$CustomGameGui::*");
 
-	$BrickAutoBuyDone = 0;
-	$CurrPaintSwatch = 0;
-	$CurrPaintRow = 0;
-	$currSprayCanIndex = 0;
+	$BrickAutoBuyDone = false;
+
+	$CurrPaintSwatch     = 0;
+	$CurrPaintRow        = 0;
+	$currSprayCanIndex   = 0;
 	$CurrScrollBrickSlot = 0;
-	$CurrScrollToolSlot = 0;
+	$CurrScrollToolSlot  = 0;
 
 	NetGraph.cancel ();
+
 	reEnablePhysics ();
 	ClearPhysicsCache ();
-	HUD_Ghosting.setVisible (1);
+
+	HUD_Ghosting.setVisible (true);
 
 	if ( isObject (ServerConnection) )
 	{
@@ -3110,12 +3209,16 @@ function disconnectedCleanup ( %doReconnect )
 	moveMap.pop ();
 	stopRaytracer ();
 	MainMenuGui.showButtons ();
+
 	deleteVariables ("$connectArg");
+
 	Canvas.popDialog ("connectingGui");
+
 	PlayGui.killToolHud ();
 	PlayGui.killInvHud ();
 	PlayGui.killpaint ();
 	BSD_KillBricks ();
+
 	clearPendingBlobs ();
 	clearManifest ();
 	setManifestDirty ();
@@ -3129,12 +3232,14 @@ function disconnectedCleanup ( %doReconnect )
 
 	if ( %doReconnect )
 	{
-		$Connection::Reconnecting = 1;
+		$Connection::Reconnecting = true;
 
 		Canvas.setContent ("LoadingGui");
+
 		LoadingProgress.setValue (0);
 		LoadingSecondaryProgress.setValue (0);
 		LoadingProgressTxt.setValue ("WAITING FOR SERVER");
+
 		Canvas.repaint ();
 
 		$Connection::ReconnectEvent = schedule (2000, 0, ReConnectToServer);
@@ -3148,7 +3253,7 @@ function disconnectedCleanup ( %doReconnect )
 	SteamLeaveLobby ();
 	SteamCancelAuthTicket ();
 }
-
+// ->>> Bookmark
 function LoadingGui::onAdd ( %this )
 {
 	%this.qLineCount = 0;
@@ -3186,12 +3291,12 @@ function LoadingGui::onSleep ( %this )
 
 function optionsDlg::setPane ( %this, %pane )
 {
-	OptAudioPane.setVisible (0);
-	OptGraphicsPane.setVisible (0);
-	OptNetworkPane.setVisible (0);
-	OptControlsPane.setVisible (0);
-	OptAdvGraphicsPane.setVisible (0);
-	("Opt" @ %pane @ "Pane").setVisible (1);
+	OptAudioPane.setVisible (false);
+	OptGraphicsPane.setVisible (false);
+	OptNetworkPane.setVisible (false);
+	OptControlsPane.setVisible (false);
+	OptAdvGraphicsPane.setVisible (false);
+	("Opt" @ %pane @ "Pane").setVisible (true);
 	OptRemapList.fillList ();
 }
 
@@ -3455,7 +3560,7 @@ function optionsDlg::onSleep ( %this )
 	{
 		if ( $Pref::Chat::LineTime <= 0 )
 		{
-			MouseToolTip.setVisible (0);
+			MouseToolTip.setVisible (false);
 
 			$NewChatSO.pageUpEnd = -1;
 		}
@@ -4388,64 +4493,72 @@ function OptAudioUpdate ()
 new AudioDescription (AudioChannel0)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 0;
 };
+
 new AudioDescription (AudioChannel1)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 1;
 };
+
 new AudioDescription (AudioChannel2)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 2;
 };
+
 new AudioDescription (AudioChannel3)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 3;
 };
+
 new AudioDescription (AudioChannel4)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 4;
 };
+
 new AudioDescription (AudioChannel5)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 5;
 };
+
 new AudioDescription (AudioChannel6)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 6;
 };
+
 new AudioDescription (AudioChannel7)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 7;
 };
+
 new AudioDescription (AudioChannel8)
 {
 	volume = 1;
-	isLooping = 0;
-	is3D = 0;
+	isLooping = false;
+	is3D = false;
 	type = 8;
 };
 
@@ -4516,13 +4629,13 @@ function setActiveInv ( %index )
 {
 	if ( %index < 0 )
 	{
-		HUD_BrickActive.setVisible (0);
+		HUD_BrickActive.setVisible (false);
 		HUD_BrickName.setText ("");
 
 		return;
 	}
 
-	HUD_BrickActive.setVisible (1);
+	HUD_BrickActive.setVisible (true);
 
 	%x = 64 * %index;
 	%y = 0;
@@ -5579,8 +5692,8 @@ function shiftPaintColumn ( %direction )
 	if ( $ScrollMode != $SCROLLMODE_PAINT )
 	{
 		setScrollMode ($SCROLLMODE_PAINT);
-		HUD_PaintBox.setVisible (1);
-		HUD_PaintActive.setVisible (1);
+		HUD_PaintBox.setVisible (true);
+		HUD_PaintActive.setVisible (true);
 		PlayGui.UnFadePaintRow ($CurrPaintRow);
 
 		%canIndex = 0;
@@ -5807,13 +5920,13 @@ function setActiveTool ( %index )
 	}
 	if ( %index < 0 )
 	{
-		HUD_ToolActive.setVisible (0);
+		HUD_ToolActive.setVisible (false);
 		HUD_ToolName.setText ("");
 
 		return;
 	}
 
-	HUD_ToolActive.setVisible (1);
+	HUD_ToolActive.setVisible (true);
 
 	%x = 0;
 	%y = 64 * %index;
@@ -5893,7 +6006,7 @@ function setScrollMode ( %newMode )
 	else if ( $ScrollMode == $SCROLLMODE_PAINT )
 	{
 		PlayGui.FadePaintRow ($CurrPaintRow);
-		HUD_PaintActive.setVisible (0);
+		HUD_PaintActive.setVisible (false);
 		HUD_PaintName.setText ("");
 
 		if ( $pref::HUD::HidePaintBox )
@@ -5909,7 +6022,7 @@ function setScrollMode ( %newMode )
 		}
 		if ( $pref::HUD::showToolTips )
 		{
-			ToolTip_Paint.setVisible (1);
+			ToolTip_Paint.setVisible (true);
 		}
 		if ( $InstantUse )
 		{
@@ -5922,7 +6035,7 @@ function setScrollMode ( %newMode )
 	}
 	else if ( $ScrollMode == $SCROLLMODE_TOOLS )
 	{
-		HUD_ToolActive.setVisible (0);
+		HUD_ToolActive.setVisible (false);
 		HUD_ToolName.setText ("");
 
 		if ( $pref::HUD::HideToolBox )
@@ -5938,7 +6051,7 @@ function setScrollMode ( %newMode )
 		}
 		if ( $pref::HUD::showToolTips )
 		{
-			ToolTip_Tools.setVisible (1);
+			ToolTip_Tools.setVisible (true);
 		}
 		if ( $InstantUse )
 		{
@@ -5994,7 +6107,7 @@ function setScrollMode ( %newMode )
 			}
 		}
 
-		ToolTip_Tools.setVisible (0);
+		ToolTip_Tools.setVisible (false);
 	}
 
 	$InstantUse = 0;
@@ -6456,7 +6569,7 @@ function ToggleCursor ( %val )
 		{
 			if ( $pref::HUD::showToolTips )
 			{
-				MouseToolTip.setVisible (1);
+				MouseToolTip.setVisible (true);
 
 				%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
 
@@ -6512,7 +6625,7 @@ function SetConnectionType ( %val )
 
 	if ( %val <= 4 )
 	{
-		CustomNetworkBlocker.setVisible (1);
+		CustomNetworkBlocker.setVisible (true);
 
 		$pref::Net::PacketSize = $Net_PacketSize[%val];
 		$pref::Net::PacketRateToClient = $Net_RateToClient[%val];
@@ -6530,7 +6643,7 @@ function SetConnectionType ( %val )
 	}
 	else
 	{
-		CustomNetworkBlocker.setVisible (0);
+		CustomNetworkBlocker.setVisible (false);
 		PacketSizeDisplay.setValue ($pref::Net::Custom::PacketSize);
 		SliderPacketSize.setValue ($pref::Net::Custom::PacketSize);
 		LagThresholdDisplay.setValue ($pref::Net::Custom::LagThreshold);
@@ -7116,15 +7229,15 @@ function ToggleShapeNameHud ( %val )
 	{
 		if ( PlayGui_ShapeNameHud.isVisible () )
 		{
-			PlayGui_ShapeNameHud.setVisible (0);
-			NoHudGui_ShapeNameHud.setVisible (0);
-			Crosshair.setVisible (0);
+			PlayGui_ShapeNameHud.setVisible (false);
+			NoHudGui_ShapeNameHud.setVisible (false);
+			Crosshair.setVisible (false);
 		}
 		else
 		{
-			PlayGui_ShapeNameHud.setVisible (1);
-			NoHudGui_ShapeNameHud.setVisible (1);
-			Crosshair.setVisible (1);
+			PlayGui_ShapeNameHud.setVisible (true);
+			NoHudGui_ShapeNameHud.setVisible (true);
+			Crosshair.setVisible (true);
 		}
 	}
 }
@@ -7333,7 +7446,7 @@ function PlayGui::createInvHUD ( %this )
 	%newActive.setProfile (HUDBitmapProfile);
 	%newActive.setBitmap ("base/client/ui/brickActive");
 	%newActive.setBitmap ("base/client/ui/brickIcons/brickIconActive");
-	%newActive.setVisible (0);
+	%newActive.setVisible (false);
 
 	%x = 0;
 	%y = 0;
@@ -7510,8 +7623,8 @@ function PlayGui::createInvHUD ( %this )
 
 	if ( !$pref::HUD::showToolTips )
 	{
-		ToolTip_Bricks.setVisible (0);
-		ToolTip_BSD.setVisible (0);
+		ToolTip_Bricks.setVisible (false);
+		ToolTip_BSD.setVisible (false);
 	}
 
 	HUD_BrickName.setText ("");
@@ -7534,7 +7647,7 @@ function PlayGui::createInvHUD ( %this )
 	else if ( $ScrollMode == $SCROLLMODE_BRICKS )
 	{
 		setActiveInv ($CurrScrollBrickSlot);
-		HUD_BrickActive.setVisible (1);
+		HUD_BrickActive.setVisible (true);
 	}
 }
 
@@ -8001,7 +8114,7 @@ function PlayGui::loadPaint ( %this )
 
 	if ( !$pref::HUD::showToolTips )
 	{
-		ToolTip_Paint.setVisible (0);
+		ToolTip_Paint.setVisible (false);
 	}
 	if ( $CurrPaintSwatch $= "" )
 	{
@@ -8014,7 +8127,7 @@ function PlayGui::loadPaint ( %this )
 
 	HUD_PaintName.setText ("");
 	%this.FadePaintRows ();
-	HUD_PaintActive.setVisible (0);
+	HUD_PaintActive.setVisible (false);
 
 	if ( $ScrollMode != $SCROLLMODE_PAINT && $pref::HUD::HidePaintBox )
 	{
@@ -8031,7 +8144,7 @@ function PlayGui::loadPaint ( %this )
 	{
 		%this.UnFadePaintRow ($CurrPaintRow);
 		%this.updatePaintActive ();
-		HUD_PaintActive.setVisible (1);
+		HUD_PaintActive.setVisible (true);
 	}
 }
 
@@ -8195,7 +8308,7 @@ function PlayGui::createToolHUD ( %this )
 	%newBox.add (%newActive);
 	%newActive.setProfile (HUDBitmapProfile);
 	%newActive.setBitmap ("base/client/ui/itemIcons/ItemActive");
-	%newActive.setVisible (0);
+	%newActive.setVisible (false);
 
 	%x = 0;
 	%y = 0;
@@ -8298,7 +8411,7 @@ function PlayGui::createToolHUD ( %this )
 
 	if ( !$pref::HUD::showToolTips )
 	{
-		ToolTip_Tools.setVisible (0);
+		ToolTip_Tools.setVisible (false);
 	}
 
 	HUD_ToolName.setText ("");
@@ -8318,13 +8431,13 @@ function PlayGui::createToolHUD ( %this )
 			PlayGui.hideToolBox (($HUD_NumToolSlots * 64) + 25, 10, 0);
 		}
 
-		HUD_ToolActive.setVisible (0);
+		HUD_ToolActive.setVisible (false);
 	}
 	else if ( $ScrollMode == $SCROLLMODE_TOOLS )
 	{
 		setActiveTool ($CurrScrollToolSlot);
-		HUD_ToolActive.setVisible (1);
-		ToolTip_Tools.setVisible (0);
+		HUD_ToolActive.setVisible (true);
+		ToolTip_Tools.setVisible (false);
 	}
 
 	setScrollMode ($SCROLLMODE_NONE);
@@ -8455,7 +8568,7 @@ function clientCmdBottomPrint ( %message, %time, %hideBar )
 	}
 	else
 	{
-		bottomPrintDlg.setVisible (1);
+		bottomPrintDlg.setVisible (true);
 
 		$bottomPrintActive = 1;
 	}
@@ -8464,11 +8577,11 @@ function clientCmdBottomPrint ( %message, %time, %hideBar )
 
 	if ( %hideBar )
 	{
-		bottomPrintBar.setVisible (0);
+		bottomPrintBar.setVisible (false);
 	}
 	else
 	{
-		bottomPrintBar.setVisible (1);
+		bottomPrintBar.setVisible (true);
 	}
 	if ( %time > 0 )
 	{
@@ -8726,7 +8839,7 @@ function handlePlantError ( %msgType, %msgString )
 	}
 
 	%hudObj.setBitmap (%bitmap);
-	%hudObj.setVisible (1);
+	%hudObj.setVisible (true);
 
 	if ( $Pref::Audio::PlantErrorSound )
 	{
@@ -8812,7 +8925,7 @@ function handleClearInv ( %msgType )
 {
 	$CurrScrollBrickSlot = 0;
 
-	HUD_BrickActive.setVisible (0);
+	HUD_BrickActive.setVisible (false);
 
 	for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
 	{
@@ -8983,7 +9096,7 @@ function handleStartTalking ( %msgType, %msgString, %clientId )
 	{
 		%text = %text SPC %name;
 
-		chatWhosTalkingBox.setVisible (1);
+		chatWhosTalkingBox.setVisible (true);
 		chatWhosTalkingText.setText (%text);
 	}
 }
@@ -9005,7 +9118,7 @@ function handleStopTalking ( %msgType, %msgString, %clientId )
 
 	if ( strlen (%text) <= 0 )
 	{
-		chatWhosTalkingBox.setVisible (0);
+		chatWhosTalkingBox.setVisible (false);
 	}
 }
 
@@ -9137,7 +9250,7 @@ function JoinServerGuiBS::queryWebMaster ( %this )
 	queryMasterTCPObj.cmd = "GET " @ queryMasterTCPObj.filePath @ " HTTP/1.0\r\nHost: " @ queryMasterTCPObj.site @ "\r\n\r\n";
 
 	queryMasterTCPObj.connect (queryMasterTCPObj.site @ ":" @ queryMasterTCPObj.port);
-	JS_queryStatus.setVisible (1);
+	JS_queryStatus.setVisible (true);
 	JS_statusText.setText ("Getting Server List...");
 }
 
@@ -9157,13 +9270,13 @@ function queryMasterTCPObj::onConnected ( %this )
 function queryMasterTCPObj::onDNSFailed ( %this )
 {
 	MessageBoxOK ("Query Master Server Failed", "<just:left>DNS Failed during master server query.\n\n" @ "1.  Verify your internet connection\n\n" @ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
-	JS_queryStatus.setVisible (0);
+	JS_queryStatus.setVisible (false);
 }
 
 function queryMasterTCPObj::onConnectFailed ( %this )
 {
 	MessageBoxOK ("Query Master Server Failed", "<just:left>Connection failed during master server query.\n\n" @ "1.  Verify your internet connection\n\n" @ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
-	JS_queryStatus.setVisible (0);
+	JS_queryStatus.setVisible (false);
 }
 
 function queryMasterTCPObj::onDisconnect ( %this )
@@ -9261,7 +9374,7 @@ function queryMasterTCPObj::onLine ( %this, %line )
 	}
 	else if ( %word $= "END" )
 	{
-		JS_queryStatus.setVisible (0);
+		JS_queryStatus.setVisible (false);
 		ServerInfoSO_DisplayAll ();
 		ServerInfoSO_StartPingAll ();
 
@@ -9368,7 +9481,7 @@ function JoinServerGuiBS::cancel ( %this )
 	$MasterQueryCanceled = 1;
 
 	cancelServerQuery ();
-	JS_queryStatus.setVisible (0);
+	JS_queryStatus.setVisible (false);
 }
 
 function JoinServerGuiBS::join ( %this )
@@ -9529,7 +9642,7 @@ function JoinServerGuiBS::exit ( %this )
 
 function JoinServerGuiBS::update ( %this )
 {
-	JS_queryStatus.setVisible (0);
+	JS_queryStatus.setVisible (false);
 	JS_ServerListBS.clear ();
 
 	%sc = getServerCount ();
@@ -9581,7 +9694,7 @@ function onServerQueryStatus ( %status, %msg, %value )
 {
 	if ( !JS_queryStatus.isVisible () )
 	{
-		JS_queryStatus.setVisible (1);
+		JS_queryStatus.setVisible (true);
 	}
 	if ( %status $= "start" )
 	{
@@ -9601,14 +9714,14 @@ function onServerQueryStatus ( %status, %msg, %value )
 	}
 	else if ( %status $= "done" )
 	{
-		JS_queryStatus.setVisible (0);
+		JS_queryStatus.setVisible (false);
 		JoinServerGuiBS.update ();
 	}
 }
 
 function JS_sortList ( %col, %defaultDescending )
 {
-	JS_ServerListBS.sortedNumerical = 0;
+	JS_ServerListBS.sortedNumerical = false;
 
 	if ( JS_ServerListBS.sortedBy == %col )
 	{
@@ -9622,11 +9735,11 @@ function JS_sortList ( %col, %defaultDescending )
 
 		if ( %defaultDescending )
 		{
-			JS_ServerListBS.sortedAsc = 0;
+			JS_ServerListBS.sortedAsc = false;
 		}
 		else
 		{
-			JS_ServerListBS.sortedAsc = 1;
+			JS_ServerListBS.sortedAsc = true;
 		}
 
 		JS_ServerListBS.sort (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
@@ -9635,7 +9748,7 @@ function JS_sortList ( %col, %defaultDescending )
 
 function JS_sortNumList ( %col, %defaultDescending )
 {
-	JS_ServerListBS.sortedNumerical = 1;
+	JS_ServerListBS.sortedNumerical = true;
 
 	if ( JS_ServerListBS.sortedBy == %col )
 	{
@@ -9649,11 +9762,11 @@ function JS_sortNumList ( %col, %defaultDescending )
 
 		if ( %defaultDescending )
 		{
-			JS_ServerListBS.sortedAsc = 0;
+			JS_ServerListBS.sortedAsc = false;
 		}
 		else
 		{
-			JS_ServerListBS.sortedAsc = 1;
+			JS_ServerListBS.sortedAsc = true;
 		}
 
 		JS_ServerListBS.sortNumerical (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
@@ -10178,22 +10291,22 @@ function noHudGui::onSleep ( %this )
 
 function adminGui::onWake ()
 {
-	adminGui_GameModeBlocker.setVisible (0);
+	adminGui_GameModeBlocker.setVisible (false);
 
 	if ( isObject (ServerConnection) )
 	{
 		if ( $RemoteServer::Listen && !ServerConnection.isLocal () )
 		{
-			adminGui_GameModeBlocker.setVisible (1);
+			adminGui_GameModeBlocker.setVisible (true);
 		}
 	}
 	if ( $RemoteServer::LAN )
 	{
-		adminGui_banBlocker.setVisible (1);
+		adminGui_banBlocker.setVisible (true);
 	}
 	else
 	{
-		adminGui_banBlocker.setVisible (0);
+		adminGui_banBlocker.setVisible (false);
 	}
 }
 
@@ -10288,7 +10401,7 @@ function AdminGui_BanPlayer ()
 
 function adminGui::sortList ( %this, %col )
 {
-	lstAdminPlayerList.sortedNumerical = 0;
+	lstAdminPlayerList.sortedNumerical = false;
 
 	if ( lstAdminPlayerList.sortedBy == %col )
 	{
@@ -10299,7 +10412,7 @@ function adminGui::sortList ( %this, %col )
 	else
 	{
 		lstAdminPlayerList.sortedBy = %col;
-		lstAdminPlayerList.sortedAsc = 0;
+		lstAdminPlayerList.sortedAsc = false;
 
 		lstAdminPlayerList.sort (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
@@ -10307,7 +10420,7 @@ function adminGui::sortList ( %this, %col )
 
 function adminGui::sortNumList ( %this, %col )
 {
-	lstAdminPlayerList.sortedNumerical = 1;
+	lstAdminPlayerList.sortedNumerical = true;
 
 	if ( lstAdminPlayerList.sortedBy == %col )
 	{
@@ -10318,7 +10431,7 @@ function adminGui::sortNumList ( %this, %col )
 	else
 	{
 		lstAdminPlayerList.sortedBy = %col;
-		lstAdminPlayerList.sortedAsc = 0;
+		lstAdminPlayerList.sortedAsc = false;
 
 		lstAdminPlayerList.sortNumerical (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
@@ -10375,7 +10488,7 @@ function addBanGui::onWake ( %this )
 		AddBan_Hours.setSelected (0);
 		AddBan_Minutes.setSelected (0);
 		AddBan_Forever.setValue (0);
-		AddBan_TimeBlocker.setVisible (0);
+		AddBan_TimeBlocker.setVisible (false);
 	}
 }
 
@@ -10399,11 +10512,11 @@ function addBanGui::clickForever ()
 
 	if ( AddBan_Forever.getValue () )
 	{
-		AddBan_TimeBlocker.setVisible (1);
+		AddBan_TimeBlocker.setVisible (true);
 	}
 	else
 	{
-		AddBan_TimeBlocker.setVisible (0);
+		AddBan_TimeBlocker.setVisible (false);
 	}
 }
 
@@ -10508,7 +10621,7 @@ function clientCmdAddUnBanLine ( %line, %idx )
 
 function unBanGui::sortList ( %this, %col )
 {
-	unBan_list.sortedNumerical = 0;
+	unBan_list.sortedNumerical = false;
 
 	if ( unBan_list.sortedBy == %col )
 	{
@@ -10519,7 +10632,7 @@ function unBanGui::sortList ( %this, %col )
 	else
 	{
 		unBan_list.sortedBy = %col;
-		unBan_list.sortedAsc = 0;
+		unBan_list.sortedAsc = false;
 
 		unBan_list.sort (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
@@ -10527,7 +10640,7 @@ function unBanGui::sortList ( %this, %col )
 
 function unBanGui::sortNumList ( %this, %col )
 {
-	unBan_list.sortedNumerical = 1;
+	unBan_list.sortedNumerical = true;
 
 	if ( unBan_list.sortedBy == %col )
 	{
@@ -10538,7 +10651,7 @@ function unBanGui::sortNumList ( %this, %col )
 	else
 	{
 		unBan_list.sortedBy = %col;
-		unBan_list.sortedAsc = 0;
+		unBan_list.sortedAsc = false;
 
 		unBan_list.sortNumerical (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
@@ -10630,7 +10743,7 @@ function BrickManGui::clickBan ( %this )
 
 function BrickManGui::sortList ( %this, %col )
 {
-	BrickMan_list.sortedNumerical = 0;
+	BrickMan_list.sortedNumerical = false;
 
 	if ( BrickMan_list.sortedBy == %col )
 	{
@@ -10641,7 +10754,7 @@ function BrickManGui::sortList ( %this, %col )
 	else
 	{
 		BrickMan_list.sortedBy = %col;
-		BrickMan_list.sortedAsc = 0;
+		BrickMan_list.sortedAsc = false;
 
 		BrickMan_list.sort (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
@@ -10649,7 +10762,7 @@ function BrickManGui::sortList ( %this, %col )
 
 function BrickManGui::sortNumList ( %this, %col )
 {
-	BrickMan_list.sortedNumerical = 1;
+	BrickMan_list.sortedNumerical = true;
 
 	if ( BrickMan_list.sortedBy == %col )
 	{
@@ -10660,7 +10773,7 @@ function BrickManGui::sortNumList ( %this, %col )
 	else
 	{
 		BrickMan_list.sortedBy = %col;
-		BrickMan_list.sortedAsc = 0;
+		BrickMan_list.sortedAsc = false;
 
 		BrickMan_list.sortNumerical (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
@@ -10872,13 +10985,13 @@ function clientCmdOpenPrintSelectorDlg ( %aspectRatio, %startPrint, %numPrints )
 
 	if ( $PSD_LettersVisible || $PSD_NumPrints == 0 )
 	{
-		PSD_PrintScrollerLetters.setVisible (1);
+		PSD_PrintScrollerLetters.setVisible (true);
 	}
 	else
 	{
 		%obj = "PSD_PrintScroller" @ %aspectRatio;
 
-		%obj.setVisible (1);
+		%obj.setVisible (true);
 	}
 
 	$PSD_CurrentAR = %aspectRatio;
@@ -10914,7 +11027,7 @@ function PrintSelectorDlg::onSleep ( %this )
 
 	for ( %i = 0; %i < PSD_Window.scrollcount; %i++ )
 	{
-		PSD_Window.Scroll[%i].setVisible (0);
+		PSD_Window.Scroll[%i].setVisible (false);
 	}
 }
 
@@ -10944,20 +11057,20 @@ function PSD_click ( %number )
 
 function PSD_LettersTab ()
 {
-	PSD_PrintScrollerLetters.setVisible (1);
+	PSD_PrintScrollerLetters.setVisible (true);
 
 	%obj = "PSD_PrintScroller" @ $PSD_CurrentAR;
 
-	%obj.setVisible (0);
+	%obj.setVisible (false);
 }
 
 function PSD_PrintsTab ()
 {
-	PSD_PrintScrollerLetters.setVisible (0);
+	PSD_PrintScrollerLetters.setVisible (false);
 
 	%obj = "PSD_PrintScroller" @ $PSD_CurrentAR;
 
-	%obj.setVisible (1);
+	%obj.setVisible (true);
 }
 
 function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
@@ -11122,7 +11235,7 @@ function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 		}
 	}
 
-	%scrollObj.setVisible (0);
+	%scrollObj.setVisible (false);
 }
 
 function BrickSelectorDlg::onWake ( %this )
@@ -11130,14 +11243,14 @@ function BrickSelectorDlg::onWake ( %this )
 	$BSD_CurrClickData = -1;
 	$BSD_CurrClickInv = -1;
 
-	BSD_FavsHelper.setVisible (0);
+	BSD_FavsHelper.setVisible (false);
 	BSD_SetFavsButton.setText ("Set Favs>");
-	HUD_BrickBox.setVisible (0);
-	HUD_BrickNameBG.setVisible (0);
-	HUD_PaintBox.setVisible (0);
-	HUD_PaintNameBG.setVisible (0);
-	HUD_ToolBox.setVisible (0);
-	HUD_ToolNameBG.setVisible (0);
+	HUD_BrickBox.setVisible (false);
+	HUD_BrickNameBG.setVisible (false);
+	HUD_PaintBox.setVisible (false);
+	HUD_PaintNameBG.setVisible (false);
+	HUD_ToolBox.setVisible (false);
+	HUD_ToolNameBG.setVisible (false);
 	BrickSelectorDlg.updateFavButtons ();
 	commandToServer ('BSD');
 }
@@ -11146,22 +11259,22 @@ function BrickSelectorDlg::onSleep ( %this )
 {
 	if ( $BSD_CurrClickData != -1 )
 	{
-		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (0);
+		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 	}
 	if ( $BSD_CurrClickInv != -1 )
 	{
-		$BSD_InvActive[$BSD_CurrClickInv].setVisible (0);
+		$BSD_InvActive[$BSD_CurrClickInv].setVisible (false);
 	}
 
 	$BSD_CurrClickData = -1;
 	$BSD_CurrClickInv = -1;
 
-	HUD_BrickBox.setVisible (1);
-	HUD_BrickNameBG.setVisible (1);
-	HUD_PaintBox.setVisible (1);
-	HUD_PaintNameBG.setVisible (1);
-	HUD_ToolBox.setVisible (1);
-	HUD_ToolNameBG.setVisible (1);
+	HUD_BrickBox.setVisible (true);
+	HUD_BrickNameBG.setVisible (true);
+	HUD_PaintBox.setVisible (true);
+	HUD_PaintNameBG.setVisible (true);
+	HUD_ToolBox.setVisible (true);
+	HUD_ToolNameBG.setVisible (true);
 }
 
 function clientCmdBSD_Open ()
@@ -11607,7 +11720,7 @@ function BSD_CreateBrickButton ( %data )
 
 	%newActive.setBitmap ("base/client/ui/brickicons/brickIconActive");
 	%newActive.setProfile (BlockDefaultProfile);
-	%newActive.setVisible (0);
+	%newActive.setVisible (false);
 
 	$BSD_activeBitmap[%data] = %newActive;
 	%newIconButton = new GuiBitmapButtonCtrl ("");
@@ -11695,7 +11808,7 @@ function BSD_CreateInventoryButtons ()
 		%newActive.keepCached = 1;
 
 		%newActive.setBitmap ("base/client/ui/brickicons/brickiconActive");
-		%newActive.setVisible (0);
+		%newActive.setVisible (false);
 		%newActive.resize (%x, %y, %w, %h);
 
 		$BSD_InvActive[%i] = %newActive;
@@ -11728,7 +11841,7 @@ function BSD_ClickInv ( %index )
 		$BSD_InvData[%index] = -1;
 
 		$BSD_InvIcon[%index].setBitmap ("");
-		$BSD_InvActive[%index].setVisible (0);
+		$BSD_InvActive[%index].setVisible (false);
 
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
@@ -11770,8 +11883,8 @@ function BSD_ClickInv ( %index )
 			$BSD_InvIcon[$BSD_CurrClickInv].setBitmap ("");
 		}
 
-		$BSD_InvActive[%index].setVisible (0);
-		$BSD_InvActive[$BSD_CurrClickInv].setVisible (0);
+		$BSD_InvActive[%index].setVisible (false);
+		$BSD_InvActive[$BSD_CurrClickInv].setVisible (false);
 
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
@@ -11789,14 +11902,14 @@ function BSD_ClickInv ( %index )
 			$BSD_InvIcon[%index].setBitmap ($BSD_InvData[%index].iconName);
 		}
 
-		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (0);
+		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
 	}
 	else
 	{
-		$BSD_InvActive[%index].setVisible (1);
+		$BSD_InvActive[%index].setVisible (true);
 
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = %index;
@@ -11807,7 +11920,7 @@ function BSD_ClickIcon ( %data )
 {
 	if ( $BSD_CurrClickData == %data )
 	{
-		$BSD_activeBitmap[%data].setVisible (0);
+		$BSD_activeBitmap[%data].setVisible (false);
 
 		%openSlot = -1;
 
@@ -11862,7 +11975,7 @@ function BSD_ClickIcon ( %data )
 			}
 		}
 
-		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (0);
+		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 
 		$BSD_CurrClickData = -1;
 		$BSD_CurrClickInv = -1;
@@ -11871,14 +11984,14 @@ function BSD_ClickIcon ( %data )
 	{
 		if ( $BSD_CurrClickData != -1 )
 		{
-			$BSD_activeBitmap[$BSD_CurrClickData].setVisible (0);
+			$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 		}
 		if ( $BSD_CurrClickInv != -1 )
 		{
-			$BSD_InvActive[$BSD_CurrClickInv].setVisible (0);
+			$BSD_InvActive[$BSD_CurrClickInv].setVisible (false);
 		}
 
-		$BSD_activeBitmap[%data].setVisible (1);
+		$BSD_activeBitmap[%data].setVisible (true);
 
 		$BSD_CurrClickData = %data;
 		$BSD_CurrClickInv = -1;
@@ -11906,12 +12019,12 @@ function BSD_ShowTab ( %catID )
 	{
 		if ( %i == %catID )
 		{
-			$BSD_category[%i].Scroll.setVisible (1);
+			$BSD_category[%i].Scroll.setVisible (true);
 			$BSD_category[%i].tab.setBitmap ("base/client/ui/tab1use");
 		}
 		else
 		{
-			$BSD_category[%i].Scroll.setVisible (0);
+			$BSD_category[%i].Scroll.setVisible (false);
 			$BSD_category[%i].tab.setBitmap ("base/client/ui/tab1");
 		}
 	}
@@ -11962,7 +12075,7 @@ function BSD_ClickFav ( %idx )
 	if ( BSD_FavsHelper.visible == 1 )
 	{
 		BSD_SaveFavorites (%idx);
-		BSD_FavsHelper.setVisible (0);
+		BSD_FavsHelper.setVisible (false);
 		BSD_SetFavsButton.setText ("Set Favs>");
 		BrickSelectorDlg.updateFavButtons ();
 	}
@@ -13212,12 +13325,12 @@ function LoadBricks_ColorCheck ()
 		}
 		else if ( %colorDiff $= "APPEND" )
 		{
-			BTN_LoadBricksColor_Append.setVisible (1);
+			BTN_LoadBricksColor_Append.setVisible (true);
 			Canvas.pushDialog (LoadBricksColorGui);
 		}
 		else if ( %colorDiff $= "REPLACE" )
 		{
-			BTN_LoadBricksColor_Append.setVisible (0);
+			BTN_LoadBricksColor_Append.setVisible (false);
 			Canvas.pushDialog (LoadBricksColorGui);
 		}
 	}
@@ -13259,7 +13372,7 @@ function saveBricksGui::onWake ( %this )
 		}
 	}
 
-	SaveBricks_DownloadWindow.setVisible (0);
+	SaveBricks_DownloadWindow.setVisible (false);
 
 	if ( isMacintosh () )
 	{
@@ -13477,7 +13590,7 @@ function SaveBricks_Save ()
 
 		if ( $pref::SaveExtendedBrickInfo && !ServerConnection.isLocal () )
 		{
-			SaveBricks_DownloadWindow.setVisible (1);
+			SaveBricks_DownloadWindow.setVisible (true);
 			SaveBricks_StartInfoDownload ();
 		}
 		else
@@ -13749,7 +13862,7 @@ function LoadBricks_ClickFastLoad ()
 
 function sortList ( %obj, %col, %defaultDescending )
 {
-	%obj.sortedNumerical = 0;
+	%obj.sortedNumerical = false;
 
 	if ( %obj.sortedBy == %col )
 	{
@@ -13763,11 +13876,11 @@ function sortList ( %obj, %col, %defaultDescending )
 
 		if ( %defaultDescending )
 		{
-			%obj.sortedAsc = 0;
+			%obj.sortedAsc = false;
 		}
 		else
 		{
-			%obj.sortedAsc = 1;
+			%obj.sortedAsc = true;
 		}
 
 		%obj.sort (%obj.sortedBy, %obj.sortedAsc);
@@ -13776,7 +13889,7 @@ function sortList ( %obj, %col, %defaultDescending )
 
 function sortNumList ( %obj, %col )
 {
-	%obj.sortedNumerical = 1;
+	%obj.sortedNumerical = true;
 
 	if ( %obj.sortedBy == %col )
 	{
@@ -13790,11 +13903,11 @@ function sortNumList ( %obj, %col )
 
 		if ( %defaultDescending )
 		{
-			%obj.sortedAsc = 0;
+			%obj.sortedAsc = false;
 		}
 		else
 		{
-			%obj.sortedAsc = 1;
+			%obj.sortedAsc = true;
 		}
 
 		%obj.sortNumerical (%obj.sortedBy, %obj.sortedAsc);
@@ -13805,9 +13918,9 @@ function updateListSort ( %obj )
 {
 	if ( %obj.sortedNumerical $= "" )
 	{
-		%obj.sortedNumerical = 0;
+		%obj.sortedNumerical = false;
 		%obj.sortedBy = 0;
-		%obj.sortedAsc = 1;
+		%obj.sortedAsc = true;
 	}
 	if ( %obj.sortedNumerical )
 	{
@@ -14036,7 +14149,7 @@ function AvatarGui::onWake ( %this )
 	}
 
 	AvatarGui.updateFavButtons ();
-	AV_FavsHelper.setVisible (0);
+	AV_FavsHelper.setVisible (false);
 
 	$Old::Avatar::Accent = $pref::Avatar::Accent;
 	$Old::Avatar::AccentColor = $pref::Avatar::AccentColor;
@@ -14420,7 +14533,7 @@ function AvatarGui_CreatePartMenu ( %name, %cmdString, %filename, %xPos, %yPos )
 	}
 
 	%newScroll.resize (%xPos, %yPos, %w + 12, %h);
-	%newScroll.setVisible (0);
+	%newScroll.setVisible (false);
 }
 
 function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yPos )
@@ -14521,7 +14634,7 @@ function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yP
 	}
 
 	%newScroll.resize (%xPos, %yPos, %w + 12, %h);
-	%newScroll.setVisible (0);
+	%newScroll.setVisible (false);
 }
 
 function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %yPos )
@@ -14606,7 +14719,7 @@ function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %
 	}
 
 	%newScroll.resize (%xPos, %yPos, %w + 12, %h);
-	%newScroll.setVisible (0);
+	%newScroll.setVisible (false);
 }
 
 function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %symmetryPrefString, %allowTrans )
@@ -14952,21 +15065,21 @@ function Avatar_TogglePartMenu ( %obj )
 
 function Avatar_HideAllPartMenus ()
 {
-	Avatar_FaceMenu.setVisible (0);
-	Avatar_DecalMenu.setVisible (0);
-	Avatar_PackMenu.setVisible (0);
-	Avatar_HatMenu.setVisible (0);
-	Avatar_AccentMenu.setVisible (0);
-	Avatar_ChestMenu.setVisible (0);
-	Avatar_SecondPackMenu.setVisible (0);
-	Avatar_ChestMenu.setVisible (0);
-	Avatar_HipMenu.setVisible (0);
-	Avatar_LArmMenu.setVisible (0);
-	Avatar_RArmMenu.setVisible (0);
-	Avatar_LHandMenu.setVisible (0);
-	Avatar_RHandMenu.setVisible (0);
-	Avatar_LLegMenu.setVisible (0);
-	Avatar_RLegMenu.setVisible (0);
+	Avatar_FaceMenu.setVisible (false);
+	Avatar_DecalMenu.setVisible (false);
+	Avatar_PackMenu.setVisible (false);
+	Avatar_HatMenu.setVisible (false);
+	Avatar_AccentMenu.setVisible (false);
+	Avatar_ChestMenu.setVisible (false);
+	Avatar_SecondPackMenu.setVisible (false);
+	Avatar_ChestMenu.setVisible (false);
+	Avatar_HipMenu.setVisible (false);
+	Avatar_LArmMenu.setVisible (false);
+	Avatar_RArmMenu.setVisible (false);
+	Avatar_LHandMenu.setVisible (false);
+	Avatar_RHandMenu.setVisible (false);
+	Avatar_LLegMenu.setVisible (false);
+	Avatar_RLegMenu.setVisible (false);
 
 	if ( isObject (Avatar_ColorMenu) )
 	{
@@ -14979,7 +15092,7 @@ function Avatar_SetFace ( %index, %imageObj )
 	$Pref::Avatar::FaceName = $face[%index];
 	$pref::Avatar::FaceColor = %index;
 
-	Avatar_FaceMenu.setVisible (0);
+	Avatar_FaceMenu.setVisible (false);
 	Avatar_UpdatePreview ();
 }
 
@@ -14988,7 +15101,7 @@ function Avatar_SetDecal ( %index, %imageObj )
 	$Pref::Avatar::DecalName = $decal[%index];
 	$pref::Avatar::DecalColor = %index;
 
-	Avatar_DecalMenu.setVisible (0);
+	Avatar_DecalMenu.setVisible (false);
 	Avatar_UpdatePreview ();
 }
 
@@ -14996,7 +15109,7 @@ function Avatar_SetPack ( %index, %imageObj )
 {
 	$pref::Avatar::Pack = %index;
 
-	Avatar_PackMenu.setVisible (0);
+	Avatar_PackMenu.setVisible (false);
 	Avatar_UpdatePreview ();
 }
 
@@ -15004,7 +15117,7 @@ function Avatar_SetSecondPack ( %index, %imageObj )
 {
 	$Pref::Avatar::SecondPack = %index;
 
-	Avatar_SecondPackMenu.setVisible (0);
+	Avatar_SecondPackMenu.setVisible (false);
 	Avatar_UpdatePreview ();
 }
 
@@ -15012,7 +15125,7 @@ function Avatar_SetHat ( %index, %imageObj )
 {
 	$pref::Avatar::Hat = %index;
 
-	Avatar_HatMenu.setVisible (0);
+	Avatar_HatMenu.setVisible (false);
 
 	%x = getWord (Avatar_AccentPreview.position, 0) + 64;
 	%y = getWord (Avatar_AccentPreview.position, 1);
@@ -15025,7 +15138,7 @@ function Avatar_SetAccent ( %index, %imageObj )
 {
 	$pref::Avatar::Accent = %index;
 
-	Avatar_AccentMenu.setVisible (0);
+	Avatar_AccentMenu.setVisible (false);
 	Avatar_UpdatePreview ();
 }
 
@@ -15604,7 +15717,7 @@ function AvatarGui::ClickFav ( %this, %idx )
 	if ( AV_FavsHelper.isVisible () )
 	{
 		export ("$Pref::Avatar::*", %filename, 0);
-		AV_FavsHelper.setVisible (0);
+		AV_FavsHelper.setVisible (false);
 	}
 	else
 	{
@@ -15840,12 +15953,12 @@ function MainMenuGui::onWake ( %this )
 	}
 
 	optionsDlg.setShaderQuality ($Pref::ShaderQuality);
-	MM_AuthNameButton.setVisible (0);
-	MM_AuthRetryButton.setVisible (0);
+	MM_AuthNameButton.setVisible (false);
+	MM_AuthRetryButton.setVisible (false);
 
 	if ( $Auth::blidCount > 1 )
 	{
-		MM_AuthNameButton.setVisible (1);
+		MM_AuthNameButton.setVisible (true);
 	}
 	if ( !$authed || strlen ($pref::Player::NetName) <= 0 )
 	{
@@ -15868,11 +15981,11 @@ function MainMenuGui::onWake ( %this )
 
 	if ( $Version $= "Pre-v9" )
 	{
-		MM_JoinButtonBS.setVisible (0);
-		MM_OptionsButton.setVisible (0);
-		MM_StartButton.setVisible (0);
-		MM_PlayerButton.setVisible (0);
-		MM_TutorialButton.setVisible (0);
+		MM_JoinButtonBS.setVisible (false);
+		MM_OptionsButton.setVisible (false);
+		MM_StartButton.setVisible (false);
+		MM_PlayerButton.setVisible (false);
+		MM_TutorialButton.setVisible (false);
 
 		return;
 	}
@@ -16820,11 +16933,11 @@ function newChatHud_UpdateScrollDownIndicator ()
 {
 	if ( $NewChatSO.pageUpEnd == -1 || $NewChatSO.pageUpEnd == $NewChatSO.head )
 	{
-		chatScrollDownIndicator.setVisible (0);
+		chatScrollDownIndicator.setVisible (false);
 	}
 	else
 	{
-		chatScrollDownIndicator.setVisible (1);
+		chatScrollDownIndicator.setVisible (true);
 	}
 
 	newChatHud_UpdateIndicatorPosition ();
@@ -17025,7 +17138,7 @@ function NewChatSO::displayLatest ( %this )
 	}
 	if ( %showMouseTip && $pref::HUD::showToolTips )
 	{
-		MouseToolTip.setVisible (1);
+		MouseToolTip.setVisible (true);
 
 		%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
 
@@ -17033,7 +17146,7 @@ function NewChatSO::displayLatest ( %this )
 	}
 	else if ( !Canvas.isCursorOn () )
 	{
-		MouseToolTip.setVisible (0);
+		MouseToolTip.setVisible (false);
 	}
 	if ( MouseToolTip.isVisible () )
 	{
@@ -17265,7 +17378,7 @@ function NewChatSO::displayPage ( %this )
 			%text.forceReflow ();
 		}
 
-		MouseToolTip.setVisible (1);
+		MouseToolTip.setVisible (true);
 
 		%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
 
@@ -17273,11 +17386,11 @@ function NewChatSO::displayPage ( %this )
 	}
 	else if ( !Canvas.isCursorOn () )
 	{
-		MouseToolTip.setVisible (0);
+		MouseToolTip.setVisible (false);
 	}
 	if ( $Pref::Chat::LineTime <= 0 )
 	{
-		MouseToolTip.setVisible (0);
+		MouseToolTip.setVisible (false);
 	}
 	if ( MouseToolTip.isVisible () )
 	{
@@ -17684,7 +17797,7 @@ function clientCmdOpenWrenchDlg ( %id, %allowNamedTargets, %adminOverride, %admi
 
 	if ( $IamAdmin || ServerConnection.isLocal () )
 	{
-		Wrench_EventsBlocker.setVisible (0);
+		Wrench_EventsBlocker.setVisible (false);
 	}
 	else
 	{
@@ -17899,7 +18012,7 @@ function clientCmdSetWrenchData ( %data )
 
 function clientCmdWrenchLoadingDone ()
 {
-	Wrench_LoadingWindow.setVisible (0);
+	Wrench_LoadingWindow.setVisible (false);
 }
 
 function clientCmdWrench_LoadMenus ()
@@ -18005,7 +18118,7 @@ function wrenchDlg::onWake ( %this )
 	}
 
 	NoShiftMoveMap.push ();
-	Wrench_LoadingWindow.setVisible (1);
+	Wrench_LoadingWindow.setVisible (true);
 }
 
 function wrenchDlg::onSleep ( %this )
@@ -18099,7 +18212,7 @@ function clientCmdOpenWrenchSoundDlg ( %id, %allowNamedTargets, %adminOverride, 
 
 	if ( $IamAdmin || ServerConnection.isLocal () )
 	{
-		WrenchSound_EventsBlocker.setVisible (0);
+		WrenchSound_EventsBlocker.setVisible (false);
 	}
 	else
 	{
@@ -18156,7 +18269,7 @@ function clientCmdOpenWrenchVehicleSpawnDlg ( %id, %allowNamedTargets, %adminOve
 
 	if ( $IamAdmin || ServerConnection.isLocal () )
 	{
-		WrenchVehicleSpawn_EventsBlocker.setVisible (0);
+		WrenchVehicleSpawn_EventsBlocker.setVisible (false);
 	}
 	else
 	{
@@ -18219,7 +18332,7 @@ function auth_Init_Client ()
 	if ( !SteamEnabled () )
 	{
 		MM_AuthText.setText ("Steam Unavailable");
-		MM_AuthRetryButton.setVisible (1);
+		MM_AuthRetryButton.setVisible (true);
 
 		return;
 	}
@@ -18253,7 +18366,7 @@ function authTCPobj_Client::onDNSFailed ( %this )
 	echo ("Client Auth DNS Failed");
 	MM_AuthText.setText ("Offline Mode (DNS Failed)");
 	MM_AuthBar.blinkSuccess ();
-	MM_AuthRetryButton.setVisible (1);
+	MM_AuthRetryButton.setVisible (true);
 }
 
 function authTCPobj_Client::onConnectFailed ( %this )
@@ -18266,7 +18379,7 @@ function authTCPobj_Client::onConnectFailed ( %this )
 		echo ("Client auth connection failed, setting demo mode");
 		MM_AuthText.setText ("Offline Mode (Connection Failed)");
 		MM_AuthBar.blinkSuccess ();
-		MM_AuthRetryButton.setVisible (1);
+		MM_AuthRetryButton.setVisible (true);
 	}
 	else
 	{
@@ -18409,7 +18522,7 @@ function authTCPobj_Client::onLine ( %this, %line )
 				{
 					MM_AuthText.setText ("Select BLID...");
 					Canvas.pushDialog ("selectBLIDGui");
-					MM_AuthNameButton.setVisible (1);
+					MM_AuthNameButton.setVisible (true);
 				}
 			}
 		}
@@ -18417,13 +18530,13 @@ function authTCPobj_Client::onLine ( %this, %line )
 		{
 			MM_AuthText.setText ("Select BLID...");
 			Canvas.pushDialog ("selectBLIDGui");
-			MM_AuthNameButton.setVisible (1);
+			MM_AuthNameButton.setVisible (true);
 		}
 
 		$authed = 1;
 		%this.success = 1;
 
-		JS_QueryInternetBlocker.setVisible (0);
+		JS_QueryInternetBlocker.setVisible (false);
 
 		return;
 	}
@@ -18566,8 +18679,8 @@ function appendCrapOnCache ( %line )
 
 function MM_AuthBar::blinkFail ( %obj )
 {
-	MM_AuthNameButton.setVisible (0);
-	MM_AuthRetryButton.setVisible (1);
+	MM_AuthNameButton.setVisible (false);
+	MM_AuthRetryButton.setVisible (true);
 	MM_AuthBar.setBitmap ("base/client/ui/authBarFail");
 	MM_AuthBar.schedule (250, setBitmap, "base/client/ui/authBar");
 	MM_AuthBar.schedule (500, setBitmap, "base/client/ui/authBarFail");
@@ -18578,10 +18691,10 @@ function MM_AuthBar::blinkSuccess ( %obj )
 {
 	if ( $Auth::blidCount > 1 )
 	{
-		MM_AuthNameButton.setVisible (1);
+		MM_AuthNameButton.setVisible (true);
 	}
 
-	MM_AuthRetryButton.setVisible (0);
+	MM_AuthRetryButton.setVisible (false);
 	MM_AuthBar.setBitmap ("base/client/ui/authBarWin");
 	MM_AuthBar.schedule (250, setBitmap, "base/client/ui/authBar");
 }
@@ -18635,7 +18748,7 @@ function selectBLIDGui::select ()
 
 function regNameGui::onWake ()
 {
-	regName_registerWindow.setVisible (0);
+	regName_registerWindow.setVisible (false);
 	regName_message.setText ("");
 	regName_blid.setText (getMyBLID ());
 	regName_steamID.setText (getSteamId ());
@@ -18878,7 +18991,7 @@ function regNameGui::onClose ()
 	{
 		Canvas.popDialog ("regNameGui");
 		Canvas.pushDialog ("selectBLIDGui");
-		MM_AuthNameButton.setVisible (1);
+		MM_AuthNameButton.setVisible (true);
 	}
 }
 
@@ -18903,13 +19016,13 @@ function colorGui::popUp ( %this, %targetVar, %targetSwatch, %callback, %alpha )
 
 	if ( %alpha )
 	{
-		ColorGui_Slider3.setVisible (1);
+		ColorGui_Slider3.setVisible (true);
 	}
 	else
 	{
 		%a = 1;
 
-		ColorGui_Slider3.setVisible (0);
+		ColorGui_Slider3.setVisible (false);
 	}
 
 	%this.callBack = %callback;
@@ -19900,7 +20013,7 @@ function wrenchEventsDlg::onWake ( %this )
 	%box.vertSizing = "Bottom";
 	%box.horizSizing = "Width";
 
-	WrenchEvents_LoadingWindow.setVisible (0);
+	WrenchEvents_LoadingWindow.setVisible (false);
 
 	%requestEvents = 1;
 
@@ -19941,7 +20054,7 @@ function wrenchEventsDlg::clear ( %this )
 	%box.vertSizing = "Bottom";
 	%box.horizSizing = "Width";
 
-	WrenchEvents_LoadingWindow.setVisible (0);
+	WrenchEvents_LoadingWindow.setVisible (false);
 	%this.newEvent ();
 }
 
@@ -20024,7 +20137,7 @@ function ClientCmdRegisterEventsDone ()
 	{
 		$GotInputEvents = 1;
 
-		WrenchEvents_LoadingWindow.setVisible (0);
+		WrenchEvents_LoadingWindow.setVisible (false);
 		wrenchEventsDlg.newEvent ();
 		commandToServer ('RequestWrenchEvents');
 	}
@@ -20339,7 +20452,7 @@ function wrenchEventsDlg::createOutputList ( %this, %box, %targetMenu, %inputEve
 
 					if ( %nextObj.getName () $= "namedBrickList" )
 					{
-						%nextObj.setVisible (0);
+						%nextObj.setVisible (false);
 					}
 
 					break;
@@ -21572,7 +21685,7 @@ function doDofScreenShot ( %val )
 
 	%oldShowNames = NoHudGui_ShapeNameHud.isVisible ();
 
-	NoHudGui_ShapeNameHud.setVisible (0);
+	NoHudGui_ShapeNameHud.setVisible (false);
 
 	if ( !$dofDisableAutoFocus )
 	{
@@ -22508,6 +22621,7 @@ new GuiCursor (DefaultCursor)
 	hotSpot = "1 1";
 	bitmapName = "base/client/ui/CUR_3darrow";
 };
+
 new GuiControlProfile (BlockDefaultProfile)
 {
 	tab = 0;
@@ -22539,6 +22653,7 @@ new GuiControlProfile (BlockDefaultProfile)
 	numbersOnly = 0;
 	cursorColor = "0 0 0 255";
 };
+
 new GuiControlProfile (BlockWindowProfile)
 {
 	opaque = 1;
@@ -22557,6 +22672,7 @@ new GuiControlProfile (BlockWindowProfile)
 	hasBitmapArray = 1;
 	justify = "left";
 };
+
 new GuiControlProfile (BlockScrollProfile)
 {
 	opaque = 1;
@@ -22570,6 +22686,7 @@ new GuiControlProfile (BlockScrollProfile)
 	hasBitmapArray = 1;
 	textOffset = "2 2";
 };
+
 new GuiControlProfile (BSDScrollProfile)
 {
 	opaque = 1;
@@ -22583,6 +22700,7 @@ new GuiControlProfile (BSDScrollProfile)
 	hasBitmapArray = 1;
 	textOffset = "2 2";
 };
+
 new GuiControlProfile (BlockCheckBoxProfile)
 {
 	opaque = 0;
@@ -22597,6 +22715,7 @@ new GuiControlProfile (BlockCheckBoxProfile)
 	bitmap = "base/client/ui/torqueCheck.png";
 	hasBitmapArray = 1;
 };
+
 new GuiControlProfile (BlockRadioProfile)
 {
 	fontSize = 14;
@@ -22606,6 +22725,7 @@ new GuiControlProfile (BlockRadioProfile)
 	bitmap = "base/client/ui/torqueRadio";
 	hasBitmapArray = 1;
 };
+
 new GuiControlProfile (BlockButtonProfile)
 {
 	opaque = 1;
@@ -22625,6 +22745,7 @@ new GuiControlProfile (BlockButtonProfile)
 	hasBitmapArray = 1;
 	justify = "center";
 };
+
 new GuiControlProfile (BrickListSubCategoryProfile)
 {
 	opaque = 1;
@@ -22644,6 +22765,7 @@ new GuiControlProfile (BrickListSubCategoryProfile)
 	hasBitmapArray = 1;
 	justify = "left";
 };
+
 new GuiControlProfile (BlockListProfile)
 {
 	opaque = 1;
@@ -22661,6 +22783,7 @@ new GuiControlProfile (BlockListProfile)
 	hasBitmapArray = 1;
 	justify = "center";
 };
+
 new GuiControlProfile (BlockTextEditProfile)
 {
 	opaque = 1;
@@ -22678,6 +22801,7 @@ new GuiControlProfile (BlockTextEditProfile)
 	tab = 1;
 	canKeyFocus = 1;
 };
+
 new GuiControlProfile (HudInvTextProfile)
 {
 	opaque = 1;
@@ -22687,6 +22811,7 @@ new GuiControlProfile (HudInvTextProfile)
 	text = "HUD TEXT";
 	justify = "center";
 };
+
 new GuiControlProfile (MapDescriptionTextProfile)
 {
 	opaque = 0;
@@ -22698,6 +22823,7 @@ new GuiControlProfile (MapDescriptionTextProfile)
 	textOffset = "10 10";
 	justify = "left";
 };
+
 new GuiControlProfile (LoadingBarTextProfile)
 {
 	opaque = 1;
@@ -22709,6 +22835,7 @@ new GuiControlProfile (LoadingBarTextProfile)
 	doFontOutline = 1;
 	fontOutlineColor = "0 0 128 64";
 };
+
 new GuiControlProfile (LoadingMapNameProfile)
 {
 	opaque = 0;
@@ -22752,46 +22879,57 @@ new GuiControlProfile (BlockChatTextProfile)
 	fontType = "Palatino Linotype";
 	fontSize = 18;
 };
+
 new GuiControlProfile (BlockChatTextSize0Profile : BlockChatTextProfile)
 {
 	fontSize = 16;
 };
+
 new GuiControlProfile (BlockChatTextSize1Profile : BlockChatTextProfile)
 {
 	fontSize = 18;
 };
+
 new GuiControlProfile (BlockChatTextSize2Profile : BlockChatTextProfile)
 {
 	fontSize = 20;
 };
+
 new GuiControlProfile (BlockChatTextSize3Profile : BlockChatTextProfile)
 {
 	fontSize = 22;
 };
+
 new GuiControlProfile (BlockChatTextSize4Profile : BlockChatTextProfile)
 {
 	fontSize = 24;
 };
+
 new GuiControlProfile (BlockChatTextSize5Profile : BlockChatTextProfile)
 {
 	fontSize = 26;
 };
+
 new GuiControlProfile (BlockChatTextSize6Profile : BlockChatTextProfile)
 {
 	fontSize = 28;
 };
+
 new GuiControlProfile (BlockChatTextSize7Profile : BlockChatTextProfile)
 {
 	fontSize = 30;
 };
+
 new GuiControlProfile (BlockChatTextSize8Profile : BlockChatTextProfile)
 {
 	fontSize = 32;
 };
+
 new GuiControlProfile (BlockChatTextSize9Profile : BlockChatTextProfile)
 {
 	fontSize = 34;
 };
+
 new GuiControlProfile (BlockChatTextSize10Profile : BlockChatTextProfile)
 {
 	fontSize = 36;
@@ -22828,6 +22966,7 @@ new GuiControlProfile (ColorRadioProfile)
 	bitmap = "base/client/ui/colorRadio.png";
 	hasBitmapArray = 1;
 };
+
 new GuiControlProfile (ColorScrollProfile)
 {
 	opaque = 0;
@@ -22838,6 +22977,7 @@ new GuiControlProfile (ColorScrollProfile)
 	bitmap = "base/client/ui/halfScroll.png";
 	hasBitmapArray = 1;
 };
+
 new GuiControlProfile (decalRadioProfile)
 {
 	fontSize = 14;
@@ -22848,6 +22988,7 @@ new GuiControlProfile (decalRadioProfile)
 	bitmap = "base/client/ui/decalRadio.png";
 	hasBitmapArray = 1;
 };
+
 new GuiControlProfile (HUDBitmapProfile)
 {
 	opaque = 0;
@@ -22856,6 +22997,7 @@ new GuiControlProfile (HUDBitmapProfile)
 	borderThickness = 0;
 	borderColor = "255 255 255 0";
 };
+
 new GuiControlProfile (HUDBrickNameProfile)
 {
 	opaque = 0;
@@ -22866,6 +23008,7 @@ new GuiControlProfile (HUDBrickNameProfile)
 	fontType = "Arial";
 	fontSize = 14;
 };
+
 new GuiControlProfile (HUDCenterTextProfile)
 {
 	opaque = 0;
@@ -22876,6 +23019,7 @@ new GuiControlProfile (HUDCenterTextProfile)
 	fontType = "Arial";
 	fontSize = 12;
 };
+
 new GuiControlProfile (HUDRightTextProfile)
 {
 	opaque = 0;
@@ -22886,6 +23030,7 @@ new GuiControlProfile (HUDRightTextProfile)
 	fontType = "Arial";
 	fontSize = 12;
 };
+
 new GuiControlProfile (HUDLeftTextProfile)
 {
 	opaque = 0;
@@ -22896,6 +23041,7 @@ new GuiControlProfile (HUDLeftTextProfile)
 	fontType = "Arial";
 	fontSize = 12;
 };
+
 new GuiControlProfile (HUDBSDNameProfile)
 {
 	opaque = 0;
@@ -22906,6 +23052,7 @@ new GuiControlProfile (HUDBSDNameProfile)
 	fontType = "Arial";
 	fontSize = 12;
 };
+
 new GuiControlProfile (HUDChatTextProfile)
 {
 	opaque = 0;
@@ -22916,6 +23063,7 @@ new GuiControlProfile (HUDChatTextProfile)
 	fontType = "Arial";
 	fontSize = 14;
 };
+
 new GuiControlProfile (HUDChatTextEditProfile)
 {
 	opaque = 0;
@@ -22937,50 +23085,62 @@ new GuiControlProfile (HUDChatTextEditProfile)
 	fontType = "Palatino Linotype";
 	fontSize = 18;
 };
+
 new GuiControlProfile (HUDChatTextEditSize0Profile : HUDChatTextEditProfile)
 {
 	fontSize = 16;
 };
+
 new GuiControlProfile (HUDChatTextEditSize1Profile : HUDChatTextEditProfile)
 {
 	fontSize = 18;
 };
+
 new GuiControlProfile (HUDChatTextEditSize2Profile : HUDChatTextEditProfile)
 {
 	fontSize = 20;
 };
+
 new GuiControlProfile (HUDChatTextEditSize3Profile : HUDChatTextEditProfile)
 {
 	fontSize = 22;
 };
+
 new GuiControlProfile (HUDChatTextEditSize4Profile : HUDChatTextEditProfile)
 {
 	fontSize = 24;
 };
+
 new GuiControlProfile (HUDChatTextEditSize5Profile : HUDChatTextEditProfile)
 {
 	fontSize = 26;
 };
+
 new GuiControlProfile (HUDChatTextEditSize6Profile : HUDChatTextEditProfile)
 {
 	fontSize = 28;
 };
+
 new GuiControlProfile (HUDChatTextEditSize7Profile : HUDChatTextEditProfile)
 {
 	fontSize = 30;
 };
+
 new GuiControlProfile (HUDChatTextEditSize8Profile : HUDChatTextEditProfile)
 {
 	fontSize = 32;
 };
+
 new GuiControlProfile (HUDChatTextEditSize9Profile : HUDChatTextEditProfile)
 {
 	fontSize = 34;
 };
+
 new GuiControlProfile (HUDChatTextEditSize10Profile : HUDChatTextEditProfile)
 {
 	fontSize = 36;
 };
+
 new GuiControlProfile (MM_LeftProfile)
 {
 	opaque = 0;
@@ -22992,10 +23152,12 @@ new GuiControlProfile (MM_LeftProfile)
 	fontType = "Arial";
 	fontSize = 14;
 };
+
 new GuiControlProfile (MM_RightProfile : MM_LeftProfile)
 {
 	justify = "right";
 };
+
 new GuiControlProfile (MM_CenterProfile : MM_LeftProfile)
 {
 	justify = "center";
@@ -23022,46 +23184,57 @@ new GuiControlProfile (BlockChatChannelSize0Profile : BlockChatChannelProfile)
 {
 	fontSize = 16;
 };
+
 new GuiControlProfile (BlockChatChannelSize1Profile : BlockChatChannelProfile)
 {
 	fontSize = 18;
 };
+
 new GuiControlProfile (BlockChatChannelSize2Profile : BlockChatChannelProfile)
 {
 	fontSize = 20;
 };
+
 new GuiControlProfile (BlockChatChannelSize3Profile : BlockChatChannelProfile)
 {
 	fontSize = 22;
 };
+
 new GuiControlProfile (BlockChatChannelSize4Profile : BlockChatChannelProfile)
 {
 	fontSize = 24;
 };
+
 new GuiControlProfile (BlockChatChannelSize5Profile : BlockChatChannelProfile)
 {
 	fontSize = 26;
 };
+
 new GuiControlProfile (BlockChatChannelSize6Profile : BlockChatChannelProfile)
 {
 	fontSize = 28;
 };
+
 new GuiControlProfile (BlockChatChannelSize7Profile : BlockChatChannelProfile)
 {
 	fontSize = 30;
 };
+
 new GuiControlProfile (BlockChatChannelSize8Profile : BlockChatChannelProfile)
 {
 	fontSize = 32;
 };
+
 new GuiControlProfile (BlockChatChannelSize9Profile : BlockChatChannelProfile)
 {
 	fontSize = 34;
 };
+
 new GuiControlProfile (BlockChatChannelSize10Profile : BlockChatChannelProfile)
 {
 	fontSize = 36;
 };
+
 new GuiControlProfile (MiniGameListProfile : GuiTextProfile)
 {
 	fontSize = 18;
@@ -23078,6 +23251,7 @@ new GuiControlProfile (MiniGameListProfile : GuiTextProfile)
 	fontColors[8] = "255 128 255";
 	fontColors[9] = "0   0   0  ";
 };
+
 new GuiControlProfile (PlayerListProfile : GuiTextProfile)
 {
 	fontSize = 18;
@@ -23085,6 +23259,7 @@ new GuiControlProfile (PlayerListProfile : GuiTextProfile)
 	fillColorHL = "171 171 171";
 	fontColors[5] = "0 0 255";
 };
+
 new GuiControlProfile (OptionsMenuTextProfile)
 {
 	opaque = 0;
@@ -23095,6 +23270,7 @@ new GuiControlProfile (OptionsMenuTextProfile)
 	fontType = "Arial";
 	fontSize = 14;
 };
+
 new GuiControlProfile (ServerListProfile : GuiTextProfile)
 {
 	textOffset = "3 0";
@@ -23117,10 +23293,12 @@ new GuiControlProfile (ServerListProfile : GuiTextProfile)
 	fillColorHL = "230 230 230";
 	fillColorNA = "0 255 0";
 };
+
 new GuiControlProfile (MainMenuButtonProfile)
 {
 	soundButtonDown = ClickPlantSound;
 };
+
 new GuiControlProfile (ImpactTextProfile)
 {
 	opaque = 0;
@@ -23139,6 +23317,7 @@ new GuiControlProfile (ImpactTextProfile)
 	textOffset = "0 0";
 	justify = "right";
 };
+
 new GuiControlProfile (ImpactEditProfile)
 {
 	fontType = "Impact";
@@ -23159,6 +23338,7 @@ new GuiControlProfile (ImpactEditProfile)
 	tab = 1;
 	canKeyFocus = 1;
 };
+
 new GuiControlProfile (ImpactPopUpProfile)
 {
 	mouseOverSelected = 1;
@@ -23179,6 +23359,7 @@ new GuiControlProfile (ImpactPopUpProfile)
 	bitmap = "base/client/ui/blockScroll";
 	hasBitmapArray = 0;
 };
+
 new GuiControlProfile (ImpactRadioProfile)
 {
 	fontType = "Impact";
@@ -23191,6 +23372,7 @@ new GuiControlProfile (ImpactRadioProfile)
 	hasBitmapArray = 1;
 	textOffset = "0 0";
 };
+
 new GuiControlProfile (ImpactCheckProfile)
 {
 	fontType = "Impact";
@@ -23202,6 +23384,7 @@ new GuiControlProfile (ImpactCheckProfile)
 	hasBitmapArray = 1;
 	textOffset = "0 0";
 };
+
 new GuiControlProfile (ImpactBackButtonProfile)
 {
 	fontType = "Impact";
@@ -23210,6 +23393,7 @@ new GuiControlProfile (ImpactBackButtonProfile)
 	justify = "left";
 	textOffset = "0 0";
 };
+
 new GuiControlProfile (ImpactForwardButtonProfile)
 {
 	fontType = "Impact";
@@ -23218,6 +23402,7 @@ new GuiControlProfile (ImpactForwardButtonProfile)
 	justify = "right";
 	textOffset = "0 0";
 };
+
 new GuiControlProfile (ImpactScrollProfile)
 {
 	opaque = 0;
@@ -24244,38 +24429,38 @@ function onSqliteError ( %errorCode )
 
 function EnvGui::onWake ( %this )
 {
-	EnvGui_PaneSimple.setVisible (0);
-	EnvGui_PaneAdvanced.setVisible (0);
+	EnvGui_PaneSimple.setVisible (false);
+	EnvGui_PaneAdvanced.setVisible (false);
 
 	if ( mFloor ($EnvGui::SkyCount) <= 0 )
 	{
 		commandToServer ('EnvGui_RequestLists');
-		EnvGui_LoadingOverlay.setVisible (1);
+		EnvGui_LoadingOverlay.setVisible (true);
 	}
 	else
 	{
-		EnvGui_LoadingOverlay.setVisible (1);
+		EnvGui_LoadingOverlay.setVisible (true);
 		commandToServer ('EnvGui_RequestCurrentVars');
 	}
 }
 
 function EnvGui::setPane ( %this, %paneName )
 {
-	EnvGui_PaneSimple.setVisible (0);
-	EnvGui_PaneAdvanced.setVisible (0);
+	EnvGui_PaneSimple.setVisible (false);
+	EnvGui_PaneAdvanced.setVisible (false);
 	EnvGui.hideAllMenus ();
 
 	if ( %paneName $= "Simple" )
 	{
 		$EnvGui::SimpleMode = 1;
 
-		EnvGui_PaneSimple.setVisible (1);
+		EnvGui_PaneSimple.setVisible (true);
 	}
 	else if ( %paneName $= "Advanced" )
 	{
 		$EnvGui::SimpleMode = 0;
 
-		EnvGui_PaneAdvanced.setVisible (1);
+		EnvGui_PaneAdvanced.setVisible (true);
 	}
 
 	commandToServer ('EnvGui_SetVar', "SimpleMode", $EnvGui::SimpleMode);
@@ -24441,7 +24626,7 @@ function clientCmdEnvGui_SetVar ( %varName, %value )
 function clientCmdEnvGui_ClearLists ()
 {
 	deleteVariables ("$EnvGui::*");
-	EnvGui_LoadingOverlay.setVisible (1);
+	EnvGui_LoadingOverlay.setVisible (true);
 }
 
 function clientCmdEnvGui_AddSky ( %filename )
@@ -24565,7 +24750,7 @@ function clientCmdEnvGui_ListsDone ()
 	EnvGui_SkyColor.color = getColorI ($EnvGui::SkyColor);
 	EnvGui_VignetteColor.color = getColorI ($EnvGui::VignetteColor);
 
-	EnvGui_LoadingOverlay.setVisible (0);
+	EnvGui_LoadingOverlay.setVisible (false);
 }
 
 function EnvGui::CreateIconMenu ( %this, %parentGui, %name, %cmdString, %imgArray, %imgCount, %xPos, %yPos )
@@ -24653,16 +24838,16 @@ function EnvGui::CreateIconMenu ( %this, %parentGui, %name, %cmdString, %imgArra
 	}
 
 	%newScroll.resize (%xPos, %yPos, %w + 12, %h);
-	%newScroll.setVisible (0);
+	%newScroll.setVisible (false);
 }
 
 function EnvGui::hideAllMenus ( %this )
 {
-	EnvGui_SkyMenu.setVisible (0);
-	EnvGui_WaterMenu.setVisible (0);
-	EnvGui_GroundMenu.setVisible (0);
-	EnvGui_SunFlareTopMenu.setVisible (0);
-	EnvGui_SunFlareBottomMenu.setVisible (0);
+	EnvGui_SkyMenu.setVisible (false);
+	EnvGui_WaterMenu.setVisible (false);
+	EnvGui_GroundMenu.setVisible (false);
+	EnvGui_SunFlareTopMenu.setVisible (false);
+	EnvGui_SunFlareBottomMenu.setVisible (false);
 }
 
 function EnvGui::ClickSkyButton ( %this )
@@ -24752,7 +24937,7 @@ function EnvGui::ClickSunFlareBottomButton ( %this )
 
 function EnvGui::setSky ( %this, %idx, %thumbImage )
 {
-	EnvGui_SkyMenu.setVisible (0);
+	EnvGui_SkyMenu.setVisible (false);
 	EnvGui_SkyButtonImage.setBitmap (%thumbImage);
 
 	$EnvGui::SkyIdx = %idx;
@@ -24762,7 +24947,7 @@ function EnvGui::setSky ( %this, %idx, %thumbImage )
 
 function EnvGui::setWater ( %this, %idx, %thumbImage )
 {
-	EnvGui_WaterMenu.setVisible (0);
+	EnvGui_WaterMenu.setVisible (false);
 	EnvGui_WaterButtonImage.setBitmap (%thumbImage);
 
 	$EnvGui::WaterIdx = %idx;
@@ -24772,7 +24957,7 @@ function EnvGui::setWater ( %this, %idx, %thumbImage )
 
 function EnvGui::setGround ( %this, %idx, %thumbImage )
 {
-	EnvGui_GroundMenu.setVisible (0);
+	EnvGui_GroundMenu.setVisible (false);
 	EnvGui_GroundButtonImage.setBitmap (%thumbImage);
 
 	$EnvGui::GroundIdx = %idx;
@@ -24782,7 +24967,7 @@ function EnvGui::setGround ( %this, %idx, %thumbImage )
 
 function EnvGui::setSunFlareTop ( %this, %idx, %thumbImage )
 {
-	EnvGui_SunFlareTopMenu.setVisible (0);
+	EnvGui_SunFlareTopMenu.setVisible (false);
 	EnvGui_SunFlareTopButtonImage.setBitmap (%thumbImage);
 
 	$EnvGui::SunFlareTopIdx = %idx;
@@ -24792,7 +24977,7 @@ function EnvGui::setSunFlareTop ( %this, %idx, %thumbImage )
 
 function EnvGui::setSunFlareBottom ( %this, %idx, %thumbImage )
 {
-	EnvGui_SunFlareBottomMenu.setVisible (0);
+	EnvGui_SunFlareBottomMenu.setVisible (false);
 	EnvGui_SunFlareBottomButtonImage.setBitmap (%thumbImage);
 
 	$EnvGui::SunFlareBottomIdx = %idx;
@@ -24857,7 +25042,7 @@ function EnvGui::clickVignetteMultiply ( %this )
 
 function EnvGui::ClickDefaults ( %this )
 {
-	EnvGui_LoadingOverlay.setVisible (1);
+	EnvGui_LoadingOverlay.setVisible (true);
 	commandToServer ('EnvGui_ClickDefaults');
 }
 
@@ -25399,12 +25584,12 @@ function GameModeGui::ClickGameMode ( %this, %idx )
 
 	if ( strlen ($GameModeGui::MissingAddOns[%idx]) > 0 )
 	{
-		GameModeGui_SelectButton.setVisible (0);
+		GameModeGui_SelectButton.setVisible (false);
 		GameModeGui_LongDescriptionBG.setColor ("255 0 0 110");
 	}
 	else
 	{
-		GameModeGui_SelectButton.setVisible (1);
+		GameModeGui_SelectButton.setVisible (true);
 		GameModeGui_LongDescriptionBG.setColor ("0 0 0 110");
 	}
 }
@@ -25549,7 +25734,7 @@ function ServerSettingsGui::onWake ( %this )
 		ServerSettingsGui_Internet.enabled = 1;
 
 		ServerSettingsGui_Select.setText ("LAUNCH GAME >> ");
-		ServerSettingsGui_Select.setVisible (1);
+		ServerSettingsGui_Select.setVisible (true);
 
 		ServerSettingsGui_Internet.enabled = 1;
 		ServerSettingsGui_LAN.enabled = 1;
@@ -25565,8 +25750,8 @@ function ServerSettingsGui::onWake ( %this )
 			ServerSettingsGui_MaxPlayers.add (%i, %i);
 		}
 
-		ServerSettingsGui_RTBLabel.setVisible (0);
-		ServerSettingsGui_UseRTB.setVisible (0);
+		ServerSettingsGui_RTBLabel.setVisible (false);
+		ServerSettingsGui_UseRTB.setVisible (false);
 
 		ServerSettingsGui_ServerTypeLabel.enabled = 0;
 		ServerSettingsGui_SinglePlayer.enabled = 0;
@@ -25574,7 +25759,7 @@ function ServerSettingsGui::onWake ( %this )
 		ServerSettingsGui_Internet.enabled = 0;
 
 		ServerSettingsGui_Select.setText ("APPLY >> ");
-		ServerSettingsGui_Select.setVisible (0);
+		ServerSettingsGui_Select.setVisible (false);
 
 		ServerSettingsGui_ServerName.enabled = 0;
 		ServerSettingsGui_MaxPlayers.enabled = 0;
@@ -25668,7 +25853,7 @@ function clientCmdServerSettingsGui_ApplyVariables ()
 	}
 
 	ServerSettingsGui.ApplyVariablesToGui ();
-	ServerSettingsGui_Select.setVisible (1);
+	ServerSettingsGui_Select.setVisible (true);
 }
 
 function ServerSettingsGui::getVariablesFromGui ()
@@ -25980,18 +26165,18 @@ function CustomGameGui::onWake ( %this )
 
 		if ( $CustomGameGui::AddOnCount <= 0 )
 		{
-			CustomGameGui_SelectButton.setVisible (0);
+			CustomGameGui_SelectButton.setVisible (false);
 			CustomGameGui.populateAddOnList ();
 		}
 		if ( $CustomGameGui::MusicCount <= 0 )
 		{
-			CustomGameGui_SelectButton.setVisible (0);
+			CustomGameGui_SelectButton.setVisible (false);
 			CustomGameGui.populateMusicList ();
 		}
 	}
 	else
 	{
-		CustomGameGui_SelectButton.setVisible (1);
+		CustomGameGui_SelectButton.setVisible (true);
 	}
 }
 
@@ -26004,7 +26189,7 @@ function CustomGameGui::onRender ( %this )
 		CustomGameGui.CreateAddOnListGui ();
 		CustomGameGui.CreateMusicListGui ();
 		CustomGameGui.CreateAdvancedGui ();
-		CustomGameGui_SelectButton.setVisible (1);
+		CustomGameGui_SelectButton.setVisible (true);
 		CustomGameGui.clickAddOns ();
 	}
 	else
@@ -26018,7 +26203,7 @@ function CustomGameGui::onRender ( %this )
 		CustomGameGui_AddOnsBox.clear ();
 		CustomGameGui_MusicBox.clear ();
 		CustomGameGui_AdvancedBox.clear ();
-		CustomGameGui_SelectButton.setVisible (0);
+		CustomGameGui_SelectButton.setVisible (false);
 		CustomGameGui.clickAddOns ();
 		commandToServer ('CustomGameGui_RequestList');
 	}
@@ -26180,7 +26365,7 @@ function clientCmdCustomGameGui_ListDone ()
 	CustomGameGui.CreateAddOnListGui ();
 	CustomGameGui.CreateMusicListGui ();
 	CustomGameGui.CreateAdvancedGui ();
-	CustomGameGui_SelectButton.setVisible (1);
+	CustomGameGui_SelectButton.setVisible (true);
 }
 
 function CustomGameGui::populateAddOnList ( %this )
@@ -26570,43 +26755,43 @@ function CustomGameGui::AddAdvancedGuiElement ( %this, %label, %varName, %type, 
 
 function CustomGameGui::hideAllTabs ( %this )
 {
-	CustomGameGui_AddOnsHilight.setVisible (0);
-	CustomGameGui_MusicHilight.setVisible (0);
-	CustomGameGui_AdvancedHilight.setVisible (0);
-	CustomGameGui_AddOnsScroll.setVisible (0);
-	CustomGameGui_MusicScroll.setVisible (0);
-	CustomGameGui_AdvancedScroll.setVisible (0);
-	CustomGameGui_DefaultButton.setVisible (0);
-	CustomGameGui_AllButton.setVisible (0);
-	CustomGameGui_NoneButton.setVisible (0);
+	CustomGameGui_AddOnsHilight.setVisible (false);
+	CustomGameGui_MusicHilight.setVisible (false);
+	CustomGameGui_AdvancedHilight.setVisible (false);
+	CustomGameGui_AddOnsScroll.setVisible (false);
+	CustomGameGui_MusicScroll.setVisible (false);
+	CustomGameGui_AdvancedScroll.setVisible (false);
+	CustomGameGui_DefaultButton.setVisible (false);
+	CustomGameGui_AllButton.setVisible (false);
+	CustomGameGui_NoneButton.setVisible (false);
 }
 
 function CustomGameGui::clickAddOns ( %this )
 {
 	%this.hideAllTabs ();
-	CustomGameGui_AddOnsHilight.setVisible (1);
-	CustomGameGui_AddOnsScroll.setVisible (1);
-	CustomGameGui_DefaultButton.setVisible (1);
-	CustomGameGui_AllButton.setVisible (0);
-	CustomGameGui_NoneButton.setVisible (1);
+	CustomGameGui_AddOnsHilight.setVisible (true);
+	CustomGameGui_AddOnsScroll.setVisible (true);
+	CustomGameGui_DefaultButton.setVisible (true);
+	CustomGameGui_AllButton.setVisible (false);
+	CustomGameGui_NoneButton.setVisible (true);
 }
 
 function CustomGameGui::clickMusic ( %this )
 {
 	%this.hideAllTabs ();
-	CustomGameGui_MusicHilight.setVisible (1);
-	CustomGameGui_MusicScroll.setVisible (1);
-	CustomGameGui_DefaultButton.setVisible (1);
-	CustomGameGui_AllButton.setVisible (1);
-	CustomGameGui_NoneButton.setVisible (1);
+	CustomGameGui_MusicHilight.setVisible (true);
+	CustomGameGui_MusicScroll.setVisible (true);
+	CustomGameGui_DefaultButton.setVisible (true);
+	CustomGameGui_AllButton.setVisible (true);
+	CustomGameGui_NoneButton.setVisible (true);
 }
 
 function CustomGameGui::clickAdvanced ( %this )
 {
 	%this.hideAllTabs ();
-	CustomGameGui_AdvancedHilight.setVisible (1);
-	CustomGameGui_AdvancedScroll.setVisible (1);
-	CustomGameGui_DefaultButton.setVisible (1);
+	CustomGameGui_AdvancedHilight.setVisible (true);
+	CustomGameGui_AdvancedScroll.setVisible (true);
+	CustomGameGui_DefaultButton.setVisible (true);
 }
 
 function CustomGameGui::setDefaultAddOns ()
@@ -27162,7 +27347,7 @@ function SteamGreenLightGui::onRender ( %this )
 	SteamGreenLightGui_LongDescription.setText (%text);
 	SteamGreenLightGui_Image1.setBitmap ("base/client/ui/greenlight-blockland-logo.png");
 	SteamGreenLightGui_Image2.setBitmap ("base/client/ui/greenlight-steam-logo.png");
-	SteamGreenLightGui_Select.setVisible (1);
+	SteamGreenLightGui_Select.setVisible (true);
 	SteamGreenLightGui_Select.setText ("VOTE FOR BLOCKLAND >> ");
 
 	SteamGreenLightGui_Select.command = "SteamGreenLightGui.clickForward();";
