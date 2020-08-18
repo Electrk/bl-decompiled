@@ -3253,7 +3253,7 @@ function disconnectedCleanup ( %doReconnect )
 	SteamLeaveLobby ();
 	SteamCancelAuthTicket ();
 }
-// ->>> Bookmark
+
 function LoadingGui::onAdd ( %this )
 {
 	%this.qLineCount = 0;
@@ -3280,12 +3280,15 @@ function LoadingGui::onSleep ( %this )
 
 	LOAD_MapName.setText ("");
 	LOAD_MapDescription.setText ("");
+
 	LoadingProgress.setValue (0);
 	LoadingSecondaryProgress.setValue (0);
 	LoadingProgressTxt.setValue ("WAITING FOR SERVER");
+
 	Canvas.popDialog (NewChatHud);
 
-	$Connection::Reconnecting = 0;
+	$Connection::Reconnecting = false;
+
 	LoadingGui.wasTyping = newMessageHud.isAwake ();
 }
 
@@ -3296,20 +3299,24 @@ function optionsDlg::setPane ( %this, %pane )
 	OptNetworkPane.setVisible (false);
 	OptControlsPane.setVisible (false);
 	OptAdvGraphicsPane.setVisible (false);
+
 	("Opt" @ %pane @ "Pane").setVisible (true);
+
 	OptRemapList.fillList ();
 }
 
 function optionsDlg::onWake ( %this )
 {
 	%this.setPane (graphics);
+
 	slider_KeyboardTurnSpeed.setValue ($pref::Input::KeyboardTurnSpeed);
 	Opt_SSSmartToggle.setVisible ($pref::Input::UseSuperShiftToggle);
 
 	%buffer = getDisplayDeviceList ();
-	%count = getFieldCount (%buffer);
+	%count  = getFieldCount (%buffer);
 
 	OptGraphicsDriverMenu.clear ();
+
 	OptScreenshotMenu.init ();
 	OptScreenshotMenu.setValue ($pref::Video::screenShotFormat);
 
@@ -3327,10 +3334,13 @@ function optionsDlg::onWake ( %this )
 
 	OptGraphicsDriverMenu.setSelected (%selId);
 	OptGraphicsDriverMenu.onSelect (%selId, "");
+
 	OptAudioUpdate ();
+
 	OptAudioVolumeMaster.setValue ($pref::Audio::masterVolume);
 	OptAudioVolumeShell.setValue ($pref::Audio::channelVolume[$GuiAudioType]);
 	OptAudioVolumeSim.setValue ($pref::Audio::channelVolume[$SimAudioType]);
+
 	OptAudioDriverList.clear ();
 	OptAudioDriverList.add ("OpenAL", 1);
 	OptAudioDriverList.add ("None", 2);
@@ -3344,35 +3354,41 @@ function optionsDlg::onWake ( %this )
 
 	OptAudioDriverList.setSelected (%selId);
 	OptAudioDriverList.onSelect (%selId, "");
+
 	SliderControlsMouseSensitivity.setValue ($pref::Input::MouseSensitivity);
+
 	SliderGraphicsAnisotropy.setValue ($pref::OpenGL::anisotropy);
 	SliderGraphicsDistanceMax.setValue ($pref::visibleDistanceMax);
 	SliderGraphicsParticleFalloffDist.setValue ($pref::ParticleFalloffMinDistance);
 	SliderGraphicsParticleMaxFalloff.setValue ($pref::ParticleFalloffMaxLevel);
+
 	SliderDefaultFOV.setValue ($pref::Player::defaultFov);
 
 	if ( $Pref::Net::ConnectionType == 1 || $Pref::Net::ConnectionType == 2 )
 	{
 		$Pref::Net::ConnectionType = 3;
 	}
+
 	if ( $Pref::Net::ConnectionType == 5 || $Pref::Net::ConnectionType == 6 )
 	{
 		$Pref::Net::ConnectionType = 4;
 	}
+
 	if ( $Pref::Net::ConnectionType > 0 && $Pref::Net::ConnectionType <= 7 )
 	{
 		%obj = "OPT_ConnectionType" @ $Pref::Net::ConnectionType;
-
 		%obj.setValue (1);
+
 		SetConnectionType ($Pref::Net::ConnectionType);
 	}
+
 	if ( $pref::TextureQuality $= "" )
 	{
 		$pref::TextureQuality = 0;
 	}
 
 	$oldTextureQuality = $pref::TextureQuality;
-	$oldBorderless = $pref::Video::Borderless;
+	$oldBorderless     = $pref::Video::Borderless;
 
 	for ( %i = 0; %i < 5; %i++ )
 	{
@@ -3502,26 +3518,33 @@ function optionsDlg::onWake ( %this )
 	OPT_SetChatSize ($Pref::Gui::ChatSize);
 	Opt_ChatLineTime.setText ($Pref::Chat::LineTime);
 	Opt_MaxChatLines.setText ($Pref::Chat::MaxDisplayLines);
+
 	Opt_TempBrickFlashTime.setText ($pref::HUD::tempBrickFlashTime);
 	Opt_TempBrickFlashRange.setText ($pref::HUD::tempBrickFlashRange);
 	Opt_TempBrickFlashOffset.setText ($pref::HUD::tempBrickFlashoffset);
+
 	Opt_TempBrickOutsideColorBlocker.setVisible ($pref::HUD::tempBrickOutsideUsePaintColor);
 	Opt_TempBrickOutsideRed.setText ($pref::HUD::tempBrickOutsideRed);
 	Opt_TempBrickOutsideGreen.setText ($pref::HUD::tempBrickOutsideGreen);
 	Opt_TempBrickOutsideBlue.setText ($pref::HUD::tempBrickOutsideBlue);
+
 	Opt_TempBrickInsideColorBlocker.setVisible ($pref::HUD::tempBrickInsideUsePaintColor);
 	Opt_TempBrickInsideRed.setText ($pref::HUD::tempBrickInsideRed);
 	Opt_TempBrickInsideGreen.setText ($pref::HUD::tempBrickInsideGreen);
 	Opt_TempBrickInsideBlue.setText ($pref::HUD::tempBrickInsideBlue);
+
 	optionsDlg.updateTempBrickBlockers ();
 	optionsDlg.updateDrawDistanceBlocker ();
+
 	Opt_LatencyNone.setValue (0);
+
 	Opt_PreFinish.setValue ($pref::OpenGL::UsePreGLFinish);
 	Opt_PreFlush.setValue ($pref::OpenGL::UsePreGLFlush);
 	Opt_PostFinish.setValue ($pref::OpenGL::UsePostGLFinish);
 	Opt_PostFlush.setValue ($pref::OpenGL::UsePostGLFlush);
 
-	if ( !$pref::OpenGL::UsePreGLFinish && !$pref::OpenGL::UsePreGLFlush && !$pref::OpenGL::UsePostGLFinish && !$pref::OpenGL::UsePostGLFlush )
+	if ( !$pref::OpenGL::UsePreGLFinish && !$pref::OpenGL::UsePreGLFlush
+	  && !$pref::OpenGL::UsePostGLFinish && !$pref::OpenGL::UsePostGLFlush )
 	{
 		Opt_LatencyNone.setValue (1);
 	}
@@ -3532,23 +3555,31 @@ function optionsDlg::onSleep ( %this )
 	moveMap.save ("config/client/config.cs");
 
 	$pref::Video::screenShotFormat = OptScreenshotMenu.getText ();
+
 	$pref::Input::MouseSensitivity = SliderControlsMouseSensitivity.getValue ();
+
 	$pref::OpenGL::anisotropy = SliderGraphicsAnisotropy.getValue ();
 	$pref::visibleDistanceMax = SliderGraphicsDistanceMax.getValue ();
+
 	$pref::ParticleFalloffMinDistance = SliderGraphicsParticleFalloffDist.getValue ();
-	$pref::ParticleFalloffMaxLevel = SliderGraphicsParticleMaxFalloff.getValue ();
-	$pref::Player::defaultFov = SliderDefaultFOV.getValue ();
+	$pref::ParticleFalloffMaxLevel    = SliderGraphicsParticleMaxFalloff.getValue ();
+
+	$pref::Player::defaultFov       = SliderDefaultFOV.getValue ();
 	$pref::Input::KeyboardTurnSpeed = slider_KeyboardTurnSpeed.getValue ();
+
 	$Pref::Chat::LineTime = Opt_ChatLineTime.getValue ();
-	$pref::HUD::tempBrickFlashTime = mClamp (Opt_TempBrickFlashTime.getValue (), 100, 10000);
-	$pref::HUD::tempBrickFlashRange = mClampF (Opt_TempBrickFlashRange.getValue (), 0, 1);
+
+	$pref::HUD::tempBrickFlashTime   = mClamp (Opt_TempBrickFlashTime.getValue (), 100, 10000);
+	$pref::HUD::tempBrickFlashRange  = mClampF (Opt_TempBrickFlashRange.getValue (), 0, 1);
 	$pref::HUD::tempBrickFlashoffset = mClampF (Opt_TempBrickFlashOffset.getValue (), 0, 1);
-	$pref::HUD::tempBrickOutsideRed = mClampF (Opt_TempBrickOutsideRed.getValue (), 0, 1);
+
+	$pref::HUD::tempBrickOutsideRed   = mClampF (Opt_TempBrickOutsideRed.getValue (), 0, 1);
 	$pref::HUD::tempBrickOutsideGreen = mClampF (Opt_TempBrickOutsideGreen.getValue (), 0, 1);
-	$pref::HUD::tempBrickOutsideBlue = mClampF (Opt_TempBrickOutsideBlue.getValue (), 0, 1);
-	$pref::HUD::tempBrickInsideRed = mClampF (Opt_TempBrickInsideRed.getValue (), 0, 1);
+	$pref::HUD::tempBrickOutsideBlue  = mClampF (Opt_TempBrickOutsideBlue.getValue (), 0, 1);
+
+	$pref::HUD::tempBrickInsideRed   = mClampF (Opt_TempBrickInsideRed.getValue (), 0, 1);
 	$pref::HUD::tempBrickInsideGreen = mClampF (Opt_TempBrickInsideGreen.getValue (), 0, 1);
-	$pref::HUD::tempBrickInsideBlue = mClampF (Opt_TempBrickInsideBlue.getValue (), 0, 1);
+	$pref::HUD::tempBrickInsideBlue  = mClampF (Opt_TempBrickInsideBlue.getValue (), 0, 1);
 
 	updateTempBrickSettings ();
 
@@ -3569,6 +3600,7 @@ function optionsDlg::onSleep ( %this )
 	}
 
 	clientCmdUpdatePrefs ();
+
 	PlayGui.createInvHUD ();
 	PlayGui.createToolHUD ();
 	PlayGui.loadPaint ();
@@ -3592,6 +3624,7 @@ function optionsDlg::onSleep ( %this )
 				if ( %obj.getClassName () $= "AudioEmitter" )
 				{
 					%profile = %obj.profile;
+
 					%obj.profile = 0;
 					%obj.profile = %profile;
 
@@ -3605,12 +3638,14 @@ function optionsDlg::onSleep ( %this )
 		}
 	}
 
-	export ("$Pref::Server::*", "config/server/prefs.cs", 0);
+	export ("$Pref::Server::*", "config/server/prefs.cs", false);
 	export ("$Pref::Net::PacketRateToClient", "config/server/prefs.cs", True);
 	export ("$Pref::Net::PacketRateToServer", "config/server/prefs.cs", True);
 	export ("$Pref::Net::PacketSize", "config/server/prefs.cs", True);
 	export ("$Pref::Net::LagThreshold", "config/server/prefs.cs", True);
+
 	deleteVariables ("$Pref::Server:*");
+
 	export ("$pref::*", "config/client/prefs.cs", False);
 
 	if ( isFile ("config/server/prefs.cs") )
@@ -3621,6 +3656,7 @@ function optionsDlg::onSleep ( %this )
 	{
 		error ("ERROR: OptionsDlg::onSleep() - export of prefs failed.");
 	}
+
 	if ( isObject (ServerConnection) )
 	{
 		ServerConnection.transmitSteeringPrefs ();
@@ -3630,28 +3666,24 @@ function optionsDlg::onSleep ( %this )
 function UpdatePacketSize ()
 {
 	PacketSizeDisplay.setValue (mFloor (SliderPacketSize.getValue ()));
-
 	$pref::Net::PacketSize = PacketSizeDisplay.getValue ();
 }
 
 function UpdateLagThreshold ()
 {
 	LagThresholdDisplay.setValue (mFloor (SliderLagThreshold.getValue ()));
-
 	$Pref::Net::LagThreshold = LagThresholdDisplay.getValue ();
 }
 
 function UpdateRateToClient ()
 {
 	RateToClientDisplay.setValue (mFloor (SliderRateToClient.getValue ()));
-
 	$pref::Net::PacketRateToClient = RateToClientDisplay.getValue ();
 }
 
 function UpdateRateToServer ()
 {
 	RateToServerDisplay.setValue (mFloor (SliderRateToServer.getValue ()));
-
 	$pref::Net::PacketRateToServer = RateToServerDisplay.getValue ();
 }
 
@@ -3665,6 +3697,7 @@ function OptGraphicsDriverMenu::onSelect ( %this, %id, %text )
 	{
 		%prevRes = getWords ($pref::Video::resolution, 0, 1);
 	}
+
 	if ( isDeviceFullScreenOnly (%this.getText ()) )
 	{
 		OptGraphicsFullscreenToggle.setValue (1);
@@ -3675,6 +3708,7 @@ function OptGraphicsDriverMenu::onSelect ( %this, %id, %text )
 	{
 		OptGraphicsFullscreenToggle.setActive (1);
 	}
+
 	if ( OptGraphicsFullscreenToggle.getValue () )
 	{
 		if ( OptGraphicsBPPMenu.size () > 0 )
@@ -3687,7 +3721,8 @@ function OptGraphicsDriverMenu::onSelect ( %this, %id, %text )
 		}
 	}
 
-	OptGraphicsResolutionMenu.init (%this.getText (), OptGraphicsFullscreenToggle.getValue () || OptGraphicsBorderlessToggle.getValue ());
+	OptGraphicsResolutionMenu.init (%this.getText (), OptGraphicsFullscreenToggle.getValue ()
+		                                           || OptGraphicsBorderlessToggle.getValue ());
 	OptGraphicsBPPMenu.init (%this.getText ());
 
 	%selId = OptGraphicsResolutionMenu.findText (%prevRes);
@@ -3723,9 +3758,10 @@ function OptGraphicsResolutionMenu::onSelect ( %this, %id, %text )
 {
 	OptGraphicsHzMenu.clear ();
 
-	%device = OptGraphicsDriverMenu.getText ();
-	%resList = getResolutionList (%device);
+	%device   = OptGraphicsDriverMenu.getText ();
+	%resList  = getResolutionList (%device);
 	%resCount = getFieldCount (%resList);
+
 	%currRes = OptGraphicsResolutionMenu.getText ();
 	%currBpp = OptGraphicsBPPMenu.getText ();
 
@@ -3733,6 +3769,7 @@ function OptGraphicsResolutionMenu::onSelect ( %this, %id, %text )
 	{
 		%currBpp = getWord (getRes (), 2);
 	}
+
 	if ( !OptGraphicsFullscreenToggle.getValue () )
 	{
 		OptGraphicsHzMenu.add ("Default", 0);
@@ -3746,13 +3783,12 @@ function OptGraphicsResolutionMenu::onSelect ( %this, %id, %text )
 	for ( %i = 0; %i < %resCount; %i++ )
 	{
 		%checkField = getField (%resList, %i);
-		%checkRes = getWords (%checkField, 0, 1);
-		%checkBpp = getWord (%checkField, 2);
+		%checkRes   = getWords (%checkField, 0, 1);
+		%checkBpp   = getWord (%checkField, 2);
 
 		if ( %checkRes $= %currRes && %checkBpp $= %currBpp )
 		{
 			%refreshRate = getWord (%checkField, 3);
-
 			OptGraphicsHzMenu.add (%refreshRate, %count++);
 		}
 	}
@@ -3764,13 +3800,16 @@ function OptGraphicsResolutionMenu::init ( %this, %device, %fullScreen )
 {
 	%this.clear ();
 
-	%resList = getResolutionList (%device);
+	%resList  = getResolutionList (%device);
 	%resCount = getFieldCount (%resList);
-	%deskRes = getDesktopResolution ();
+	%deskRes  = getDesktopResolution ();
+
 	%captionHeight = getWindowCaptionHeight ();
-	%frameSize = getWindowFrameSize ();
+	%frameSize     = getWindowFrameSize ();
+
 	%deskW = getWord (%deskRes, 0) - %frameSize * 2;
 	%deskH = (getWord (%deskRes, 1) - %frameSize * 2) - %captionHeight;
+
 	%count = 0;
 
 	for ( %i = 0; %i < %resCount; %i++ )
@@ -3786,15 +3825,16 @@ function OptGraphicsResolutionMenu::init ( %this, %device, %fullScreen )
 			{
 				continue;
 			}
+
 			if ( %h >= %deskH )
 			{
 				continue;
 			}
 		}
+
 		if ( %this.findText (%res) == -1 )
 		{
 			%this.add (%res, %count);
-
 			%count++;
 		}
 	}
@@ -3804,7 +3844,8 @@ function OptGraphicsFullscreenToggle::onAction ( %this )
 {
 	%prevRes = OptGraphicsResolutionMenu.getText ();
 
-	OptGraphicsResolutionMenu.init (OptGraphicsDriverMenu.getText (), OptGraphicsFullscreenToggle.getValue () || OptGraphicsBorderlessToggle.getValue ());
+	OptGraphicsResolutionMenu.init (OptGraphicsDriverMenu.getText (),
+		OptGraphicsFullscreenToggle.getValue () || OptGraphicsBorderlessToggle.getValue ());
 
 	%selId = OptGraphicsResolutionMenu.findText (%prevRes);
 
@@ -3820,7 +3861,8 @@ function OptGraphicsBorderlessToggle::onAction ( %this )
 {
 	%prevRes = OptGraphicsResolutionMenu.getText ();
 
-	OptGraphicsResolutionMenu.init (OptGraphicsDriverMenu.getText (), OptGraphicsFullscreenToggle.getValue () || OptGraphicsBorderlessToggle.getValue ());
+	OptGraphicsResolutionMenu.init (OptGraphicsDriverMenu.getText (),
+		OptGraphicsFullscreenToggle.getValue () || OptGraphicsBorderlessToggle.getValue ());
 
 	%selId = OptGraphicsResolutionMenu.findText (%prevRes);
 
@@ -3842,8 +3884,9 @@ function OptGraphicsBPPMenu::init ( %this, %device )
 	}
 	else
 	{
-		%resList = getResolutionList (%device);
+		%resList  = getResolutionList (%device);
 		%resCount = getFieldCount (%resList);
+
 		%count = 0;
 
 		for ( %i = 0; %i < %resCount; %i++ )
@@ -3853,7 +3896,6 @@ function OptGraphicsBPPMenu::init ( %this, %device )
 			if ( %this.findText (%bpp) == -1 )
 			{
 				%this.add (%bpp, %count);
-
 				%count++;
 			}
 		}
@@ -3866,6 +3908,7 @@ function OptScreenshotMenu::init ( %this )
 	{
 		%this.add ("PNG", 0);
 	}
+
 	if ( %this.findText ("JPG") == -1 )
 	{
 		%this.add ("JPG", 1);
@@ -3874,29 +3917,34 @@ function OptScreenshotMenu::init ( %this )
 
 function optionsDlg::applyGraphics ( %this )
 {
-	%newDriver = OptGraphicsDriverMenu.getText ();
-	%newRes = OptGraphicsResolutionMenu.getText ();
-	%newBpp = OptGraphicsBPPMenu.getText ();
+	%newDriver     = OptGraphicsDriverMenu.getText ();
+	%newRes        = OptGraphicsResolutionMenu.getText ();
+	%newBpp        = OptGraphicsBPPMenu.getText ();
 	%newFullScreen = OptGraphicsFullscreenToggle.getValue ();
-	%newHz = OptGraphicsHzMenu.getText ();
+	%newHz         = OptGraphicsHzMenu.getText ();
+
 	$pref::Video::screenShotFormat = OptScreenshotMenu.getText ();
+
 	%oldShaderEnabled = $Shader::Enabled;
-	$Shader::Enabled = 0;
+	$Shader::Enabled  = false;
 
 	Canvas.repaint ();
 
-	if ( $pref::TextureQuality != $oldTextureQuality || %newDriver !$= $pref::Video::displayDevice || $pref::OpenGL::maxHardwareLights != $oldMaxLights )
+	if ( $pref::TextureQuality != $oldTextureQuality || %newDriver !$= $pref::Video::displayDevice
+	  || $pref::OpenGL::maxHardwareLights != $oldMaxLights )
 	{
 		$oldTextureQuality = $pref::TextureQuality;
-		$oldMaxLights = $pref::OpenGL::maxHardwareLights;
+		$oldMaxLights      = $pref::OpenGL::maxHardwareLights;
 
 		if ( %newFullScreen )
 		{
-			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen, %newHz);
+			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp,
+				%newFullScreen, %newHz);
 		}
 		else
 		{
-			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp, %newFullScreen);
+			setDisplayDevice (%newDriver, firstWord (%newRes), getWord (%newRes, 1), %newBpp,
+				%newFullScreen);
 		}
 	}
 	else if ( %newFullScreen )
@@ -3925,258 +3973,421 @@ function optionsDlg::applyGraphics ( %this )
 
 
 $RemapCount = 0;
+
 $RemapDivision[$RemapCount] = "Movement";
-$RemapName[$RemapCount] = "Forward";
-$RemapCmd[$RemapCount] = "moveforward";
+$RemapName[$RemapCount]     = "Forward";
+$RemapCmd[$RemapCount]      = "moveforward";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Backward";
-$RemapCmd[$RemapCount] = "movebackward";
+$RemapCmd[$RemapCount]  = "movebackward";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Strafe Left";
-$RemapCmd[$RemapCount] = "moveleft";
+$RemapCmd[$RemapCount]  = "moveleft";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Strafe Right";
-$RemapCmd[$RemapCount] = "moveright";
+$RemapCmd[$RemapCount]  = "moveright";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Jump";
-$RemapCmd[$RemapCount] = "jump";
+$RemapCmd[$RemapCount]  = "jump";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Crouch";
-$RemapCmd[$RemapCount] = "crouch";
+$RemapCmd[$RemapCount]  = "crouch";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Walk";
-$RemapCmd[$RemapCount] = "walk";
+$RemapCmd[$RemapCount]  = "walk";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Jet";
-$RemapCmd[$RemapCount] = "jet";
+$RemapCmd[$RemapCount]  = "jet";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "View";
-$RemapName[$RemapCount] = "Turn Left";
-$RemapCmd[$RemapCount] = "turnLeft";
+$RemapName[$RemapCount]     = "Turn Left";
+$RemapCmd[$RemapCount]      = "turnLeft";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Turn Right";
-$RemapCmd[$RemapCount] = "turnRight";
+$RemapCmd[$RemapCount]  = "turnRight";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Look Up";
-$RemapCmd[$RemapCount] = "panUp";
+$RemapCmd[$RemapCount]  = "panUp";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Look Down";
-$RemapCmd[$RemapCount] = "panDown";
+$RemapCmd[$RemapCount]  = "panDown";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Toggle Zoom";
-$RemapCmd[$RemapCount] = "toggleZoom";
+$RemapCmd[$RemapCount]  = "toggleZoom";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Free Look";
-$RemapCmd[$RemapCount] = "toggleFreeLook";
+$RemapCmd[$RemapCount]  = "toggleFreeLook";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Switch 1st/3rd";
-$RemapCmd[$RemapCount] = "toggleFirstPerson";
+$RemapCmd[$RemapCount]  = "toggleFirstPerson";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Drop Camera at Player";
-$RemapCmd[$RemapCount] = "dropCameraAtPlayer";
+$RemapCmd[$RemapCount]  = "dropCameraAtPlayer";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Drop Player at Camera";
-$RemapCmd[$RemapCount] = "dropPlayerAtCamera";
+$RemapCmd[$RemapCount]  = "dropPlayerAtCamera";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Action";
-$RemapName[$RemapCount] = "Fire Weapon/Tool";
-$RemapCmd[$RemapCount] = "mouseFire";
+$RemapName[$RemapCount]     = "Fire Weapon/Tool";
+$RemapCmd[$RemapCount]      = "mouseFire";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Suicide";
-$RemapCmd[$RemapCount] = "Suicide";
+$RemapCmd[$RemapCount]  = "Suicide";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Next Vehicle Seat";
-$RemapCmd[$RemapCount] = "NextSeat";
+$RemapCmd[$RemapCount]  = "NextSeat";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Prev Vehicle Seat";
-$RemapCmd[$RemapCount] = "PrevSeat";
+$RemapCmd[$RemapCount]  = "PrevSeat";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Communication";
-$RemapName[$RemapCount] = "Global Chat";
-$RemapCmd[$RemapCount] = "GlobalChat";
+$RemapName[$RemapCount]     = "Global Chat";
+$RemapCmd[$RemapCount]      = "GlobalChat";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Team Chat";
-$RemapCmd[$RemapCount] = "TeamChat";
+$RemapCmd[$RemapCount]  = "TeamChat";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Chat Hud PageUp";
-$RemapCmd[$RemapCount] = "PageUpNewChatHud";
+$RemapCmd[$RemapCount]  = "PageUpNewChatHud";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Chat Hud PageDown";
-$RemapCmd[$RemapCount] = "PageDownNewChatHud";
+$RemapCmd[$RemapCount]  = "PageDownNewChatHud";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Gui";
-$RemapName[$RemapCount] = "Toggle Cursor";
-$RemapCmd[$RemapCount] = "ToggleCursor";
+$RemapName[$RemapCount]     = "Toggle Cursor";
+$RemapCmd[$RemapCount]      = "ToggleCursor";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Open Admin Window";
-$RemapCmd[$RemapCount] = "openAdminWindow";
+$RemapCmd[$RemapCount]  = "openAdminWindow";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Open Options Window";
-$RemapCmd[$RemapCount] = "openOptionsWindow";
+$RemapCmd[$RemapCount]  = "openOptionsWindow";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Show Player List";
-$RemapCmd[$RemapCount] = "showPlayerList";
+$RemapCmd[$RemapCount]  = "showPlayerList";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Toggle NetGraph";
-$RemapCmd[$RemapCount] = "toggleNetGraph";
+$RemapCmd[$RemapCount]  = "toggleNetGraph";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Toggle Player Names / Crosshair";
-$RemapCmd[$RemapCount] = "ToggleShapeNameHud";
+$RemapCmd[$RemapCount]  = "ToggleShapeNameHud";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Tools / Inventory";
-$RemapName[$RemapCount] = "Use Bricks";
-$RemapCmd[$RemapCount] = "useBricks";
+$RemapName[$RemapCount]     = "Use Bricks";
+$RemapCmd[$RemapCount]      = "useBricks";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use Tools";
-$RemapCmd[$RemapCount] = "useTools";
+$RemapCmd[$RemapCount]  = "useTools";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use Spray Can";
-$RemapCmd[$RemapCount] = "useSprayCan";
+$RemapCmd[$RemapCount]  = "useSprayCan";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use Light";
-$RemapCmd[$RemapCount] = "useLight";
+$RemapCmd[$RemapCount]  = "useLight";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Drop Tool";
-$RemapCmd[$RemapCount] = "dropTool";
+$RemapCmd[$RemapCount]  = "dropTool";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 1st Slot";
-$RemapCmd[$RemapCount] = "useFirstSlot";
+$RemapCmd[$RemapCount]  = "useFirstSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 2nd Slot";
-$RemapCmd[$RemapCount] = "useSecondSlot";
+$RemapCmd[$RemapCount]  = "useSecondSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 3rd Slot";
-$RemapCmd[$RemapCount] = "useThirdSlot";
+$RemapCmd[$RemapCount]  = "useThirdSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 4th Slot";
-$RemapCmd[$RemapCount] = "useFourthSlot";
+$RemapCmd[$RemapCount]  = "useFourthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 5th Slot";
-$RemapCmd[$RemapCount] = "useFifthSlot";
+$RemapCmd[$RemapCount]  = "useFifthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 6th Slot";
-$RemapCmd[$RemapCount] = "useSixthSlot";
+$RemapCmd[$RemapCount]  = "useSixthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 7th Slot";
-$RemapCmd[$RemapCount] = "useSeventhSlot";
+$RemapCmd[$RemapCount]  = "useSeventhSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 8th Slot";
-$RemapCmd[$RemapCount] = "useEighthSlot";
+$RemapCmd[$RemapCount]  = "useEighthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 9th Slot";
-$RemapCmd[$RemapCount] = "useNinthSlot";
+$RemapCmd[$RemapCount]  = "useNinthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Use 10th Slot";
-$RemapCmd[$RemapCount] = "useTenthSlot";
+$RemapCmd[$RemapCount]  = "useTenthSlot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Inventory Up";
-$RemapCmd[$RemapCount] = "invUp";
+$RemapCmd[$RemapCount]  = "invUp";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Inventory Down";
-$RemapCmd[$RemapCount] = "invDown";
+$RemapCmd[$RemapCount]  = "invDown";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Inventory Left";
-$RemapCmd[$RemapCount] = "invLeft";
+$RemapCmd[$RemapCount]  = "invLeft";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Inventory Right";
-$RemapCmd[$RemapCount] = "invRight";
+$RemapCmd[$RemapCount]  = "invRight";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Building";
-$RemapName[$RemapCount] = "Open Brick Selector";
-$RemapCmd[$RemapCount] = "openBSD";
+$RemapName[$RemapCount]     = "Open Brick Selector";
+$RemapCmd[$RemapCount]      = "openBSD";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Plant Brick";
-$RemapCmd[$RemapCount] = "plantBrick";
+$RemapCmd[$RemapCount]  = "plantBrick";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Undo Brick";
-$RemapCmd[$RemapCount] = "undoBrick";
+$RemapCmd[$RemapCount]  = "undoBrick";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Cancel Brick";
-$RemapCmd[$RemapCount] = "cancelBrick";
+$RemapCmd[$RemapCount]  = "cancelBrick";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Away";
-$RemapCmd[$RemapCount] = "shiftBrickAway";
+$RemapCmd[$RemapCount]  = "shiftBrickAway";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Towards";
-$RemapCmd[$RemapCount] = "shiftBrickTowards";
+$RemapCmd[$RemapCount]  = "shiftBrickTowards";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Left";
-$RemapCmd[$RemapCount] = "shiftBrickLeft";
+$RemapCmd[$RemapCount]  = "shiftBrickLeft";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Right";
-$RemapCmd[$RemapCount] = "shiftBrickRight";
+$RemapCmd[$RemapCount]  = "shiftBrickRight";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Up";
-$RemapCmd[$RemapCount] = "shiftBrickUp";
+$RemapCmd[$RemapCount]  = "shiftBrickUp";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Down";
-$RemapCmd[$RemapCount] = "shiftBrickDown";
+$RemapCmd[$RemapCount]  = "shiftBrickDown";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Up 1/3";
-$RemapCmd[$RemapCount] = "shiftBrickThirdUp";
+$RemapCmd[$RemapCount]  = "shiftBrickThirdUp";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Shift Brick Down 1/3";
-$RemapCmd[$RemapCount] = "shiftBrickThirdDown";
+$RemapCmd[$RemapCount]  = "shiftBrickThirdDown";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Rotate Brick CW";
-$RemapCmd[$RemapCount] = "RotateBrickCW";
+$RemapCmd[$RemapCount]  = "RotateBrickCW";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Rotate Brick CCW";
-$RemapCmd[$RemapCount] = "RotateBrickCCW";
+$RemapCmd[$RemapCount]  = "RotateBrickCCW";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Toggle Super Shift";
-$RemapCmd[$RemapCount] = "toggleSuperShift";
+$RemapCmd[$RemapCount]  = "toggleSuperShift";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Away";
-$RemapCmd[$RemapCount] = "superShiftBrickAwayProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickAwayProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Towards";
-$RemapCmd[$RemapCount] = "superShiftBrickTowardsProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickTowardsProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Left";
-$RemapCmd[$RemapCount] = "superShiftBrickLeftProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickLeftProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Right";
-$RemapCmd[$RemapCount] = "superShiftBrickRightProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickRightProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Up";
-$RemapCmd[$RemapCount] = "superShiftBrickUpProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickUpProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Super Shift Brick Down";
-$RemapCmd[$RemapCount] = "superShiftBrickDownProxy";
+$RemapCmd[$RemapCount]  = "superShiftBrickDownProxy";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Toggle Build Macro Recording";
-$RemapCmd[$RemapCount] = "ToggleBuildMacroRecording";
+$RemapCmd[$RemapCount]  = "ToggleBuildMacroRecording";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Playback Build Macro";
-$RemapCmd[$RemapCount] = "PlayBackBuildMacro";
+$RemapCmd[$RemapCount]  = "PlayBackBuildMacro";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Recording";
-$RemapName[$RemapCount] = "Take Hud Screenshot";
-$RemapCmd[$RemapCount] = "doHudScreenshot";
+$RemapName[$RemapCount]     = "Take Hud Screenshot";
+$RemapCmd[$RemapCount]      = "doHudScreenshot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Take Screenshot";
-$RemapCmd[$RemapCount] = "doScreenShot";
+$RemapCmd[$RemapCount]  = "doScreenShot";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Take DOF Screenshot";
-$RemapCmd[$RemapCount] = "doDofScreenShot";
+$RemapCmd[$RemapCount]  = "doDofScreenShot";
+
 $RemapCount++;
+
 $RemapDivision[$RemapCount] = "Emotes";
-$RemapName[$RemapCount] = "Sit";
-$RemapCmd[$RemapCount] = "emoteSit";
+$RemapName[$RemapCount]     = "Sit";
+$RemapCmd[$RemapCount]      = "emoteSit";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Love";
-$RemapCmd[$RemapCount] = "emoteLove";
+$RemapCmd[$RemapCount]  = "emoteLove";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Hate";
-$RemapCmd[$RemapCount] = "emoteHate";
+$RemapCmd[$RemapCount]  = "emoteHate";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Confusion";
-$RemapCmd[$RemapCount] = "emoteConfusion";
+$RemapCmd[$RemapCount]  = "emoteConfusion";
+
 $RemapCount++;
+
 $RemapName[$RemapCount] = "Alarm";
-$RemapCmd[$RemapCount] = "emoteAlarm";
+$RemapCmd[$RemapCount]  = "emoteAlarm";
+
 $RemapCount++;
+
 
 function getMapDisplayName ( %device, %action )
 {
@@ -4190,8 +4401,8 @@ function getMapDisplayName ( %device, %action )
 
 		if ( %pos != -1 )
 		{
-			%mods = getSubStr (%action, 0, %pos);
-			%object = getSubStr (%action, %pos, 1000);
+			%mods     = getSubStr (%action, 0, %pos);
+			%object   = getSubStr (%action, %pos, 1000);
 			%instance = getSubStr (%object, strlen ("button"), 1000);
 
 			return %mods @ "mouse" @ %instance + 1;
@@ -4207,8 +4418,8 @@ function getMapDisplayName ( %device, %action )
 
 		if ( %pos != -1 )
 		{
-			%mods = getSubStr (%action, 0, %pos);
-			%object = getSubStr (%action, %pos, 1000);
+			%mods     = getSubStr (%action, 0, %pos);
+			%object   = getSubStr (%action, %pos, 1000);
 			%instance = getSubStr (%object, strlen ("button"), 1000);
 
 			return %mods @ "joystick" @ %instance + 1;
@@ -4220,44 +4431,21 @@ function getMapDisplayName ( %device, %action )
 			if ( %pos != -1 )
 			{
 				%wordCount = getWordCount (%action);
-				%mods = %wordCount > 1 ? getWords (%action, 0, %wordCount - 2) @ " " : "";
-				%object = getWord (%action, %wordCount - 1);
+				%mods      = %wordCount > 1 ? getWords (%action, 0, %wordCount - 2) @ " " : "";
+				%object    = getWord (%action, %wordCount - 1);
 
-				if ( %object $= "upov" )
+				switch$ ( %object )
 				{
-					%object = "POV1 up";
-				}
-				else if ( %object $= "dpov" )
-				{
-					%object = "POV1 down";
-				}
-				else if ( %object $= "lpov" )
-				{
-					%object = "POV1 left";
-				}
-				else if ( %object $= "rpov" )
-				{
-					%object = "POV1 right";
-				}
-				else if ( %object $= "upov2" )
-				{
-					%object = "POV2 up";
-				}
-				else if ( %object $= "dpov2" )
-				{
-					%object = "POV2 down";
-				}
-				else if ( %object $= "lpov2" )
-				{
-					%object = "POV2 left";
-				}
-				else if ( %object $= "rpov2" )
-				{
-					%object = "POV2 right";
-				}
-				else
-				{
-					%object = "??";
+					case "upov":  %object = "POV1 up";
+					case "dpov":  %object = "POV1 down";
+					case "lpov":  %object = "POV1 left";
+					case "rpov":  %object = "POV1 right";
+					case "upov2": %object = "POV2 up";
+					case "dpov2": %object = "POV2 down";
+					case "lpov2": %object = "POV2 left";
+					case "rpov2": %object = "POV2 right";
+
+					default: %object = "??";
 				}
 
 				return %mods @ %object;
@@ -4274,9 +4462,9 @@ function getMapDisplayName ( %device, %action )
 
 function buildFullMapString ( %index )
 {
-	%name = $RemapName[%index];
-	%cmd = $RemapCmd[%index];
-	%temp = moveMap.getBinding (%cmd);
+	%name   = $RemapName[%index];
+	%cmd    = $RemapCmd[%index];
+	%temp   = moveMap.getBinding (%cmd);
 	%device = getField (%temp, 0);
 	%object = getField (%temp, 1);
 
@@ -4290,7 +4478,7 @@ function buildFullMapString ( %index )
 	}
 
 	%mapString = strupr (%mapString);
-	%name = %name @ "\c5";
+	%name      = %name @ "\c5";
 
 	return %name TAB %mapString;
 }
@@ -4319,7 +4507,7 @@ function OptRemapList::fillList ( %this )
 function OptRemapList::doRemap ( %this )
 {
 	%selId = %this.getSelectedId ();
-	%name = $RemapName[%selId];
+	%name  = $RemapName[%selId];
 
 	if ( %name $= "" )
 	{
@@ -4327,7 +4515,6 @@ function OptRemapList::doRemap ( %this )
 	}
 
 	OptRemapText.setValue ("REMAP \"" @ %name @ "\"");
-
 	OptRemapInputCtrl.index = %selId;
 
 	Canvas.pushDialog (RemapDlg);
@@ -4336,7 +4523,6 @@ function OptRemapList::doRemap ( %this )
 function optionsDlg::RemapAll ( %this )
 {
 	optionsDlg.remappingAll = 1;
-
 	optionsDlg.RemapNext (-1);
 }
 
@@ -4348,13 +4534,11 @@ function optionsDlg::RemapNext ( %this, %idx )
 	if ( %name $= "" )
 	{
 		optionsDlg.remappingAll = 0;
-
 		return;
 	}
 	else
 	{
 		OptRemapText.setValue ("REMAP \"" @ %name @ "\"");
-
 		OptRemapInputCtrl.index = %idx;
 
 		Canvas.pushDialog (RemapDlg);
@@ -4366,6 +4550,7 @@ function optionsDlg::RemapNext ( %this, %idx )
 function redoMapping ( %device, %action, %cmd, %oldIndex, %newIndex )
 {
 	moveMap.bind (%device, %action, %cmd);
+
 	OptRemapList.setRowById (%oldIndex, buildFullMapString (%oldIndex));
 	OptRemapList.setRowById (%newIndex, buildFullMapString (%newIndex));
 
@@ -4397,16 +4582,16 @@ function OptRemapInputCtrl::onInputEvent ( %this, %device, %action )
 		if ( %action $= "escape" )
 		{
 			optionsDlg.remappingAll = 0;
-
 			return;
 		}
 		else if ( %action $= "backspace" )
 		{
-			%bind = moveMap.getBinding ($RemapCmd[%this.index]);
+			%bind   = moveMap.getBinding ($RemapCmd[%this.index]);
 			%device = getWord (%bind, 0);
 			%action = getWords (%bind, 1, getWordCount (%bind) - 1);
 
 			moveMap.unbind (%device, %action);
+
 			OptRemapList.setRowById (%this.index, buildFullMapString (%this.index));
 
 			if ( optionsDlg.remappingAll == 1 )
@@ -4418,8 +4603,9 @@ function OptRemapInputCtrl::onInputEvent ( %this, %device, %action )
 		}
 	}
 
-	%cmd = $RemapCmd[%this.index];
+	%cmd  = $RemapCmd[%this.index];
 	%name = $RemapName[%this.index];
+
 	%prevMap = moveMap.getCommand (%device, %action);
 
 	if ( %prevMap !$= %cmd )
@@ -4431,23 +4617,28 @@ function OptRemapInputCtrl::onInputEvent ( %this, %device, %action )
 		}
 		else
 		{
-			%mapName = getMapDisplayName (%device, %action);
+			%mapName      = getMapDisplayName (%device, %action);
 			%prevMapIndex = findRemapCmdIndex (%prevMap);
 
 			if ( %prevMapIndex == -1 )
 			{
-				MessageBoxOK ("REMAP FAILED", "\"" @ %mapName @ "\" is already bound to a non-remappable command!");
+				MessageBoxOK ("REMAP FAILED",
+					"\"" @ %mapName @ "\" is already bound to a non-remappable command!");
 			}
 			else
 			{
 				%prevCmdName = $RemapName[%prevMapIndex];
 
-				messageBoxYesNo ("WARNING", "\"" @ %mapName @ "\" is already bound to \"" @ %prevCmdName @ "\"!\nDo you want to undo this mapping?", "redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\", " @ %prevMapIndex @ ", " @ %this.index @ ");", "");
+				messageBoxYesNo ("WARNING", "\""  @ %mapName @ "\" is already bound to \"" @ %prevCmdName
+					@ "\"!\nDo you want to undo this mapping?",
+					"redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\", " @ %prevMapIndex
+					@ ", " @ %this.index @ ");", "");
 			}
 
 			return;
 		}
 	}
+
 	if ( optionsDlg.remappingAll == 1 )
 	{
 		optionsDlg.RemapNext (%this.index);
@@ -4458,17 +4649,20 @@ function optionsDlg::clearAllBinds ( %this, %confirm )
 {
 	if ( !%confirm )
 	{
-		messageBoxYesNo ("Clear All Binds?", "Are you sure you want to clear your control configuration?", "optionsDlg.clearAllBinds(1);");
+		messageBoxYesNo ("Clear All Binds?",
+			"Are you sure you want to clear your control configuration?",
+			"optionsDlg.clearAllBinds(1);");
 	}
 	else
 	{
 		for ( %index = 0; %index < $RemapCount; %index++ )
 		{
-			%bind = moveMap.getBinding ($RemapCmd[%index]);
+			%bind   = moveMap.getBinding ($RemapCmd[%index]);
 			%device = getWord (%bind, 0);
 			%action = getWords (%bind, 1, getWordCount (%bind) - 1);
 
 			moveMap.unbind (%device, %action);
+
 			OptRemapList.setRowById (%index, buildFullMapString (%index));
 		}
 	}
@@ -4478,13 +4672,18 @@ function optionsDlg::setDefaultBinds ( %this, %confirm )
 {
 	if ( !%confirm )
 	{
-		messageBoxYesNo ("Set Default Binds?", "Are you sure you want to reset your controls to the default?", "optionsDlg.setDefaultBinds(1);");
+		messageBoxYesNo ("Set Default Binds?",
+			"Are you sure you want to reset your controls to the default?",
+			"optionsDlg.setDefaultBinds(1);");
 	}
 }
 
 function OptAudioUpdate ()
 {
-	%text = " Vendor: " @ alGetString ("AL_VENDOR") @ "\n Version: " @ alGetString ("AL_VERSION") @ "\n Renderer: " @ alGetString ("AL_RENDERER") @ "\n Extensions: " @ alGetString ("AL_EXTENSIONS");
+	%text = " Vendor: "     @ alGetString ("AL_VENDOR")
+	    @ "\n Version: "    @ alGetString ("AL_VERSION")
+	    @ "\n Renderer: "   @ alGetString ("AL_RENDERER")
+	    @ "\n Extensions: " @ alGetString ("AL_EXTENSIONS");
 
 	OptAudioInfo.setText (%text);
 }
@@ -4492,74 +4691,74 @@ function OptAudioUpdate ()
 
 new AudioDescription (AudioChannel0)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 0;
+	is3D      = false;
+	type      = 0;
 };
 
 new AudioDescription (AudioChannel1)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 1;
+	is3D      = false;
+	type      = 1;
 };
 
 new AudioDescription (AudioChannel2)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 2;
+	is3D      = false;
+	type      = 2;
 };
 
 new AudioDescription (AudioChannel3)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 3;
+	is3D      = false;
+	type      = 3;
 };
 
 new AudioDescription (AudioChannel4)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 4;
+	is3D      = false;
+	type      = 4;
 };
 
 new AudioDescription (AudioChannel5)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 5;
+	is3D      = false;
+	type      = 5;
 };
 
 new AudioDescription (AudioChannel6)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 6;
+	is3D      = false;
+	type      = 6;
 };
 
 new AudioDescription (AudioChannel7)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 7;
+	is3D      = false;
+	type      = 7;
 };
 
 new AudioDescription (AudioChannel8)
 {
-	volume = 1;
+	volume    = 1;
 	isLooping = false;
-	is3D = false;
-	type = 8;
+	is3D      = false;
+	type      = 8;
 };
 
 $AudioTestHandle = 0;
@@ -4577,7 +4776,8 @@ function OptAudioUpdateMasterVolume ( %volume )
 
 	if ( !alxIsPlaying ($AudioTestHandle) )
 	{
-		$AudioTestHandle = alxCreateSource ("AudioChannel0", ExpandFilename ("base/data/sound/lightOn.wav"));
+		$AudioTestHandle = alxCreateSource ("AudioChannel0",
+			ExpandFilename ("base/data/sound/lightOn.wav"));
 
 		alxPlay ($AudioTestHandle);
 	}
@@ -4589,6 +4789,7 @@ function OptAudioUpdateChannelVolume ( %channel, %volume )
 	{
 		return;
 	}
+
 	if ( %volume == $pref::Audio::channelVolume[%channel] )
 	{
 		return;
@@ -4600,7 +4801,8 @@ function OptAudioUpdateChannelVolume ( %channel, %volume )
 
 	if ( !alxIsPlaying ($AudioTestHandle) )
 	{
-		$AudioTestHandle = alxCreateSource ("AudioChannel" @ %channel, ExpandFilename ("base/data/sound/lightOn.wav"));
+		$AudioTestHandle = alxCreateSource ("AudioChannel" @ %channel,
+			ExpandFilename ("base/data/sound/lightOn.wav"));
 
 		if ( $AudioTestHandle )
 		{
@@ -4615,6 +4817,7 @@ function OptAudioDriverList::onSelect ( %this, %id, %text )
 	{
 		return;
 	}
+
 	if ( $pref::Audio::driver $= %text )
 	{
 		return;
@@ -4668,9 +4871,9 @@ function directSelectInv ( %index )
 	if ( %index < 0 )
 	{
 		scrollBricks (1);
-
 		return;
 	}
+
 	if ( $InvData[%index] > 0 )
 	{
 		if ( $ScrollMode == $SCROLLMODE_BRICKS )
@@ -4679,7 +4882,9 @@ function directSelectInv ( %index )
 			{
 				setActiveInv (-1);
 				HUD_BrickName.setText ("");
+
 				commandToServer ('unUseTool');
+
 				setScrollMode ($SCROLLMODE_NONE);
 			}
 			else
@@ -4716,6 +4921,7 @@ function directSelectInv ( %index )
 	else
 	{
 		%direction = 1;
+
 		$CurrScrollBrickSlot--;
 
 		for ( %i = 0; %i < $BSD_NumInventorySlots - 1; %i++ )
@@ -4726,10 +4932,12 @@ function directSelectInv ( %index )
 			{
 				$CurrScrollBrickSlot = $BSD_NumInventorySlots - 1;
 			}
+
 			if ( $CurrScrollBrickSlot >= $BSD_NumInventorySlots )
 			{
 				$CurrScrollBrickSlot = 0;
 			}
+
 			if ( $InvData[$CurrScrollBrickSlot] > 0 )
 			{
 				break;
@@ -4739,6 +4947,7 @@ function directSelectInv ( %index )
 		if ( $InvData[$CurrScrollBrickSlot] > 0 )
 		{
 			setActiveInv ($CurrScrollBrickSlot);
+
 			commandToServer ('useInventory', $CurrScrollBrickSlot);
 
 			if ( $RecordingBuildMacro && isObject ($BuildMacroSO) )
@@ -4750,10 +4959,11 @@ function directSelectInv ( %index )
 		{
 			commandToServer ('InstantUseBrick', $LastInstantUseData);
 
-			$InstantUse = 1;
+			$InstantUse = true;
 
 			setActiveInv (-1);
 			setScrollMode ($SCROLLMODE_BRICKS);
+
 			HUD_BrickName.setText ($LastInstantUseData.uiName);
 
 			return 1;
@@ -4778,17 +4988,20 @@ function directSelectInv ( %index )
 			{
 				%hintKey = moveMap.getBinding (openBSD);
 			}
+
 			if ( $BuildingDisabled )
 			{
 				clientCmdCenterPrint ("\c5Building is currently disabled.", 2);
 			}
 			else
 			{
-				clientCmdCenterPrint ("\c5You don\'t have any bricks!\nPress " @ %hintKey @ " to open the brick selector.", 3);
+				clientCmdCenterPrint ("\c5You don\'t have any bricks!\nPress " @
+					%hintKey @ " to open the brick selector.", 3);
 			}
 
 			return 0;
 		}
+
 		if ( $ScrollMode != $SCROLLMODE_BRICKS )
 		{
 			setScrollMode ($SCROLLMODE_BRICKS);
@@ -4960,7 +5173,7 @@ function dropTenthSlot ( %val )
 
 
 $BrickFirstRepeatTime = 200;
-$BrickRepeatTime = 50;
+$BrickRepeatTime      = 50;
 
 function repeatBrickAway ( %val )
 {
@@ -5102,7 +5315,6 @@ function shiftBrickAway ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickAway (%val);
-
 		return;
 	}
 
@@ -5127,7 +5339,6 @@ function shiftBrickTowards ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickTowards (%val);
-
 		return;
 	}
 
@@ -5152,7 +5363,6 @@ function shiftBrickLeft ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickLeft (%val);
-
 		return;
 	}
 
@@ -5177,7 +5387,6 @@ function shiftBrickRight ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickRight (%val);
-
 		return;
 	}
 
@@ -5202,7 +5411,6 @@ function shiftBrickUp ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickUp (%val);
-
 		return;
 	}
 
@@ -5227,7 +5435,6 @@ function shiftBrickDown ( %val )
 	if ( $SuperShift )
 	{
 		superShiftBrickDown (%val);
-
 		return;
 	}
 
@@ -5360,7 +5567,6 @@ function openAdminWindow ( %val )
 	else
 	{
 		$AdminCallback = "canvas.pushDialog(admingui);";
-
 		Canvas.pushDialog ("adminLoginGui");
 	}
 }
@@ -5381,11 +5587,11 @@ function haveTools ()
 
 		if ( $ToolData[%idx] > 0 )
 		{
-			return 1;
+			return true;
 		}
 	}
 
-	return 0;
+	return false;
 }
 
 function useTools ( %val )
@@ -5406,7 +5612,6 @@ function useTools ( %val )
 				if ( $ToolData[%idx] > 0 )
 				{
 					$CurrScrollToolSlot = %idx;
-
 					break;
 				}
 			}
@@ -5417,9 +5622,12 @@ function useTools ( %val )
 			}
 
 			setScrollMode ($SCROLLMODE_TOOLS);
+
 			HUD_ToolActive.setVisible (True);
 			setActiveTool ($CurrScrollToolSlot);
+
 			HUD_ToolName.setText (trim ($ToolData[$CurrScrollToolSlot].uiName));
+
 			commandToServer ('UseTool', $CurrScrollToolSlot);
 		}
 		else
@@ -5437,7 +5645,9 @@ function clientCmdSetActiveTool ( %slot )
 
 	HUD_ToolActive.setVisible (True);
 	setActiveTool ($CurrScrollToolSlot);
+
 	HUD_ToolName.setText (trim ($ToolData[$CurrScrollToolSlot].uiName));
+
 	commandToServer ('UseTool', $CurrScrollToolSlot);
 }
 
@@ -5511,6 +5721,7 @@ function openBSD ( %val )
 		{
 			return;
 		}
+
 		if ( $BuildingDisabled )
 		{
 			clientCmdCenterPrint ("\c5Building is currently disabled.", 2);
@@ -5528,9 +5739,9 @@ function openBSD ( %val )
 
 
 $SCROLLMODE_BRICKS = 0;
-$SCROLLMODE_PAINT = 1;
-$SCROLLMODE_TOOLS = 2;
-$SCROLLMODE_NONE = 3;
+$SCROLLMODE_PAINT  = 1;
+$SCROLLMODE_TOOLS  = 2;
+$SCROLLMODE_NONE   = 3;
 
 function scrollInventory ( %val )
 {
@@ -5564,6 +5775,7 @@ function scrollInventory ( %val )
 			return;
 		}
 	}
+
 	if ( %val < 0 )
 	{
 		%val = 1;
@@ -5572,6 +5784,7 @@ function scrollInventory ( %val )
 	{
 		%val = -1;
 	}
+
 	if ( $ZoomOn )
 	{
 		if ( %val > 0 )
@@ -5590,6 +5803,7 @@ function scrollInventory ( %val )
 
 		return;
 	}
+
 	if ( $ScrollMode == $SCROLLMODE_BRICKS )
 	{
 		if ( HUD_BrickActive.visible == 0 )
@@ -5616,6 +5830,7 @@ function scrollInventory ( %val )
 			if ( haveTools () )
 			{
 				setScrollMode ($SCROLLMODE_TOOLS);
+
 				scrollTools (1);
 				scrollTools (-1);
 			}
@@ -5656,10 +5871,12 @@ function scrollBricks ( %direction )
 		{
 			$CurrScrollBrickSlot = $BSD_NumInventorySlots - 1;
 		}
+
 		if ( $CurrScrollBrickSlot >= $BSD_NumInventorySlots )
 		{
 			$CurrScrollBrickSlot = 0;
 		}
+
 		if ( $InvData[$CurrScrollBrickSlot] > 0 )
 		{
 			break;
@@ -5671,6 +5888,7 @@ function scrollBricks ( %direction )
 		if ( %startScrollBrickSlot != $CurrScrollBrickSlot )
 		{
 			setActiveInv ($CurrScrollBrickSlot);
+
 			commandToServer ('UseInventory', $CurrScrollBrickSlot);
 
 			if ( $RecordingBuildMacro && isObject ($BuildMacroSO) )
@@ -5689,11 +5907,14 @@ function shiftPaintColumn ( %direction )
 	{
 		return;
 	}
+
 	if ( $ScrollMode != $SCROLLMODE_PAINT )
 	{
 		setScrollMode ($SCROLLMODE_PAINT);
+
 		HUD_PaintBox.setVisible (true);
 		HUD_PaintActive.setVisible (true);
+
 		PlayGui.UnFadePaintRow ($CurrPaintRow);
 
 		%canIndex = 0;
@@ -5708,6 +5929,7 @@ function shiftPaintColumn ( %direction )
 		{
 			$CurrPaintRow = 0;
 		}
+
 		if ( $CurrPaintRow < 0 )
 		{
 			$CurrPaintRow = $Paint_NumPaintRows - 1;
@@ -5715,47 +5937,25 @@ function shiftPaintColumn ( %direction )
 
 		PlayGui.UnFadePaintRow ($CurrPaintRow);
 	}
+
 	if ( $CurrPaintRow == $Paint_NumPaintRows - 1 )
 	{
 		if ( $CurrPaintSwatch > 8 )
 		{
 			$CurrPaintSwatch = 8;
 		}
-		if ( $CurrPaintSwatch == 0 )
+
+		switch ( $CurrPaintSwatch )
 		{
-			HUD_PaintName.setText ("FX - None");
-		}
-		else if ( $CurrPaintSwatch == 1 )
-		{
-			HUD_PaintName.setText ("FX - Pearl");
-		}
-		else if ( $CurrPaintSwatch == 2 )
-		{
-			HUD_PaintName.setText ("FX - Chrome");
-		}
-		else if ( $CurrPaintSwatch == 3 )
-		{
-			HUD_PaintName.setText ("FX - Glow");
-		}
-		else if ( $CurrPaintSwatch == 4 )
-		{
-			HUD_PaintName.setText ("FX - Blink");
-		}
-		else if ( $CurrPaintSwatch == 5 )
-		{
-			HUD_PaintName.setText ("FX - Swirl");
-		}
-		else if ( $CurrPaintSwatch == 6 )
-		{
-			HUD_PaintName.setText ("FX - Rainbow");
-		}
-		else if ( $CurrPaintSwatch == 7 )
-		{
-			HUD_PaintName.setText ("FX - Stable");
-		}
-		else if ( $CurrPaintSwatch == 8 )
-		{
-			HUD_PaintName.setText ("FX - Undulo");
+			case 0: HUD_PaintName.setText ("FX - None");
+			case 1: HUD_PaintName.setText ("FX - Pearl");
+			case 2: HUD_PaintName.setText ("FX - Chrome");
+			case 3: HUD_PaintName.setText ("FX - Glow");
+			case 4: HUD_PaintName.setText ("FX - Blink");
+			case 5: HUD_PaintName.setText ("FX - Swirl");
+			case 6: HUD_PaintName.setText ("FX - Rainbow");
+			case 7: HUD_PaintName.setText ("FX - Stable");
+			case 8: HUD_PaintName.setText ("FX - Undulo");
 		}
 
 		commandToServer ('useFXCan', $CurrPaintSwatch);
@@ -5768,6 +5968,7 @@ function shiftPaintColumn ( %direction )
 		{
 			return;
 		}
+
 		if ( $CurrPaintSwatch >= %numSwatches )
 		{
 			$CurrPaintSwatch = %numSwatches - 1;
@@ -5788,8 +5989,8 @@ function shiftPaintColumn ( %direction )
 		if ( $pref::Hud::RecolorBrickIcons )
 		{
 			%color = getColorIDTable ($currSprayCanIndex);
-			%RGB = getWords (%color, 0, 2);
-			%a = mClampF (getWord (%color, 3), 0.1, 1);
+			%RGB   = getWords (%color, 0, 2);
+			%a     = mClampF (getWord (%color, 3), 0.1, 1);
 			%color = %RGB SPC %a;
 
 			for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
@@ -5802,6 +6003,7 @@ function shiftPaintColumn ( %direction )
 				$HUD_BrickIcon[%i].setColor (%color);
 			}
 		}
+
 		if ( $RecordingBuildMacro && isObject ($BuildMacroSO) )
 		{
 			$BuildMacroSO.pushEvent ("Server", 'useSprayCan', %canIndex);
@@ -5820,6 +6022,7 @@ function scrollPaint ( %direction )
 	{
 		$CurrPaintSwatch = %numSwatches - 1;
 	}
+
 	if ( $CurrPaintSwatch >= %numSwatches )
 	{
 		$CurrPaintSwatch = 0;
@@ -5829,41 +6032,17 @@ function scrollPaint ( %direction )
 
 	if ( $CurrPaintRow == $Paint_NumPaintRows - 1 )
 	{
-		if ( $CurrPaintSwatch == 0 )
+		switch ( $CurrPaintSwatch )
 		{
-			HUD_PaintName.setText ("FX - None");
-		}
-		else if ( $CurrPaintSwatch == 1 )
-		{
-			HUD_PaintName.setText ("FX - Pearl");
-		}
-		else if ( $CurrPaintSwatch == 2 )
-		{
-			HUD_PaintName.setText ("FX - Chrome");
-		}
-		else if ( $CurrPaintSwatch == 3 )
-		{
-			HUD_PaintName.setText ("FX - Glow");
-		}
-		else if ( $CurrPaintSwatch == 4 )
-		{
-			HUD_PaintName.setText ("FX - Blink");
-		}
-		else if ( $CurrPaintSwatch == 5 )
-		{
-			HUD_PaintName.setText ("FX - Swirl");
-		}
-		else if ( $CurrPaintSwatch == 6 )
-		{
-			HUD_PaintName.setText ("FX - Rainbow");
-		}
-		else if ( $CurrPaintSwatch == 7 )
-		{
-			HUD_PaintName.setText ("FX - Stable");
-		}
-		else if ( $CurrPaintSwatch == 8 )
-		{
-			HUD_PaintName.setText ("FX - Undulo");
+			case 0: HUD_PaintName.setText ("FX - None");
+			case 1: HUD_PaintName.setText ("FX - Pearl");
+			case 2: HUD_PaintName.setText ("FX - Chrome");
+			case 3: HUD_PaintName.setText ("FX - Glow");
+			case 4: HUD_PaintName.setText ("FX - Blink");
+			case 5: HUD_PaintName.setText ("FX - Swirl");
+			case 6: HUD_PaintName.setText ("FX - Rainbow");
+			case 7: HUD_PaintName.setText ("FX - Stable");
+			case 8: HUD_PaintName.setText ("FX - Undulo");
 		}
 
 		commandToServer ('useFXCan', $CurrPaintSwatch);
@@ -5888,11 +6067,12 @@ function scrollPaint ( %direction )
 		{
 			$BuildMacroSO.pushEvent ("Server", 'useSprayCan', %canIndex);
 		}
+
 		if ( $pref::Hud::RecolorBrickIcons )
 		{
 			%color = getColorIDTable ($currSprayCanIndex);
-			%RGB = getWords (%color, 0, 2);
-			%a = mClampF (getWord (%color, 3), 0.1, 1);
+			%RGB   = getWords (%color, 0, 2);
+			%a     = mClampF (getWord (%color, 3), 0.1, 1);
 			%color = %RGB SPC %a;
 
 			for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
@@ -5914,6 +6094,7 @@ function setActiveTool ( %index )
 	{
 		return;
 	}
+
 	if ( %index < 0 )
 	{
 		HUD_ToolActive.setVisible (false);
@@ -5959,6 +6140,7 @@ function scrollTools ( %direction )
 		{
 			$CurrScrollToolSlot = 0;
 		}
+
 		if ( $ToolData[$CurrScrollToolSlot] > 0 )
 		{
 			break;
@@ -5982,9 +6164,11 @@ function setScrollMode ( %newMode )
 	{
 		return 0;
 	}
+
 	if ( $ScrollMode == $SCROLLMODE_BRICKS )
 	{
 		setActiveInv (-1);
+
 		HUD_BrickName.setText ("");
 
 		if ( $pref::HUD::HideBrickBox )
@@ -6002,6 +6186,7 @@ function setScrollMode ( %newMode )
 	else if ( $ScrollMode == $SCROLLMODE_PAINT )
 	{
 		PlayGui.FadePaintRow ($CurrPaintRow);
+
 		HUD_PaintActive.setVisible (false);
 		HUD_PaintName.setText ("");
 
@@ -6016,13 +6201,15 @@ function setScrollMode ( %newMode )
 				PlayGui.hidePaintBox (getWord (HUD_PaintBox.extent, 0) + 5, 10, 0);
 			}
 		}
+
 		if ( $pref::HUD::showToolTips )
 		{
 			ToolTip_Paint.setVisible (true);
 		}
+
 		if ( $InstantUse )
 		{
-			$InstantUse = 0;
+			$InstantUse = false;
 		}
 		else
 		{
@@ -6045,13 +6232,15 @@ function setScrollMode ( %newMode )
 				PlayGui.hideToolBox (($HUD_NumToolSlots * 64) + 25, 20, 0);
 			}
 		}
+
 		if ( $pref::HUD::showToolTips )
 		{
 			ToolTip_Tools.setVisible (true);
 		}
+
 		if ( $InstantUse )
 		{
-			$InstantUse = 0;
+			$InstantUse = false;
 		}
 		else
 		{
@@ -6106,7 +6295,7 @@ function setScrollMode ( %newMode )
 		ToolTip_Tools.setVisible (false);
 	}
 
-	$InstantUse = 0;
+	$InstantUse = false;
 
 	return 1;
 }
@@ -6389,13 +6578,14 @@ function toggleSuperShift ( %val )
 	{
 		return;
 	}
+
 	if ( $pref::Input::UseSuperShiftToggle == 1 )
 	{
 		if ( %val )
 		{
 			$lastSuperShiftToggleTime = getSimTime ();
-			$SuperShift = !$SuperShift;
 
+			$SuperShift = !$SuperShift;
 			HUD_SuperShift.setVisible ($SuperShift);
 
 			$brickAway++;
@@ -6406,7 +6596,9 @@ function toggleSuperShift ( %val )
 			$brickDown++;
 			$brickThirdUp++;
 			$brickThirdDown++;
+
 			$brickPlant++;
+
 			$superBrickAway++;
 			$superBrickTowards++;
 			$superBrickLeft++;
@@ -6421,7 +6613,6 @@ function toggleSuperShift ( %val )
 			if ( %time > %minTime )
 			{
 				$SuperShift = !$SuperShift;
-
 				HUD_SuperShift.setVisible ($SuperShift);
 
 				$brickAway++;
@@ -6432,7 +6623,9 @@ function toggleSuperShift ( %val )
 				$brickDown++;
 				$brickThirdUp++;
 				$brickThirdDown++;
+
 				$brickPlant++;
+
 				$superBrickAway++;
 				$superBrickTowards++;
 				$superBrickLeft++;
@@ -6545,6 +6738,7 @@ function ToggleCursor ( %val )
 	{
 		return;
 	}
+
 	if ( $Pref::Chat::LineTime <= 0 )
 	{
 		if ( Canvas.isCursorOn () )
@@ -6554,6 +6748,7 @@ function ToggleCursor ( %val )
 
 		return;
 	}
+
 	if ( %val )
 	{
 		if ( Canvas.isCursorOn () )
@@ -6568,7 +6763,6 @@ function ToggleCursor ( %val )
 				MouseToolTip.setVisible (true);
 
 				%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
-
 				MouseToolTip.setValue ("\c6TIP: Press " @ %key @ " to toggle mouse and click on links");
 
 				%w = getWord (MouseToolTip.getExtent (), 0);
@@ -6585,27 +6779,32 @@ function ToggleCursor ( %val )
 }
 
 
-$Net_PacketSize[1] = 240;
+$Net_PacketSize[1]   = 240;
 $Net_RateToClient[1] = 16;
 $Net_RateToServer[1] = 20;
 $Net_LagThreshold[1] = 400;
-$Net_PacketSize[2] = 240;
+
+$Net_PacketSize[2]   = 240;
 $Net_RateToClient[2] = 16;
 $Net_RateToServer[2] = 20;
 $Net_LagThreshold[2] = 400;
-$Net_PacketSize[3] = 240;
+
+$Net_PacketSize[3]   = 240;
 $Net_RateToClient[3] = 16;
 $Net_RateToServer[3] = 20;
 $Net_LagThreshold[3] = 400;
-$Net_PacketSize[4] = 1023;
+
+$Net_PacketSize[4]   = 1023;
 $Net_RateToClient[4] = 32;
 $Net_RateToServer[4] = 32;
 $Net_LagThreshold[4] = 400;
-$Net_PacketSize[5] = 1023;
+
+$Net_PacketSize[5]   = 1023;
 $Net_RateToClient[5] = 32;
 $Net_RateToServer[5] = 32;
 $Net_LagThreshold[5] = 400;
-$Net_PacketSize[6] = 1023;
+
+$Net_PacketSize[6]   = 1023;
 $Net_RateToClient[6] = 32;
 $Net_RateToServer[6] = 32;
 $Net_LagThreshold[6] = 400;
@@ -6623,15 +6822,17 @@ function SetConnectionType ( %val )
 	{
 		CustomNetworkBlocker.setVisible (true);
 
-		$pref::Net::PacketSize = $Net_PacketSize[%val];
+		$pref::Net::PacketSize         = $Net_PacketSize[%val];
 		$pref::Net::PacketRateToClient = $Net_RateToClient[%val];
 		$pref::Net::PacketRateToServer = $Net_RateToServer[%val];
-		$Pref::Net::LagThreshold = $Net_LagThreshold[%val];
+		$Pref::Net::LagThreshold       = $Net_LagThreshold[%val];
 
 		PacketSizeDisplay.setValue ($pref::Net::PacketSize);
 		SliderPacketSize.setValue ($pref::Net::PacketSize);
+
 		LagThresholdDisplay.setValue ($Pref::Net::LagThreshold);
 		SliderLagThreshold.setValue ($Pref::Net::LagThreshold);
+
 		RateToClientDisplay.setValue ($pref::Net::PacketRateToClient);
 		SliderRateToClient.setValue ($pref::Net::PacketRateToClient);
 		RateToServerDisplay.setValue ($pref::Net::PacketRateToServer);
@@ -6640,14 +6841,18 @@ function SetConnectionType ( %val )
 	else
 	{
 		CustomNetworkBlocker.setVisible (false);
+
 		PacketSizeDisplay.setValue ($pref::Net::Custom::PacketSize);
 		SliderPacketSize.setValue ($pref::Net::Custom::PacketSize);
+
 		LagThresholdDisplay.setValue ($pref::Net::Custom::LagThreshold);
 		SliderLagThreshold.setValue ($pref::Net::Custom::LagThreshold);
+
 		RateToClientDisplay.setValue ($pref::Net::Custom::PacketRateToClient);
 		SliderRateToClient.setValue ($pref::Net::Custom::PacketRateToClient);
 		RateToServerDisplay.setValue ($pref::Net::Custom::PacketRateToServer);
 		SliderRateToServer.setValue ($pref::Net::Custom::PacketRateToServer);
+
 		UpdatePacketSize ();
 		UpdateLagThreshold ();
 		UpdateRateToClient ();
@@ -6733,16 +6938,16 @@ function OPT_ChatSizeSlide ()
 
 function OPT_SetChatSize ( %val )
 {
-	%maxHeight[0] = 16;
-	%maxHeight[1] = 18;
-	%maxHeight[2] = 20;
-	%maxHeight[3] = 22;
-	%maxHeight[4] = 24;
-	%maxHeight[5] = 26;
-	%maxHeight[6] = 28;
-	%maxHeight[7] = 30;
-	%maxHeight[8] = 32;
-	%maxHeight[9] = 34;
+	%maxHeight[0]  = 16;
+	%maxHeight[1]  = 18;
+	%maxHeight[2]  = 20;
+	%maxHeight[3]  = 22;
+	%maxHeight[4]  = 24;
+	%maxHeight[5]  = 26;
+	%maxHeight[6]  = 28;
+	%maxHeight[7]  = 30;
+	%maxHeight[8]  = 32;
+	%maxHeight[9]  = 34;
 	%maxHeight[10] = 36;
 
 	if ( %val >= 0 && %val <= 10 )
@@ -6751,14 +6956,15 @@ function OPT_SetChatSize ( %val )
 
 		ExampleChat.setProfile ("HUDChatTextEditSize" @ %val @ "Profile");
 		ExampleChat.setText ("<just:center>Example Chat\n");
+
 		NMH_Type.setProfile ("HUDChatTextEditSize" @ %val @ "Profile");
 		NMH_Channel.setProfile ("BlockChatChannelSize" @ %val @ "Profile");
 
 		if ( isObject ($NewChatSO) )
 		{
 			$NewChatSO.textObj.maxBitmapHeight = %maxHeight[%val];
-
 			$NewChatSO.textObj.setProfile ("BlockChatTextSize" @ %val @ "Profile");
+
 			$NewChatSO.update ();
 		}
 	}
@@ -6866,6 +7072,7 @@ function optionsDlg::setTextureQuality ( %this, %val )
 	{
 		%val = 0;
 	}
+
 	if ( %val > 5 )
 	{
 		%val = 5;
@@ -6875,48 +7082,58 @@ function optionsDlg::setTextureQuality ( %this, %val )
 
 	if ( %val == 0 )
 	{
-		$pref::Terrain::texDetail = 0;
+		$pref::Terrain::texDetail  = 0;
 		$pref::Interior::texdetail = 0;
-		$pref::OpenGL::texDetail = 0;
+
+		$pref::OpenGL::texDetail    = 0;
 		$pref::OpenGL::skyTexDetail = 0;
-		$pref::Terrain::enableDetails = 1;
-		$pref::Terrain::enableEmbossBumps = 1;
+
+		$pref::Terrain::enableDetails     = true;
+		$pref::Terrain::enableEmbossBumps = true;
 	}
 	else if ( %val == 1 )
 	{
-		$pref::Terrain::texDetail = 0;
+		$pref::Terrain::texDetail  = 0;
 		$pref::Interior::texdetail = 0;
-		$pref::OpenGL::texDetail = 0;
+
+		$pref::OpenGL::texDetail    = 0;
 		$pref::OpenGL::skyTexDetail = 0;
-		$pref::Terrain::enableDetails = 0;
-		$pref::Terrain::enableEmbossBumps = 0;
+
+		$pref::Terrain::enableDetails     = false;
+		$pref::Terrain::enableEmbossBumps = false;
 	}
 	else if ( %val == 2 )
 	{
-		$pref::Terrain::texDetail = 1;
+		$pref::Terrain::texDetail  = 1;
 		$pref::Interior::texdetail = 1;
-		$pref::OpenGL::texDetail = 1;
+
+		$pref::OpenGL::texDetail    = 1;
 		$pref::OpenGL::skyTexDetail = 1;
-		$pref::Terrain::enableDetails = 0;
-		$pref::Terrain::enableEmbossBumps = 0;
+
+		$pref::Terrain::enableDetails     = false;
+		$pref::Terrain::enableEmbossBumps = false;
 	}
 	else if ( %val == 3 )
 	{
-		$pref::Terrain::texDetail = 2;
+		$pref::Terrain::texDetail  = 2;
 		$pref::Interior::texdetail = 2;
-		$pref::OpenGL::texDetail = 2;
+
+		$pref::OpenGL::texDetail    = 2;
 		$pref::OpenGL::skyTexDetail = 2;
-		$pref::Terrain::enableDetails = 0;
-		$pref::Terrain::enableEmbossBumps = 0;
+
+		$pref::Terrain::enableDetails     = false;
+		$pref::Terrain::enableEmbossBumps = false;
 	}
 	else if ( %val == 4 )
 	{
-		$pref::Terrain::texDetail = 4;
+		$pref::Terrain::texDetail  = 4;
 		$pref::Interior::texdetail = 4;
-		$pref::OpenGL::texDetail = 4;
+
+		$pref::OpenGL::texDetail    = 4;
 		$pref::OpenGL::skyTexDetail = 4;
-		$pref::Terrain::enableDetails = 0;
-		$pref::Terrain::enableEmbossBumps = 0;
+
+		$pref::Terrain::enableDetails     = false;
+		$pref::Terrain::enableEmbossBumps = false;
 	}
 }
 
@@ -6926,6 +7143,7 @@ function optionsDlg::setParticleQuality ( %this, %val )
 	{
 		%val = 0;
 	}
+
 	if ( %val > 5 )
 	{
 		%val = 5;
@@ -6958,11 +7176,30 @@ function optionsDlg::setParticleQuality ( %this, %val )
 function optionsDlg::UpdateAvailableShaders ( %this )
 {
 	%glMajorVersion = getSubStr (getGLVersion (), 0, 1);
-	%shaderVersion = getSubStr (getShaderVersion (), 0, 3);
-	%haveMinimum = %shaderVersion >= 1.2 && %glMajorVersion >= 2 && GLEW_ARB_shader_objects () && GLEW_ARB_shading_language_100 ();
+	%shaderVersion  = getSubStr (getShaderVersion (), 0, 3);
+
+	%haveMinimum = %shaderVersion >= 1.2
+	            && %glMajorVersion >= 2
+	            && GLEW_ARB_shader_objects ()
+	            && GLEW_ARB_shading_language_100 ();
+
 	OPT_ShaderQuality1.enabled = %haveMinimum;
-	%haveCompatibility = %shaderVersion >= 1.2 && %glMajorVersion >= 2 && GLEW_ARB_shader_objects () && GLEW_ARB_shading_language_100 () && GLEW_EXT_framebuffer_object () && GLEW_ARB_shadow ();
-	%haveCSM = %shaderVersion >= 1.2 && %glMajorVersion >= 2 && GLEW_ARB_shader_objects () && GLEW_ARB_shading_language_100 () && GLEW_EXT_texture_array () && (GLEW_EXT_texture3D () || glTexImage3D ()) && GLEW_EXT_framebuffer_object () && GLEW_ARB_shadow ();
+
+	%haveCompatibility = %shaderVersion >= 1.2
+	                  && %glMajorVersion >= 2
+	                  && GLEW_ARB_shader_objects ()
+	                  && GLEW_ARB_shading_language_100 ()
+	                  && GLEW_EXT_framebuffer_object ()
+	                  && GLEW_ARB_shadow ();
+
+	%haveCSM = %shaderVersion >= 1.2
+	        && %glMajorVersion >= 2
+	        && GLEW_ARB_shader_objects ()
+	        && GLEW_ARB_shading_language_100 ()
+	        && GLEW_EXT_texture_array ()
+	        && (GLEW_EXT_texture3D () || glTexImage3D ())
+	        && GLEW_EXT_framebuffer_object () && GLEW_ARB_shadow ();
+
 	OPT_ShaderQuality2.enabled = %haveCSM;
 	OPT_ShaderQuality3.enabled = %haveCSM;
 	OPT_ShaderQuality4.enabled = %haveCSM;
@@ -6985,108 +7222,122 @@ function optionsDlg::setShaderQuality ( %this, %val )
 
 	$Pref::ShaderQuality = %val;
 
-	if ( $Pref::ShaderQuality == 0 )
+	switch ( $Pref::ShaderQuality )
 	{
-		$Shader::Enabled = 0;
-		$Shader::ShadowCount = 0;
-		$Shader::ShadowSize = 0;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 0;
-		$Shader::DynamicShadows2 = 0;
-		$Shader::DynamicShadows3 = 0;
+		case 0:
+			$Shader::Enabled = false;
+
+			$Shader::ShadowCount = 0;
+			$Shader::ShadowSize  = 0;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = false;
+			$Shader::DynamicShadows2 = false;
+			$Shader::DynamicShadows3 = false;
+
+		case 1:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "minimum";
+			$Shader::ShadowCount = 0;
+			$Shader::ShadowSize  = 0;
+
+			$Shader::DynamicShadows0 = false;
+			$Shader::DynamicShadows1 = false;
+			$Shader::DynamicShadows2 = false;
+			$Shader::DynamicShadows3 = false;
+
+		case 2:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 2;
+			$Shader::ShadowSize  = 1024;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = false;
+			$Shader::DynamicShadows2 = false;
+			$Shader::DynamicShadows3 = false;
+
+		case 3:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 2;
+			$Shader::ShadowSize  = 2048;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = true;
+			$Shader::DynamicShadows2 = false;
+			$Shader::DynamicShadows3 = false;
+
+		case 4:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 4;
+			$Shader::ShadowSize  = 2048;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = true;
+			$Shader::DynamicShadows2 = true;
+			$Shader::DynamicShadows3 = false;
+
+		case 5:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 3;
+			$Shader::ShadowSize  = 4096;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = true;
+			$Shader::DynamicShadows2 = true;
+			$Shader::DynamicShadows3 = true;
+
+		case 6:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 4;
+			$Shader::ShadowSize  = 4096;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = true;
+			$Shader::DynamicShadows2 = true;
+			$Shader::DynamicShadows3 = true;
+
+		case 7:
+			$Shader::Enabled = true;
+
+			$Shader::ShaderName  = "renderCsm";
+			$Shader::ShadowCount = 4;
+			$Shader::ShadowSize  = 8192;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = true;
+			$Shader::DynamicShadows2 = true;
+			$Shader::DynamicShadows3 = true;
+
+		default:
+			$Shader::Enabled = false;
+
+			$Shader::ShadowCount = 0;
+			$Shader::ShadowSize  = 0;
+
+			$Shader::DynamicShadows0 = true;
+			$Shader::DynamicShadows1 = false;
+			$Shader::DynamicShadows2 = false;
+			$Shader::DynamicShadows3 = false;
 	}
-	else if ( $Pref::ShaderQuality == 1 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "minimum";
-		$Shader::ShadowCount = 0;
-		$Shader::ShadowSize = 0;
-		$Shader::DynamicShadows0 = 0;
-		$Shader::DynamicShadows1 = 0;
-		$Shader::DynamicShadows2 = 0;
-		$Shader::DynamicShadows3 = 0;
-	}
-	else if ( $Pref::ShaderQuality == 2 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 2;
-		$Shader::ShadowSize = 1024;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 0;
-		$Shader::DynamicShadows2 = 0;
-		$Shader::DynamicShadows3 = 0;
-	}
-	else if ( $Pref::ShaderQuality == 3 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 2;
-		$Shader::ShadowSize = 2048;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 1;
-		$Shader::DynamicShadows2 = 0;
-		$Shader::DynamicShadows3 = 0;
-	}
-	else if ( $Pref::ShaderQuality == 4 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 4;
-		$Shader::ShadowSize = 2048;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 1;
-		$Shader::DynamicShadows2 = 1;
-		$Shader::DynamicShadows3 = 0;
-	}
-	else if ( $Pref::ShaderQuality == 5 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 3;
-		$Shader::ShadowSize = 4096;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 1;
-		$Shader::DynamicShadows2 = 1;
-		$Shader::DynamicShadows3 = 1;
-	}
-	else if ( $Pref::ShaderQuality == 6 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 4;
-		$Shader::ShadowSize = 4096;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 1;
-		$Shader::DynamicShadows2 = 1;
-		$Shader::DynamicShadows3 = 1;
-	}
-	else if ( $Pref::ShaderQuality == 7 )
-	{
-		$Shader::Enabled = 1;
-		$Shader::ShaderName = "renderCsm";
-		$Shader::ShadowCount = 4;
-		$Shader::ShadowSize = 8192;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 1;
-		$Shader::DynamicShadows2 = 1;
-		$Shader::DynamicShadows3 = 1;
-	}
-	else
-	{
-		$Shader::Enabled = 0;
-		$Shader::ShadowCount = 0;
-		$Shader::ShadowSize = 0;
-		$Shader::DynamicShadows0 = 1;
-		$Shader::DynamicShadows1 = 0;
-		$Shader::DynamicShadows2 = 0;
-		$Shader::DynamicShadows3 = 0;
-	}
+
 	if ( PlayGui.isAwake () || noHudGui.isAwake () )
 	{
 		echo ("optionsDlg::setShaderQuality reloading shaders...");
+
 		initializeShaderAssets ();
 		regenerateShadowMapFBOs ();
+
 		flushVBOCache ();
 	}
 }
@@ -7097,6 +7348,7 @@ function optionsDlg::setLightingQuality ( %this, %val )
 	{
 		%val = 0;
 	}
+
 	if ( %val > 5 )
 	{
 		%val = 5;
@@ -7106,27 +7358,27 @@ function optionsDlg::setLightingQuality ( %this, %val )
 
 	if ( %val == 4 )
 	{
-		$pref::OpenGL::maxDynLights = 2;
+		$pref::OpenGL::maxDynLights      = 2;
 		$pref::OpenGL::maxHardwareLights = 3;
 	}
 	else if ( %val == 3 )
 	{
-		$pref::OpenGL::maxDynLights = 4;
+		$pref::OpenGL::maxDynLights      = 4;
 		$pref::OpenGL::maxHardwareLights = 4;
 	}
 	else if ( %val == 2 )
 	{
-		$pref::OpenGL::maxDynLights = 5;
+		$pref::OpenGL::maxDynLights      = 5;
 		$pref::OpenGL::maxHardwareLights = 6;
 	}
 	else if ( %val == 1 )
 	{
-		$pref::OpenGL::maxDynLights = 6;
+		$pref::OpenGL::maxDynLights      = 6;
 		$pref::OpenGL::maxHardwareLights = 8;
 	}
 	else if ( %val == 0 )
 	{
-		$pref::OpenGL::maxDynLights = 10;
+		$pref::OpenGL::maxDynLights      = 10;
 		$pref::OpenGL::maxHardwareLights = 8;
 	}
 }
@@ -7137,6 +7389,7 @@ function optionsDlg::setPhysicsQuality ( %this, %val )
 	{
 		%val = 0;
 	}
+
 	if ( %val > 5 )
 	{
 		%val = 5;
@@ -7146,27 +7399,27 @@ function optionsDlg::setPhysicsQuality ( %this, %val )
 
 	if ( %val == 4 )
 	{
-		$pref::Physics::Enabled = 0;
+		$pref::Physics::Enabled   = false;
 		$pref::Physics::MaxBricks = 1;
 	}
 	else if ( %val == 3 )
 	{
-		$pref::Physics::Enabled = 1;
+		$pref::Physics::Enabled   = true;
 		$pref::Physics::MaxBricks = 25;
 	}
 	else if ( %val == 2 )
 	{
-		$pref::Physics::Enabled = 1;
+		$pref::Physics::Enabled   = true;
 		$pref::Physics::MaxBricks = 50;
 	}
 	else if ( %val == 1 )
 	{
-		$pref::Physics::Enabled = 1;
+		$pref::Physics::Enabled   = true;
 		$pref::Physics::MaxBricks = 100;
 	}
 	else if ( %val == 0 )
 	{
-		$pref::Physics::Enabled = 1;
+		$pref::Physics::Enabled   = true;
 		$pref::Physics::MaxBricks = 300;
 	}
 
@@ -7179,6 +7432,7 @@ function optionsDlg::setBrickFXQuality ( %this, %val )
 	{
 		%val = 0;
 	}
+
 	if ( %val > 5 )
 	{
 		%val = 5;
@@ -7227,12 +7481,14 @@ function ToggleShapeNameHud ( %val )
 		{
 			PlayGui_ShapeNameHud.setVisible (false);
 			NoHudGui_ShapeNameHud.setVisible (false);
+
 			Crosshair.setVisible (false);
 		}
 		else
 		{
 			PlayGui_ShapeNameHud.setVisible (true);
 			NoHudGui_ShapeNameHud.setVisible (true);
+
 			Crosshair.setVisible (true);
 		}
 	}
@@ -7308,25 +7564,23 @@ function optionsDlg::updateDrawDistanceBlocker ()
 function optionsDlg::updateMaxViewDistance ( %this )
 {
 	$pref::visibleDistanceMax = SliderGraphicsDistanceMax.getValue ();
-
 	setMaxViewDistance ($pref::visibleDistanceMax);
 }
 
 function optionsDlg::updateFOV ( %this )
 {
 	$pref::Player::defaultFov = SliderDefaultFOV.getValue ();
-
 	setFov ($pref::Player::defaultFov);
 }
 
 function optionsDlg::clickLatencyOption ( %this )
 {
-	$pref::OpenGL::UsePreGLFinish = Opt_PreFinish.getValue ();
-	$pref::OpenGL::UsePreGLFlush = Opt_PreFlush.getValue ();
+	$pref::OpenGL::UsePreGLFinish  = Opt_PreFinish.getValue ();
+	$pref::OpenGL::UsePreGLFlush   = Opt_PreFlush.getValue ();
 	$pref::OpenGL::UsePostGLFinish = Opt_PostFinish.getValue ();
-	$pref::OpenGL::UsePostGLFlush = Opt_PostFlush.getValue ();
+	$pref::OpenGL::UsePostGLFlush  = Opt_PostFlush.getValue ();
 }
-
+// ->>> Bookmark
 function PlayGui::onWake ( %this )
 {
 	$enableDirectInput = 1;
@@ -7355,7 +7609,7 @@ function PlayGui::onRender ( %this )
 	if ( isFullScreen () )
 	{
 		%oldShaderEnabled = $Shader::Enabled;
-		$Shader::Enabled = 0;
+		$Shader::Enabled = false;
 
 		flushTextureCache ();
 		regenerateShadowMapFBOs ();
@@ -23781,7 +24035,7 @@ if ( getBuildString () $= "Debug" )
 function togFullScreen ()
 {
 	%oldShaderEnabled = $Shader::Enabled;
-	$Shader::Enabled = 0;
+	$Shader::Enabled = false;
 
 	Canvas.repaint ();
 	toggleFullScreen ();
