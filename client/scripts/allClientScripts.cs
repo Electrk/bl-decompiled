@@ -234,6 +234,7 @@ function getLine ( %phrase, %lineNum )
 		}
 
 		%lineCount++;
+
 		%offset = %pos + 1;
 
 		if ( %pos == -1 )
@@ -2101,7 +2102,7 @@ function CreateMiniGameGui::LoadDataBlocks ()
 
 		%obj.clear ();
 		%obj.add (" NONE", 0);
-		%obj.setSelected (0);
+		%obj.setSelected (false);
 	}
 
 	%dbCount = getDataBlockGroupSize ();
@@ -3006,7 +3007,7 @@ function GameConnection::onConnectRequestRejected ( %this, %msg )
 	{
 		if ( $connectArg || $Connection::Reconnecting )
 		{
-			$JoinNetServer = true;
+			$JoinNetServer = 1;
 
 			$ServerInfo::Ping    = "???";
 			$ServerInfo::Address = $connectArg;
@@ -3773,7 +3774,7 @@ function OptGraphicsResolutionMenu::onSelect ( %this, %id, %text )
 	if ( !OptGraphicsFullscreenToggle.getValue () )
 	{
 		OptGraphicsHzMenu.add ("Default", 0);
-		OptGraphicsHzMenu.setSelected (0);
+		OptGraphicsHzMenu.setSelected (false);
 
 		return;
 	}
@@ -7580,16 +7581,19 @@ function optionsDlg::clickLatencyOption ( %this )
 	$pref::OpenGL::UsePostGLFinish = Opt_PostFinish.getValue ();
 	$pref::OpenGL::UsePostGLFlush  = Opt_PostFlush.getValue ();
 }
-// ->>> Bookmark
+
 function PlayGui::onWake ( %this )
 {
-	$enableDirectInput = 1;
-
+	$enableDirectInput = true;
 	activateDirectInput ();
+
 	Canvas.pushDialog (NewChatHud);
+
 	moveMap.push ();
+
 	schedule (0, 0, "refreshCenterTextCtrl");
 	schedule (0, 0, "refreshBottomTextCtrl");
+
 	HUD_SuperShift.setVisible ($SuperShift);
 
 	if ( LoadingGui.wasTyping )
@@ -7609,13 +7613,14 @@ function PlayGui::onRender ( %this )
 	if ( isFullScreen () )
 	{
 		%oldShaderEnabled = $Shader::Enabled;
-		$Shader::Enabled = false;
+		$Shader::Enabled  = false;
 
 		flushTextureCache ();
 		regenerateShadowMapFBOs ();
 
 		$Shader::Enabled = %oldShaderEnabled;
 	}
+
 	if ( $Shader::Enabled )
 	{
 		initializeShaderAssets ();
@@ -7644,14 +7649,17 @@ function PlayGui::killInvHud ( %this )
 	{
 		cancel (HUD_BrickBox.moveSchedule);
 	}
+
 	if ( isObject (HUD_BrickBox) )
 	{
 		HUD_BrickBox.delete ();
 	}
+
 	if ( isObject (HUD_BrickNameBG) )
 	{
 		HUD_BrickNameBG.delete ();
 	}
+
 	if ( isObject (HUD_BrickName) )
 	{
 		HUD_BrickName.delete ();
@@ -7663,22 +7671,26 @@ function PlayGui::createInvHUD ( %this )
 	%this.killInvHud ();
 
 	%numSlots = $BSD_NumInventorySlots;
-	%res = getRes ();
-	%screenWidth = getWord (%res, 0);
+
+	%res          = getRes ();
+	%screenWidth  = getWord (%res, 0);
 	%screenHeight = getWord (%res, 1);
-	%iconWidth = mFloor (%screenWidth / $BSD_NumInventorySlots);
+	%iconWidth    = mFloor (%screenWidth / $BSD_NumInventorySlots);
 
 	if ( %iconWidth > 64 )
 	{
 		%iconWidth = 64;
 	}
 
-	%bottomSpace = 0;
+	%bottomSpace  = 0;
 	%iconBoxWidth = $BSD_NumInventorySlots * %iconWidth;
-	%newBox = new GuiSwatchCtrl ("");
+
+	%newBox = new GuiSwatchCtrl ();
 
 	%newBox.setName ("Hud_BrickBox");
+
 	PlayGui.add (%newBox);
+
 	%newBox.setProfile (HUDBitmapProfile);
 	%newBox.setColor ("0 0 0 0.25");
 
@@ -7688,11 +7700,12 @@ function PlayGui::createInvHUD ( %this )
 	%h = %iconWidth;
 
 	%newBox.resize (%x, %y, %w, %h);
-
 	%newBox.horizSizing = "Center";
-	%newActive = new GuiBitmapCtrl ("");
+
+	%newActive = new GuiBitmapCtrl ();
 
 	HUD_BrickBox.add (%newActive);
+
 	%newActive.setProfile (HUDBitmapProfile);
 	%newActive.setBitmap ("base/client/ui/brickActive");
 	%newActive.setBitmap ("base/client/ui/brickIcons/brickIconActive");
@@ -7708,9 +7721,10 @@ function PlayGui::createInvHUD ( %this )
 
 	for ( %i = 0; %i < %numSlots; %i++ )
 	{
-		%newSwatch = new GuiSwatchCtrl ("");
+		%newSwatch = new GuiSwatchCtrl ();
 
 		HUD_BrickBox.add (%newSwatch);
+
 		%newSwatch.setProfile (HUDBitmapProfile);
 		%newSwatch.setColor ("0 0 0 0.25");
 
@@ -7721,9 +7735,10 @@ function PlayGui::createInvHUD ( %this )
 
 		%newSwatch.resize (%x, %y, %w, %h);
 
-		%newIcon = new GuiBitmapCtrl ("");
+		%newIcon = new GuiBitmapCtrl ();
 
 		HUD_BrickBox.add (%newIcon);
+
 		%newIcon.setProfile (HUDBitmapProfile);
 
 		if ( isObject ($InvData[%i]) )
@@ -7750,17 +7765,19 @@ function PlayGui::createInvHUD ( %this )
 		if ( $pref::Hud::RecolorBrickIcons )
 		{
 			%color = getColorIDTable ($currSprayCanIndex);
-			%RGB = getWords (%color, 0, 2);
-			%a = mClampF (getWord (%color, 3), 0.1, 1);
+			%RGB   = getWords (%color, 0, 2);
+			%a     = mClampF (getWord (%color, 3), 0.1, 1);
 			%color = %RGB SPC %a;
 
 			$HUD_BrickIcon[%i].setColor (%color);
 		}
+
 		if ( $pref::Gui::ShowBrickSlotNumbers )
 		{
-			%newText = new GuiTextCtrl ("");
+			%newText = new GuiTextCtrl ();
 
 			HUD_BrickBox.add (%newText);
+
 			%newText.setProfile (HUDBrickNameProfile);
 			%newText.setText ((%i + 1) % 10);
 
@@ -7773,9 +7790,10 @@ function PlayGui::createInvHUD ( %this )
 		}
 	}
 
-	%newSwatch = new GuiSwatchCtrl ("");
+	%newSwatch = new GuiSwatchCtrl ();
 
 	PlayGui.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBrickNameProfile);
 	%newSwatch.setColor ("0.0 0.0 0.5 0.0");
 
@@ -7787,23 +7805,26 @@ function PlayGui::createInvHUD ( %this )
 	%newSwatch.resize (%x, %y, %w, %h);
 	%newSwatch.setName ("HUD_BrickNameBG");
 
-	%newCorner = new GuiBitmapCtrl ("");
+	%newCorner = new GuiBitmapCtrl ();
 
 	HUD_BrickNameBG.add (%newCorner);
+
 	%newCorner.setProfile (HUDBitmapProfile);
 	%newCorner.setBitmap ("base/client/ui/BlueHudLeftCorner");
 	%newCorner.resize (0, 0, 10, 18);
 
-	%newCorner = new GuiBitmapCtrl ("");
+	%newCorner = new GuiBitmapCtrl ();
 
 	HUD_BrickNameBG.add (%newCorner);
+
 	%newCorner.setProfile (HUDBitmapProfile);
 	%newCorner.setBitmap ("base/client/ui/BlueHudRightCorner");
 	%newCorner.resize (%iconBoxWidth - 10, 0, 10, 18);
 
-	%newSwatch = new GuiSwatchCtrl ("");
+	%newSwatch = new GuiSwatchCtrl ();
 
 	HUD_BrickNameBG.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBrickNameProfile);
 	%newSwatch.setColor ("0 0 0.5 0.5");
 
@@ -7814,9 +7835,10 @@ function PlayGui::createInvHUD ( %this )
 
 	%newSwatch.resize (%x, %y, %w, %h);
 
-	%newText = new GuiTextCtrl ("");
+	%newText = new GuiTextCtrl ();
 
 	HUD_BrickNameBG.add (%newText);
+
 	%newText.setProfile (HUDBrickNameProfile);
 
 	%w = %iconBoxWidth;
@@ -7827,13 +7849,13 @@ function PlayGui::createInvHUD ( %this )
 	%newText.resize (%x, %y, %w, %h);
 	%newText.setName ("HUD_BrickName");
 
-	%newText = new GuiTextCtrl ("");
+	%newText = new GuiTextCtrl ();
 
 	HUD_BrickNameBG.add (%newText);
+
 	%newText.setProfile (HUDRightTextProfile);
 
 	%key = strupr (getWord (moveMap.getBinding ("openBSD"), 1));
-
 	%newText.setText ("Press" SPC %key SPC "for more bricks   ");
 
 	%x = 0;
@@ -7844,9 +7866,10 @@ function PlayGui::createInvHUD ( %this )
 	%newText.resize (%x, %y, %w, %h);
 	%newText.setName ("ToolTip_BSD");
 
-	%newText = new GuiTextCtrl ("");
+	%newText = new GuiTextCtrl ();
 
 	HUD_BrickNameBG.add (%newText);
+
 	%newText.setProfile (HUDLeftTextProfile);
 
 	%key = strupr (getWord (moveMap.getBinding ("useBricks"), 1)) SPC "or";
@@ -7883,6 +7906,7 @@ function PlayGui::createInvHUD ( %this )
 	{
 		$CurrScrollBrickSlot = 0;
 	}
+
 	if ( $ScrollMode != $SCROLLMODE_BRICKS && $pref::HUD::HideBrickBox )
 	{
 		if ( $pref::HUD::showToolTips )
@@ -7907,9 +7931,10 @@ function PlayGui::hideBrickBox ( %this, %dist, %totalSteps, %currStep )
 	{
 		return;
 	}
+
 	if ( %currStep == %totalSteps - 1 )
 	{
-		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
+		%sum      = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
 		%stepDist = %dist - %sum;
 	}
 	else
@@ -7918,8 +7943,11 @@ function PlayGui::hideBrickBox ( %this, %dist, %totalSteps, %currStep )
 	}
 
 	%pos = getWord (HUD_BrickBox.position, 1) + %stepDist;
-	HUD_BrickBox.position = getWord (HUD_BrickBox.position, 0) SPC %pos;
-	HUD_BrickNameBG.position = getWord (HUD_BrickNameBG.position, 0) SPC %pos - getWord (HUD_BrickNameBG.extent, 1);
+
+	HUD_BrickBox.position    = getWord (HUD_BrickBox.position, 0) SPC %pos;
+	HUD_BrickNameBG.position = getWord (HUD_BrickNameBG.position, 0)
+		SPC %pos - getWord (HUD_BrickNameBG.extent, 1);
+
 	HUD_BrickBox.moveSchedule = PlayGui.schedule (10, hideBrickBox, %dist, %totalSteps, %currStep + 1);
 }
 
@@ -7933,9 +7961,11 @@ function PlayGui::loadPaint ( %this )
 	%this.killpaint ();
 
 	%swatchSize = 16;
-	%res = getRes ();
-	%screenWidth = getWord (%res, 0);
+
+	%res          = getRes ();
+	%screenWidth  = getWord (%res, 0);
 	%screenHeight = getWord (%res, 1);
+
 	%numDivs = 0;
 
 	for ( %i = 0; %i < 16; %i++ )
@@ -7951,19 +7981,20 @@ function PlayGui::loadPaint ( %this )
 	}
 
 	%numDivs++;
-	%lastDivStart = -1;
+
+	%lastDivStart   = -1;
 	%largestDivSize = 3;
 
 	for ( %i = 0; %i < %numDivs; %i++ )
 	{
 		%currDivSize = getSprayCanDivisionSlot (%i) - %lastDivStart;
-		$Paint_Row[%i] = new ScriptObject (PaintRow);
+
+		$Paint_Row[%i]             = new ScriptObject (PaintRow);
 		$Paint_Row[%i].numSwatches = %currDivSize;
 
 		if ( !isObject ("PaintRowGroup") )
 		{
 			new SimGroup ("PaintRowGroup");
-
 			RootGroup.add ("PaintRowGroup");
 		}
 
@@ -7979,14 +8010,17 @@ function PlayGui::loadPaint ( %this )
 
 	$Paint_NumPaintRows = %numDivs;
 	$Paint_NumPaintRows = %numDivs;
-	$Paint_Row[$Paint_NumPaintRows - 1].numSwatches = 8 + 1;
-	%sideSpace = 0;
-	%bottomSpace = 0;
-	%boxWidth = (%numDivs * (%swatchSize + 1)) + 1;
-	%boxHeight = (%largestDivSize * (%swatchSize + 1)) + 1;
-	%newBox = new GuiSwatchCtrl ("");
 
+	$Paint_Row[$Paint_NumPaintRows - 1].numSwatches = 8 + 1;
+
+	%sideSpace   = 0;
+	%bottomSpace = 0;
+	%boxWidth    = (%numDivs * (%swatchSize + 1)) + 1;
+	%boxHeight   = (%largestDivSize * (%swatchSize + 1)) + 1;
+
+	%newBox = new GuiSwatchCtrl ();
 	%this.add (%newBox);
+
 	%newBox.setProfile (HUDBitmapProfile);
 	%newBox.setColor ("0 0 0 0.0");
 
@@ -7998,9 +8032,9 @@ function PlayGui::loadPaint ( %this )
 	%newBox.resize (%x, %y, %w, %h);
 	%newBox.setName ("HUD_PaintBox");
 
-	%newBmp = new GuiBitmapCtrl ("");
-
+	%newBmp = new GuiBitmapCtrl ();
 	%newBox.add (%newBmp);
+
 	%newBmp.setProfile (HUDBitmapProfile);
 	%newBmp.setBitmap ("base/client/ui/paintLabelBG");
 
@@ -8011,13 +8045,14 @@ function PlayGui::loadPaint ( %this )
 
 	%newBmp.resize (%x, %y, %w, %h);
 
-	%newBmp = new GuiBitmapCtrl ("");
-
+	%newBmp = new GuiBitmapCtrl ();
 	%newBox.add (%newBmp);
+
 	%newBmp.setProfile (HUDBitmapProfile);
 	%newBmp.setBitmap ("base/client/ui/paintLabelBGLoop");
 
 	%newBmp.wrap = 1;
+
 	%x = %boxWidth - 14;
 	%y = 100;
 	%w = 100;
@@ -8025,9 +8060,9 @@ function PlayGui::loadPaint ( %this )
 
 	%newBmp.resize (%x, %y, %w, %h);
 
-	%newBmp = new GuiBitmapCtrl ("");
-
+	%newBmp = new GuiBitmapCtrl ();
 	%newBox.add (%newBmp);
+
 	%newBmp.setProfile (HUDBitmapProfile);
 	%newBmp.setBitmap ("base/client/ui/paintLabel");
 
@@ -8050,9 +8085,9 @@ function PlayGui::loadPaint ( %this )
 
 	HUD_PaintIcon.setColor (getColorIDTable (%canIndex));
 
-	%newBmp = new GuiBitmapCtrl ("");
-
+	%newBmp = new GuiBitmapCtrl ();
 	%newBox.add (%newBmp);
+
 	%newBmp.setProfile (HUDBitmapProfile);
 	%newBmp.setBitmap ("base/client/ui/paintLabelTop");
 
@@ -8063,9 +8098,9 @@ function PlayGui::loadPaint ( %this )
 
 	%newBmp.resize (%x, %y, %w, %h);
 
-	%newSwatch = new GuiSwatchCtrl ("");
-
+	%newSwatch = new GuiSwatchCtrl ();
 	%newBox.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBitmapProfile);
 	%newSwatch.setColor ("0 0 0 0.25");
 
@@ -8081,23 +8116,24 @@ function PlayGui::loadPaint ( %this )
 	for ( %i = 0; %i < 64; %i++ )
 	{
 		%color = getColorIDTable (%i);
-		%red = getWord (%color, 0);
+		%red   = getWord (%color, 0);
 		%green = getWord (%color, 1);
-		%blue = getWord (%color, 2);
+		%blue  = getWord (%color, 2);
 		%alpha = getWord (%color, 3);
 
 		if ( %red == 0 && %green == 0 && %blue == 0 && %alpha == 0 )
 		{
 			break;
 		}
+
 		if ( getSprayCanDivisionSlot (%currDiv) != 0 && %i > getSprayCanDivisionSlot (%currDiv) )
 		{
 			%currDiv++;
 		}
 
-		%newSwatch = new GuiSwatchCtrl ("");
-
+		%newSwatch = new GuiSwatchCtrl ();
 		%newBox.add (%newSwatch);
+
 		%newSwatch.setProfile (BlockDefaultProfile);
 		%newSwatch.setColor (%color);
 
@@ -8122,9 +8158,10 @@ function PlayGui::loadPaint ( %this )
 
 	%count = -1;
 	%count++;
-	%newSwatch = new GuiSwatchCtrl ("");
 
+	%newSwatch = new GuiSwatchCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("0.2 0.2 0.2 1.0");
 
@@ -8134,12 +8171,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXpearl.png");
@@ -8150,12 +8188,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXchrome.png");
@@ -8166,12 +8205,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXglow.png");
@@ -8182,12 +8222,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXblink.png");
@@ -8198,12 +8239,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXswirl.png");
@@ -8214,12 +8256,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXrainbow.png");
@@ -8230,12 +8273,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXstable.png");
@@ -8246,12 +8290,13 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%count++;
-	%newSwatch = new GuiBitmapCtrl ("");
 
+	%count++;
+
+	%newSwatch = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newSwatch);
+
 	%newSwatch.setProfile (BlockDefaultProfile);
 	%newSwatch.setColor ("1 1 1 1");
 	%newSwatch.setBitmap ("base/client/ui/FXjello.png");
@@ -8262,11 +8307,11 @@ function PlayGui::loadPaint ( %this )
 	%h = %swatchSize;
 
 	%newSwatch.resize (%x, %y, %w, %h);
-
 	$Paint_Row[$Paint_NumPaintRows - 1].swatch[%count] = %newSwatch;
-	%newActive = new GuiBitmapCtrl ("");
 
+	%newActive = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newActive);
+
 	%newActive.setProfile (HUDBitmapProfile);
 	%newActive.setBitmap ("base/client/ui/paintActive");
 
@@ -8278,9 +8323,9 @@ function PlayGui::loadPaint ( %this )
 	%newActive.resize (%x, %y, %w, %h);
 	%newActive.setName ("HUD_PaintActive");
 
-	%newSwatch = new GuiSwatchCtrl ("");
-
+	%newSwatch = new GuiSwatchCtrl ();
 	PlayGui.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBrickNameProfile);
 	%newSwatch.setColor ("0.0 0.0 0.5 0.0");
 
@@ -8292,23 +8337,23 @@ function PlayGui::loadPaint ( %this )
 	%newSwatch.resize (%x, %y, %w, %h);
 	%newSwatch.setName ("HUD_PaintNameBG");
 
-	%newCorner = new GuiBitmapCtrl ("");
-
+	%newCorner = new GuiBitmapCtrl ();
 	HUD_PaintNameBG.add (%newCorner);
+
 	%newCorner.setProfile (HUDBitmapProfile);
 	%newCorner.setBitmap ("base/client/ui/BlueHudLeftCorner");
 	%newCorner.resize (0, 0, 10, 18);
 
-	%newCorner = new GuiBitmapCtrl ("");
-
+	%newCorner = new GuiBitmapCtrl ();
 	HUD_PaintNameBG.add (%newCorner);
+
 	%newCorner.setProfile (HUDBitmapProfile);
 	%newCorner.setBitmap ("base/client/ui/BlueHudRightCorner");
 	%newCorner.resize (%boxWidth - 10, 0, 10, 18);
 
-	%newSwatch = new GuiSwatchCtrl ("");
-
+	%newSwatch = new GuiSwatchCtrl ();
 	HUD_PaintNameBG.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBitmapProfile);
 	%newSwatch.setColor ("0 0 0.5 0.5");
 
@@ -8319,9 +8364,9 @@ function PlayGui::loadPaint ( %this )
 
 	%newSwatch.resize (%x, %y, %w, %h);
 
-	%newText = new GuiTextCtrl ("");
-
+	%newText = new GuiTextCtrl ();
 	HUD_PaintNameBG.add (%newText);
+
 	%newText.setProfile (HUDCenterTextProfile);
 
 	%w = %boxWidth;
@@ -8332,9 +8377,9 @@ function PlayGui::loadPaint ( %this )
 	%newText.resize (%x, %y, %w, %h);
 	%newText.setName ("HUD_PaintName");
 
-	%newBmp = new GuiBitmapCtrl ("");
-
+	%newBmp = new GuiBitmapCtrl ();
 	HUD_PaintBox.add (%newBmp);
+
 	%newBmp.setProfile (HUDBrickNameProfile);
 	%newBmp.setBitmap ("base/client/ui/ItemIcons/toolLabelBG");
 
@@ -8346,13 +8391,12 @@ function PlayGui::loadPaint ( %this )
 	%newBmp.resize (%x, %y, %w, %h);
 	%newBmp.setName ("ToolTip_Paint");
 
-	%newText = new GuiTextCtrl ("");
-
+	%newText = new GuiTextCtrl ();
 	%newBmp.add (%newText);
+
 	%newText.setProfile (HUDCenterTextProfile);
 
 	%key = strupr (getWord (moveMap.getBinding ("useSprayCan"), 1));
-
 	%newText.setText (%key @ " = Paint");
 
 	%x = 0;
@@ -8366,17 +8410,21 @@ function PlayGui::loadPaint ( %this )
 	{
 		ToolTip_Paint.setVisible (false);
 	}
+
 	if ( $CurrPaintSwatch $= "" )
 	{
 		$CurrPaintSwatch = 0;
 	}
+
 	if ( $CurrPaintRow $= "" )
 	{
 		$CurrPaintRow = 0;
 	}
 
 	HUD_PaintName.setText ("");
+
 	%this.FadePaintRows ();
+
 	HUD_PaintActive.setVisible (false);
 
 	if ( $ScrollMode != $SCROLLMODE_PAINT && $pref::HUD::HidePaintBox )
@@ -8404,6 +8452,7 @@ function PlayGui::hidePaintBox ( %this, %dist, %totalSteps, %currStep )
 	{
 		return;
 	}
+
 	if ( %currStep == %totalSteps - 1 )
 	{
 		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
@@ -8415,9 +8464,11 @@ function PlayGui::hidePaintBox ( %this, %dist, %totalSteps, %currStep )
 	}
 
 	%pos = getWord (HUD_PaintBox.position, 0) - %stepDist;
-	HUD_PaintBox.position = %pos SPC getWord (HUD_PaintBox.position, 1);
-	HUD_PaintNameBG.position = %pos SPC getWord (HUD_PaintNameBG.position, 1);
-	HUD_PaintBox.moveSchedule = PlayGui.schedule (10, hidePaintBox, %dist, %totalSteps, %currStep + 1, %originalPos);
+
+	HUD_PaintBox.position     = %pos SPC getWord (HUD_PaintBox.position, 1);
+	HUD_PaintNameBG.position  = %pos SPC getWord (HUD_PaintNameBG.position, 1);
+	HUD_PaintBox.moveSchedule = PlayGui.schedule (10, hidePaintBox, %dist, %totalSteps,
+		%currStep + 1, %originalPos);
 }
 
 function PlayGui::updatePaintActive ( %this )
@@ -8426,6 +8477,7 @@ function PlayGui::updatePaintActive ( %this )
 	{
 		return;
 	}
+
 	if ( !isObject ($Paint_Row[$CurrPaintRow].swatch[$CurrPaintSwatch]) )
 	{
 		return;
@@ -8452,11 +8504,11 @@ function PlayGui::FadePaintRow ( %this, %row )
 {
 	for ( %i = 0; %i < $Paint_Row[%row].numSwatches; %i++ )
 	{
-		%color = $Paint_Row[%row].swatch[%i].getColor ();
-		%red = getWord (%color, 0);
-		%green = getWord (%color, 1);
-		%blue = getWord (%color, 2);
-		%alpha = getWord (%color, 3);
+		%color    = $Paint_Row[%row].swatch[%i].getColor ();
+		%red      = getWord (%color, 0);
+		%green    = getWord (%color, 1);
+		%blue     = getWord (%color, 2);
+		%alpha    = getWord (%color, 3);
 		%newColor = %red @ " " @ %green @ " " @ %blue @ " " @ %alpha * 0.3;
 
 		$Paint_Row[%row].swatch[%i].setColor (%newColor);
@@ -8467,11 +8519,11 @@ function PlayGui::UnFadePaintRow ( %this, %row )
 {
 	for ( %i = 0; %i < $Paint_Row[%row].numSwatches; %i++ )
 	{
-		%color = $Paint_Row[%row].swatch[%i].getColor ();
-		%red = getWord (%color, 0);
-		%green = getWord (%color, 1);
-		%blue = getWord (%color, 2);
-		%alpha = getWord (%color, 3);
+		%color    = $Paint_Row[%row].swatch[%i].getColor ();
+		%red      = getWord (%color, 0);
+		%green    = getWord (%color, 1);
+		%blue     = getWord (%color, 2);
+		%alpha    = getWord (%color, 3);
 		%newColor = %red @ " " @ %green @ " " @ %blue @ " " @ %alpha / 0.3;
 
 		$Paint_Row[%row].swatch[%i].setColor (%newColor);
@@ -8486,14 +8538,17 @@ function PlayGui::killpaint ( %this )
 	{
 		cancel (HUD_PaintBox.moveSchedule);
 	}
+
 	if ( isObject (HUD_PaintBox) )
 	{
 		HUD_PaintBox.delete ();
 	}
+
 	if ( isObject (HUD_PaintNameBG) )
 	{
 		HUD_PaintNameBG.delete ();
 	}
+
 	if ( isObject (HUD_PaintName) )
 	{
 		HUD_PaintName.delete ();
@@ -8525,10 +8580,11 @@ function PlayGui::createToolHUD ( %this )
 	%this.killToolHud ();
 
 	%numSlots = $HUD_NumToolSlots;
-	%res = getRes ();
-	%screenWidth = getWord (%res, 0);
+
+	%res          = getRes ();
+	%screenWidth  = getWord (%res, 0);
 	%screenHeight = getWord (%res, 1);
-	%iconWidth = mFloor (%screenWidth / $BSD_NumInventorySlots);
+	%iconWidth    = mFloor (%screenWidth / $BSD_NumInventorySlots);
 
 	if ( %iconWidth > 64 )
 	{
@@ -8536,16 +8592,19 @@ function PlayGui::createToolHUD ( %this )
 	}
 
 	%iconBoxHeight = $HUD_NumToolSlots * %iconWidth;
-	%topSpace = 0;
-	%sideSpace = 0;
-	%newBox = new GuiBitmapCtrl ("");
 
+	%topSpace  = 0;
+	%sideSpace = 0;
+
+	%newBox = new GuiBitmapCtrl ();
 	%newBox.setName ("HUD_ToolBox");
 	%this.add (%newBox);
+
 	%newBox.setProfile (HUDBitmapProfile);
 	%newBox.setBitmap ("base/client/ui/itemIcons/ToolBG");
 
 	%newBox.wrap = 1;
+
 	%x = (%screenWidth - %iconWidth) - %sideSpace;
 	%y = 0;
 	%w = %iconWidth;
@@ -8553,9 +8612,9 @@ function PlayGui::createToolHUD ( %this )
 
 	%newBox.resize (%x, %y, %w, %h);
 
-	%newActive = new GuiBitmapCtrl ("");
-
+	%newActive = new GuiBitmapCtrl ();
 	%newBox.add (%newActive);
+
 	%newActive.setProfile (HUDBitmapProfile);
 	%newActive.setBitmap ("base/client/ui/itemIcons/ItemActive");
 	%newActive.setVisible (false);
@@ -8570,9 +8629,9 @@ function PlayGui::createToolHUD ( %this )
 
 	for ( %i = 0; %i < %numSlots; %i++ )
 	{
-		%newIcon = new GuiBitmapCtrl ("");
-
+		%newIcon = new GuiBitmapCtrl ();
 		%newBox.add (%newIcon);
+
 		%newIcon.setProfile (HUDBitmapProfile);
 
 		if ( $ToolData[%i] > 0 )
@@ -8580,7 +8639,7 @@ function PlayGui::createToolHUD ( %this )
 			if ( !isFile ($ToolData[%i].iconName @ ".png") )
 			{
 				%firstLetter = getSubStr ($ToolData[%i].uiName, 0, 1);
-				%letterFile = "Add-Ons/Print_Letters_Default/icons/" @ %firstLetter @ ".png";
+				%letterFile  = "Add-Ons/Print_Letters_Default/icons/" @ %firstLetter @ ".png";
 
 				if ( isFile (%letterFile) )
 				{
@@ -8596,6 +8655,7 @@ function PlayGui::createToolHUD ( %this )
 				%newIcon.setBitmap ($ToolData[%i].iconName);
 			}
 		}
+
 		if ( $ToolData[%i].doColorShift )
 		{
 			%newIcon.setColor ($ToolData[%i].colorShiftColor);
@@ -8615,9 +8675,9 @@ function PlayGui::createToolHUD ( %this )
 		$HUD_ToolIcon[%i] = %newIcon;
 	}
 
-	%newSwatch = new GuiBitmapCtrl ("");
-
+	%newSwatch = new GuiBitmapCtrl ();
 	PlayGui.add (%newSwatch);
+
 	%newSwatch.setProfile (HUDBrickNameProfile);
 	%newSwatch.setBitmap ("base/client/ui/ItemIcons/toolLabelBG");
 
@@ -8629,9 +8689,9 @@ function PlayGui::createToolHUD ( %this )
 	%newSwatch.resize (%x, %y, %w, %h);
 	%newSwatch.setName ("HUD_ToolNameBG");
 
-	%newText = new GuiTextCtrl ("");
-
+	%newText = new GuiTextCtrl ();
 	%newSwatch.add (%newText);
+
 	%newText.setProfile (HUDCenterTextProfile);
 
 	%w = %iconWidth;
@@ -8642,13 +8702,12 @@ function PlayGui::createToolHUD ( %this )
 	%newText.resize (%x, %y, %w, %h);
 	%newText.setName ("HUD_ToolName");
 
-	%newText = new GuiTextCtrl ("");
-
+	%newText = new GuiTextCtrl ();
 	HUD_ToolNameBG.add (%newText);
+
 	%newText.setProfile (HUDCenterTextProfile);
 
 	%key = strupr (getWord (moveMap.getBinding ("useTools"), 1));
-
 	%newText.setText (%key SPC "= tools");
 
 	%x = 0;
@@ -8670,6 +8729,7 @@ function PlayGui::createToolHUD ( %this )
 	{
 		$CurrScrollToolSlot = 0;
 	}
+
 	if ( $ScrollMode != $SCROLLMODE_TOOLS && $pref::HUD::HideToolBox )
 	{
 		if ( $pref::HUD::showToolTips )
@@ -8686,6 +8746,7 @@ function PlayGui::createToolHUD ( %this )
 	else if ( $ScrollMode == $SCROLLMODE_TOOLS )
 	{
 		setActiveTool ($CurrScrollToolSlot);
+
 		HUD_ToolActive.setVisible (true);
 		ToolTip_Tools.setVisible (false);
 	}
@@ -8721,6 +8782,7 @@ function PlayGui::hideToolBox ( %this, %dist, %totalSteps, %currStep )
 	{
 		return;
 	}
+
 	if ( %currStep == %totalSteps - 1 )
 	{
 		%sum = (%totalSteps - 1) * mFloor (%dist / %totalSteps);
@@ -8732,8 +8794,11 @@ function PlayGui::hideToolBox ( %this, %dist, %totalSteps, %currStep )
 	}
 
 	%pos = getWord (HUD_ToolBox.position, 1) - %stepDist;
-	HUD_ToolBox.position = getWord (HUD_ToolBox.position, 0) SPC %pos;
-	HUD_ToolNameBG.position = getWord (HUD_ToolNameBG.position, 0) SPC %pos + getWord (HUD_ToolBox.extent, 1);
+
+	HUD_ToolBox.position     = getWord (HUD_ToolBox.position, 0) SPC %pos;
+	HUD_ToolNameBG.position  = getWord (HUD_ToolNameBG.position, 0)
+		SPC %pos + getWord (HUD_ToolBox.extent, 1);
+
 	HUD_ToolBox.moveSchedule = PlayGui.schedule (10, hideToolBox, %dist, %totalSteps, %currStep + 1);
 }
 
@@ -8743,14 +8808,17 @@ function PlayGui::killToolHud ( %this )
 	{
 		cancel (HUD_ToolBox.moveSchedule);
 	}
+
 	if ( isObject (HUD_ToolBox) )
 	{
 		HUD_ToolBox.delete ();
 	}
+
 	if ( isObject (HUD_ToolNameBG) )
 	{
 		HUD_ToolNameBG.delete ();
 	}
+
 	if ( isObject (HUD_ToolName) )
 	{
 		HUD_ToolName.delete ();
@@ -8774,8 +8842,9 @@ function clientCmdSetLoadingIndicator ( %val )
 }
 
 
-$centerPrintActive = 0;
-$bottomPrintActive = 0;
+$centerPrintActive = false;
+$bottomPrintActive = false;
+
 $CenterPrintSizes[1] = 20;
 $CenterPrintSizes[2] = 36;
 $CenterPrintSizes[3] = 56;
@@ -8793,8 +8862,8 @@ function clientCmdCenterPrint ( %message, %time, %size )
 	}
 	else
 	{
-		CenterPrintDlg.visible = 1;
-		$centerPrintActive = 1;
+		CenterPrintDlg.visible = true;
+		$centerPrintActive     = true;
 	}
 
 	CenterPrintText.setText ("<just:center>" @ %message @ "\n");
@@ -8812,15 +8881,13 @@ function clientCmdBottomPrint ( %message, %time, %hideBar )
 		if ( $bottomPrintDlg::removePrintEvent != 0 )
 		{
 			cancel ($bottomPrintDlg::removePrintEvent);
-
 			$bottomPrintDlg::removePrintEvent = 0;
 		}
 	}
 	else
 	{
 		bottomPrintDlg.setVisible (true);
-
-		$bottomPrintActive = 1;
+		$bottomPrintActive = true;
 	}
 
 	BottomPrintText.setText (%message);
@@ -8833,6 +8900,7 @@ function clientCmdBottomPrint ( %message, %time, %hideBar )
 	{
 		bottomPrintBar.setVisible (true);
 	}
+
 	if ( %time > 0 )
 	{
 		$bottomPrintDlg::removePrintEvent = schedule (%time * 1000, 0, "clientCmdClearbottomPrint");
@@ -8851,8 +8919,8 @@ function CenterPrintText::onResize ( %this, %width, %height )
 
 function clientCmdClearCenterPrint ()
 {
-	$centerPrintActive = 0;
-	CenterPrintDlg.visible = 0;
+	$centerPrintActive     = false;
+	CenterPrintDlg.visible = false;
 
 	if ( isEventPending ($CenterPrintDlg::removePrintEvent) )
 	{
@@ -8864,8 +8932,8 @@ function clientCmdClearCenterPrint ()
 
 function clientCmdclearBottomPrint ()
 {
-	$bottomPrintActive = 0;
-	bottomPrintDlg.visible = 0;
+	$bottomPrintActive     = false;
+	bottomPrintDlg.visible = false;
 
 	if ( isEventPending ($bottomPrintDlg::removePrintEvent) )
 	{
@@ -8877,7 +8945,7 @@ function clientCmdclearBottomPrint ()
 
 function clientCmdGameStart ( %seq )
 {
-
+	// Stub
 }
 
 function clientCmdGameEnd ( %seq )
@@ -8905,6 +8973,7 @@ function respawnCountDownTick ( %time )
 	{
 		cancel ($respawnCountDownSchedule);
 	}
+
 	if ( %time <= 0 )
 	{
 		clientCmdCenterPrint ("\c5Click to respawn.", 300);
@@ -8926,7 +8995,7 @@ function respawnCountDownTick ( %time )
 
 function clientCmdCancelAutoBrickBuy ()
 {
-	$BrickAutoBuyDone = 1;
+	$BrickAutoBuyDone = true;
 }
 
 
@@ -8942,15 +9011,16 @@ function handleYourSpawn ( %msgType, %msgString )
 	clientCmdClearCenterPrint ();
 	setParticleDisconnectMode (0);
 
-	$ShowHiddenBricks = 0;
+	$ShowHiddenBricks = false;
 
 	if ( ServerConnection.isLocal () )
 	{
 		if ( fileName ($Server::MissionFile) $= "tutorial.mis" )
 		{
-			$BrickAutoBuyDone = 1;
+			$BrickAutoBuyDone = true;
 		}
 	}
+
 	if ( ServerConnection.isLocal () )
 	{
 		if ( $datablockExceededCount > 0 )
@@ -8958,20 +9028,23 @@ function handleYourSpawn ( %msgType, %msgString )
 			Canvas.schedule (1000, pushDialog, datablockLimitWarningGui);
 		}
 	}
+
 	if ( !$BrickAutoBuyDone )
 	{
-		$BrickAutoBuyDone = 1;
+		$BrickAutoBuyDone = true;
 
 		BSD_ClickFav (1);
 		BSD_BuyBricks ();
 	}
+
 	if ( moveMap.getNumBinds () < 5 )
 	{
 		Canvas.schedule (1000, pushDialog, defaultControlsGui);
 	}
+
 	if ( $pref::Input::AutoLight )
 	{
-		%sun = getClientSunColor ();
+		%sun  = getClientSunColor ();
 		%sunR = getWord (%sun, 0);
 		%sunG = getWord (%sun, 1);
 		%sunB = getWord (%sun, 2);
@@ -8980,10 +9053,12 @@ function handleYourSpawn ( %msgType, %msgString )
 		{
 			return;
 		}
+
 		if ( %sunG >= 0.4 )
 		{
 			return;
 		}
+
 		if ( %sunB >= 0.4 )
 		{
 			return;
@@ -9043,49 +9118,21 @@ function handlePlantError ( %msgType, %msgString )
 		%hudObj = HUD_PlantError;
 		%bitmap = "base/client/ui/PlantErrors/";
 	}
-	if ( getTag (%msgType) == getTag ('MsgPlantError_Overlap') )
+
+	switch ( getTag (%msgType) )
 	{
-		%bitmap = %bitmap @ "PlantError_Overlap";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Float') )
-	{
-		%bitmap = %bitmap @ "PlantError_Float";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Unstable') )
-	{
-		%bitmap = %bitmap @ "PlantError_Unstable";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Buried') )
-	{
-		%bitmap = %bitmap @ "PlantError_Buried";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Stuck') )
-	{
-		%bitmap = %bitmap @ "PlantError_Stuck";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_TooFar') )
-	{
-		%bitmap = %bitmap @ "PlantError_TooFar";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Teams') )
-	{
-		%bitmap = %bitmap @ "PlantError_Teams";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Flood') )
-	{
-		%bitmap = %bitmap @ "PlantError_Flood";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_Limit') )
-	{
-		%bitmap = %bitmap @ "PlantError_Limit";
-	}
-	else if ( getTag (%msgType) == getTag ('MsgPlantError_TooLoud') )
-	{
-		%bitmap = %bitmap @ "PlantError_TooLoud";
-	}
-	else
-	{
-		%bitmap = %bitmap @ "PlantError_Forbidden";
+		case getTag ('MsgPlantError_Overlap'):  %bitmap = %bitmap @ "PlantError_Overlap";
+		case getTag ('MsgPlantError_Float'):    %bitmap = %bitmap @ "PlantError_Float";
+		case getTag ('MsgPlantError_Unstable'): %bitmap = %bitmap @ "PlantError_Unstable";
+		case getTag ('MsgPlantError_Buried'):   %bitmap = %bitmap @ "PlantError_Buried";
+		case getTag ('MsgPlantError_Stuck'):    %bitmap = %bitmap @ "PlantError_Stuck";
+		case getTag ('MsgPlantError_TooFar'):   %bitmap = %bitmap @ "PlantError_TooFar";
+		case getTag ('MsgPlantError_Teams'):    %bitmap = %bitmap @ "PlantError_Teams";
+		case getTag ('MsgPlantError_Flood'):    %bitmap = %bitmap @ "PlantError_Flood";
+		case getTag ('MsgPlantError_Limit'):    %bitmap = %bitmap @ "PlantError_Limit";
+		case getTag ('MsgPlantError_TooLoud'):  %bitmap = %bitmap @ "PlantError_TooLoud";
+
+		default: %bitmap = %bitmap @ "PlantError_Forbidden";
 	}
 
 	%hudObj.setBitmap (%bitmap);
@@ -9095,12 +9142,13 @@ function handlePlantError ( %msgType, %msgString )
 	{
 		alxPlay (AudioError);
 	}
+
 	if ( isEventPending (%hudObj.hideSchedule) )
 	{
 		cancel (%hudObj.hideSchedule);
 	}
 
-	%hudObj.hideSchedule = %hudObj.schedule (800, setVisible, 0);
+	%hudObj.hideSchedule = %hudObj.schedule (800, setVisible, false);
 }
 
 
@@ -9121,7 +9169,7 @@ function handleItemPickup ( %msgType, %msgString, %slot, %itemData, %silent )
 			else
 			{
 				%firstLetter = getSubStr (%itemData.uiName, 0, 1);
-				%letterFile = "Add-Ons/Print_Letters_Default/icons/" @ %firstLetter @ ".png";
+				%letterFile  = "Add-Ons/Print_Letters_Default/icons/" @ %firstLetter @ ".png";
 
 				if ( isFile (%letterFile) )
 				{
@@ -9137,6 +9185,7 @@ function handleItemPickup ( %msgType, %msgString, %slot, %itemData, %silent )
 		{
 			$HUD_ToolIcon[%slot].setBitmap (%itemData.iconName);
 		}
+
 		if ( $ToolData[%slot].doColorShift )
 		{
 			$HUD_ToolIcon[%slot].setColor ($ToolData[%slot].colorShiftColor);
@@ -9146,6 +9195,7 @@ function handleItemPickup ( %msgType, %msgString, %slot, %itemData, %silent )
 			$HUD_ToolIcon[%slot].setColor ("1 1 1 1");
 		}
 	}
+
 	if ( $ScrollMode == $SCROLLMODE_TOOLS )
 	{
 		if ( $CurrScrollToolSlot == %slot )
@@ -9154,6 +9204,7 @@ function handleItemPickup ( %msgType, %msgString, %slot, %itemData, %silent )
 			commandToServer ('useTool', %slot);
 		}
 	}
+
 	if ( !%silent )
 	{
 		alxPlay (ItemPickup);
@@ -9165,7 +9216,7 @@ addMessageCallback ('MsgDropItem', handleDropItem);
 
 function handleDropItem ( %msgType, %string, %slot )
 {
-
+	// Stub
 }
 
 
@@ -9180,7 +9231,6 @@ function handleClearInv ( %msgType )
 	for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
 	{
 		$InvData[%i] = 0;
-
 		$HUD_BrickIcon[%i].setBitmap ("");
 	}
 
@@ -9189,7 +9239,6 @@ function handleClearInv ( %msgType )
 	for ( %i = 0; %i < $HUD_NumToolSlots; %i++ )
 	{
 		$ToolData[%i] = 0;
-
 		$HUD_ToolIcon[%i].setBitmap ("");
 	}
 
@@ -9224,61 +9273,26 @@ function handleHilightInv ( %msgType, %msgString, %slot )
 
 	%slot++;
 
-	if ( $invHilight == 1 )
+	switch ( $invHilight )
 	{
-		Slot1BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 1: Slot1BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 2: Slot2BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 3: Slot3BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 4: Slot4BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 5: Slot5BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 6: Slot6BG.setBitmap ("base/client/ui/GUIBrickSide.png");
+		case 7: Slot7BG.setBitmap ("base/client/ui/GUIBrickSide.png");
 	}
-	else if ( $invHilight == 2 )
+
+	switch ( %slot )
 	{
-		Slot2BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	else if ( $invHilight == 3 )
-	{
-		Slot3BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	else if ( $invHilight == 4 )
-	{
-		Slot4BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	else if ( $invHilight == 5 )
-	{
-		Slot5BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	else if ( $invHilight == 6 )
-	{
-		Slot6BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	else if ( $invHilight == 7 )
-	{
-		Slot7BG.setBitmap ("base/client/ui/GUIBrickSide.png");
-	}
-	if ( %slot == 1 )
-	{
-		Slot1BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 2 )
-	{
-		Slot2BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 3 )
-	{
-		Slot3BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 4 )
-	{
-		Slot4BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 5 )
-	{
-		Slot5BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 6 )
-	{
-		Slot6BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
-	}
-	else if ( %slot == 7 )
-	{
-		Slot7BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 1: Slot1BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 2: Slot2BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 3: Slot3BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 4: Slot4BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 5: Slot5BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 6: Slot6BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
+		case 7: Slot7BG.setBitmap ("base/client/ui/GUIBrickSideHilight.png");
 	}
 
 	$invHilight = %slot;
@@ -9289,7 +9303,7 @@ addMessageCallback ('MsgEquipInv', handleEquipInv);
 
 function handleEquipInv ( %msgType, %msgString, %slot )
 {
-
+	// Stub
 }
 
 
@@ -9297,7 +9311,7 @@ addMessageCallback ('MsgDeEquipInv', handleDeEquipInv);
 
 function handleDeEquipInv ( %msgType, %msgString, %slot )
 {
-
+	// Stub
 }
 
 
@@ -9317,6 +9331,7 @@ function handleSetInvData ( %msgType, %msgString, %slot, %data )
 		{
 			$HUD_BrickIcon[%slot].setBitmap (%data.iconName);
 		}
+
 		if ( $ScrollMode == $SCROLLMODE_BRICKS && $CurrScrollBrickSlot == %slot )
 		{
 			commandToServer ('useInventory', %slot);
@@ -9339,7 +9354,7 @@ function handleStartTalking ( %msgType, %msgString, %clientId )
 	return;
 
 	%text = chatWhosTalkingText.getValue ();
-	%row = lstAdminPlayerList.getRowTextById (%clientId);
+	%row  = lstAdminPlayerList.getRowTextById (%clientId);
 	%name = getField (%row, 0);
 
 	if ( strpos (%text, %name) == -1 && %name !$= "" )
@@ -9395,8 +9410,22 @@ function handleProcessComplete ( %msgType, %msgString, %clientId )
 function clientCmdUpdatePrefs ()
 {
 	commandToServer ('updatePrefs', $pref::Player::LANName);
-	commandToServer ('updateBodyColors', $pref::Avatar::HeadColor, $pref::Avatar::HatColor, $pref::Avatar::AccentColor, $pref::Avatar::PackColor, $pref::Avatar::SecondPackColor, $pref::Avatar::TorsoColor, $pref::Avatar::HipColor, $pref::Avatar::LLegColor, $pref::Avatar::RLegColor, $pref::Avatar::LArmColor, $pref::Avatar::RArmColor, $pref::Avatar::LHandColor, $pref::Avatar::RHandColor, fileBase ($Pref::Avatar::DecalName), fileBase ($Pref::Avatar::FaceName));
-	commandToServer ('updateBodyParts', $pref::Avatar::Hat, $pref::Avatar::Accent, $pref::Avatar::Pack, $Pref::Avatar::SecondPack, $Pref::Avatar::Chest, $Pref::Avatar::Hip, $Pref::Avatar::LLeg, $Pref::Avatar::RLeg, $Pref::Avatar::LArm, $Pref::Avatar::RArm, $Pref::Avatar::LHand, $Pref::Avatar::RHand);
+
+	commandToServer ('updateBodyColors', $pref::Avatar::HeadColor, $pref::Avatar::HatColor,
+		$pref::Avatar::AccentColor, $pref::Avatar::PackColor, $pref::Avatar::SecondPackColor,
+		$pref::Avatar::TorsoColor,  $pref::Avatar::HipColor,
+		$pref::Avatar::LLegColor,   $pref::Avatar::RLegColor,
+		$pref::Avatar::LArmColor,   $pref::Avatar::RArmColor,
+		$pref::Avatar::LHandColor,  $pref::Avatar::RHandColor,
+		fileBase ($Pref::Avatar::DecalName), fileBase ($Pref::Avatar::FaceName));
+
+	commandToServer ('updateBodyParts', $pref::Avatar::Hat, $pref::Avatar::Accent,
+		$pref::Avatar::Pack,  $Pref::Avatar::SecondPack,
+		$Pref::Avatar::Chest, $Pref::Avatar::Hip,
+		$Pref::Avatar::LLeg,  $Pref::Avatar::RLeg,
+		$Pref::Avatar::LArm,  $Pref::Avatar::RArm,
+		$Pref::Avatar::LHand, $Pref::Avatar::RHand);
+
 	commandToServer ('setHatTicket', $HatTicket);
 }
 
@@ -9427,6 +9456,7 @@ function secureClientCmd_SetServerNameDisplay ( %ownerName, %serverName )
 	{
 		%possessive = %ownerName @ "\'s";
 	}
+
 	if ( stripos (%serverName, %possessive) == 0 )
 	{
 		%serverName = trim (strreplace (%serverName, %possessive, ""));
@@ -9439,7 +9469,7 @@ function MJ_connect ()
 {
 	cancelServerQuery ();
 
-	%ip = MJ_txtIP.getValue ();
+	%ip       = MJ_txtIP.getValue ();
 	%joinPass = MJ_txtJoinPass.getValue ();
 
 	echo ("Attempting to connect to ", %ip);
@@ -9454,8 +9484,10 @@ function MJ_connect ()
 
 		Connecting_Text.setText ("Connecting to " @ %ip);
 		Canvas.pushDialog (connectingGui);
+
 		deleteDataBlocks ();
 		setParticleDisconnectMode (0);
+
 		ConnectToServer (%ip, %joinPass, 1, 1);
 	}
 }
@@ -9471,9 +9503,11 @@ function JoinServerGuiBS::onWake ()
 	{
 		JS_sortNumList (3);
 	}
+
 	if ( $pref::Gui::AutoQueryMasterServer )
 	{
-		if ( JoinServerGuiBS.lastQueryTime == 0 || getSimTime () - JoinServerGuiBS.lastQueryTime > 5 * 60 * 1000 )
+		if ( JoinServerGuiBS.lastQueryTime == 0
+		  || getSimTime () - JoinServerGuiBS.lastQueryTime > 5 * 60 * 1000 )
 		{
 			JoinServerGuiBS.queryWebMaster ();
 		}
@@ -9482,10 +9516,11 @@ function JoinServerGuiBS::onWake ()
 
 function JoinServerGuiBS::queryWebMaster ( %this )
 {
-	%this.hasQueriedOnce = 1;
+	%this.hasQueriedOnce          = true;
 	JoinServerGuiBS.lastQueryTime = getSimTime ();
-	$JoinNetServer = 1;
-	$MasterQueryCanceled = 0;
+
+	$JoinNetServer       = true;
+	$MasterQueryCanceled = false;
 
 	if ( isObject (queryMasterTCPObj) )
 	{
@@ -9494,12 +9529,14 @@ function JoinServerGuiBS::queryWebMaster ( %this )
 
 	new TCPObject (queryMasterTCPObj);
 
-	queryMasterTCPObj.site = "master3.blockland.us";
-	queryMasterTCPObj.port = 80;
+	queryMasterTCPObj.site     = "master3.blockland.us";
+	queryMasterTCPObj.port     = 80;
 	queryMasterTCPObj.filePath = "/index.php";
-	queryMasterTCPObj.cmd = "GET " @ queryMasterTCPObj.filePath @ " HTTP/1.0\r\nHost: " @ queryMasterTCPObj.site @ "\r\n\r\n";
+	queryMasterTCPObj.cmd      = "GET " @ queryMasterTCPObj.filePath @ " HTTP/1.0\r\nHost: "
+	                           @ queryMasterTCPObj.site @ "\r\n\r\n";
 
 	queryMasterTCPObj.connect (queryMasterTCPObj.site @ ":" @ queryMasterTCPObj.port);
+
 	JS_queryStatus.setVisible (true);
 	JS_statusText.setText ("Getting Server List...");
 }
@@ -9519,19 +9556,25 @@ function queryMasterTCPObj::onConnected ( %this )
 
 function queryMasterTCPObj::onDNSFailed ( %this )
 {
-	MessageBoxOK ("Query Master Server Failed", "<just:left>DNS Failed during master server query.\n\n" @ "1.  Verify your internet connection\n\n" @ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
+	MessageBoxOK ("Query Master Server Failed", "<just:left>DNS Failed during master server query.\n\n"
+		@ "1.  Verify your internet connection\n\n"
+		@ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
+
 	JS_queryStatus.setVisible (false);
 }
 
 function queryMasterTCPObj::onConnectFailed ( %this )
 {
-	MessageBoxOK ("Query Master Server Failed", "<just:left>Connection failed during master server query.\n\n" @ "1.  Verify your internet connection\n\n" @ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
+	MessageBoxOK ("Query Master Server Failed", "<just:left>Connection failed during master server query.\n\n"
+		@ "1.  Verify your internet connection\n\n"
+		@ "2.  Make sure any security software you have is set to allow Blockland.exe to connect to the internet.");
+
 	JS_queryStatus.setVisible (false);
 }
 
 function queryMasterTCPObj::onDisconnect ( %this )
 {
-
+	// Stub
 }
 
 function queryMasterTCPObj::onLine ( %this, %line )
@@ -9540,17 +9583,17 @@ function queryMasterTCPObj::onLine ( %this, %line )
 	{
 		return;
 	}
+
 	if ( %this.fileSize )
 	{
 		if ( %this.gotHttpHeader )
 		{
 			%this.buffSize += strlen (%line) + 2;
-
 			JS_statusBar.setValue (%this.buffSize / %this.fileSize);
 		}
 		else if ( %line $= "" )
 		{
-			%this.gotHttpHeader = 1;
+			%this.gotHttpHeader = true;
 		}
 	}
 
@@ -9564,12 +9607,15 @@ function queryMasterTCPObj::onLine ( %this, %line )
 		{
 			warn ("WARNING: queryMasterTCPObj - got non-200 http response \"" @ %code @ "\"");
 		}
+
 		if ( %code >= 400 && %code <= 499 )
 		{
 			warn ("WARNING: 4xx error on queryMasterTCPObj, retrying");
+
 			%this.schedule (0, disconnect);
 			%this.schedule (500, connect, %this.site @ ":" @ %this.port);
 		}
+
 		if ( %code >= 300 && %code <= 399 )
 		{
 			warn ("WARNING: 3xx error on queryMasterTCPObj, will wait for location header");
@@ -9582,7 +9628,7 @@ function queryMasterTCPObj::onLine ( %this, %line )
 		warn ("WARNING: queryMasterTCPObj - Location redirect to " @ %url);
 
 		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+		%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
 
 		%this.schedule (0, disconnect);
 		%this.schedule (500, connect, %this.site @ ":" @ %this.port);
@@ -9594,7 +9640,7 @@ function queryMasterTCPObj::onLine ( %this, %line )
 		warn ("WARNING: queryMasterTCPObj - Content-Location redirect to " @ %url);
 
 		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+		%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
 
 		%this.schedule (0, disconnect);
 		%this.schedule (500, connect, %this.site @ ":" @ %this.port);
@@ -9602,12 +9648,11 @@ function queryMasterTCPObj::onLine ( %this, %line )
 	else if ( %word $= "ERROR" )
 	{
 		MessageBoxOK ("Error", "Error retrieving server list.");
-
 		return;
 	}
 	else if ( %word $= "START" )
 	{
-		%this.gotHeader = 1;
+		%this.gotHeader = true;
 
 		ServerInfoSO_ClearAll ();
 
@@ -9625,10 +9670,11 @@ function queryMasterTCPObj::onLine ( %this, %line )
 	else if ( %word $= "END" )
 	{
 		JS_queryStatus.setVisible (false);
+
 		ServerInfoSO_DisplayAll ();
 		ServerInfoSO_StartPingAll ();
 
-		%this.done = 1;
+		%this.done = true;
 
 		%this.disconnect ();
 
@@ -9640,9 +9686,10 @@ function queryMasterTCPObj::onLine ( %this, %line )
 	}
 	else if ( %word $= "Content-Length:" )
 	{
-		%fileSize = getWord (%line, 1);
+		%fileSize      = getWord (%line, 1);
 		%this.fileSize = %fileSize;
 	}
+
 	if ( %this.gotHeader )
 	{
 		%wordCount = getWordCount (%line);
@@ -9653,63 +9700,29 @@ function queryMasterTCPObj::onLine ( %this, %line )
 			%fieldName = %this.fieldName[%i];
 			%field = getField (%line, %i);
 
-			if ( %fieldName $= "" )
+			switch$ ( %fieldName )
 			{
+				case "":  // Don't do anything, I guess...
 
-			}
-			else if ( %fieldName $= "IP" )
-			{
-				%siso.ip = %field;
-			}
-			else if ( %fieldName $= "PORT" )
-			{
-				%siso.port = %field;
-			}
-			else if ( %fieldName $= "PASSWORDED" )
-			{
-				%siso.pass = %field;
-			}
-			else if ( %fieldName $= "DEDICATED" )
-			{
-				%siso.dedicated = %field;
-			}
-			else if ( %fieldName $= "SERVERNAME" )
-			{
-				%siso.serverName = %field;
-			}
-			else if ( %fieldName $= "PLAYERS" )
-			{
-				%siso.players = %field;
-			}
-			else if ( %fieldName $= "MAXPLAYERS" )
-			{
-				%siso.maxPlayers = %field;
-			}
-			else if ( %fieldName $= "GAMEMODE" )
-			{
-				%siso.gameMode = %field;
-			}
-			else if ( %fieldName $= "BRICKCOUNT" )
-			{
-				%siso.brickCount = %field;
-			}
-			else if ( %fieldName $= "STEAMID" )
-			{
-				%siso.steamID = %field;
-			}
-			else if ( %fieldName $= "BLID" )
-			{
-				%siso.blid = %field;
-			}
-			else if ( %fieldName $= "ADMINNAME" )
-			{
-				%siso.adminName = %field;
+				case "IP":         %siso.ip         = %field;
+				case "PORT":       %siso.port       = %field;
+				case "PASSWORDED": %siso.pass       = %field;
+				case "DEDICATED":  %siso.dedicated  = %field;
+				case "SERVERNAME": %siso.serverName = %field;
+				case "PLAYERS":    %siso.players    = %field;
+				case "MAXPLAYERS": %siso.maxPlayers = %field;
+				case "GAMEMODE":   %siso.gameMode   = %field;
+				case "BRICKCOUNT": %siso.brickCount = %field;
+				case "STEAMID":    %siso.steamID    = %field;
+				case "BLID":       %siso.blid       = %field;
+				case "ADMINNAME":  %siso.adminName  = %field;
 			}
 		}
 
 		%strIP = %siso.ip @ ":" @ %siso.port;
 		%strIP = strreplace (%strIP, ".", "_");
 		%strIP = strreplace (%strIP, ":", "X");
+
 		$ServerSOFromIP[%strIP] = $ServerSO_Count - 1;
 	}
 }
@@ -9719,25 +9732,33 @@ function JoinServerGuiBS::queryLan ( %this )
 	JoinServerGuiBS.cancel ();
 
 	$JoinNetServer = 0;
-	%flags = $Pref::Filter::Dedicated | $Pref::Filter::NoPassword << 1 | $Pref::Filter::LinuxServer << 2 | $Pref::Filter::WindowsServer << 3 | $Pref::Filter::TeamDamageOn << 4 | $Pref::Filter::TeamDamageOff << 5 | $Pref::Filter::CurrentVersion << 7;
 
-	queryLanServers (28050, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery, $pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
-	queryLanServers (28000, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery, $pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
-	queryLanServers (28051, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery, $pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
+	%flags = $Pref::Filter::Dedicated | $Pref::Filter::NoPassword << 1
+	       | $Pref::Filter::LinuxServer << 2 | $Pref::Filter::WindowsServer << 3
+	       | $Pref::Filter::TeamDamageOn << 4 | $Pref::Filter::TeamDamageOff << 5
+	       | $Pref::Filter::CurrentVersion << 7;
+
+	queryLanServers (28050, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery,
+		$pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
+
+	queryLanServers (28000, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery,
+		$pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
+
+	queryLanServers (28051, 0, $Client::GameTypeQuery, $Client::MissionTypeQuery,
+		$pref::Filter::minPlayers, 100, 0, 2, $pref::Filter::maxPing, $pref::Filter::minCpu, %flags);
 }
 
 function JoinServerGuiBS::cancel ( %this )
 {
-	$MasterQueryCanceled = 1;
-
+	$MasterQueryCanceled = true;
 	cancelServerQuery ();
+
 	JS_queryStatus.setVisible (false);
 }
 
 function JoinServerGuiBS::join ( %this )
 {
-	$MasterQueryCanceled = 1;
-
+	$MasterQueryCanceled = true;
 	cancelServerQuery ();
 
 	%id = JS_ServerListBS.getSelectedId ();
@@ -9755,18 +9776,18 @@ function JoinServerGuiBS::join ( %this )
 
 		if ( isObject (%so) )
 		{
-			$ServerInfo::Address = %so.ip @ ":" @ %so.port;
-			$ServerInfo::Name = %so.serverName;
+			$ServerInfo::Address    = %so.ip @ ":" @ %so.port;
+			$ServerInfo::Name       = %so.serverName;
 			$ServerInfo::MaxPlayers = %so.maxPlayers;
-			$ServerInfo::Ping = %so.ping;
+			$ServerInfo::Ping       = %so.ping;
 
 			if ( %so.pass $= "Yes" || %so.pass == 1 )
 			{
-				$ServerInfo::Password = 1;
+				$ServerInfo::Password = true;
 			}
 			else
 			{
-				$ServerInfo::Password = 0;
+				$ServerInfo::Password = false;
 			}
 		}
 		else
@@ -9785,6 +9806,7 @@ function JoinServerGuiBS::join ( %this )
 			return;
 		}
 	}
+
 	if ( $ServerInfo::Password )
 	{
 		Canvas.pushDialog ("joinServerPassGui");
@@ -9798,16 +9820,20 @@ function JoinServerGuiBS::join ( %this )
 		{
 			$conn.cancelConnect ();
 			$conn.delete ();
+
 			disconnectedCleanup ();
 		}
 
 		Connecting_Text.setText ("Connecting to " @ $ServerInfo::Address);
 		Canvas.pushDialog (connectingGui);
+
 		echo ("");
 
 		%so = $ServerSO[JS_ServerListBS.getSelectedId ()];
 
-		echo ("Connecting to \"" @ $ServerInfo::Name @ "\" (" @ $ServerInfo::Address @ ", " @ $ServerInfo::Ping @ "ms)");
+		echo ("Connecting to \"" @ $ServerInfo::Name @ "\" (" @ $ServerInfo::Address @ ", "
+			                     @ $ServerInfo::Ping @ "ms)");
+
 		echo ("  Download Sounds:      " @ $Pref::Net::DownloadSounds ? "True" : "False");
 		echo ("  Download Music:       " @ $Pref::Net::DownloadMusic ? "True" : "False");
 		echo ("  Download Textures:    " @ $Pref::Net::DownloadTextures ? "True" : "False");
@@ -9815,37 +9841,37 @@ function JoinServerGuiBS::join ( %this )
 
 		if ( $JoinNetServer )
 		{
-			%doDirect = 1;
-			%doArranged = 1;
+			%doDirect   = true;
+			%doArranged = true;
 
 			if ( $ServerInfo::Ping $= "???" )
 			{
-				%doDirect = 1;
-				%doArranged = 1;
+				%doDirect   = true;
+				%doArranged = true;
 			}
 			else if ( $ServerInfo::Ping $= "---" )
 			{
-				%doDirect = 0;
-				%doArranged = 1;
+				%doDirect   = false;
+				%doArranged = true;
 			}
 			else if ( $ServerInfo::Ping $= mFloor ($ServerInfo::Ping) )
 			{
-				%doDirect = 1;
-				%doArranged = 0;
+				%doDirect   = true;
+				%doArranged = false;
 			}
 			else
 			{
 				error ("ERROR: Strange ping value \"" @ $ServerInfo::Ping @ "\"");
 
-				%doDirect = 1;
-				%doArranged = 1;
+				%doDirect   = true;
+				%doArranged = true;
 			}
 
 			ConnectToServer ($ServerInfo::Address, "", %doDirect, %doArranged);
 		}
 		else
 		{
-			ConnectToServer ($ServerInfo::Address, "", 1, 0);
+			ConnectToServer ($ServerInfo::Address, "", true, false);
 		}
 	}
 }
@@ -9857,6 +9883,7 @@ function handlePunchConnect ( %address, %clientNonce )
 		if ( ServerConnection.isConnected () )
 		{
 			echo ("Direct connection is good, ignoring arranged connection");
+
 			cancelAllPendingConnections ();
 
 			return;
@@ -9864,8 +9891,10 @@ function handlePunchConnect ( %address, %clientNonce )
 		else
 		{
 			echo ("Direct connection is no good, going with the arranged connection");
+
 			ServerConnection.cancelConnect ();
 			ServerConnection.delete ();
+
 			deleteDataBlocks ();
 			setParticleDisconnectMode (0);
 		}
@@ -9874,19 +9903,22 @@ function handlePunchConnect ( %address, %clientNonce )
 	cancelAllPendingConnections ();
 
 	$conn = new GameConnection (ServerConnection);
-
 	RootGroup.add ($conn);
-	$conn.setConnectArgs ($pref::Player::LANName, getMyBLID (), $Pref::Player::ClanPrefix, $Pref::Player::ClanSuffix, %clientNonce);
+
+	$conn.setConnectArgs ($pref::Player::LANName, getMyBLID (), $Pref::Player::ClanPrefix,
+		$Pref::Player::ClanSuffix, %clientNonce);
+
 	$conn.setJoinPassword ($Connection::Password);
 	$conn.setJoinToken (getJoinToken ());
+
 	$conn.connect (%address);
 }
 
 function JoinServerGuiBS::exit ( %this )
 {
-	$MasterQueryCanceled = 1;
-
+	$MasterQueryCanceled = true;
 	cancelServerQuery ();
+
 	Canvas.setContent (MainMenuGui);
 }
 
@@ -9896,6 +9928,7 @@ function JoinServerGuiBS::update ( %this )
 	JS_ServerListBS.clear ();
 
 	%sc = getServerCount ();
+
 	%playerCount = 0;
 
 	for ( %i = 0; %i < %sc; %i++ )
@@ -9909,7 +9942,15 @@ function JoinServerGuiBS::update ( %this )
 			%serverName = censorString (%serverName);
 		}
 
-		JS_ServerListBS.addRow (%i, $ServerInfo::Password ? "Yes" : "No" TAB $ServerInfo::Dedicated ? "D" : "L" TAB %serverName TAB $ServerInfo::Ping TAB $ServerInfo::PlayerCount TAB "/" TAB $ServerInfo::MaxPlayers TAB " " TAB $ServerInfo::MissionName TAB $ServerInfo::PlayerCount TAB %i);
+		JS_ServerListBS.addRow (%i, $ServerInfo::Password ? "Yes" : "No"
+			TAB $ServerInfo::Dedicated ? "D" : "L"
+			TAB %serverName
+			TAB $ServerInfo::Ping
+			TAB $ServerInfo::PlayerCount TAB "/" TAB $ServerInfo::MaxPlayers
+			TAB " "
+			TAB $ServerInfo::MissionName
+			TAB $ServerInfo::PlayerCount
+			TAB %i);
 
 		%playerCount = %playerCount + $ServerInfo::PlayerCount;
 	}
@@ -9928,6 +9969,7 @@ function JoinServerGuiBS::update ( %this )
 	{
 		%text = %playerCount @ " Players / ";
 	}
+
 	if ( %sc == 1 )
 	{
 		%text = %text @ %sc @ " Server";
@@ -9946,6 +9988,7 @@ function onServerQueryStatus ( %status, %msg, %value )
 	{
 		JS_queryStatus.setVisible (true);
 	}
+
 	if ( %status $= "start" )
 	{
 		JS_statusText.setText (%msg);
@@ -9976,7 +10019,6 @@ function JS_sortList ( %col, %defaultDescending )
 	if ( JS_ServerListBS.sortedBy == %col )
 	{
 		JS_ServerListBS.sortedAsc = !JS_ServerListBS.sortedAsc;
-
 		JS_ServerListBS.sort (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
 	}
 	else
@@ -10003,7 +10045,6 @@ function JS_sortNumList ( %col, %defaultDescending )
 	if ( JS_ServerListBS.sortedBy == %col )
 	{
 		JS_ServerListBS.sortedAsc = !JS_ServerListBS.sortedAsc;
-
 		JS_ServerListBS.sortNumerical (JS_ServerListBS.sortedBy, JS_ServerListBS.sortedAsc);
 	}
 	else
@@ -10030,7 +10071,6 @@ function ServerInfoSO_ClearAll ()
 		if ( isObject ($ServerSO[%i]) )
 		{
 			$ServerSO[%i].delete ();
-
 			$ServerSO[%i] = "";
 		}
 	}
@@ -10050,24 +10090,27 @@ function ServerInfoSO_Add ()
 	$ServerSO[$ServerSO_Count] = new ScriptObject (ServerSO)
 	{
 		ping = "???";
-		ip = "";
+
+		ip   = "";
 		port = "";
-		pass = 0;
-		dedicated = 0;
-		name = "";
-		players = 0;
+
+		pass      = false;
+		dedicated = false;
+
+		name       = "";
+		players    = 0;
 		maxPlayers = 0;
-		gameMode = "";
+		gameMode   = "";
 		brickCount = 0;
-		adminName = "";
+		adminName  = "";
+
 		steamID = "";
-		blid = "";
+		blid    = "";
 	};
 
 	if ( !isObject ("ServerInfoGroup") )
 	{
 		new SimGroup ("ServerInfoGroup");
-
 		RootGroup.add ("ServerInfoGroup");
 	}
 
@@ -10088,41 +10131,49 @@ function ServerInfoSO_DisplayAll ()
 	for ( %i = 0; %i < $ServerSO_Count; %i++ )
 	{
 		%obj = $ServerSO[%i];
+
 		%TotalServerCount++;
 		%TotalPlayerCount += %obj.players;
-		%doRow = 1;
+
+		%doRow = true;
 
 		if ( $Pref::Filter::Dedicated && !%obj.dedicated )
 		{
-			%doRow = 0;
+			%doRow = false;
 		}
+
 		if ( $Pref::Filter::NoPassword && %obj.pass )
 		{
-			%doRow = 0;
+			%doRow = false;
 		}
+
 		if ( $Pref::Filter::NotEmpty && %obj.players <= 0 )
 		{
-			%doRow = 0;
+			%doRow = false;
 		}
+
 		if ( $Pref::Filter::NotFull && %obj.players >= %obj.maxPlayers )
 		{
-			%doRow = 0;
+			%doRow = false;
 		}
+
 		if ( %obj.ping $= "Dead" )
 		{
-			%doRow = 0;
+			%doRow = false;
 		}
+
 		if ( %obj.ping !$= "???" )
 		{
 			if ( %obj.ping > $pref::Filter::maxPing )
 			{
-				%doRow = 0;
+				%doRow = false;
 			}
 		}
+
 		if ( %doRow )
 		{
 			%rowText = %obj.serialize ();
-			%obj.id = %i;
+			%obj.id  = %i;
 
 			JS_ServerListBS.addRow (%obj.id, %rowText);
 		}
@@ -10138,6 +10189,7 @@ function ServerInfoSO_DisplayAll ()
 	{
 		%text = %TotalPlayerCount @ " Players / ";
 	}
+
 	if ( %TotalServerCount == 1 )
 	{
 		%text = %text @ %TotalServerCount @ " Server";
@@ -10174,8 +10226,8 @@ function ServerInfoSO_StartPingAll ()
 	for ( %i = 0; %i < %count; %i++ )
 	{
 		%addr = $ServerSO[%i].ip @ ":" @ $ServerSO[%i].port;
-
 		echo ("\c1Sending ping to    IP:" @ %addr);
+
 		pingSingleServer (%addr, %i);
 
 		$ServerSO_PingCount = %i;
@@ -10189,9 +10241,10 @@ function ServerInfoSO_PingNext ( %slot )
 		if ( $ServerSO_PingCount < $ServerSO_Count - 1 )
 		{
 			$ServerSO_PingCount++;
-			%addr = $ServerSO[$ServerSO_PingCount].ip @ ":" @ $ServerSO[$ServerSO_PingCount].port;
 
+			%addr = $ServerSO[$ServerSO_PingCount].ip @ ":" @ $ServerSO[$ServerSO_PingCount].port;
 			echo ("\c1Sending ping to    IP:" @ %addr);
+
 			pingSingleServer (%addr, %slot);
 		}
 		else
@@ -10209,6 +10262,7 @@ function onSimplePingReceived ( %ip, %ping, %slot )
 	}
 
 	echo ("Recieved ping from " @ %ip @ " - " @ %ping @ "ms");
+
 	ServerInfoSO_UpdatePing (%ip, %ping);
 	ServerInfoSO_PingNext (%slot);
 }
@@ -10221,6 +10275,7 @@ function onSimplePingTimeout ( %ip, %slot )
 	}
 
 	echo ("\c2No response from   ", %ip);
+
 	ServerInfoSO_UpdatePing (%ip, "---");
 	ServerInfoSO_PingNext (%slot);
 }
@@ -10230,14 +10285,14 @@ function ServerInfoSO_UpdatePing ( %ip, %ping )
 	%strIP = %ip;
 	%strIP = strreplace (%strIP, ".", "_");
 	%strIP = strreplace (%strIP, ":", "X");
+
 	%idx = $ServerSOFromIP[%strIP];
 	%obj = $ServerSO[%idx];
 
 	if ( isObject (%obj) )
 	{
 		%obj.ping = %ping;
-
-		%obj.Display ();
+		%obj.display ();
 	}
 	else
 	{
@@ -10281,7 +10336,16 @@ function ServerSO::serialize ( %this )
 		%ded = "Yes";
 	}
 
-	%ret = %ret @ %pass TAB %ded TAB %this.adminName TAB %serverName TAB %this.ping TAB %this.players TAB "/" TAB %this.maxPlayers TAB %this.brickCount TAB %this.gameMode TAB %this.ip;
+	%ret = %ret @ %pass
+		TAB %ded
+		TAB %this.adminName
+		TAB %serverName
+		TAB %this.ping
+		TAB %this.players TAB "/" TAB %this.maxPlayers
+		TAB %this.brickCount
+		TAB %this.gameMode
+		TAB %this.ip;
+
 	%simpleName = %this.serverName;
 	%simpleName = strreplace (%simpleName, " ", "_");
 	%simpleName = alphaOnlyWhiteListFilter (%simpleName);
@@ -10301,7 +10365,6 @@ function ServerSO::serialize ( %this )
 function ServerSO::Display ( %this )
 {
 	%selected = JS_ServerListBS.getSelectedId ();
-
 	JS_ServerListBS.setRowById (%this.id, %this.serialize ());
 }
 
@@ -10315,16 +10378,17 @@ function ConnectToServer ( %address, %password, %useDirect, %useArranged )
 {
 	if ( %useDirect $= "" )
 	{
-		%useDirect = 1;
-	}
-	if ( %useArranged $= "" )
-	{
-		%useArranged = 1;
+		%useDirect = true;
 	}
 
-	$Connection::Address = %address;
+	if ( %useArranged $= "" )
+	{
+		%useArranged = true;
+	}
+
+	$Connection::Address  = %address;
 	$Connection::Password = %password;
-	$Connection::Direct = %useDirect;
+	$Connection::Direct   = %useDirect;
 	$Connection::Arranged = %useArranged;
 
 	ReConnectToServer ();
@@ -10339,11 +10403,13 @@ function ReConnectToServer ()
 
 		$conn = 0;
 	}
+
 	if ( isObject (ServerConnection) )
 	{
 		ServerConnection.cancelConnect ();
 		ServerConnection.delete ();
 	}
+
 	if ( $Connection::Address $= "local" )
 	{
 		if ( $Server::LAN )
@@ -10370,9 +10436,13 @@ function ReconnectToServerB ()
 	if ( $Connection::Direct )
 	{
 		$conn = new GameConnection (ServerConnection);
-
 		RootGroup.add ($conn);
-		$conn.setConnectArgs ($pref::Player::LANName, getMyBLID (), $Pref::Player::ClanPrefix, $Pref::Player::ClanSuffix, %clientNonce);
+
+		$conn.setConnectArgs ($pref::Player::LANName, getMyBLID (),
+			$Pref::Player::ClanPrefix,
+			$Pref::Player::ClanSuffix,
+			%clientNonce);
+
 		$conn.setJoinPassword ($Connection::Password);
 		$conn.setJoinToken (getJoinToken ());
 
@@ -10385,11 +10455,12 @@ function ReconnectToServerB ()
 			$conn.connect ($Connection::Address);
 		}
 	}
+
 	if ( $Connection::Arranged )
 	{
 		%requestId = $MatchMakerRequestID++;
-		$arrangedConnectionRequestTime = getSimTime ();
 
+		$arrangedConnectionRequestTime = getSimTime ();
 		sendArrangedConnectionRequest ($Connection::Address, %requestId);
 	}
 }
@@ -10407,8 +10478,10 @@ function JoinServerPassGui::enterPass ( %this )
 		{
 			$conn.cancelConnect ();
 			$conn.delete ();
+
 			disconnectedCleanup ();
 		}
+
 		if ( Canvas.getContent ().getName () !$= "LoadingGui" )
 		{
 			Connecting_Text.setText ("Connecting to " @ $ServerInfo::Address @ " with password");
@@ -10421,7 +10494,8 @@ function JoinServerPassGui::enterPass ( %this )
 
 		if ( $JoinNetServer )
 		{
-			echo ("Connecting to \"" @ %so.name @ "\" (" @ $ServerInfo::Address @ ", " @ %so.ping @ "ms) with password");
+			echo ("Connecting to \"" @ %so.name @ "\" (" @ $ServerInfo::Address @ ", "
+				@ %so.ping @ "ms) with password");
 		}
 		else
 		{
@@ -10435,30 +10509,30 @@ function JoinServerPassGui::enterPass ( %this )
 
 		if ( $JoinNetServer )
 		{
-			%doDirect = 1;
-			%doArranged = 1;
+			%doDirect   = true;
+			%doArranged = true;
 
 			if ( $ServerInfo::Ping $= "???" )
 			{
-				%doDirect = 1;
-				%doArranged = 1;
+				%doDirect   = true;
+				%doArranged = true;
 			}
 			else if ( $ServerInfo::Ping $= "---" )
 			{
-				%doDirect = 0;
-				%doArranged = 1;
+				%doDirect   = false;
+				%doArranged = true;
 			}
 			else if ( $ServerInfo::Ping $= mFloor ($ServerInfo::Ping) )
 			{
-				%doDirect = 1;
-				%doArranged = 0;
+				%doDirect   = true;
+				%doArranged = false;
 			}
 			else
 			{
 				error ("ERROR: Strange ping value \"" @ $ServerInfo::Ping @ "\"");
 
-				%doDirect = 1;
-				%doArranged = 1;
+				%doDirect   = true;
+				%doArranged = true;
 			}
 
 			ConnectToServer ($ServerInfo::Address, %pass, %doDirect, %doArranged);
@@ -10521,10 +10595,11 @@ function filtersGui::onSleep ()
 
 function noHudGui::onWake ( %this )
 {
-	$enableDirectInput = 1;
-
+	$enableDirectInput = true;
 	activateDirectInput ();
+
 	moveMap.push ();
+
 	schedule (0, 0, "refreshCenterTextCtrl");
 	schedule (0, 0, "refreshBottomTextCtrl");
 }
@@ -10550,6 +10625,7 @@ function adminGui::onWake ()
 			adminGui_GameModeBlocker.setVisible (true);
 		}
 	}
+
 	if ( $RemoteServer::LAN )
 	{
 		adminGui_banBlocker.setVisible (true);
@@ -10563,20 +10639,18 @@ function adminGui::onWake ()
 function adminGui::kick ()
 {
 	%victimID = lstAdminPlayerList.getSelectedId ();
-
 	commandToServer ('kick', %victimID);
 }
 
 function adminGui::ban ()
 {
 	%victimID = lstAdminPlayerList.getSelectedId ();
-
 	commandToServer ('ban', %victimID);
 }
 
 function adminGui::spy ()
 {
-	%victimID = lstAdminPlayerList.getSelectedId ();
+	%victimID   = lstAdminPlayerList.getSelectedId ();
 	%victimName = lstAdminPlayerList.getRowTextById (%victimID);
 
 	if ( %victimID <= 0 )
@@ -10598,7 +10672,8 @@ function adminGui::ClickClearBricks ()
 {
 	if ( $RemoteServer::LAN )
 	{
-		messageBoxYesNo ("Clear Bricks?", "Are you sure you want to delete all bricks?", "commandToServer(\'ClearAllBricks\');canvas.popDialog(AdminGui);");
+		messageBoxYesNo ("Clear Bricks?", "Are you sure you want to delete all bricks?",
+			"commandToServer(\'ClearAllBricks\');canvas.popDialog(AdminGui);");
 	}
 	else
 	{
@@ -10611,13 +10686,14 @@ function adminGui::ClickClearBricks ()
 function AdminGui_Wand ()
 {
 	commandToServer ('MagicWand');
+
 	Canvas.popDialog (adminGui);
 	Canvas.popDialog (escapeMenu);
 }
 
 function AdminGui_ClearBricks ()
 {
-
+	// Stub
 }
 
 function AdminGui_KickPlayer ()
@@ -10631,13 +10707,14 @@ function AdminGui_KickPlayer ()
 
 	%victimName = getField (lstAdminPlayerList.getRowTextById (%victimID), 0);
 
-	messageBoxYesNo ("Kick Player?", "Are you sure you want to kick \"" @ %victimName @ "\" ?", "commandToServer(\'kick\'," @ %victimID @ ");canvas.popDialog(AdminGui);");
+	messageBoxYesNo ("Kick Player?", "Are you sure you want to kick \"" @ %victimName @ "\" ?",
+		"commandToServer(\'kick\'," @ %victimID @ ");canvas.popDialog(AdminGui);");
 }
 
 function AdminGui_BanPlayer ()
 {
-	%victimID = lstAdminPlayerList.getSelectedId ();
-	%victimName = getField (lstAdminPlayerList.getRowTextById (%victimID), 0);
+	%victimID    = lstAdminPlayerList.getSelectedId ();
+	%victimName  = getField (lstAdminPlayerList.getRowTextById (%victimID), 0);
 	%victimBL_ID = getField (lstAdminPlayerList.getRowTextById (%victimID), 1);
 
 	if ( %victimID <= 0 )
@@ -10646,6 +10723,7 @@ function AdminGui_BanPlayer ()
 	}
 
 	addBanGui.setVictim (%victimName, %victimID, %victimBL_ID);
+
 	Canvas.pushDialog (addBanGui);
 }
 
@@ -10656,12 +10734,11 @@ function adminGui::sortList ( %this, %col )
 	if ( lstAdminPlayerList.sortedBy == %col )
 	{
 		lstAdminPlayerList.sortedAsc = !lstAdminPlayerList.sortedAsc;
-
 		lstAdminPlayerList.sort (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
 	else
 	{
-		lstAdminPlayerList.sortedBy = %col;
+		lstAdminPlayerList.sortedBy  = %col;
 		lstAdminPlayerList.sortedAsc = false;
 
 		lstAdminPlayerList.sort (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
@@ -10675,12 +10752,11 @@ function adminGui::sortNumList ( %this, %col )
 	if ( lstAdminPlayerList.sortedBy == %col )
 	{
 		lstAdminPlayerList.sortedAsc = !lstAdminPlayerList.sortedAsc;
-
 		lstAdminPlayerList.sortNumerical (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
 	}
 	else
 	{
-		lstAdminPlayerList.sortedBy = %col;
+		lstAdminPlayerList.sortedBy  = %col;
 		lstAdminPlayerList.sortedAsc = false;
 
 		lstAdminPlayerList.sortNumerical (lstAdminPlayerList.sortedBy, lstAdminPlayerList.sortedAsc);
@@ -10705,7 +10781,7 @@ function addBanGui::onWake ( %this )
 {
 	if ( !$addBanGui::loaded )
 	{
-		$addBanGui::loaded = 1;
+		$addBanGui::loaded = true;
 
 		AddBan_Days.clear ();
 		AddBan_Days.add ("0 Days", 0);
@@ -10734,9 +10810,9 @@ function addBanGui::onWake ( %this )
 			AddBan_Minutes.add (%i @ " Minutes", %i);
 		}
 
-		AddBan_Days.setSelected (0);
-		AddBan_Hours.setSelected (0);
-		AddBan_Minutes.setSelected (0);
+		AddBan_Days.setSelected (false);
+		AddBan_Hours.setSelected (false);
+		AddBan_Minutes.setSelected (false);
 		AddBan_Forever.setValue (0);
 		AddBan_TimeBlocker.setVisible (false);
 	}
@@ -10744,15 +10820,15 @@ function addBanGui::onWake ( %this )
 
 function addBanGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function addBanGui::setVictim ( %this, %name, %id, %bl_id )
 {
 	addBan_Window.setText ("BAN " @ %name);
 
-	addBanGui.victimName = %name;
-	addBanGui.victimId = %id;
+	addBanGui.victimName  = %name;
+	addBanGui.victimId    = %id;
 	addBanGui.victimBL_ID = %bl_id;
 }
 
@@ -10793,6 +10869,7 @@ function addBanGui::ban ()
 	%reason = addBan_reason.getValue ();
 
 	commandToServer ('Ban', addBanGui.victimId, addBanGui.victimBL_ID, %banTime, %reason);
+
 	Canvas.popDialog (addBanGui);
 }
 
@@ -10804,7 +10881,7 @@ function unBanGui::onWake ( %this )
 
 function unBanGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function unBanGui::clickUnBan ( %this )
@@ -10816,10 +10893,11 @@ function unBanGui::clickUnBan ( %this )
 		return;
 	}
 
-	%row = unBan_list.getRowTextById (%rowID);
+	%row        = unBan_list.getRowTextById (%rowID);
 	%victimName = getField (%row, 1);
 
-	messageBoxYesNo ("Un-Ban Player?", "Are you sure you want to Un-Ban \"" @ %victimName @ "\" ?", "unBanGui.unBan(" @ %rowID @ ");");
+	messageBoxYesNo ("Un-Ban Player?", "Are you sure you want to Un-Ban \"" @ %victimName @ "\" ?",
+		"unBanGui.unBan(" @ %rowID @ ");");
 }
 
 function unBanGui::unBan ( %this, %idx )
@@ -10835,13 +10913,13 @@ function clientCmdClearUnBans ()
 
 function clientCmdAddUnBanLine ( %line, %idx )
 {
-	%adminName = getField (%line, 0);
-	%victimName = getField (%line, 1);
+	%adminName   = getField (%line, 0);
+	%victimName  = getField (%line, 1);
 	%victimBL_ID = getField (%line, 2);
-	%victimIP = getField (%line, 3);
-	%reason = getField (%line, 4);
+	%victimIP    = getField (%line, 3);
+	%reason      = getField (%line, 4);
 	%timeMinutes = getField (%line, 5);
-	%timeString = "1:00";
+	%timeString  = "1:00";
 
 	if ( %timeMinutes == -1 )
 	{
@@ -10849,9 +10927,9 @@ function clientCmdAddUnBanLine ( %line, %idx )
 	}
 	else if ( %timeMinutes > 24 * 60 )
 	{
-		%numDays = mFloor (%timeMinutes / (24 * 60));
+		%numDays      = mFloor (%timeMinutes / (24 * 60));
 		%timeLeftover = %timeMinutes % (24 * 60);
-		%timeString = %numDays @ "d " @ getTimeString (%timeLeftover);
+		%timeString   = %numDays @ "d " @ getTimeString (%timeLeftover);
 	}
 	else
 	{
@@ -10876,12 +10954,11 @@ function unBanGui::sortList ( %this, %col )
 	if ( unBan_list.sortedBy == %col )
 	{
 		unBan_list.sortedAsc = !unBan_list.sortedAsc;
-
 		unBan_list.sort (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
 	else
 	{
-		unBan_list.sortedBy = %col;
+		unBan_list.sortedBy  = %col;
 		unBan_list.sortedAsc = false;
 
 		unBan_list.sort (unBan_list.sortedBy, unBan_list.sortedAsc);
@@ -10895,12 +10972,11 @@ function unBanGui::sortNumList ( %this, %col )
 	if ( unBan_list.sortedBy == %col )
 	{
 		unBan_list.sortedAsc = !unBan_list.sortedAsc;
-
 		unBan_list.sortNumerical (unBan_list.sortedBy, unBan_list.sortedAsc);
 	}
 	else
 	{
-		unBan_list.sortedBy = %col;
+		unBan_list.sortedBy  = %col;
 		unBan_list.sortedAsc = false;
 
 		unBan_list.sortNumerical (unBan_list.sortedBy, unBan_list.sortedAsc);
@@ -10915,7 +10991,7 @@ function BrickManGui::onWake ( %this )
 
 function BrickManGui::onSleep ( %this )
 {
-
+	// Stub
 }
 
 function clientCmdClearBrickMan ()
@@ -10937,9 +11013,9 @@ function clientCmdAddBrickManLine ( %bl_id, %line )
 
 function BrickManGui::clickClear ( %this )
 {
-	%id = BrickMan_list.getSelectedId ();
-	%row = BrickMan_list.getRowTextById (%id);
-	%name = getField (%row, 1);
+	%id         = BrickMan_list.getSelectedId ();
+	%row        = BrickMan_list.getRowTextById (%id);
+	%name       = getField (%row, 1);
 	%brickCount = getField (%row, 2);
 
 	if ( %row $= "" )
@@ -10947,7 +11023,8 @@ function BrickManGui::clickClear ( %this )
 		return;
 	}
 
-	messageBoxYesNo ("Clear Bricks?", "Are you sure you want to destroy all of " @ %name @ "\'s bricks?", "BrickManGui.clearBrickGroup(" @ %id @ ");");
+	messageBoxYesNo ("Clear Bricks?", "Are you sure you want to destroy all of " @ %name @ "\'s bricks?",
+		"BrickManGui.clearBrickGroup(" @ %id @ ");");
 }
 
 function BrickManGui::clearBrickGroup ( %this, %bl_id )
@@ -10958,7 +11035,8 @@ function BrickManGui::clearBrickGroup ( %this, %bl_id )
 
 function BrickManGui::clickClearAll ( %this )
 {
-	messageBoxYesNo ("Clear ALL Bricks?", "Are you sure you want to destroy ALL of the bricks?", "brickManGui.clearAllBricks();");
+	messageBoxYesNo ("Clear ALL Bricks?", "Are you sure you want to destroy ALL of the bricks?",
+		"brickManGui.clearAllBricks();");
 }
 
 function BrickManGui::clearAllBricks ( %this )
@@ -10970,7 +11048,6 @@ function BrickManGui::clearAllBricks ( %this )
 function BrickManGui::clickHilight ( %this )
 {
 	%id = BrickMan_list.getSelectedId ();
-
 	commandToServer ('HilightBrickGroup', %id);
 }
 
@@ -10983,11 +11060,12 @@ function BrickManGui::clickBan ( %this )
 		return;
 	}
 
-	%victimID = 0;
-	%victimName = getField (%row, 1);
+	%victimID    = 0;
+	%victimName  = getField (%row, 1);
 	%victimBL_ID = getField (%row, 0);
 
 	addBanGui.setVictim (%victimName, %victimID, %victimBL_ID);
+
 	Canvas.pushDialog (addBanGui);
 }
 
@@ -10998,12 +11076,11 @@ function BrickManGui::sortList ( %this, %col )
 	if ( BrickMan_list.sortedBy == %col )
 	{
 		BrickMan_list.sortedAsc = !BrickMan_list.sortedAsc;
-
 		BrickMan_list.sort (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
 	else
 	{
-		BrickMan_list.sortedBy = %col;
+		BrickMan_list.sortedBy  = %col;
 		BrickMan_list.sortedAsc = false;
 
 		BrickMan_list.sort (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
@@ -11017,12 +11094,11 @@ function BrickManGui::sortNumList ( %this, %col )
 	if ( BrickMan_list.sortedBy == %col )
 	{
 		BrickMan_list.sortedAsc = !BrickMan_list.sortedAsc;
-
 		BrickMan_list.sortNumerical (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
 	}
 	else
 	{
-		BrickMan_list.sortedBy = %col;
+		BrickMan_list.sortedBy  = %col;
 		BrickMan_list.sortedAsc = false;
 
 		BrickMan_list.sortNumerical (BrickMan_list.sortedBy, BrickMan_list.sortedAsc);
@@ -11049,25 +11125,25 @@ function escapeMenu::onWake ( %this )
 {
 	if ( $Pref::Gui::ColorEscapeMenu )
 	{
-		EM_Options.mColor = "255 255 255 255";
+		EM_Options.mColor    = "255 255 255 255";
 		EM_PlayerList.mColor = " 50 255  50 255";
-		EM_MiniGames.mColor = "170 170 170 255";
-		EM_AdminMenu.mColor = "255 255  50 255";
+		EM_MiniGames.mColor  = "170 170 170 255";
+		EM_AdminMenu.mColor  = "255 255  50 255";
 		EM_SaveBricks.mColor = " 50 130 255 255";
 		EM_LoadBricks.mColor = " 50 255 255 255";
 		EM_Disconnect.mColor = "255 150   0 255";
-		EM_Quit.mColor = "255  75   0 255";
+		EM_Quit.mColor       = "255  75   0 255";
 	}
 	else
 	{
-		EM_Options.mColor = "255 255 255 255";
+		EM_Options.mColor    = "255 255 255 255";
 		EM_PlayerList.mColor = "255 255 255 255";
-		EM_MiniGames.mColor = "255 255 255 255";
-		EM_AdminMenu.mColor = "255 255 255 255";
+		EM_MiniGames.mColor  = "255 255 255 255";
+		EM_AdminMenu.mColor  = "255 255 255 255";
 		EM_SaveBricks.mColor = "255 255 255 255";
 		EM_LoadBricks.mColor = "255 255 255 255";
 		EM_Disconnect.mColor = "255 255 255 255";
-		EM_Quit.mColor = "255 255 255 255";
+		EM_Quit.mColor       = "255 255 255 255";
 	}
 }
 
@@ -11080,7 +11156,6 @@ function escapeMenu::clickAdmin ()
 	else
 	{
 		$AdminCallback = "canvas.pushDialog(admingui);";
-
 		Canvas.pushDialog ("adminLoginGui");
 	}
 }
@@ -11094,7 +11169,6 @@ function escapeMenu::clickLoadBricks ()
 	else
 	{
 		$AdminCallback = "canvas.pushDialog(loadBricksGui);";
-
 		Canvas.pushDialog ("adminLoginGui");
 	}
 }
@@ -11148,7 +11222,7 @@ function clientCmdSetAdminLevel ( %newAdminLevel )
 	}
 
 	%newAdminLevel = mFloor (%newAdminLevel);
-	$IamAdmin = %newAdminLevel;
+	$IamAdmin      = %newAdminLevel;
 
 	if ( %newAdminLevel > 0 )
 	{
@@ -11183,7 +11257,7 @@ function clientCmdSetAdminLevel ( %newAdminLevel )
 
 	for ( %i = 0; %i < %rowCount; %i++ )
 	{
-		%row = NPL_List.getRowText (%i);
+		%row   = NPL_List.getRowText (%i);
 		%trust = getField (%row, 4);
 
 		if ( %trust !$= "You" )
@@ -11191,7 +11265,7 @@ function clientCmdSetAdminLevel ( %newAdminLevel )
 			continue;
 		}
 
-		%row = setField (%row, 0, %adminChar);
+		%row   = setField (%row, 0, %adminChar);
 		%rowID = NPL_List.getRowId (%i);
 
 		NPL_List.setRowById (%rowID, %row);
@@ -11211,7 +11285,7 @@ function clientCmdAdminFailure ()
 function clientCmdSetLetterPrintInfo ( %start, %numLetters )
 {
 	$PSD_letterStart = %start;
-	$PSD_numLetters = %numLetters;
+	$PSD_numLetters  = %numLetters;
 }
 
 function clientCmdOpenPrintSelectorDlg ( %aspectRatio, %startPrint, %numPrints )
@@ -11220,10 +11294,12 @@ function clientCmdOpenPrintSelectorDlg ( %aspectRatio, %startPrint, %numPrints )
 	{
 		PSD_Window.scrollcount = 0;
 	}
+
 	if ( !isObject ("PSD_PrintScroller" @ %aspectRatio) )
 	{
 		PSD_LoadPrints (%aspectRatio, %startPrint, %numPrints);
 	}
+
 	if ( !isObject ("PSD_PrintScrollerLetters") )
 	{
 		PSD_LoadPrints ("Letters", $PSD_letterStart, $PSD_numLetters);
@@ -11240,7 +11316,6 @@ function clientCmdOpenPrintSelectorDlg ( %aspectRatio, %startPrint, %numPrints )
 	else
 	{
 		%obj = "PSD_PrintScroller" @ %aspectRatio;
-
 		%obj.setVisible (true);
 	}
 
@@ -11252,7 +11327,6 @@ function PrintSelectorDlg::onWake ( %this )
 	if ( !isObject (NoShiftMoveMap) )
 	{
 		new ActionMap (NoShiftMoveMap);
-
 		NoShiftMoveMap.bind ("keyboard0", "lshift", "");
 	}
 
@@ -11267,11 +11341,11 @@ function PrintSelectorDlg::onSleep ( %this )
 	{
 		if ( PSD_PrintScrollerLetters.visible == 1 )
 		{
-			$PSD_LettersVisible = 1;
+			$PSD_LettersVisible = true;
 		}
 		else
 		{
-			$PSD_LettersVisible = 0;
+			$PSD_LettersVisible = false;
 		}
 	}
 
@@ -11310,7 +11384,6 @@ function PSD_LettersTab ()
 	PSD_PrintScrollerLetters.setVisible (true);
 
 	%obj = "PSD_PrintScroller" @ $PSD_CurrentAR;
-
 	%obj.setVisible (false);
 }
 
@@ -11319,19 +11392,19 @@ function PSD_PrintsTab ()
 	PSD_PrintScrollerLetters.setVisible (false);
 
 	%obj = "PSD_PrintScroller" @ $PSD_CurrentAR;
-
 	%obj.setVisible (true);
 }
 
 function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 {
 	%scrollName = "PSD_PrintScroller" @ %aspectRatio;
-	%scrollObj = new GuiScrollCtrl ("");
 
+	%scrollObj = new GuiScrollCtrl ();
 	PSD_Window.add (%scrollObj);
 
 	PSD_Window.Scroll[PSD_Window.scrollcount] = %scrollObj;
 	PSD_Window.scrollcount++;
+
 	%scrollObj.rowHeight = 65;
 
 	%scrollObj.setName (%scrollName);
@@ -11343,29 +11416,31 @@ function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 	%scrollObj.resize (6, 42, 205, 392);
 
 	%boxName = "PSD_PrintBox" @ %aspectRatio;
-	%boxObj = new GuiControl ("");
 
+	%boxObj = new GuiControl ();
 	%scrollObj.add (%boxObj);
+
 	%boxObj.setName (%boxName);
 	%boxObj.setProfile (ColorScrollProfile);
 	%boxObj.resize (0, 0, 64, 64);
 
 	%Xsize = 64;
 	%Ysize = 64;
+
 	%numColumns = 3;
 
 	for ( %i = %startPrint; %i < %startPrint + %numPrints; %i++ )
 	{
 		%rawFileName = getPrintTexture (%i);
-		%rawBase = fileBase (%rawFileName);
-		%rawPath = filePath (%rawFileName);
-		%rawPath = getSubStr (%rawPath, 0, strlen (%rawPath) - 7);
-		%filename = %rawPath @ "/icons/" @ %rawBase @ ".png";
-		%newPrint = new GuiBitmapCtrl ("");
+		%rawBase     = fileBase (%rawFileName);
+		%rawPath     = filePath (%rawFileName);
+		%rawPath     = getSubStr (%rawPath, 0, strlen (%rawPath) - 7);
+		%filename    = %rawPath @ "/icons/" @ %rawBase @ ".png";
 
+		%newPrint = new GuiBitmapCtrl ();
 		%boxObj.add (%newPrint);
 
-		%newPrint.keepCached = 1;
+		%newPrint.keepCached = true;
 
 		%newPrint.setBitmap (%filename);
 
@@ -11376,17 +11451,17 @@ function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 
 		%newPrint.resize (%x, %y, %w, %h);
 
-		%newButton = new GuiBitmapButtonCtrl ("");
-
+		%newButton = new GuiBitmapButtonCtrl ();
 		%boxObj.add (%newButton);
 
-		%newButton.keepCached = 1;
+		%newButton.keepCached = true;
 
 		%newButton.setProfile (BlockButtonProfile);
 		%newButton.setBitmap ("base/client/ui/btnPrint");
 		%newButton.setText (" ");
 
 		%newButton.command = "PSD_click(" @ %i @ ");";
+
 		%x = (%Xsize + 1) * %columnCount;
 		%y = (%Ysize + 1) * %rowCount;
 		%w = %Xsize;
@@ -11400,70 +11475,87 @@ function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 		{
 			%newButton.accelerator = %baseName;
 		}
+
 		if ( %baseName $= "-bang" )
 		{
 			%newButton.accelerator = "shift 1";
 		}
+
 		if ( %baseName $= "-at" )
 		{
 			%newButton.accelerator = "shift 2";
 		}
+
 		if ( %baseName $= "-pound" )
 		{
 			%newButton.accelerator = "shift 3";
 		}
+
 		if ( %baseName $= "-dollar" )
 		{
 			%newButton.accelerator = "shift 4";
 		}
+
 		if ( %baseName $= "-percent" )
 		{
 			%newButton.accelerator = "shift 5";
 		}
+
 		if ( %baseName $= "-caret" )
 		{
 			%newButton.accelerator = "shift 6";
 		}
+
 		if ( %baseName $= "-and" )
 		{
 			%newButton.accelerator = "shift 7";
 		}
+
 		if ( %baseName $= "-asterisk" )
 		{
 			%newButton.accelerator = "shift 8";
 		}
+
 		if ( %baseName $= "-minus" )
 		{
 			%newButton.accelerator = "-";
 		}
+
 		if ( %baseName $= "-equals" )
 		{
 			%newButton.accelerator = "=";
 		}
+
 		if ( %baseName $= "-plus" )
 		{
 			%newButton.accelerator = "shift =";
 		}
+
 		if ( %baseName $= "-period" )
 		{
 			%newButton.accelerator = ".";
 		}
+
 		if ( %baseName $= "-less than" )
 		{
 			%newButton.accelerator = "shift ,";
 		}
+
 		if ( %baseName $= "-greater than" )
 		{
 			%newButton.accelerator = "shift .";
 		}
+
 		if ( %baseName $= "-qmark" )
 		{
 			%newButton.accelerator = "shift /";
 		}
+
 		if ( %baseName $= "-apostrophe" )
 		{
 			%newButton.accelerator = "\'";
 		}
+
 		if ( %baseName $= "-space" )
 		{
 			%newButton.accelerator = "space";
@@ -11491,17 +11583,20 @@ function PSD_LoadPrints ( %aspectRatio, %startPrint, %numPrints )
 function BrickSelectorDlg::onWake ( %this )
 {
 	$BSD_CurrClickData = -1;
-	$BSD_CurrClickInv = -1;
+	$BSD_CurrClickInv  = -1;
 
 	BSD_FavsHelper.setVisible (false);
 	BSD_SetFavsButton.setText ("Set Favs>");
+
 	HUD_BrickBox.setVisible (false);
 	HUD_BrickNameBG.setVisible (false);
 	HUD_PaintBox.setVisible (false);
 	HUD_PaintNameBG.setVisible (false);
 	HUD_ToolBox.setVisible (false);
 	HUD_ToolNameBG.setVisible (false);
+
 	BrickSelectorDlg.updateFavButtons ();
+
 	commandToServer ('BSD');
 }
 
@@ -11511,13 +11606,14 @@ function BrickSelectorDlg::onSleep ( %this )
 	{
 		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 	}
+
 	if ( $BSD_CurrClickInv != -1 )
 	{
 		$BSD_InvActive[$BSD_CurrClickInv].setVisible (false);
 	}
 
 	$BSD_CurrClickData = -1;
-	$BSD_CurrClickInv = -1;
+	$BSD_CurrClickInv  = -1;
 
 	HUD_BrickBox.setVisible (true);
 	HUD_BrickNameBG.setVisible (true);
@@ -11537,29 +11633,28 @@ function clientCmdBSD_LoadBricks ()
 	BSD_LoadBricks ();
 	BSD_LoadFavorites ();
 
-	$UINameTableCreated = 0;
+	$UINameTableCreated    = 0;
 	$PrintNameTableCreated = 0;
 
 	BSD_Window.pushToBack (BSD_FavsHelper);
+
 	PlayGui.createInvHUD ();
 
 	if ( $pref::Hud::RecolorBrickIcons )
 	{
 		%color = getColorIDTable ($currSprayCanIndex);
-		%RGB = getWords (%color, 0, 2);
-		%a = mClampF (getWord (%color, 3), 0.1, 1);
+		%RGB   = getWords (%color, 0, 2);
+		%a     = mClampF (getWord (%color, 3), 0.1, 1);
 		%color = %RGB SPC %a;
 
 		for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
 		{
 			if ( !isObject ($HUD_BrickIcon[%i]) )
 			{
+				continue;
+			}
 
-			}
-			else
-			{
-				$HUD_BrickIcon[%i].setColor (%color);
-			}
+			$HUD_BrickIcon[%i].setColor (%color);
 		}
 	}
 }
@@ -11569,20 +11664,20 @@ function BSD_LoadBricks ()
 	BSD_KillBricks ();
 
 	%group = new SimGroup (BSD_Group);
-
 	RootGroup.add (%group);
 
 	$BSD_numCategories = 0;
+
 	%dbCount = getDataBlockGroupSize ();
 
 	for ( %i = 0; %i < %dbCount; %i++ )
 	{
-		%db = getDataBlock (%i);
+		%db      = getDataBlock (%i);
 		%dbClass = %db.getClassName ();
 
 		if ( %dbClass $= "fxDTSBrickData" )
 		{
-			%cat = %db.category;
+			%cat    = %db.category;
 			%subCat = %db.subCategory;
 			%uiName = %db.uiName;
 
@@ -11590,10 +11685,12 @@ function BSD_LoadBricks ()
 			{
 				continue;
 			}
+
 			if ( %subCat $= "" )
 			{
 				continue;
 			}
+
 			if ( %uiName $= "" )
 			{
 				continue;
@@ -11606,8 +11703,7 @@ function BSD_LoadBricks ()
 		}
 	}
 
-	%newScrollBox = new GuiControl ("");
-
+	%newScrollBox = new GuiControl ();
 	BSD_Window.add (%newScrollBox);
 
 	%x = 3;
@@ -11618,8 +11714,7 @@ function BSD_LoadBricks ()
 	%newScrollBox.resize (%x, %y, %w, %h);
 	%newScrollBox.setName ("BSD_ScrollBox");
 
-	%newTabBox = new GuiControl ("");
-
+	%newTabBox = new GuiControl ();
 	BSD_Window.add (%newTabBox);
 
 	%x = 3;
@@ -11632,9 +11727,9 @@ function BSD_LoadBricks ()
 
 	for ( %i = 0; %i < $BSD_numCategories; %i++ )
 	{
-		%newTab = new GuiBitmapButtonCtrl ("");
-
+		%newTab = new GuiBitmapButtonCtrl ();
 		BSD_TabBox.add (%newTab);
+
 		%newTab.setProfile (BlockButtonProfile);
 
 		%x = %i * 80;
@@ -11647,17 +11742,18 @@ function BSD_LoadBricks ()
 		%newTab.setBitmap ("base/client/ui/tab1");
 
 		%newTab.command = "BSD_ShowTab(" @ %i @ ");";
-		%newScroll = new GuiScrollCtrl ("");
 
+		%newScroll = new GuiScrollCtrl ();
 		BSD_ScrollBox.add (%newScroll);
 
-		%newScroll.rowHeight = 64;
+		%newScroll.rowHeight  = 64;
 		%newScroll.hScrollBar = "alwaysOff";
 		%newScroll.vScrollBar = "alwaysOn";
 
 		%newScroll.setProfile (BSDScrollProfile);
 
 		%newScroll.defaultLineHeight = 32;
+
 		%x = 0;
 		%y = 0;
 		%w = 634;
@@ -11665,9 +11761,9 @@ function BSD_LoadBricks ()
 
 		%newScroll.resize (%x, %y, %w, %h);
 
-		%newBox = new GuiControl ("");
-
+		%newBox = new GuiControl ();
 		%newScroll.add (%newBox);
+
 		%newBox.setProfile (ColorScrollProfile);
 
 		%x = 0;
@@ -11677,29 +11773,33 @@ function BSD_LoadBricks ()
 
 		%newBox.resize (%x, %y, %w, %h);
 
-		$BSD_category[%i].tab = %newTab;
+		$BSD_category[%i].tab    = %newTab;
 		$BSD_category[%i].Scroll = %newScroll;
-		$BSD_category[%i].box = %newBox;
+		$BSD_category[%i].box    = %newBox;
 
 		BSD_createSubHeadings ($BSD_category[%i]);
 	}
+
 	for ( %i = 0; %i < %dbCount; %i++ )
 	{
-		%db = getDataBlock (%i);
+		%db      = getDataBlock (%i);
 		%dbClass = %db.getClassName ();
 
 		if ( %dbClass !$= "fxDTSBrickData" )
 		{
 			continue;
 		}
+
 		if ( %db.category $= "" )
 		{
 			continue;
 		}
+
 		if ( %db.subCategory $= "" )
 		{
 			continue;
 		}
+
 		if ( %db.uiName $= "" )
 		{
 			continue;
@@ -11741,10 +11841,12 @@ function BSD_KillBricks ()
 	{
 		BSD_InvBox.delete ();
 	}
+
 	if ( isObject (BSD_TabBox) )
 	{
 		BSD_TabBox.delete ();
 	}
+
 	if ( isObject (BSD_ScrollBox) )
 	{
 		BSD_ScrollBox.delete ();
@@ -11790,7 +11892,7 @@ function BSD_addCategory ( %newcat )
 
 	$BSD_category[$BSD_numCategories] = new ScriptObject (BSD_category)
 	{
-		name = %newcat;
+		name             = %newcat;
 		numSubCategories = 0;
 	};
 
@@ -11808,7 +11910,6 @@ function BSD_addSubCategory ( %cat, %newSubCat )
 		if ( $BSD_category[%i].name $= %cat )
 		{
 			%catID = %i;
-
 			break;
 		}
 	}
@@ -11816,7 +11917,6 @@ function BSD_addSubCategory ( %cat, %newSubCat )
 	if ( %catID == -1 )
 	{
 		error ("Error: BSD_addSubCategory - category \"", %cat, "\" not found.");
-
 		return;
 	}
 	else
@@ -11831,7 +11931,7 @@ function BSD_addSubCategory ( %cat, %newSubCat )
 
 		$BSD_category[%catID].subCategory[$BSD_category[%catID].numSubCategories] = new ScriptObject (BSD_SubCategory)
 		{
-			name = %newSubCat;
+			name            = %newSubCat;
 			numBrickButtons = 0;
 		};
 
@@ -11871,16 +11971,18 @@ function BSD_createSubHeadings ( %cat )
 
 	for ( %i = 0; %i < %cat.numSubCategories; %i++ )
 	{
-		%subCatObj = %cat.subCategory[%i];
-		%boxExtent = %box.getExtent ();
+		%subCatObj    = %cat.subCategory[%i];
+		%boxExtent    = %box.getExtent ();
 		%boxMinExtent = %box.getMinExtent ();
-		%boxHeight = getWord (%boxExtent, 1) - getWord (%boxMinExtent, 1);
-		%subCatObj.startHeight = %boxHeight;
-		%newBar = new GuiBitmapCtrl ("");
+		%boxHeight    = getWord (%boxExtent, 1) - getWord (%boxMinExtent, 1);
 
+		%subCatObj.startHeight = %boxHeight;
+
+		%newBar = new GuiBitmapCtrl ();
 		%box.add (%newBar);
 
-		%newBar.keepCached = 1;
+		%newBar.keepCached = true;
+
 		%x = 0 + 18;
 		%y = %subCatObj.startHeight + 15;
 		%w = 581;
@@ -11888,9 +11990,9 @@ function BSD_createSubHeadings ( %cat )
 
 		%newBar.resize (%x, %y, %w, %h);
 
-		%newHeading = new GuiTextCtrl ("");
-
+		%newHeading = new GuiTextCtrl ();
 		%box.add (%newHeading);
+
 		%newHeading.setProfile (BrickListSubCategoryProfile);
 		%newHeading.setText (%subCatObj.name);
 
@@ -11913,15 +12015,14 @@ function BSD_createSubHeadings ( %cat )
 
 function BSD_CreateBrickButton ( %data )
 {
-	%catName = %data.category;
+	%catName    = %data.category;
 	%subCatName = %data.subCategory;
-	%catObj = BSD_findCategory (%catName);
-	%subCatObj = BSD_findSubCategory (%catObj, %subCatName);
+	%catObj     = BSD_findCategory (%catName);
+	%subCatObj  = BSD_findSubCategory (%catObj, %subCatName);
 
 	if ( %catObj == 0 || %subCatObj == 0 )
 	{
 		error ("ERROR: BSD_CreateBrickButton - Couldnt find category objects");
-
 		return;
 	}
 
@@ -11932,59 +12033,63 @@ function BSD_CreateBrickButton ( %data )
 	{
 		%brickName = "No Name";
 	}
+
 	if ( !isFile (%brickIcon @ ".png") )
 	{
 		%brickIcon = "base/client/ui/brickIcons/unknown";
 	}
 
 	%box = %catObj.box;
-	%x = ((%subCatObj.numBrickButtons % 6) * 97) + 18;
-	%y = (mFloor (%subCatObj.numBrickButtons / 6) * 97) + %subCatObj.startHeight + 18;
-	%subCatObj.numBrickButtons++;
-	%newIconBG = new GuiBitmapCtrl ("");
+	%x   = ((%subCatObj.numBrickButtons % 6) * 97) + 18;
+	%y   = (mFloor (%subCatObj.numBrickButtons / 6) * 97) + %subCatObj.startHeight + 18;
 
+	%subCatObj.numBrickButtons++;
+
+	%newIconBG = new GuiBitmapCtrl ();
 	%box.add (%newIconBG);
+
 	%newIconBG.resize (%x, %y, 96, 96);
 
-	%newIconBG.keepCached = 1;
+	%newIconBG.keepCached = true;
 
 	%newIconBG.setBitmap ("base/client/ui/brickicons/brickiconbg");
 	%newIconBG.setProfile (BlockDefaultProfile);
 
-	%newIcon = new GuiBitmapCtrl ("");
-
+	%newIcon = new GuiBitmapCtrl ();
 	%box.add (%newIcon);
+
 	%newIcon.resize (%x, %y, 96, 96);
 
-	%newIcon.keepCached = 1;
+	%newIcon.keepCached = true;
 
 	%newIcon.setBitmap (%brickIcon);
 	%newIcon.setProfile (BlockDefaultProfile);
 
-	%newActive = new GuiBitmapCtrl ("");
-
+	%newActive = new GuiBitmapCtrl ();
 	%box.add (%newActive);
+
 	%newActive.resize (%x, %y, 96, 96);
 
-	%newActive.keepCached = 1;
+	%newActive.keepCached = true;
 
 	%newActive.setBitmap ("base/client/ui/brickicons/brickIconActive");
 	%newActive.setProfile (BlockDefaultProfile);
 	%newActive.setVisible (false);
 
 	$BSD_activeBitmap[%data] = %newActive;
-	%newIconButton = new GuiBitmapButtonCtrl ("");
 
+	%newIconButton = new GuiBitmapButtonCtrl ();
 	%box.add (%newIconButton);
+
 	%newIconButton.resize (%x, %y, 96, 96);
 	%newIconButton.setBitmap ("base/client/ui/brickicons/brickIconBtn");
 	%newIconButton.setProfile (BlockButtonProfile);
 	%newIconButton.setText (" ");
 
-	%newIconButton.command = "BSD_ClickIcon(" @ %data @ ");";
+	%newIconButton.command    = "BSD_ClickIcon(" @ %data @ ");";
 	%newIconButton.altCommand = "BSD_RightClickIcon(" @ %data @ ");";
-	%newLabel = new GuiTextCtrl ("");
 
+	%newLabel = new GuiTextCtrl ();
 	%box.add (%newLabel);
 
 	%w = 96;
@@ -12008,11 +12113,13 @@ function BSD_KillInventoryButtons ()
 function BSD_CreateInventoryButtons ()
 {
 	$BSD_NumInventorySlots = 10;
-	%invWidth = 617;
-	%buttonWidth = mFloor (%invWidth / 11) - 1;
-	%newBox = new GuiSwatchCtrl ("");
 
+	%invWidth    = 617;
+	%buttonWidth = mFloor (%invWidth / 11) - 1;
+
+	%newBox = new GuiSwatchCtrl ();
 	BSD_Window.add (%newBox);
+
 	%newBox.setColor ("0.2 0.5 1 1");
 
 	%x = 3;
@@ -12032,39 +12139,39 @@ function BSD_CreateInventoryButtons ()
 		%y = 0;
 		%w = %buttonWidth;
 		%h = %buttonWidth;
-		%newInvBG = new GuiBitmapCtrl ("");
 
+		%newInvBG = new GuiBitmapCtrl ();
 		%newBox.add (%newInvBG);
 
-		%newInvBG.keepCached = 1;
+		%newInvBG.keepCached = true;
 
 		%newInvBG.setBitmap ("base/client/ui/brickicons/brickiconbg");
 		%newInvBG.resize (%x, %y, %w, %h);
 
-		%newIcon = new GuiBitmapCtrl ("");
-
+		%newIcon = new GuiBitmapCtrl ();
 		%newBox.add (%newIcon);
 
-		%newIcon.keepCached = 1;
+		%newIcon.keepCached = true;
 
 		%newIcon.setProfile (HUDBitmapProfile);
 		%newIcon.resize (%x, %y, %w, %h);
 
 		$BSD_InvIcon[%i] = %newIcon;
-		%newActive = new GuiBitmapCtrl ("");
 
+		%newActive = new GuiBitmapCtrl ();
 		%newBox.add (%newActive);
 
-		%newActive.keepCached = 1;
+		%newActive.keepCached = true;
 
 		%newActive.setBitmap ("base/client/ui/brickicons/brickiconActive");
 		%newActive.setVisible (false);
 		%newActive.resize (%x, %y, %w, %h);
 
 		$BSD_InvActive[%i] = %newActive;
-		%newInvButton = new GuiBitmapButtonCtrl ("");
 
+		%newInvButton = new GuiBitmapButtonCtrl ();
 		%newBox.add (%newInvButton);
+
 		%newInvButton.setBitmap ("base/client/ui/brickicons/brickIconBtn");
 		%newInvButton.setProfile (BlockButtonProfile);
 		%newInvButton.setText (" ");
@@ -12079,7 +12186,6 @@ function BSD_ClickClear ()
 	for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
 	{
 		$BSD_InvIcon[%i].setBitmap ("");
-
 		$BSD_InvData[%i] = -1;
 	}
 }
@@ -12094,12 +12200,13 @@ function BSD_ClickInv ( %index )
 		$BSD_InvActive[%index].setVisible (false);
 
 		$BSD_CurrClickData = -1;
-		$BSD_CurrClickInv = -1;
+		$BSD_CurrClickInv  = -1;
 	}
 	else if ( $BSD_CurrClickInv != -1 )
 	{
 		%tempData = $BSD_InvData[%index];
-		$BSD_InvData[%index] = $BSD_InvData[$BSD_CurrClickInv];
+
+		$BSD_InvData[%index]            = $BSD_InvData[$BSD_CurrClickInv];
 		$BSD_InvData[$BSD_CurrClickInv] = %tempData;
 
 		if ( $BSD_InvData[%index] > 0 )
@@ -12117,6 +12224,7 @@ function BSD_ClickInv ( %index )
 		{
 			$BSD_InvIcon[%index].setBitmap ("");
 		}
+
 		if ( $BSD_InvData[$BSD_CurrClickInv] > 0 )
 		{
 			if ( !isFile ($BSD_InvData[$BSD_CurrClickInv].iconName @ ".png") )
@@ -12137,7 +12245,7 @@ function BSD_ClickInv ( %index )
 		$BSD_InvActive[$BSD_CurrClickInv].setVisible (false);
 
 		$BSD_CurrClickData = -1;
-		$BSD_CurrClickInv = -1;
+		$BSD_CurrClickInv  = -1;
 	}
 	else if ( $BSD_CurrClickData != -1 )
 	{
@@ -12155,14 +12263,14 @@ function BSD_ClickInv ( %index )
 		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 
 		$BSD_CurrClickData = -1;
-		$BSD_CurrClickInv = -1;
+		$BSD_CurrClickInv  = -1;
 	}
 	else
 	{
 		$BSD_InvActive[%index].setVisible (true);
 
 		$BSD_CurrClickData = -1;
-		$BSD_CurrClickInv = %index;
+		$BSD_CurrClickInv  = %index;
 	}
 }
 
@@ -12179,7 +12287,6 @@ function BSD_ClickIcon ( %data )
 			if ( $BSD_InvData[%i] <= 0 )
 			{
 				%openSlot = %i;
-
 				break;
 			}
 		}
@@ -12228,7 +12335,7 @@ function BSD_ClickIcon ( %data )
 		$BSD_activeBitmap[$BSD_CurrClickData].setVisible (false);
 
 		$BSD_CurrClickData = -1;
-		$BSD_CurrClickInv = -1;
+		$BSD_CurrClickInv  = -1;
 	}
 	else
 	{
@@ -12244,20 +12351,22 @@ function BSD_ClickIcon ( %data )
 		$BSD_activeBitmap[%data].setVisible (true);
 
 		$BSD_CurrClickData = %data;
-		$BSD_CurrClickInv = -1;
+		$BSD_CurrClickInv  = -1;
 	}
 }
 
 function BSD_RightClickIcon ( %data )
 {
 	Canvas.popDialog (BrickSelectorDlg);
+
 	commandToServer ('InstantUseBrick', %data);
 
 	$LastInstantUseData = %data;
-	$InstantUse = 1;
+	$InstantUse         = true;
 
 	setActiveInv (-1);
 	setScrollMode ($SCROLLMODE_BRICKS);
+
 	HUD_BrickName.setText (%data.uiName);
 }
 
@@ -12327,6 +12436,7 @@ function BSD_ClickFav ( %idx )
 		BSD_SaveFavorites (%idx);
 		BSD_FavsHelper.setVisible (false);
 		BSD_SetFavsButton.setText ("Set Favs>");
+
 		BrickSelectorDlg.updateFavButtons ();
 	}
 	else
@@ -12342,14 +12452,13 @@ function BSD_SaveFavorites ( %idx )
 		BSD_LoadFavorites ();
 	}
 
-	%isEmptyList = 1;
+	%isEmptyList = true;
 
 	for ( %i = 0; %i < $BSD_NumInventorySlots; %i++ )
 	{
 		if ( $BSD_InvData[%i].uiName !$= "" )
 		{
-			%isEmptyList = 0;
-
+			%isEmptyList = false;
 			break;
 		}
 	}
@@ -12370,8 +12479,8 @@ function BSD_SaveFavorites ( %idx )
 	}
 
 	%filename = "config/client/Favorites.cs";
-
 	export ("$Favorite::*", %filename, 0);
+
 	BrickSelectorDlg.updateFavButtons ();
 }
 
@@ -12381,6 +12490,7 @@ function BSD_BuyFavorites ( %idx )
 	{
 		BSD_LoadFavorites ();
 	}
+
 	if ( $UINameTableCreated == 0 )
 	{
 		createUINameTable ();
@@ -12431,7 +12541,7 @@ function listAllDataBlocks ()
 
 	for ( %i = 0; %i < %numDataBlocks; %i++ )
 	{
-		%db = getDataBlock (%i);
+		%db      = getDataBlock (%i);
 		%dbClass = %db.getClassName ();
 
 		echo (%db, " : ", %dbClass);
@@ -12466,6 +12576,7 @@ function clientCmdUseBrickControls ()
 		$BC_mouseX = moveMap.getCommand ("mouse0", "xaxis");
 		$BC_mouseY = moveMap.getCommand ("mouse0", "yaxis");
 		$BC_mouseZ = moveMap.getCommand ("mouse0", "zaxis");
+
 		$BC_mouseButton0 = moveMap.getCommand ("mouse0", "button0");
 		$BC_mouseButton1 = moveMap.getCommand ("mouse0", "button1");
 		$BC_mouseButton2 = moveMap.getCommand ("mouse0", "button2");
@@ -12473,11 +12584,12 @@ function clientCmdUseBrickControls ()
 		moveMap.bind (mouse0, "xaxis", mouseMoveBrickX);
 		moveMap.bind (mouse0, "yaxis", mouseMoveBrickY);
 		moveMap.bind (mouse0, "zaxis", mouseMoveBrickZ);
+
 		moveMap.bind (mouse0, "button0", plantBrick);
 		moveMap.bind (mouse0, "button1", RotateBrickCW);
 		moveMap.bind (mouse0, "button2", RotateBrickCCW);
 
-		$UsingBrickControls = 1;
+		$UsingBrickControls = true;
 	}
 }
 
@@ -12492,7 +12604,7 @@ function clientCmdStopBrickControls ()
 	moveMap.bind (mouse0, "button1", $BC_mouseButton1);
 	moveMap.bind (mouse0, "button2", $BC_mouseButton2);
 
-	$UsingBrickControls = 0;
+	$UsingBrickControls = false;
 }
 
 function mouseMoveBrickX ( %val )
@@ -12502,13 +12614,11 @@ function mouseMoveBrickX ( %val )
 	if ( $mouseBrickShiftX >= 1 )
 	{
 		commandToServer ('ShiftBrick', 0, -1, 0);
-
 		$mouseBrickShiftX = 0;
 	}
 	else if ( $mouseBrickShiftX <= -1 )
 	{
 		commandToServer ('ShiftBrick', 0, 1, 0);
-
 		$mouseBrickShiftX = 0;
 	}
 }
@@ -12520,13 +12630,11 @@ function mouseMoveBrickY ( %val )
 	if ( $mouseBrickShiftY >= 1 )
 	{
 		commandToServer ('ShiftBrick', -1, 0, 0);
-
 		$mouseBrickShiftY = 0;
 	}
 	else if ( $mouseBrickShiftY <= -1 )
 	{
 		commandToServer ('ShiftBrick', 1, 0, 0);
-
 		$mouseBrickShiftY = 0;
 	}
 }
@@ -12540,6 +12648,7 @@ function saveBricks_ProcessWrenchExtras ()
 {
 	%group = ServerConnection.getId ();
 	%count = %group.getCount ();
+
 	%brickCount = 0;
 
 	for ( %i = 0; %i < %count; %i++ )
@@ -12551,47 +12660,29 @@ function saveBricks_ProcessWrenchExtras ()
 			if ( %obj.getEmitterDataBlock ().uiName !$= "" )
 			{
 				%trans = %obj.getTransform ();
-				%pos = getWords (%trans, 0, 2);
-				%rot = getWords (%trans, 3, 6);
+				%pos   = getWords (%trans, 0, 2);
+				%rot   = getWords (%trans, 3, 6);
 
-				if ( %rot $= "1 0 0 0" )
+				switch$ ( %rot )
 				{
-					%dir = 0;
-				}
-				else if ( %rot $= "0 1 0 3.14159" )
-				{
-					%dir = 1;
-				}
-				else if ( %rot $= "1 0 0 1.5708" )
-				{
-					%dir = 2;
-				}
-				else if ( %rot $= "0 -1 0 1.5708" )
-				{
-					%dir = 3;
-				}
-				else if ( %rot $= "-1 0 0 1.5708" )
-				{
-					%dir = 4;
-				}
-				else if ( %rot $= "0 1 0 1.5708" )
-				{
-					%dir = 5;
-				}
-				else
-				{
-					%dir = 0;
+					case "1 0 0 0":       %dir = 0;
+					case "0 1 0 3.14159": %dir = 1;
+					case "1 0 0 1.5708":  %dir = 2;
+					case "0 -1 0 1.5708": %dir = 3;
+					case "-1 0 0 1.5708": %dir = 4;
+					case "0 1 0 1.5708":  %dir = 5;
+
+					default: %dir = 0;
 				}
 
 				%searchBox = "0.015 0.015 0.015";
-
 				initClientBrickSearch (%pos, %searchBox);
 
 				while (  (%searchBrick = ClientBrickSearchNext ()) != 0 )
 				{
 					if ( %searchBrick.isPlanted () )
 					{
-						%searchBrick.emitter = %obj;
+						%searchBrick.emitter          = %obj;
 						%searchBrick.emitterDirection = %dir;
 
 						break;
@@ -12601,12 +12692,13 @@ function saveBricks_ProcessWrenchExtras ()
 
 			continue;
 		}
+
 		if ( %obj.getClassName () $= "FxLight" )
 		{
 			if ( %obj.getDataBlock ().uiName !$= "" )
 			{
-				%trans = %obj.getTransform ();
-				%pos = getWords (%trans, 0, 2);
+				%trans     = %obj.getTransform ();
+				%pos       = getWords (%trans, 0, 2);
 				%searchBox = "0.015 0.015 0.015";
 
 				initClientBrickSearch (%pos, %searchBox);
@@ -12617,7 +12709,6 @@ function saveBricks_ProcessWrenchExtras ()
 					if ( %searchBrick.isPlanted () )
 					{
 						%searchBrick.light = %obj;
-
 						break;
 					}
 				}
@@ -12625,23 +12716,26 @@ function saveBricks_ProcessWrenchExtras ()
 
 			continue;
 		}
+
 		if ( %obj.getClassName () $= "Item" )
 		{
 			if ( %obj.getDataBlock ().uiName $= "" )
 			{
 				continue;
 			}
+
 			if ( !%obj.isStatic () )
 			{
 				continue;
 			}
 
 			%trans = %obj.getTransform ();
-			%pos = %obj.getWorldBoxCenter ();
+			%pos   = %obj.getWorldBoxCenter ();
+
 			%posX = getWord (%pos, 0);
 			%posY = getWord (%pos, 1);
 			%posZ = getWord (%pos, 2);
-			%rot = getWords (%trans, 3, 6);
+			%rot  = getWords (%trans, 3, 6);
 
 			if ( %rot $= "1 0 0 0" )
 			{
@@ -12664,10 +12758,11 @@ function saveBricks_ProcessWrenchExtras ()
 				%dir = 2;
 			}
 
-			%itemBox = %obj.getWorldBox ();
+			%itemBox  = %obj.getWorldBox ();
 			%itemBoxX = mAbs (getWord (%itemBox, 0) - getWord (%itemBox, 3)) + 0.05;
 			%itemBoxY = mAbs (getWord (%itemBox, 1) - getWord (%itemBox, 4)) + 0.05;
 			%itemBoxZ = mAbs (getWord (%itemBox, 2) - getWord (%itemBox, 5)) + 0.05;
+
 			%searchBox = %itemBoxX SPC %itemBoxY SPC %itemBoxZ;
 
 			initClientBrickSearch (%pos, %searchBox);
@@ -12676,10 +12771,11 @@ function saveBricks_ProcessWrenchExtras ()
 			{
 				if ( %searchBrick.isPlanted () )
 				{
-					%brickPos = %searchBrick.getPosition ();
+					%brickPos  = %searchBrick.getPosition ();
 					%brickPosX = getWord (%brickPos, 0);
 					%brickPosY = getWord (%brickPos, 1);
 					%brickPosZ = getWord (%brickPos, 2);
+
 					%vecX = %brickPosX - %posX;
 					%vecY = %brickPosY - %posY;
 					%vecZ = %brickPosZ - %posZ;
@@ -12688,23 +12784,26 @@ function saveBricks_ProcessWrenchExtras ()
 					{
 						%vecX = 0;
 					}
+
 					if ( mAbs (%vecY) < 0.01 )
 					{
 						%vecY = 0;
 					}
+
 					if ( mAbs (%vecZ) < 0.01 )
 					{
 						%vecZ = 0;
 					}
+
 					if ( %vecX == 0 && %vecY == 0 )
 					{
 						if ( %vecZ > 0 )
 						{
 							if ( mAbs (getWord (%itemBox, 5) - getWord (%searchBrick.getWorldBox (), 2)) < 0.01 )
 							{
-								%searchBrick.Item = %obj;
-								%searchBrick.itemPosition = 1;
-								%searchBrick.itemDirection = %dir;
+								%searchBrick.item            = %obj;
+								%searchBrick.itemPosition    = 1;
+								%searchBrick.itemDirection   = %dir;
 								%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 								break;
@@ -12712,9 +12811,9 @@ function saveBricks_ProcessWrenchExtras ()
 						}
 						else if ( mAbs (getWord (%itemBox, 2) - getWord (%searchBrick.getWorldBox (), 5)) < 0.01 )
 						{
-							%searchBrick.Item = %obj;
-							%searchBrick.itemPosition = 0;
-							%searchBrick.itemDirection = %dir;
+							%searchBrick.item            = %obj;
+							%searchBrick.itemPosition    = 0;
+							%searchBrick.itemDirection   = %dir;
 							%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 							break;
@@ -12726,9 +12825,9 @@ function saveBricks_ProcessWrenchExtras ()
 						{
 							if ( mAbs (getWord (%itemBox, 4) - getWord (%searchBrick.getWorldBox (), 1)) < 0.01 )
 							{
-								%searchBrick.Item = %obj;
-								%searchBrick.itemPosition = 4;
-								%searchBrick.itemDirection = %dir;
+								%searchBrick.item            = %obj;
+								%searchBrick.itemPosition    = 4;
+								%searchBrick.itemDirection   = %dir;
 								%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 								break;
@@ -12736,9 +12835,9 @@ function saveBricks_ProcessWrenchExtras ()
 						}
 						else if ( mAbs (getWord (%itemBox, 1) - getWord (%searchBrick.getWorldBox (), 4)) < 0.01 )
 						{
-							%searchBrick.Item = %obj;
-							%searchBrick.itemPosition = 2;
-							%searchBrick.itemDirection = %dir;
+							%searchBrick.item            = %obj;
+							%searchBrick.itemPosition    = 2;
+							%searchBrick.itemDirection   = %dir;
 							%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 							break;
@@ -12750,9 +12849,9 @@ function saveBricks_ProcessWrenchExtras ()
 						{
 							if ( mAbs (getWord (%itemBox, 3) - getWord (%searchBrick.getWorldBox (), 0)) < 0.01 )
 							{
-								%searchBrick.Item = %obj;
-								%searchBrick.itemPosition = 5;
-								%searchBrick.itemDirection = %dir;
+								%searchBrick.item            = %obj;
+								%searchBrick.itemPosition    = 5;
+								%searchBrick.itemDirection   = %dir;
 								%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 								break;
@@ -12760,9 +12859,9 @@ function saveBricks_ProcessWrenchExtras ()
 						}
 						else if ( mAbs (getWord (%itemBox, 0) - getWord (%searchBrick.getWorldBox (), 3)) < 0.01 )
 						{
-							%searchBrick.Item = %obj;
-							%searchBrick.itemPosition = 3;
-							%searchBrick.itemDirection = %dir;
+							%searchBrick.item            = %obj;
+							%searchBrick.itemPosition    = 3;
+							%searchBrick.itemDirection   = %dir;
 							%searchBrick.itemRespawnTime = %obj.getRespawnTime ();
 
 							break;
@@ -12773,14 +12872,15 @@ function saveBricks_ProcessWrenchExtras ()
 
 			continue;
 		}
+
 		if ( %obj.getClassName () $= "AudioEmitter" )
 		{
 			if ( %obj.getProfileId ().uiName !$= "" )
 			{
 				if ( %obj.getProfileId ().getDescription ().isLooping == 1 )
 				{
-					%trans = %obj.getTransform ();
-					%pos = getWords (%trans, 0, 2);
+					%trans     = %obj.getTransform ();
+					%pos       = getWords (%trans, 0, 2);
 					%searchBox = "0.015 0.015 0.015";
 
 					initClientBrickSearch (%pos, %searchBox);
@@ -12800,10 +12900,11 @@ function saveBricks_ProcessWrenchExtras ()
 
 			continue;
 		}
+
 		if ( %obj.getClassName () $= "VehicleSpawnMarker" )
 		{
-			%trans = %obj.getTransform ();
-			%pos = getWords (%trans, 0, 2);
+			%trans     = %obj.getTransform ();
+			%pos       = getWords (%trans, 0, 2);
 			%searchBox = "0.015 0.015 0.015";
 
 			initClientBrickSearch (%pos, %searchBox);
@@ -12814,7 +12915,6 @@ function saveBricks_ProcessWrenchExtras ()
 				if ( %searchBrick.isPlanted () )
 				{
 					%searchBrick.VehicleSpawnMarker = %obj;
-
 					break;
 				}
 			}
@@ -12827,19 +12927,19 @@ function saveBricks ( %filename, %description )
 	if ( !isWriteableFileName (%filename) )
 	{
 		error ("ERROR: saveBricks() - Invalid Filename!");
-
 		return;
 	}
+
 	if ( fileExt (%filename) !$= ".bls" )
 	{
 		error ("ERROR: saveBricks() - File extension must be .bls");
-
 		return;
 	}
 
 	%group = ServerConnection.getId ();
 	%count = %group.getCount ();
-	%foundBrick = 0;
+
+	%foundBrick = false;
 
 	for ( %i = 0; %i < %count; %i++ )
 	{
@@ -12847,8 +12947,7 @@ function saveBricks ( %filename, %description )
 
 		if ( %obj.getType () & $TypeMasks::FxBrickAlwaysObjectType )
 		{
-			%foundBrick = 1;
-
+			%foundBrick = true;
 			break;
 		}
 	}
@@ -12861,9 +12960,10 @@ function saveBricks ( %filename, %description )
 		return;
 	}
 
-	%file = new FileObject ("");
+	%file = new FileObject ();
 
 	saveBricks_ProcessWrenchExtras ();
+
 	%file.openForWrite (%filename);
 	%file.writeLine ("This is a Blockland save file.  You probably shouldn\'t modify it cause you\'ll screw it up.");
 
@@ -12884,9 +12984,10 @@ function saveBricks ( %filename, %description )
 		%file.writeLine (%color);
 	}
 
-	%list = new GuiTextListCtrl ("");
-	%gotInvalidDFG = 0;
-	%gotValidDFG = 0;
+	%list = new GuiTextListCtrl ();
+
+	%gotInvalidDFG = false;
+	%gotValidDFG   = false;
 
 	if ( ServerConnection.isLocal () )
 	{
@@ -12943,11 +13044,11 @@ function saveBricks ( %filename, %description )
 
 				if ( %rowText > 999999 || %rowText < 0 )
 				{
-					%gotInvalidDFG = 1;
+					%gotInvalidDFG = true;
 				}
 				else
 				{
-					%gotValidDFG = 1;
+					%gotValidDFG = true;
 				}
 
 				%list.addRow (%obj.getId (), %rowText);
@@ -12960,6 +13061,7 @@ function saveBricks ( %filename, %description )
 	{
 		%group = ServerConnection.getId ();
 		%count = %group.getCount ();
+
 		%brickCount = 0;
 
 		for ( %i = 0; %i < %count; %i++ )
@@ -12985,35 +13087,36 @@ function saveBricks ( %filename, %description )
 
 			if ( !(%obj.getType () & $TypeMasks::FxBrickAlwaysObjectType) )
 			{
-
+				continue;
 			}
-			else if ( !%obj.isPlanted () )
-			{
 
+			if ( !%obj.isPlanted () )
+			{
+				continue;
 			}
-			else if ( %obj.isDead () )
-			{
 
+			if ( %obj.isDead () )
+			{
+				continue;
+			}
+
+			%rowText = %obj.getDistanceFromGround ();
+
+			if ( %rowText > 999999 || %rowText < 0 )
+			{
+				%gotInvalidDFG = true;
 			}
 			else
 			{
-				%rowText = %obj.getDistanceFromGround ();
-
-				if ( %rowText > 999999 || %rowText < 0 )
-				{
-					%gotInvalidDFG = 1;
-				}
-				else
-				{
-					%gotValidDFG = 1;
-				}
-
-				%list.addRow (%obj.getId (), %rowText);
-
-				%rowCount++;
+				%gotValidDFG = true;
 			}
+
+			%list.addRow (%obj.getId (), %rowText);
+
+			%rowCount++;
 		}
 	}
+
 	if ( %gotValidDFG )
 	{
 		%list.sortNumerical (0, 1);
@@ -13022,30 +13125,33 @@ function saveBricks ( %filename, %description )
 	for ( %i = 0; %i < %rowCount; %i++ )
 	{
 		%obj = %list.getRowId (%i);
-
 		SaveBricks_WriteSingleBrick (%file, %obj);
 	}
 
 	%list.delete ();
+
 	%file.close ();
 	%file.delete ();
 
 	%screenshotName = getSubStr (%filename, 0, strlen (%filename) - 4) @ ".jpg";
-	%oldContent = Canvas.getContent ();
+	%oldContent     = Canvas.getContent ();
 
 	Canvas.setContent (noHudGui);
-	noHudGui.setHasRendered (1);
-	PlayGui.setHasRendered (1);
+
+	noHudGui.setHasRendered (true);
+	PlayGui.setHasRendered (true);
 
 	%oldMegashot = $megaShotScaleFactor;
+
 	$megaShotScaleFactor = 1;
 
 	screenShot (%screenshotName, "JPG", 1);
 
 	$megaShotScaleFactor = %oldMegashot;
 
-	noHudGui.setHasRendered (1);
-	PlayGui.setHasRendered (1);
+	noHudGui.setHasRendered (true);
+	PlayGui.setHasRendered (true);
+
 	Canvas.setContent (%oldContent);
 }
 
@@ -13062,15 +13168,15 @@ function dumpPrints ()
 function SaveBricks_WriteSingleBrick ( %file, %obj )
 {
 	%objData = %obj.getDataBlock ();
-	%uiName = %objData.uiName;
-	%trans = %obj.getTransform ();
-	%pos = getWords (%trans, 0, 2);
+	%uiName  = %objData.uiName;
+	%trans   = %obj.getTransform ();
+	%pos     = getWords (%trans, 0, 2);
 
 	if ( %objData.hasPrint )
 	{
 		%filename = getPrintTexture (%obj.getPrintID ());
 		%fileBase = fileBase (%filename);
-		%path = filePath (%filename);
+		%path     = filePath (%filename);
 
 		if ( %path $= "" || %filename $= "base/data/shapes/bricks/brickTop.png" )
 		{
@@ -13078,10 +13184,10 @@ function SaveBricks_WriteSingleBrick ( %file, %obj )
 		}
 		else
 		{
-			%dirName = getSubStr (%path, strlen ("Add-Ons/"), strlen (%path) - strlen ("Add-Ons/"));
-			%posA = strpos (%dirName, "_");
-			%posB = strpos (%dirName, "_", %posA + 1);
-			%aspectRatio = getSubStr (%dirName, %posA + 1, (%posB - %posA) - 1);
+			%dirName      = getSubStr (%path, strlen ("Add-Ons/"), strlen (%path) - strlen ("Add-Ons/"));
+			%posA         = strpos (%dirName, "_");
+			%posB         = strpos (%dirName, "_", %posA + 1);
+			%aspectRatio  = getSubStr (%dirName, %posA + 1, (%posB - %posA) - 1);
 			%printTexture = %aspectRatio @ "/" @ %fileBase;
 		}
 	}
@@ -13090,7 +13196,17 @@ function SaveBricks_WriteSingleBrick ( %file, %obj )
 		%printTexture = "";
 	}
 
-	%line = %uiName @ "\"" SPC %pos SPC %obj.getAngleID () SPC %obj.isBasePlate () SPC %obj.getColorID () SPC %printTexture SPC %obj.getColorFxID () SPC %obj.getShapeFxID () SPC %obj.isRayCasting () SPC %obj.isColliding () SPC %obj.isRendering ();
+	%line = %uiName @ "\""
+	    SPC %pos
+	    SPC %obj.getAngleID ()
+	    SPC %obj.isBasePlate ()
+	    SPC %obj.getColorID ()
+	    SPC %printTexture
+	    SPC %obj.getColorFxID ()
+	    SPC %obj.getShapeFxID ()
+	    SPC %obj.isRayCasting ()
+	    SPC %obj.isColliding ()
+	    SPC %obj.isRendering ();
 
 	%file.writeLine (%line);
 
@@ -13101,56 +13217,63 @@ function SaveBricks_WriteSingleBrick ( %file, %obj )
 			if ( %obj.isBasePlate )
 			{
 				%line = "+-OWNER" SPC %obj.getGroup ().bl_id;
-
 				%file.writeLine (%line);
 			}
 		}
 		else if ( %obj.bl_id !$= "" )
 		{
 			%line = "+-OWNER" SPC %obj.bl_id;
-
 			%file.writeLine (%line);
 		}
 	}
+
 	if ( $pref::SaveExtendedBrickInfo )
 	{
 		if ( %obj.getName () !$= "" )
 		{
 			%line = "+-NTOBJECTNAME" SPC %obj.getName ();
-
 			%file.writeLine (%line);
 		}
 
 		for ( %i = 0; %i < %obj.numEvents; %i++ )
 		{
-			%class = %obj.getClassName ();
-			%enabled = %obj.eventEnabled[%i];
+			%class     = %obj.getClassName ();
+			%enabled   = %obj.eventEnabled[%i];
 			%inputName = $InputEvent_Name[%class, %obj.eventInputIdx[%i]];
-			%delay = %obj.eventDelay[%i];
+			%delay     = %obj.eventDelay[%i];
 
 			if ( %obj.eventTargetIdx[%i] == -1 )
 			{
-				%targetName = -1;
-				%NT = %obj.eventNT[%i];
+				%targetName  = -1;
+				%NT          = %obj.eventNT[%i];
 				%targetClass = "FxDTSBrick";
 			}
 			else
 			{
-				%targetList = $InputEvent_TargetList[%class, %obj.eventInputIdx[%i]];
-				%target = getField (%targetList, %obj.eventTargetIdx[%i]);
-				%targetName = getWord (%target, 0);
+				%targetList  = $InputEvent_TargetList[%class, %obj.eventInputIdx[%i]];
+				%target      = getField (%targetList, %obj.eventTargetIdx[%i]);
+				%targetName  = getWord (%target, 0);
 				%targetClass = getWord (%target, 1);
-				%NT = "";
+				%NT          = "";
 			}
 
 			%outputName = $OutputEvent_Name[%targetClass, %obj.eventOutputIdx[%i]];
-			%line = "+-EVENT" TAB %i TAB %enabled TAB %inputName TAB %delay TAB %targetName TAB %NT TAB %outputName;
+			%line       = "+-EVENT"
+			          TAB %i
+			          TAB %enabled
+			          TAB %inputName
+			          TAB %delay
+			          TAB %targetName
+			          TAB %NT
+			          TAB %outputName;
 
 			if ( ServerConnection.isLocal () )
 			{
 				for ( %j = 0; %j < 4; %j++ )
 				{
-					%field = getField ($OutputEvent_parameterList[%targetClass, %obj.eventOutputIdx[%i]], %j);
+					%field    = getField ($OutputEvent_parameterList[%targetClass,
+						%obj.eventOutputIdx[%i]], %j);
+
 					%dataType = getWord (%field, 0);
 
 					if ( %dataType $= "dataBlock" )
@@ -13182,45 +13305,48 @@ function SaveBricks_WriteSingleBrick ( %file, %obj )
 			%file.writeLine (%line);
 		}
 	}
+
 	if ( isObject (%obj.emitter) )
 	{
 		%line = "+-EMITTER" SPC %obj.emitter.getEmitterDataBlock ().uiName @ "\" " @ %obj.emitterDirection;
-
 		%file.writeLine (%line);
 	}
 	else if ( %obj.emitterDirection != 0 )
 	{
 		%line = "+-EMITTER NONE\" " @ %obj.emitterDirection;
-
 		%file.writeLine (%line);
 	}
+
 	if ( isObject (%obj.light) )
 	{
 		%line = "+-LIGHT" SPC %obj.light.getDataBlock ().uiName @ "\"" SPC %obj.light.Enable;
-
 		%file.writeLine (%line);
 	}
+
 	if ( isObject (%obj.Item) )
 	{
-		%line = "+-ITEM" SPC %obj.Item.getDataBlock ().uiName @ "\" " @ %obj.itemPosition SPC %obj.itemDirection SPC %obj.itemRespawnTime;
+		%line = "+-ITEM" SPC %obj.Item.getDataBlock ().uiName @ "\" " @ %obj.itemPosition
+		    SPC %obj.itemDirection SPC %obj.itemRespawnTime;
 
 		%file.writeLine (%line);
 	}
-	else if (  (%obj.itemDirection != 2 && %obj.itemDirection !$= "") || %obj.itemPosition != 0 || (%obj.itemRespawnTime != 0 && %obj.itemRespawnTime != 4000) )
+	else if (  (%obj.itemDirection != 2 && %obj.itemDirection !$= "") || %obj.itemPosition != 0
+		 || (%obj.itemRespawnTime != 0 && %obj.itemRespawnTime != 4000) )
 	{
 		%line = "+-ITEM NONE\" " @ %obj.itemPosition SPC %obj.itemDirection SPC %obj.itemRespawnTime;
-
 		%file.writeLine (%line);
 	}
+
 	if ( isObject (%obj.AudioEmitter) )
 	{
 		%line = "+-AUDIOEMITTER" SPC %obj.AudioEmitter.getProfileId ().uiName @ "\" ";
-
 		%file.writeLine (%line);
 	}
+
 	if ( isObject (%obj.VehicleSpawnMarker) )
 	{
-		%line = "+-VEHICLE" SPC %obj.VehicleSpawnMarker.getUiName () @ "\" " @ %obj.VehicleSpawnMarker.getReColorVehicle ();
+		%line = "+-VEHICLE" SPC %obj.VehicleSpawnMarker.getUiName () @ "\" "
+		      @ %obj.VehicleSpawnMarker.getReColorVehicle ();
 
 		%file.writeLine (%line);
 	}
@@ -13233,7 +13359,7 @@ function LoadBricks_GetColorDifference ( %filename )
 		error ("ERROR: LoadBricks_GetColorDifference() - File \"" @ %filename @ "\" not found!");
 	}
 
-	%file = new FileObject ("");
+	%file = new FileObject ();
 
 	%file.openForRead (%filename);
 	%file.readLine ();
@@ -13267,7 +13393,6 @@ function LoadBricks_GetColorDifference ( %filename )
 			if ( colorMatch (getColorIDTable (%j), %color) )
 			{
 				%match = 1;
-
 				break;
 			}
 		}
@@ -13327,6 +13452,7 @@ function LoadBricks_ClientServerCheck ( %filename, %colorMethod )
 	{
 		%ownership = 2;
 	}
+
 	if ( ServerConnection.isLocal () )
 	{
 		serverDirectSaveFileLoad (%filename, %colorMethod, %dirName, %ownership);
@@ -13335,6 +13461,7 @@ function LoadBricks_ClientServerCheck ( %filename, %colorMethod )
 	{
 		commandToServer ('SetColorMethod', %colorMethod);
 		commandToServer ('SetSaveUploadDirName', %dirName, %ownership);
+
 		UploadSaveFile_Start (%filename);
 
 		return;
@@ -13376,6 +13503,7 @@ function clientCmdLoadBricksHandshake ( %val, %allowColorLoads )
 			Canvas.popDialog (LoadBricksGui);
 			Canvas.popDialog (LoadBricksColorGui);
 			Canvas.popDialog (escapeMenu);
+
 			UploadSaveFile_Start ($LoadingBricks_FileName);
 		}
 	}
@@ -13386,7 +13514,7 @@ function clientCmdLoadBricksHandshake ( %val, %allowColorLoads )
 			cancel ($LoadingBricks_HandShakeSchedule);
 		}
 
-		$LoadingBricks_FileName = "";
+		$LoadingBricks_FileName    = "";
 		$LoadingBricks_ColorMethod = "";
 	}
 }
@@ -13394,6 +13522,7 @@ function clientCmdLoadBricksHandshake ( %val, %allowColorLoads )
 function createUINameTable ()
 {
 	$UINameTableCreated = 1;
+
 	%dbCount = getDataBlockGroupSize ();
 
 	for ( %i = 0; %i < %dbCount; %i++ )
@@ -13404,6 +13533,7 @@ function createUINameTable ()
 		{
 			continue;
 		}
+
 		if ( %db.getClassName () $= "FxDTSBrickData" )
 		{
 			$uiNameTable[%db.uiName] = %db;
@@ -13470,16 +13600,17 @@ function LoadBricks_PopulateFileList ()
 {
 	LoadBricks_FileList.clear ();
 
-	%dir = "saves/*.bls";
+	%dir      = "saves/*.bls";
 	%filename = findFirstFile (%dir);
+
 	%count = 0;
 
 	while ( %filename !$= "" )
 	{
-		%baseName = fileBase (%filename);
-		%fileDate = getFileModifiedTime (%filename);
+		%baseName     = fileBase (%filename);
+		%fileDate     = getFileModifiedTime (%filename);
 		%fileSortDate = getFileModifiedSortTime (%filename);
-		%filePath = filePath (%filename);
+		%filePath     = filePath (%filename);
 
 		if ( %filePath $= "saves" )
 		{
@@ -13487,24 +13618,24 @@ function LoadBricks_PopulateFileList ()
 		}
 		else
 		{
-			%filePath = strreplace (%filePath, "saves/", "");
+			%filePath    = strreplace (%filePath, "saves/", "");
 			%displayName = %filePath @ "/" @ %baseName;
 		}
+
 		if ( getPlatform () $= "Win" )
 		{
 			if ( %fileSortDate $= "00000000000000" )
 			{
 				%filename = findNextFile (%dir);
-
 				continue;
 			}
 		}
 
 		%rowText = %displayName TAB %fileDate TAB %fileSortDate;
-
 		LoadBricks_FileList.addRow (%count, %rowText);
 
 		%count++;
+
 		%filename = findNextFile (%dir);
 	}
 
@@ -13513,9 +13644,9 @@ function LoadBricks_PopulateFileList ()
 
 function LoadBricks_FileClick ()
 {
-	%id = LoadBricks_FileList.getSelectedId ();
-	%filename = getField (LoadBricks_FileList.getRowTextById (%id), 0);
-	%fullPath = "saves/" @ %filename @ ".bls";
+	%id          = LoadBricks_FileList.getSelectedId ();
+	%filename    = getField (LoadBricks_FileList.getRowTextById (%id), 0);
+	%fullPath    = "saves/" @ %filename @ ".bls";
 	%description = SaveBricks_GetFileDescription (%fullPath);
 
 	LoadBricks_Description.setText (%description);
@@ -13534,7 +13665,7 @@ function LoadBricks_FileClick ()
 
 function LoadBricks_ClickLoadButton ()
 {
-	%id = LoadBricks_FileList.getSelectedId ();
+	%id       = LoadBricks_FileList.getSelectedId ();
 	%filename = getField (LoadBricks_FileList.getRowTextById (%id), 0);
 
 	if ( %filename $= "" )
@@ -13557,7 +13688,8 @@ function LoadBricks_ClickLoadButton ()
 	{
 		commandToServer ('InitUploadHandshake');
 
-		$LoadingBricks_HandShakeSchedule = schedule (30 * 1000, 0, eval, "$LoadingBricks_FileName = \"\";");
+		$LoadingBricks_HandShakeSchedule = schedule (30 * 1000, 0, eval,
+			"$LoadingBricks_FileName = \"\";");
 	}
 }
 
@@ -13570,6 +13702,7 @@ function LoadBricks_ColorCheck ()
 		if ( %colorDiff $= "SAME" )
 		{
 			LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 0);
+
 			Canvas.popDialog (LoadBricksGui);
 			Canvas.popDialog (escapeMenu);
 		}
@@ -13587,6 +13720,7 @@ function LoadBricks_ColorCheck ()
 	else
 	{
 		LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 3);
+
 		Canvas.popDialog (LoadBricksGui);
 		Canvas.popDialog (LoadBricksColorGui);
 		Canvas.popDialog (escapeMenu);
@@ -13599,7 +13733,8 @@ function saveBricksGui::onWake ( %this )
 	{
 		%group = ServerConnection.getId ();
 		%count = %group.getCount ();
-		%foundBrick = 0;
+
+		%foundBrick = false;
 
 		for ( %i = 0; %i < %count; %i++ )
 		{
@@ -13607,8 +13742,7 @@ function saveBricksGui::onWake ( %this )
 
 			if ( %obj.getType () & $TypeMasks::FxBrickAlwaysObjectType )
 			{
-				%foundBrick = 1;
-
+				%foundBrick = true;
 				break;
 			}
 		}
@@ -13640,14 +13774,15 @@ function saveBricksGui::onWake ( %this )
 
 	%savePath = "saves/*.bls";
 	%filename = findFirstFile (%savePath);
+
 	%count = 0;
 
 	while ( %filename !$= "" )
 	{
-		%baseName = fileBase (%filename);
-		%fileDate = getFileModifiedTime (%filename);
+		%baseName     = fileBase (%filename);
+		%fileDate     = getFileModifiedTime (%filename);
 		%fileSortDate = getFileModifiedSortTime (%filename);
-		%filePath = filePath (%filename);
+		%filePath     = filePath (%filename);
 
 		if ( %filePath $= "saves" )
 		{
@@ -13655,24 +13790,24 @@ function saveBricksGui::onWake ( %this )
 		}
 		else
 		{
-			%filePath = strreplace (%filePath, "saves/", "");
+			%filePath    = strreplace (%filePath, "saves/", "");
 			%displayName = %filePath @ "/" @ %baseName;
 		}
+
 		if ( getPlatform () $= "Win" )
 		{
 			if ( %fileSortDate $= "00000000000000" )
 			{
 				%filename = findNextFile (%dir);
-
 				continue;
 			}
 		}
 
 		%rowText = %displayName TAB %fileDate TAB %fileSortDate;
-
 		SaveBricks_FileList.addRow (%count, %rowText);
 
 		%count++;
+
 		%filename = findNextFile (%savePath);
 	}
 
@@ -13698,7 +13833,8 @@ function SaveBricks_ClickDelete ()
 
 	%filename = getField (SaveBricks_FileList.getRowTextById (%id), 0);
 
-	messageBoxYesNo ("Delete File?", "Are you sure you want to delete \"" @ %filename @ "\"?", "SaveBricks_ConfirmDelete(SaveBricks_FileList, SaveBricksGui);");
+	messageBoxYesNo ("Delete File?", "Are you sure you want to delete \"" @ %filename @ "\"?",
+		"SaveBricks_ConfirmDelete(SaveBricks_FileList, SaveBricksGui);");
 }
 
 function LoadBricks_ClickDelete ()
@@ -13712,7 +13848,8 @@ function LoadBricks_ClickDelete ()
 
 	%filename = getField (LoadBricks_FileList.getRowTextById (%id), 0);
 
-	messageBoxYesNo ("Delete File?", "Are you sure you want to delete \"" @ %filename @ "\"?", "SaveBricks_ConfirmDelete(LoadBricks_FileList, LoadBricksGui);");
+	messageBoxYesNo ("Delete File?", "Are you sure you want to delete \"" @ %filename @ "\"?",
+		"SaveBricks_ConfirmDelete(LoadBricks_FileList, LoadBricksGui);");
 }
 
 function SaveBricks_ConfirmDelete ( %list, %gui )
@@ -13722,7 +13859,7 @@ function SaveBricks_ConfirmDelete ( %list, %gui )
 		return;
 	}
 
-	%id = %list.getSelectedId ();
+	%id       = %list.getSelectedId ();
 	%filename = getField (%list.getRowTextById (%id), 0);
 	%saveFile = "saves/" @ %filename @ ".bls";
 	%thumbJpg = "saves/" @ %filename @ ".jpg";
@@ -13732,10 +13869,12 @@ function SaveBricks_ConfirmDelete ( %list, %gui )
 	{
 		fileDelete (%saveFile);
 	}
+
 	if ( isFile (%thumbJpg) )
 	{
 		fileDelete (%thumbJpg);
 	}
+
 	if ( isFile (%thumbPng) )
 	{
 		fileDelete (%thumbPng);
@@ -13747,13 +13886,12 @@ function SaveBricks_ConfirmDelete ( %list, %gui )
 
 function SaveBricks_ClickFileList ()
 {
-	%id = SaveBricks_FileList.getSelectedId ();
+	%id       = SaveBricks_FileList.getSelectedId ();
 	%filename = getField (SaveBricks_FileList.getRowTextById (%id), 0);
 
 	SaveBricks_FileName.setText (%filename);
 
 	%fullPath = "saves/" @ %filename @ ".bls";
-
 	SaveBricks_Description.setText (SaveBricks_GetFileDescription (%fullPath));
 
 	%screenshotName = getSubStr (%fullPath, 0, strlen (%fullPath) - 4) @ ".jpg";
@@ -13772,15 +13910,16 @@ function isValidFileName ( %filename )
 {
 	if ( strlen (%filename) <= 0 )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strlen (%filename) >= 255 )
 	{
-		return 0;
+		return false;
 	}
 
 	%badChars = "\\ / : * ? \" < > |";
-	%count = getWordCount (%badChars);
+	%count    = getWordCount (%badChars);
 
 	for ( %i = 0; %i < %count; %i++ )
 	{
@@ -13788,11 +13927,11 @@ function isValidFileName ( %filename )
 
 		if ( strpos (%filename, %word) != -1 )
 		{
-			return 0;
+			return false;
 		}
 	}
 
-	return 1;
+	return true;
 }
 
 function SaveBricks_Save ()
@@ -13802,40 +13941,44 @@ function SaveBricks_Save ()
 	if ( %filename $= "" )
 	{
 		MessageBoxOK ("No Filename", "You must enter a filename.");
-
 		return;
 	}
+
 	if ( !isValidFileName (%filename) )
 	{
 		MessageBoxOK ("Invalid Filename", "Filenames cannot contain any of these characters \\ / : * ? \" < > |");
-
 		return;
 	}
 
-	%fullPath = "saves/" @ %filename @ ".bls";
+	%fullPath       = "saves/" @ %filename @ ".bls";
 	%fullScreenshot = "saves/" @ %filename @ ".jpg";
+
 	%description = SaveBricks_Description.getText ();
 
 	if ( isFile (%fullPath) )
 	{
 		%description = expandEscape (%description);
-		$SaveBricksPath = %fullPath;
+
+		$SaveBricksPath        = %fullPath;
 		$SaveBricksDescription = %description;
 
 		if ( $pref::SaveExtendedBrickInfo && !ServerConnection.isLocal () )
 		{
-			%callback = "fileDelete(\"" @ %fullScreenshot @ "\");SaveBricks_DownloadWindow.setVisible(true);SaveBricks_StartInfoDownload();";
+			%callback = "fileDelete(\"" @ %fullScreenshot
+			          @ "\");SaveBricks_DownloadWindow.setVisible(true);SaveBricks_StartInfoDownload();";
 		}
 		else
 		{
-			%callback = "fileDelete(\"" @ %fullScreenshot @ "\");canvas.popDialog(SaveBricksGui);canvas.popDialog(EscapeMenu);canvas.pushDialog(SavingGui);";
+			%callback = "fileDelete(\"" @ %fullScreenshot
+			          @ "\");canvas.popDialog(SaveBricksGui);canvas.popDialog(EscapeMenu);canvas.pushDialog(SavingGui);";
 		}
 
-		messageBoxYesNo ("File Exists, Overwrite?", "Are you sure you want to overwrite the file \"" @ %filename @ "\"?", %callback);
+		messageBoxYesNo ("File Exists, Overwrite?",
+			"Are you sure you want to overwrite the file \"" @ %filename @ "\"?", %callback);
 	}
 	else
 	{
-		$SaveBricksPath = %fullPath;
+		$SaveBricksPath        = %fullPath;
 		$SaveBricksDescription = %description;
 
 		if ( $pref::SaveExtendedBrickInfo && !ServerConnection.isLocal () )
@@ -13857,22 +14000,21 @@ function SaveBricks_GetFileDescription ( %filename )
 	if ( fileExt (%filename) !$= ".bls" )
 	{
 		error ("ERROR : SaveBricks_GetFileDescription(" @ %filename @ ") - Filename does not end in .bls");
-
 		return;
 	}
+
 	if ( !isFile (%filename) )
 	{
 		error ("ERROR : SaveBricks_GetFileDescription(" @ %filename @ ") - File does not exist");
-
 		return;
 	}
 
-	%file = new FileObject ("");
+	%file = new FileObject ();
 
 	%file.openForRead (%filename);
 	%file.readLine ();
 
-	%lineCount = %file.readLine ();
+	%lineCount   = %file.readLine ();
 	%description = "";
 
 	for ( %i = 0; %i < %lineCount; %i++ )
@@ -13920,19 +14062,19 @@ function LoadBricks_SendLineToServer ( %line, %i )
 
 	if ( %firstWord $= "+-LIGHT" )
 	{
-
+		// Empty, probably commented out
 	}
 	else if ( %firstWord $= "+-EMITTER" )
 	{
-
+		// Empty, probably commented out
 	}
 	else if ( %firstWord $= "+-ITEM" )
 	{
-
+		// Empty, probably commented out
 	}
 	else if ( %firstWord $= "+-AUDIOEMITTER" )
 	{
-
+		// Empty, probably commented out
 	}
 }
 
@@ -13946,10 +14088,10 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	{
 		if ( $LastLoadedBrick )
 		{
-			%line = getSubStr (%line, 8, strlen (%line) - 8);
-			%pos = strpos (%line, "\"");
+			%line   = getSubStr (%line, 8, strlen (%line) - 8);
+			%pos    = strpos (%line, "\"");
 			%dbName = getSubStr (%line, 0, %pos);
-			%db = $uiNameTable_Lights[%dbName];
+			%db     = $uiNameTable_Lights[%dbName];
 
 			$LastLoadedBrick.setLight (%db);
 		}
@@ -13960,12 +14102,12 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	{
 		if ( $LastLoadedBrick )
 		{
-			%line = getSubStr (%line, 10, strlen (%line) - 10);
-			%pos = strpos (%line, "\"");
+			%line   = getSubStr (%line, 10, strlen (%line) - 10);
+			%pos    = strpos (%line, "\"");
 			%dbName = getSubStr (%line, 0, %pos);
-			%db = $uiNameTable_Emitters[%dbName];
-			%line = getSubStr (%line, %pos + 2, (strlen (%line) - %pos) - 2);
-			%dir = getWord (%line, 0);
+			%db     = $uiNameTable_Emitters[%dbName];
+			%line   = getSubStr (%line, %pos + 2, (strlen (%line) - %pos) - 2);
+			%dir    = getWord (%line, 0);
 
 			$LastLoadedBrick.setEmitter (%db);
 			$LastLoadedBrick.setEmitterDirection (%dir);
@@ -13977,13 +14119,13 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	{
 		if ( $LastLoadedBrick )
 		{
-			%line = getSubStr (%line, 7, strlen (%line) - 7);
-			%pos = strpos (%line, "\"");
+			%line   = getSubStr (%line, 7, strlen (%line) - 7);
+			%pos    = strpos (%line, "\"");
 			%dbName = getSubStr (%line, 0, %pos);
-			%db = $uiNameTable_Items[%dbName];
-			%line = getSubStr (%line, %pos + 2, (strlen (%line) - %pos) - 2);
-			%pos = getWord (%line, 0);
-			%dir = getWord (%line, 1);
+			%db     = $uiNameTable_Items[%dbName];
+			%line   = getSubStr (%line, %pos + 2, (strlen (%line) - %pos) - 2);
+			%pos    = getWord (%line, 0);
+			%dir    = getWord (%line, 1);
 
 			$LastLoadedBrick.setItem (%db);
 			$LastLoadedBrick.setItemDirection (%dir);
@@ -13996,10 +14138,10 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	{
 		if ( $LastLoadedBrick )
 		{
-			%line = getSubStr (%line, 15, strlen (%line) - 15);
-			%pos = strpos (%line, "\"");
+			%line   = getSubStr (%line, 15, strlen (%line) - 15);
+			%pos    = strpos (%line, "\"");
 			%dbName = getSubStr (%line, 0, %pos);
-			%db = $uiNameTable_Music[%dbName];
+			%db     = $uiNameTable_Music[%dbName];
 
 			$LastLoadedBrick.setSound (%db);
 		}
@@ -14008,15 +14150,19 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	}
 
 	%quotePos = strstr (%line, "\"");
-	%uiName = getSubStr (%line, 0, %quotePos);
-	%line = getSubStr (%line, %quotePos + 2, 9999);
-	%pos = getWords (%line, 0, 2);
+	%uiName   = getSubStr (%line, 0, %quotePos);
+
+	%line  = getSubStr (%line, %quotePos + 2, 9999);
+	%pos   = getWords (%line, 0, 2);
 	%angId = getWord (%line, 3);
+
 	%isBaseplate = getWord (%line, 4);
+
 	%colorId = $colorTranslation[mFloor (getWord (%line, 5))];
 	%printId = $printNameTable[getWord (%line, 6)];
 	%colorFX = getWord (%line, 7);
 	%shapeFX = getWord (%line, 8);
+
 	%db = $uiNameTable[%uiName];
 
 	if ( %db )
@@ -14040,16 +14186,19 @@ function LoadBricks_CreateFromLine ( %line, %i )
 			%trans = %trans SPC " 0 0 -1" SPC $piOver2;
 		}
 
-		%b = new fxDTSBrick ("")
+		%b = new fxDTSBrick ()
 		{
 			dataBlock = %db;
-			angleID = %angId;
+
+			angleID     = %angId;
 			isBasePlate = %isBaseplate;
-			colorID = %colorId;
-			printID = %printId;
+
+			colorID   = %colorId;
+			printID   = %printId;
 			colorFxID = %colorFX;
 			shapeFxID = %shapeFX;
-			isPlanted = 1;
+
+			isPlanted = true;
 		};
 
 		MissionCleanup.add (%b);
@@ -14074,7 +14223,6 @@ function LoadBricks_CreateFromLine ( %line, %i )
 	else
 	{
 		warn ("WARNING: loadBricks() - DataBlock not found for brick named ", %uiName);
-
 		$failureCount++;
 	}
 
@@ -14117,7 +14265,6 @@ function sortList ( %obj, %col, %defaultDescending )
 	if ( %obj.sortedBy == %col )
 	{
 		%obj.sortedAsc = !%obj.sortedAsc;
-
 		%obj.sort (%obj.sortedBy, %obj.sortedAsc);
 	}
 	else
@@ -14144,7 +14291,6 @@ function sortNumList ( %obj, %col )
 	if ( %obj.sortedBy == %col )
 	{
 		%obj.sortedAsc = !%obj.sortedAsc;
-
 		%obj.sortNumerical (%obj.sortedBy, %obj.sortedAsc);
 	}
 	else
@@ -14169,9 +14315,10 @@ function updateListSort ( %obj )
 	if ( %obj.sortedNumerical $= "" )
 	{
 		%obj.sortedNumerical = false;
-		%obj.sortedBy = 0;
-		%obj.sortedAsc = true;
+		%obj.sortedBy        = 0;
+		%obj.sortedAsc       = true;
 	}
+
 	if ( %obj.sortedNumerical )
 	{
 		%obj.sortNumerical (%obj.sortedBy, %obj.sortedAsc);
@@ -14185,6 +14332,7 @@ function updateListSort ( %obj )
 function ColorWarning_ClickMatch ()
 {
 	LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 3);
+
 	Canvas.popDialog (LoadBricksGui);
 	Canvas.popDialog (LoadBricksColorGui);
 	Canvas.popDialog (escapeMenu);
@@ -14193,6 +14341,7 @@ function ColorWarning_ClickMatch ()
 function ColorWarning_ClickReplace ()
 {
 	LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 2);
+
 	Canvas.popDialog (LoadBricksGui);
 	Canvas.popDialog (LoadBricksColorGui);
 	Canvas.popDialog (escapeMenu);
@@ -14201,6 +14350,7 @@ function ColorWarning_ClickReplace ()
 function ColorWarning_ClickAppend ()
 {
 	LoadBricks_ClientServerCheck ($LoadingBricks_FileName, 1);
+
 	Canvas.popDialog (LoadBricksGui);
 	Canvas.popDialog (LoadBricksColorGui);
 	Canvas.popDialog (escapeMenu);
@@ -14214,8 +14364,7 @@ function ColorWarning_ClickCancel ()
 
 function UploadSaveFile_Start ( %filename )
 {
-	$Client_LoadFileObj = new FileObject ("");
-
+	$Client_LoadFileObj = new FileObject ();
 	$Client_LoadFileObj.openForRead (%filename);
 
 	Progress_Bar.total = 0;
@@ -14239,6 +14388,7 @@ function UploadSaveFile_Tick ()
 	{
 		cancel ($UploadSaveFile_Tick_Schedule);
 	}
+
 	if ( Progress_Bar.total == 0 )
 	{
 		%firstWord = getWord (%line, 0);
@@ -14248,6 +14398,7 @@ function UploadSaveFile_Tick ()
 			%lineCount = getWord (%line, 1);
 
 			Canvas.pushDialog (ProgressGui);
+
 			Progress_Window.setText ("Loading Progress");
 			Progress_Bar.setValue (0);
 
@@ -14264,7 +14415,6 @@ function UploadSaveFile_Tick ()
 		if ( %prefix !$= "+-" )
 		{
 			Progress_Bar.count++;
-
 			Progress_Bar.setValue (Progress_Bar.count / Progress_Bar.total);
 		}
 	}
@@ -14275,6 +14425,7 @@ function UploadSaveFile_Tick ()
 	{
 		%time = 1;
 	}
+
 	if ( !$Client_LoadFileObj.isEOF () )
 	{
 		$UploadSaveFile_Tick_Schedule = schedule (%time, 0, UploadSaveFile_Tick);
@@ -14288,33 +14439,39 @@ function UploadSaveFile_Tick ()
 function UploadSaveFile_End ()
 {
 	$Client_LoadFileObj.delete ();
+
 	Canvas.popDialog (ProgressGui);
+
 	commandToServer ('EndSaveFileUpload');
 }
 
 function ClientCmdTransmitBrickName ( %ghostID, %name )
 {
 	%brick = ServerConnection.resolveGhostID (%ghostID);
-
 	%brick.setName (%name);
+
 	SaveBricks_DownloadText.setText (SaveBricks_DownloadText.getText () + 1);
 }
 
 function ClientCmdTransmitEvent ( %ghostID, %line )
 {
 	%brick = ServerConnection.resolveGhostID (%ghostID);
-	%x = -1;
+
+	%x   = -1;
 	%idx = getField (%line, %x++);
-	%brick.eventEnabled[%idx] = getField (%line, %x++);
-	%brick.eventInputIdx[%idx] = getField (%line, %x++);
-	%brick.eventDelay[%idx] = getField (%line, %x++);
+
+	%brick.eventEnabled[%idx]   = getField (%line, %x++);
+	%brick.eventInputIdx[%idx]  = getField (%line, %x++);
+	%brick.eventDelay[%idx]     = getField (%line, %x++);
 	%brick.eventTargetIdx[%idx] = getField (%line, %x++);
-	%brick.eventNT[%idx] = getField (%line, %x++);
-	%brick.eventOutputIdx[%idx] = getField (%line, %x++);
+	%brick.eventNT[%idx]        = getField (%line, %x++);
+
+	%brick.eventOutputIdx[%idx]          = getField (%line, %x++);
 	%brick.eventOutputParameter[%idx, 1] = getField (%line, %x++);
 	%brick.eventOutputParameter[%idx, 2] = getField (%line, %x++);
 	%brick.eventOutputParameter[%idx, 3] = getField (%line, %x++);
 	%brick.eventOutputParameter[%idx, 4] = getField (%line, %x++);
+
 	%brick.numEvents = %idx + 1;
 
 	SaveBricks_DownloadText.setText (SaveBricks_DownloadText.getText () + 1);
@@ -14331,8 +14488,9 @@ function ClientCmdTransmitEmitterDirection ( %ghostID, %line )
 function ClientCmdTransmitItemDirection ( %ghostID, %line )
 {
 	%brick = ServerConnection.resolveGhostID (%ghostID);
-	%brick.itemPosition = getField (%line, 0);
-	%brick.itemDirection = getField (%line, 1);
+
+	%brick.itemPosition    = getField (%line, 0);
+	%brick.itemDirection   = getField (%line, 1);
 	%brick.itemRespawnTime = getField (%line, 2);
 
 	SaveBricks_DownloadText.setText (SaveBricks_DownloadText.getText () + 1);
@@ -14340,7 +14498,7 @@ function ClientCmdTransmitItemDirection ( %ghostID, %line )
 
 function ClientCmdTransmitBrickOwner ( %ghostID, %ownerBL_ID )
 {
-	%brick = ServerConnection.resolveGhostID (%ghostID);
+	%brick       = ServerConnection.resolveGhostID (%ghostID);
 	%brick.bl_id = %ownerBL_ID;
 
 	SaveBricks_DownloadText.setText (SaveBricks_DownloadText.getText () + 1);
@@ -14361,8 +14519,9 @@ function SaveBricks_StartInfoDownload ()
 
 		if ( ServerConnection.isLocal () )
 		{
-			$GotInputEvents = 1;
+			$GotInputEvents = true;
 		}
+
 		if ( !$GotInputEvents )
 		{
 			commandToServer ('RequestEventTables');
@@ -14381,6 +14540,7 @@ function SaveBricks_StartInfoDownload ()
 function SaveBricks_DownloadWindowClose ()
 {
 	commandToServer ('CancelExtendedBrickInfoRequest');
+
 	Canvas.popDialog (saveBricksGui);
 	Canvas.popDialog (escapeMenu);
 	Canvas.pushDialog (SavingGui);
@@ -14388,9 +14548,9 @@ function SaveBricks_DownloadWindowClose ()
 
 function LoadBricksGui::ClickOwnership ()
 {
-
+	// Stub
 }
-
+// ->>> Bookmark
 function AvatarGui::onWake ( %this )
 {
 	if ( $Avatar::NumColors $= "" )
@@ -14731,7 +14891,7 @@ function AvatarGui_CreatePartMenu ( %name, %cmdString, %filename, %xPos, %yPos )
 
 		%newBox.add (%newImage);
 
-		%newImage.keepCached = 1;
+		%newImage.keepCached = true;
 
 		%newImage.setBitmap (%iconDir @ %line);
 
@@ -14831,7 +14991,7 @@ function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yP
 
 		%newBox.add (%newImage);
 
-		%newImage.keepCached = 1;
+		%newImage.keepCached = true;
 		%thumbFile = filePath (%line) @ "/thumbs/" @ fileBase (%line);
 
 		%newImage.setBitmap (%thumbFile);
@@ -14929,7 +15089,7 @@ function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %
 
 		%newBox.add (%newImage);
 
-		%newImage.keepCached = 1;
+		%newImage.keepCached = true;
 
 		%newImage.setBitmap (%iconDir @ %line);
 
@@ -21089,7 +21249,7 @@ function wrenchEventsDlg::createOutputParameters ( %this, %box, %outputMenu, %ou
 				%gui.add (%name, %id);
 			}
 
-			%gui.setSelected (0);
+			%gui.setSelected (false);
 
 			if ( !$WrenchEventLoading )
 			{
@@ -21805,8 +21965,8 @@ function doScreenShot ( %val )
 	%oldContent = Canvas.getContent ();
 
 	Canvas.setContent (noHudGui);
-	noHudGui.setHasRendered (1);
-	PlayGui.setHasRendered (1);
+	noHudGui.setHasRendered (true);
+	PlayGui.setHasRendered (true);
 
 	%oldMegaShotScaleFactor = mClamp ($megaShotScaleFactor, 1, 12);
 
@@ -21929,8 +22089,8 @@ function doDofScreenShot ( %val )
 	%oldContent = Canvas.getContent ();
 
 	Canvas.setContent (noHudGui);
-	noHudGui.setHasRendered (1);
-	PlayGui.setHasRendered (1);
+	noHudGui.setHasRendered (true);
+	PlayGui.setHasRendered (true);
 
 	%oldShowNames = NoHudGui_ShapeNameHud.isVisible ();
 
@@ -25046,7 +25206,7 @@ function EnvGui::CreateIconMenu ( %this, %parentGui, %name, %cmdString, %imgArra
 
 		%newBox.add (%newImage);
 
-		%newImage.keepCached = 1;
+		%newImage.keepCached = true;
 
 		%newImage.setBitmap (%imgFile);
 
