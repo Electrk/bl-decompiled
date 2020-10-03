@@ -4996,8 +4996,8 @@ function directSelectInv ( %index )
 			}
 			else
 			{
-				clientCmdCenterPrint ("\c5You don\'t have any bricks!\nPress " @
-					%hintKey @ " to open the brick selector.", 3);
+				clientCmdCenterPrint ("\c5You don\'t have any bricks!\nPress "
+					@ %hintKey @ " to open the brick selector.", 3);
 			}
 
 			return 0;
@@ -8051,7 +8051,7 @@ function PlayGui::loadPaint ( %this )
 	%newBmp.setProfile (HUDBitmapProfile);
 	%newBmp.setBitmap ("base/client/ui/paintLabelBGLoop");
 
-	%newBmp.wrap = 1;
+	%newBmp.wrap = true;
 
 	%x = %boxWidth - 14;
 	%y = 100;
@@ -8603,7 +8603,7 @@ function PlayGui::createToolHUD ( %this )
 	%newBox.setProfile (HUDBitmapProfile);
 	%newBox.setBitmap ("base/client/ui/itemIcons/ToolBG");
 
-	%newBox.wrap = 1;
+	%newBox.wrap = true;
 
 	%x = (%screenWidth - %iconWidth) - %sideSpace;
 	%y = 0;
@@ -14550,7 +14550,7 @@ function LoadBricksGui::ClickOwnership ()
 {
 	// Stub
 }
-// ->>> Bookmark
+
 function AvatarGui::onWake ( %this )
 {
 	if ( $Avatar::NumColors $= "" )
@@ -14561,38 +14561,38 @@ function AvatarGui::onWake ( %this )
 	AvatarGui.updateFavButtons ();
 	AV_FavsHelper.setVisible (false);
 
-	$Old::Avatar::Accent = $pref::Avatar::Accent;
-	$Old::Avatar::AccentColor = $pref::Avatar::AccentColor;
-	$Old::Avatar::Authentic = $pref::Avatar::Authentic;
-	$Old::Avatar::Chest = $Pref::Avatar::Chest;
-	$Old::Avatar::ChestColor = $pref::Avatar::ChestColor;
-	$Old::Avatar::DecalColor = $pref::Avatar::DecalColor;
-	$Old::Avatar::DecalName = $Pref::Avatar::DecalName;
-	$Old::Avatar::FaceColor = $pref::Avatar::FaceColor;
-	$Old::Avatar::FaceName = $Pref::Avatar::FaceName;
-	$Old::Avatar::Hat = $pref::Avatar::Hat;
-	$Old::Avatar::HatColor = $pref::Avatar::HatColor;
-	$Old::Avatar::HeadColor = $pref::Avatar::HeadColor;
-	$Old::Avatar::Hip = $Pref::Avatar::Hip;
-	$Old::Avatar::HipColor = $pref::Avatar::HipColor;
-	$Old::Avatar::LArm = $Pref::Avatar::LArm;
-	$Old::Avatar::LArmColor = $pref::Avatar::LArmColor;
-	$Old::Avatar::LHand = $Pref::Avatar::LHand;
-	$Old::Avatar::LHandColor = $pref::Avatar::LHandColor;
-	$Old::Avatar::LLeg = $Pref::Avatar::LLeg;
-	$Old::Avatar::LLegColor = $pref::Avatar::LLegColor;
-	$Old::Avatar::Pack = $pref::Avatar::Pack;
-	$Old::Avatar::PackColor = $pref::Avatar::PackColor;
-	$Old::Avatar::RArm = $Pref::Avatar::RArm;
-	$Old::Avatar::RArmColor = $pref::Avatar::RArmColor;
-	$Old::Avatar::RHand = $Pref::Avatar::RHand;
-	$Old::Avatar::RHandColor = $pref::Avatar::RHandColor;
-	$Old::Avatar::RLeg = $Pref::Avatar::RLeg;
-	$Old::Avatar::RLegColor = $pref::Avatar::RLegColor;
-	$Old::Avatar::SecondPack = $Pref::Avatar::SecondPack;
+	$Old::Avatar::Accent          = $pref::Avatar::Accent;
+	$Old::Avatar::AccentColor     = $pref::Avatar::AccentColor;
+	$Old::Avatar::Authentic       = $pref::Avatar::Authentic;
+	$Old::Avatar::Chest           = $Pref::Avatar::Chest;
+	$Old::Avatar::ChestColor      = $pref::Avatar::ChestColor;
+	$Old::Avatar::DecalColor      = $pref::Avatar::DecalColor;
+	$Old::Avatar::DecalName       = $Pref::Avatar::DecalName;
+	$Old::Avatar::FaceColor       = $pref::Avatar::FaceColor;
+	$Old::Avatar::FaceName        = $Pref::Avatar::FaceName;
+	$Old::Avatar::Hat             = $pref::Avatar::Hat;
+	$Old::Avatar::HatColor        = $pref::Avatar::HatColor;
+	$Old::Avatar::HeadColor       = $pref::Avatar::HeadColor;
+	$Old::Avatar::Hip             = $Pref::Avatar::Hip;
+	$Old::Avatar::HipColor        = $pref::Avatar::HipColor;
+	$Old::Avatar::LArm            = $Pref::Avatar::LArm;
+	$Old::Avatar::LArmColor       = $pref::Avatar::LArmColor;
+	$Old::Avatar::LHand           = $Pref::Avatar::LHand;
+	$Old::Avatar::LHandColor      = $pref::Avatar::LHandColor;
+	$Old::Avatar::LLeg            = $Pref::Avatar::LLeg;
+	$Old::Avatar::LLegColor       = $pref::Avatar::LLegColor;
+	$Old::Avatar::Pack            = $pref::Avatar::Pack;
+	$Old::Avatar::PackColor       = $pref::Avatar::PackColor;
+	$Old::Avatar::RArm            = $Pref::Avatar::RArm;
+	$Old::Avatar::RArmColor       = $pref::Avatar::RArmColor;
+	$Old::Avatar::RHand           = $Pref::Avatar::RHand;
+	$Old::Avatar::RHandColor      = $pref::Avatar::RHandColor;
+	$Old::Avatar::RLeg            = $Pref::Avatar::RLeg;
+	$Old::Avatar::RLegColor       = $pref::Avatar::RLegColor;
+	$Old::Avatar::SecondPack      = $Pref::Avatar::SecondPack;
 	$Old::Avatar::SecondPackColor = $pref::Avatar::SecondPackColor;
-	$Old::Avatar::Symmetry = $pref::Avatar::Symmetry;
-	$Old::Avatar::TorsoColor = $pref::Avatar::TorsoColor;
+	$Old::Avatar::Symmetry        = $pref::Avatar::Symmetry;
+	$Old::Avatar::TorsoColor      = $pref::Avatar::TorsoColor;
 
 	if ( $AvatarHasLoaded )
 	{
@@ -14604,95 +14604,110 @@ function AvatarGui::onWake ( %this )
 		return;
 	}
 
-	$AvatarHasLoaded = 1;
+	$AvatarHasLoaded = true;
 
 	AvatarGui_LoadAccentInfo ("accent", "base/data/shapes/player/accent.txt");
 
 	%x = getWord (Avatar_FacePreview.position, 0) + 64;
 	%y = getWord (Avatar_FacePreview.position, 1);
 
-	AvatarGui_CreatePartMenuFACE ("Avatar_FaceMenu", "Avatar_SetFace", "base/data/shapes/player/face.ifl", %x, %y);
+	AvatarGui_CreatePartMenuFACE ("Avatar_FaceMenu", "Avatar_SetFace",
+		"base/data/shapes/player/face.ifl", %x, %y);
 
 	%x = getWord (Avatar_DecalPreview.position, 0) + 64;
 	%y = getWord (Avatar_DecalPreview.position, 1) - 64;
 
-	AvatarGui_CreatePartMenuFACE ("Avatar_DecalMenu", "Avatar_SetDecal", "base/data/shapes/player/decal.ifl", %x, %y);
+	AvatarGui_CreatePartMenuFACE ("Avatar_DecalMenu", "Avatar_SetDecal",
+		"base/data/shapes/player/decal.ifl", %x, %y);
 
 	%x = getWord (Avatar_PackPreview.position, 0) + 64;
 	%y = getWord (Avatar_PackPreview.position, 1) - 64;
 
-	AvatarGui_CreatePartMenu ("Avatar_PackMenu", "Avatar_SetPack", "base/data/shapes/player/Pack.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_PackMenu", "Avatar_SetPack",
+		"base/data/shapes/player/Pack.txt", %x, %y);
 
 	%x = getWord (Avatar_SecondPackPreview.position, 0) + 64;
 	%y = getWord (Avatar_SecondPackPreview.position, 1) - 64;
 
-	AvatarGui_CreatePartMenu ("Avatar_SecondPackMenu", "Avatar_SetSecondPack", "base/data/shapes/player/SecondPack.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_SecondPackMenu", "Avatar_SetSecondPack",
+		"base/data/shapes/player/SecondPack.txt", %x, %y);
 
 	%x = getWord (Avatar_HatPreview.position, 0) + 64;
 	%y = getWord (Avatar_HatPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_HatMenu", "Avatar_SetHat", "base/data/shapes/player/Hat.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_HatMenu", "Avatar_SetHat",
+		"base/data/shapes/player/Hat.txt", %x, %y);
 
 	%x = getWord (Avatar_AccentPreview.position, 0) + 64;
 	%y = getWord (Avatar_AccentPreview.position, 1);
 
-	AvatarGui_CreateSubPartMenu ("Avatar_AccentMenu", "Avatar_SetAccent", $accentsAllowed[$hat[$pref::Avatar::Hat]], %x, %y);
+	AvatarGui_CreateSubPartMenu ("Avatar_AccentMenu", "Avatar_SetAccent",
+		$accentsAllowed[$hat[$pref::Avatar::Hat]], %x, %y);
 
 	%x = getWord (Avatar_ChestPreview.position, 0) + 64;
 	%y = getWord (Avatar_ChestPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_ChestMenu", "Avatar_SetChest", "base/data/shapes/player/Chest.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_ChestMenu", "Avatar_SetChest",
+		"base/data/shapes/player/Chest.txt", %x, %y);
 
 	%x = getWord (Avatar_HipPreview.position, 0) + 64;
 	%y = getWord (Avatar_HipPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_HipMenu", "Avatar_SetHip", "base/data/shapes/player/hip.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_HipMenu", "Avatar_SetHip",
+		"base/data/shapes/player/hip.txt", %x, %y);
 
 	%x = getWord (Avatar_RLegPreview.position, 0) + 64;
 	%y = getWord (Avatar_RLegPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_RLegMenu", "Avatar_SetRLeg", "base/data/shapes/player/RLeg.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_RLegMenu", "Avatar_SetRLeg",
+		"base/data/shapes/player/RLeg.txt", %x, %y);
 
 	%x = getWord (Avatar_LLegPreview.position, 0) + 64;
 	%y = getWord (Avatar_LLegPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_LLegMenu", "Avatar_SetLLeg", "base/data/shapes/player/LLeg.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_LLegMenu", "Avatar_SetLLeg",
+		"base/data/shapes/player/LLeg.txt", %x, %y);
 
 	%x = getWord (Avatar_RArmPreview.position, 0) + 64;
 	%y = getWord (Avatar_RArmPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_RArmMenu", "Avatar_SetRArm", "base/data/shapes/player/RArm.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_RArmMenu", "Avatar_SetRArm",
+		"base/data/shapes/player/RArm.txt", %x, %y);
 
 	%x = getWord (Avatar_LArmPreview.position, 0) + 64;
 	%y = getWord (Avatar_LArmPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_LArmMenu", "Avatar_SetLArm", "base/data/shapes/player/LArm.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_LArmMenu", "Avatar_SetLArm",
+		"base/data/shapes/player/LArm.txt", %x, %y);
 
 	%x = getWord (Avatar_RHandPreview.position, 0) + 64;
 	%y = getWord (Avatar_RHandPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_RHandMenu", "Avatar_SetRHand", "base/data/shapes/player/RHand.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_RHandMenu", "Avatar_SetRHand",
+		"base/data/shapes/player/RHand.txt", %x, %y);
 
 	%x = getWord (Avatar_LHandPreview.position, 0) + 64;
 	%y = getWord (Avatar_LHandPreview.position, 1);
 
-	AvatarGui_CreatePartMenu ("Avatar_LHandMenu", "Avatar_SetLHand", "base/data/shapes/player/LHand.txt", %x, %y);
+	AvatarGui_CreatePartMenu ("Avatar_LHandMenu", "Avatar_SetLHand",
+		"base/data/shapes/player/LHand.txt", %x, %y);
 
 	if ( !isObject (mDts) )
 	{
 		datablock TSShapeConstructor (mDts)
 		{
 			baseShape = "base/data/shapes/player/m.dts";
-			sequence0 = "base/data/shapes/player/m_root.dsq root";
-			sequence1 = "base/data/shapes/player/m_run.dsq run";
-			sequence2 = "base/data/shapes/player/m_run.dsq walk";
-			sequence3 = "base/data/shapes/player/m_back.dsq back";
-			sequence4 = "base/data/shapes/player/m_side.dsq side";
-			sequence5 = "base/data/shapes/player/m_crouch.dsq crouch";
-			sequence6 = "base/data/shapes/player/m_crouchRun.dsq crouchRun";
-			sequence7 = "base/data/shapes/player/m_crouchBack.dsq crouchBack";
-			sequence8 = "base/data/shapes/player/m_crouchSide.dsq crouchSide";
-			sequence9 = "base/data/shapes/player/m_look.dsq look";
+
+			sequence0  = "base/data/shapes/player/m_root.dsq root";
+			sequence1  = "base/data/shapes/player/m_run.dsq run";
+			sequence2  = "base/data/shapes/player/m_run.dsq walk";
+			sequence3  = "base/data/shapes/player/m_back.dsq back";
+			sequence4  = "base/data/shapes/player/m_side.dsq side";
+			sequence5  = "base/data/shapes/player/m_crouch.dsq crouch";
+			sequence6  = "base/data/shapes/player/m_crouchRun.dsq crouchRun";
+			sequence7  = "base/data/shapes/player/m_crouchBack.dsq crouchBack";
+			sequence8  = "base/data/shapes/player/m_crouchSide.dsq crouchSide";
+			sequence9  = "base/data/shapes/player/m_look.dsq look";
 			sequence10 = "base/data/shapes/player/m_headSide.dsq headside";
 			sequence11 = "base/data/shapes/player/m_headup.dsq headUp";
 			sequence12 = "base/data/shapes/player/m_standjump.dsq jump";
@@ -14737,59 +14752,59 @@ function AvatarGui::onWake ( %this )
 		if ( fileBase ($decal[%i]) $= $Pref::Avatar::DecalName )
 		{
 			$pref::Avatar::DecalColor = %i;
-
 			break;
 		}
 	}
+
 	for ( %i = 0; %i < $numFace; %i++ )
 	{
 		if ( fileBase ($face[%i]) $= $Pref::Avatar::FaceName )
 		{
 			$pref::Avatar::FaceColor = %i;
-
 			break;
 		}
 	}
 
 	Avatar_Prefix.setText ($Pref::Player::ClanPrefix);
 	Avatar_Suffix.setText ($Pref::Player::ClanSuffix);
+
 	Avatar_UpdatePreview ();
 }
 
 function AvatarGui::ClickX ( %this )
 {
-	$pref::Avatar::Accent = $Old::Avatar::Accent;
-	$pref::Avatar::AccentColor = $Old::Avatar::AccentColor;
-	$pref::Avatar::Authentic = $Old::Avatar::Authentic;
-	$Pref::Avatar::Chest = $Old::Avatar::Chest;
-	$pref::Avatar::ChestColor = $Old::Avatar::ChestColor;
-	$pref::Avatar::DecalColor = $Old::Avatar::DecalColor;
-	$Pref::Avatar::DecalName = $Old::Avatar::DecalName;
-	$pref::Avatar::FaceColor = $Old::Avatar::FaceColor;
-	$Pref::Avatar::FaceName = $Old::Avatar::FaceName;
-	$pref::Avatar::Hat = $Old::Avatar::Hat;
-	$pref::Avatar::HatColor = $Old::Avatar::HatColor;
-	$pref::Avatar::HeadColor = $Old::Avatar::HeadColor;
-	$Pref::Avatar::Hip = $Old::Avatar::Hip;
-	$pref::Avatar::HipColor = $Old::Avatar::HipColor;
-	$Pref::Avatar::LArm = $Old::Avatar::LArm;
-	$pref::Avatar::LArmColor = $Old::Avatar::LArmColor;
-	$Pref::Avatar::LHand = $Old::Avatar::LHand;
-	$pref::Avatar::LHandColor = $Old::Avatar::LHandColor;
-	$Pref::Avatar::LLeg = $Old::Avatar::LLeg;
-	$pref::Avatar::LLegColor = $Old::Avatar::LLegColor;
-	$pref::Avatar::Pack = $Old::Avatar::Pack;
-	$pref::Avatar::PackColor = $Old::Avatar::PackColor;
-	$Pref::Avatar::RArm = $Old::Avatar::RArm;
-	$pref::Avatar::RArmColor = $Old::Avatar::RArmColor;
-	$Pref::Avatar::RHand = $Old::Avatar::RHand;
-	$pref::Avatar::RHandColor = $Old::Avatar::RHandColor;
-	$Pref::Avatar::RLeg = $Old::Avatar::RLeg;
-	$pref::Avatar::RLegColor = $Old::Avatar::RLegColor;
-	$Pref::Avatar::SecondPack = $Old::Avatar::SecondPack;
+	$pref::Avatar::Accent          = $Old::Avatar::Accent;
+	$pref::Avatar::AccentColor     = $Old::Avatar::AccentColor;
+	$pref::Avatar::Authentic       = $Old::Avatar::Authentic;
+	$Pref::Avatar::Chest           = $Old::Avatar::Chest;
+	$pref::Avatar::ChestColor      = $Old::Avatar::ChestColor;
+	$pref::Avatar::DecalColor      = $Old::Avatar::DecalColor;
+	$Pref::Avatar::DecalName       = $Old::Avatar::DecalName;
+	$pref::Avatar::FaceColor       = $Old::Avatar::FaceColor;
+	$Pref::Avatar::FaceName        = $Old::Avatar::FaceName;
+	$pref::Avatar::Hat             = $Old::Avatar::Hat;
+	$pref::Avatar::HatColor        = $Old::Avatar::HatColor;
+	$pref::Avatar::HeadColor       = $Old::Avatar::HeadColor;
+	$Pref::Avatar::Hip             = $Old::Avatar::Hip;
+	$pref::Avatar::HipColor        = $Old::Avatar::HipColor;
+	$Pref::Avatar::LArm            = $Old::Avatar::LArm;
+	$pref::Avatar::LArmColor       = $Old::Avatar::LArmColor;
+	$Pref::Avatar::LHand           = $Old::Avatar::LHand;
+	$pref::Avatar::LHandColor      = $Old::Avatar::LHandColor;
+	$Pref::Avatar::LLeg            = $Old::Avatar::LLeg;
+	$pref::Avatar::LLegColor       = $Old::Avatar::LLegColor;
+	$pref::Avatar::Pack            = $Old::Avatar::Pack;
+	$pref::Avatar::PackColor       = $Old::Avatar::PackColor;
+	$Pref::Avatar::RArm            = $Old::Avatar::RArm;
+	$pref::Avatar::RArmColor       = $Old::Avatar::RArmColor;
+	$Pref::Avatar::RHand           = $Old::Avatar::RHand;
+	$pref::Avatar::RHandColor      = $Old::Avatar::RHandColor;
+	$Pref::Avatar::RLeg            = $Old::Avatar::RLeg;
+	$pref::Avatar::RLegColor       = $Old::Avatar::RLegColor;
+	$Pref::Avatar::SecondPack      = $Old::Avatar::SecondPack;
 	$pref::Avatar::SecondPackColor = $Old::Avatar::SecondPackColor;
-	$pref::Avatar::Symmetry = $Old::Avatar::Symmetry;
-	$pref::Avatar::TorsoColor = $Old::Avatar::TorsoColor;
+	$pref::Avatar::Symmetry        = $Old::Avatar::Symmetry;
+	$pref::Avatar::TorsoColor      = $Old::Avatar::TorsoColor;
 
 	Canvas.popDialog ("AvatarGui");
 }
@@ -14804,25 +14819,23 @@ function AvatarGui::onSleep ( %this )
 
 function AvatarGui_LoadAccentInfo ( %arrayName, %filename )
 {
-	%file = new FileObject ("");
-
+	%file = new FileObject ();
 	%file.openForRead (%filename);
 
 	if ( %file.isEOF () )
 	{
 		%file.delete ();
-
 		return;
 	}
 
 	%file.readLine ();
 
 	%line = %file.readLine ();
-	%wc = getWordCount (%line);
+	%wc   = getWordCount (%line);
 
 	for ( %i = 0; %i < %wc; %i++ )
 	{
-		%word = getWord (%line, %i);
+		%word    = getWord (%line, %i);
 		%command = "$" @ %arrayName @ "[" @ %i @ "] = " @ %word @ ";";
 
 		eval (%command);
@@ -14832,9 +14845,9 @@ function AvatarGui_LoadAccentInfo ( %arrayName, %filename )
 
 	for ( %lineCount = 0; !%file.isEOF (); %lineCount++ )
 	{
-		%line = %file.readLine ();
-		%wc = getWordCount (%line);
-		%hat = getWord (%line, 0);
+		%line    = %file.readLine ();
+		%wc      = getWordCount (%line);
+		%hat     = getWord (%line, 0);
 		%allowed = getWords (%line, 1, %wc - 1);
 		%command = "$" @ %arrayName @ "sAllowed[" @ %hat @ "] = \"" @ %allowed @ "\";";
 
@@ -14852,7 +14865,8 @@ function AvatarGui_CreatePartMenu ( %name, %cmdString, %filename, %xPos, %yPos )
 		eval (%name @ ".delete();");
 	}
 
-	%newScroll = new GuiScrollCtrl ("");
+	%newScroll = new GuiScrollCtrl ();
+
 	%newScroll.vScrollBar = "alwaysOn";
 	%newScroll.hScrollBar = "alwaysOff";
 
@@ -14864,35 +14878,32 @@ function AvatarGui_CreatePartMenu ( %name, %cmdString, %filename, %xPos, %yPos )
 
 	%newScroll.resize (%xPos, %yPos, %w, %h);
 	%newScroll.setName (%name);
+
 	Avatar_Window.schedule (10, pushToBack, %name);
 
-	%newBox = new GuiBitmapCtrl ("");
-
+	%newBox = new GuiBitmapCtrl ();
 	%newScroll.add (%newBox);
+
 	%newBox.setBitmap ("base/client/ui/btnDecalBG");
 
-	%newBox.wrap = 1;
+	%newBox.wrap = true;
 
 	%newBox.resize (0, 0, 64, 64);
 	%newBox.setName ("Avatar_" @ fileBase (%filename) @ "MenuBG");
 
-	%file = new FileObject ("");
-
+	%file = new FileObject ();
 	%file.openForRead (%filename);
 
 	%itemCount = 0;
-	%iconDir = "base/client/ui/avatarIcons/" @ fileBase (%filename) @ "/";
+	%iconDir   = "base/client/ui/avatarIcons/" @ fileBase (%filename) @ "/";
 	%varString = "$" @ fileBase (%filename);
-	%line = %file.readLine ();
 
-	while ( %line !$= "" )
+	for ( %line = %file.readLine (); %line !$= ""; %line = %file.readLine () )
 	{
-		%newImage = new GuiBitmapCtrl ("");
-
+		%newImage = new GuiBitmapCtrl ();
 		%newBox.add (%newImage);
 
 		%newImage.keepCached = true;
-
 		%newImage.setBitmap (%iconDir @ %line);
 
 		%x = (%itemCount % 4) * 64;
@@ -14900,23 +14911,23 @@ function AvatarGui_CreatePartMenu ( %name, %cmdString, %filename, %xPos, %yPos )
 
 		%newImage.resize (%x, %y, 64, 64);
 
-		%newButton = new GuiBitmapButtonCtrl ("")
+		%newButton = new GuiBitmapButtonCtrl ()
 		{
 			profile = "BlockButtonProfile";
 		};
 
 		%newBox.add (%newButton);
+
 		%newButton.setBitmap ("base/client/ui/btnDecal");
 		%newButton.setText (" ");
 		%newButton.resize (%x, %y, 64, 64);
 
 		%newButton.command = %cmdString @ "(" @ %itemCount @ "," @ %newImage @ ");";
-		%cmd = %varString @ "[" @ %itemCount @ "] = \"" @ %line @ "\";";
 
+		%cmd = %varString @ "[" @ %itemCount @ "] = \"" @ %line @ "\";";
 		eval (%cmd);
 
 		%itemCount++;
-		%line = %file.readLine ();
 	}
 
 	$num[fileBase (%filename)] = %itemCount;
@@ -14953,11 +14964,13 @@ function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yP
 		eval (%name @ ".delete();");
 	}
 
-	%newScroll = new GuiScrollCtrl ("");
+	%newScroll = new GuiScrollCtrl ();
+
 	%newScroll.vScrollBar = "alwaysOn";
 	%newScroll.hScrollBar = "alwaysOff";
 
 	%newScroll.setProfile (ColorScrollProfile);
+
 	Avatar_Window.add (%newScroll);
 
 	%w = 64 + 12;
@@ -14965,35 +14978,33 @@ function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yP
 
 	%newScroll.resize (%xPos, %yPos, %w, %h);
 	%newScroll.setName (%name);
+
 	Avatar_Window.schedule (10, pushToBack, %name);
 
-	%newBox = new GuiBitmapCtrl ("");
-
+	%newBox = new GuiBitmapCtrl ();
 	%newScroll.add (%newBox);
+
 	%newBox.setBitmap ("base/client/ui/btnDecalBG");
 
-	%newBox.wrap = 1;
+	%newBox.wrap = true;
 
 	%newBox.resize (0, 0, 64, 64);
 	%newBox.setName ("Avatar_" @ fileBase (%filename) @ "MenuBG");
 
-	%file = new FileObject ("");
-
+	%file = new FileObject ();
 	%file.openForRead (%filename);
 
 	%itemCount = 0;
 	%varString = "$" @ fileBase (%filename);
-	%line = %file.readLine ();
 
-	while ( %line !$= "" )
+	for ( %line = %file.readLine (); %line !$= ""; %line = %file.readLine () )
 	{
-		%newImage = new GuiBitmapCtrl ("");
-
+		%newImage = new GuiBitmapCtrl ();
 		%newBox.add (%newImage);
 
 		%newImage.keepCached = true;
-		%thumbFile = filePath (%line) @ "/thumbs/" @ fileBase (%line);
 
+		%thumbFile = filePath (%line) @ "/thumbs/" @ fileBase (%line);
 		%newImage.setBitmap (%thumbFile);
 
 		%x = (%itemCount % 4) * 64;
@@ -15001,23 +15012,23 @@ function AvatarGui_CreatePartMenuFACE ( %name, %cmdString, %filename, %xPos, %yP
 
 		%newImage.resize (%x, %y, 64, 64);
 
-		%newButton = new GuiBitmapButtonCtrl ("")
+		%newButton = new GuiBitmapButtonCtrl ()
 		{
 			profile = "BlockButtonProfile";
 		};
 
 		%newBox.add (%newButton);
+
 		%newButton.setBitmap ("base/client/ui/btnDecal");
 		%newButton.setText (" ");
 		%newButton.resize (%x, %y, 64, 64);
 
 		%newButton.command = %cmdString @ "(" @ %itemCount @ "," @ %newImage @ ");";
-		%cmd = %varString @ "[" @ %itemCount @ "] = \"" @ %line @ "\";";
 
+		%cmd = %varString @ "[" @ %itemCount @ "] = \"" @ %line @ "\";";
 		eval (%cmd);
 
 		%itemCount++;
-		%line = %file.readLine ();
 	}
 
 	$num[fileBase (%filename)] = %itemCount;
@@ -15056,11 +15067,14 @@ function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %
 
 	%baseName = strreplace (%name, "Menu", "");
 	%baseName = strreplace (%baseName, "Avatar_", "");
-	%newScroll = new GuiScrollCtrl ("");
+
+	%newScroll = new GuiScrollCtrl ();
+
 	%newScroll.vScrollBar = "alwaysOn";
 	%newScroll.hScrollBar = "alwaysOff";
 
 	%newScroll.setProfile (ColorScrollProfile);
+
 	Avatar_Window.add (%newScroll);
 
 	%w = 64 + 12;
@@ -15069,24 +15083,23 @@ function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %
 	%newScroll.resize (%xPos, %yPos, %w, %h);
 	%newScroll.setName (%name);
 
-	%newBox = new GuiBitmapCtrl ("");
-
+	%newBox = new GuiBitmapCtrl ();
 	%newScroll.add (%newBox);
+
 	%newBox.setBitmap ("base/client/ui/btnDecalBG");
 
-	%newBox.wrap = 1;
+	%newBox.wrap = true;
 
 	%newBox.resize (0, 0, 64, 64);
 	%newBox.setName ("Avatar_" @ %baseName @ "MenuBG");
 
 	%iconDir = "base/client/ui/avatarIcons/" @ %baseName @ "/";
 	%itemCount = 0;
-	%line = getWord (%subPartList, %itemCount);
 
-	while ( %line !$= "" )
+	for ( %line = getWord (%subPartList, %itemCount); %line !$= "";
+		  %line = getWord (%subPartList, %itemCount) )
 	{
-		%newImage = new GuiBitmapCtrl ("");
-
+		%newImage = new GuiBitmapCtrl ();
 		%newBox.add (%newImage);
 
 		%newImage.keepCached = true;
@@ -15098,16 +15111,16 @@ function AvatarGui_CreateSubPartMenu ( %name, %cmdString, %subPartList, %xPos, %
 
 		%newImage.resize (%x, %y, 64, 64);
 
-		%newButton = new GuiBitmapButtonCtrl ("");
-
+		%newButton = new GuiBitmapButtonCtrl ();
 		%newBox.add (%newButton);
+
 		%newButton.setBitmap ("base/client/ui/btnDecal");
 		%newButton.setText (" ");
 		%newButton.resize (%x, %y, 64, 64);
 
 		%newButton.command = %cmdString @ "(" @ %itemCount @ "," @ %newImage @ ");";
+
 		%itemCount++;
-		%line = getWord (%subPartList, %itemCount);
 	}
 
 	if ( %itemCount >= 4 )
@@ -15149,9 +15162,10 @@ function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %sym
 		}
 	}
 
-	$CurrColorPrefString = %prefString;
+	$CurrColorPrefString         = %prefString;
 	$CurrColorSymmetryPrefString = %symmetryPrefString;
-	%newScroll = new GuiScrollCtrl ("");
+
+	%newScroll = new GuiScrollCtrl ();
 
 	%newScroll.setProfile (ColorScrollProfile);
 
@@ -15159,16 +15173,18 @@ function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %sym
 	%newScroll.hScrollBar = "alwaysOff";
 
 	Avatar_Window.add (%newScroll);
+
 	%newScroll.resize (%xPos, %yPos, 32 + 12, 32);
 	%newScroll.setName ("Avatar_ColorMenu");
 
-	%newBox = new GuiSwatchCtrl ("");
-
+	%newBox = new GuiSwatchCtrl ();
 	%newScroll.add (%newBox);
+
 	%newBox.setColor ("0 0 0 1");
 	%newBox.resize (0, 0, 32, 32);
 
 	%itemCount = 0;
+
 	%colorIndex = getWord (%colorList, %count);
 
 	for ( %i = 0; %i < $Avatar::NumColors; %i++ )
@@ -15184,9 +15200,9 @@ function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %sym
 
 		if ( %allowTrans || (!%allowTrans & %alpha >= 1) )
 		{
-			%newSwatch = new GuiSwatchCtrl ("");
-
+			%newSwatch = new GuiSwatchCtrl ();
 			%newBox.add (%newSwatch);
+
 			%newSwatch.setColor (%color);
 
 			%x = (%itemCount % %rowLimit) * 32;
@@ -15194,14 +15210,15 @@ function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %sym
 
 			%newSwatch.resize (%x, %y, 32, 32);
 
-			%newButton = new GuiBitmapButtonCtrl ("");
-
+			%newButton = new GuiBitmapButtonCtrl ();
 			%newBox.add (%newButton);
+
 			%newButton.setBitmap ("base/client/ui/btnColor");
 			%newButton.setText (" ");
 			%newButton.resize (%x, %y, 32, 32);
 
 			%newButton.command = "Avatar_AssignColor(" @ %i @ ");";
+
 			%itemCount++;
 		}
 	}
@@ -15230,7 +15247,7 @@ function AvatarGui_CreateColorMenu ( %prefString, %colorList, %xPos, %yPos, %sym
 function Avatar_AssignColor ( %index )
 {
 	%color = $Avatar::Color[%index];
-	%cmd = $CurrColorPrefString @ " = \"" @ %color @ "\";";
+	%cmd   = $CurrColorPrefString @ " = \"" @ %color @ "\";";
 
 	eval (%cmd);
 
@@ -15239,7 +15256,6 @@ function Avatar_AssignColor ( %index )
 	if ( $pref::Player::Symmetry && $CurrColorSymmetryPrefString !$= "" )
 	{
 		%cmd = $CurrColorSymmetryPrefString @ " = \"" @ %color @ "\";";
-
 		eval (%cmd);
 
 		$CurrColorSymmetryPrefString = "";
@@ -15252,6 +15268,7 @@ function Avatar_AssignColor ( %index )
 function Avatar_ClickTorsoColor ()
 {
 	%decalName = $decal[$pref::Avatar::DecalColor];
+
 	%x = getWord (Avatar_TorsoColor.position, 0) + 32;
 	%y = getWord (Avatar_TorsoColor.position, 1);
 
@@ -15268,6 +15285,7 @@ function Avatar_ClickTorsoColor ()
 function Avatar_ClickPackColor ()
 {
 	%packName = $pack[$pref::Avatar::Pack];
+
 	%x = getWord (Avatar_PackColor.position, 0) + 32;
 	%y = getWord (Avatar_PackColor.position, 1);
 
@@ -15284,6 +15302,7 @@ function Avatar_ClickPackColor ()
 function Avatar_ClickSecondPackColor ()
 {
 	%packName = $SecondPack[$Pref::Avatar::SecondPack];
+
 	%x = getWord (Avatar_SecondPackColor.position, 0) + 32;
 	%y = getWord (Avatar_SecondPackColor.position, 1);
 
@@ -15300,6 +15319,7 @@ function Avatar_ClickSecondPackColor ()
 function Avatar_ClickHatColor ()
 {
 	%hatName = $hat[$pref::Avatar::Hat];
+
 	%x = getWord (Avatar_HatColor.position, 0) + 32;
 	%y = getWord (Avatar_HatColor.position, 1);
 
@@ -15315,13 +15335,14 @@ function Avatar_ClickHatColor ()
 
 function Avatar_ClickAccentColor ()
 {
-	%hatName = $hat[$pref::Avatar::Hat];
+	%hatName     = $hat[$pref::Avatar::Hat];
 	%AccentArray = $accentsAllowed[%hatName];
-	%AccentName = getWord (%AccentArray, $pref::Avatar::Accent);
+	%AccentName  = getWord (%AccentArray, $pref::Avatar::Accent);
+
 	%x = getWord (Avatar_AccentColor.position, 0) + 32;
 	%y = getWord (Avatar_AccentColor.position, 1);
 
-	AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $normalColors, %x, %y, "", 1);
+	AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $normalColors, %x, %y, "", true);
 
 	return;
 
@@ -15334,20 +15355,22 @@ function Avatar_ClickAccentColor ()
 		{
 			if ( $accentColors[%AccentName] $= "" )
 			{
-				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", 1);
+				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", true);
 			}
 			else
 			{
-				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColors[%AccentName], %x, %y, "", 1);
+				AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColors[%AccentName],
+					%x, %y, "", true);
 			}
 		}
 		else if ( $accentColorsUnAuth[%AccentName] $= "" )
 		{
-			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", 1);
+			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $allColors, %x, %y, "", true);
 		}
 		else
 		{
-			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColorsUnAuth[%AccentName], %x, %y, "", 1);
+			AvatarGui_CreateColorMenu ("$Pref::Avatar::AccentColor", $accentColorsUnAuth[%AccentName],
+				%x, %y, "", true);
 		}
 	}
 }
@@ -15382,11 +15405,13 @@ function Avatar_ClickRightLegColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $basicColors, %x, %y, "$Pref::Avatar::LLegColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $basicColors, %x, %y,
+			"$Pref::Avatar::LLegColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $normalColors, %x, %y, "$Pref::Avatar::LLegColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RLegColor", $normalColors, %x, %y,
+			"$Pref::Avatar::LLegColor");
 	}
 }
 
@@ -15397,11 +15422,13 @@ function Avatar_ClickRightArmColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $basicColors, %x, %y, "$Pref::Avatar::LArmColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $basicColors, %x, %y,
+			"$Pref::Avatar::LArmColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $normalColors, %x, %y, "$Pref::Avatar::LArmColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RArmColor", $normalColors, %x, %y,
+			"$Pref::Avatar::LArmColor");
 	}
 }
 
@@ -15412,11 +15439,13 @@ function Avatar_ClickRightHandColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $basicColors, %x, %y, "$Pref::Avatar::LHandColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $basicColors, %x, %y,
+			"$Pref::Avatar::LHandColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $normalColors, %x, %y, "$Pref::Avatar::LHandColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::RHandColor", $normalColors, %x, %y,
+			"$Pref::Avatar::LHandColor");
 	}
 }
 
@@ -15427,11 +15456,13 @@ function Avatar_ClickLeftLegColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $basicColors, %x, %y, "$Pref::Avatar::RLegColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $basicColors, %x, %y,
+			"$Pref::Avatar::RLegColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $normalColors, %x, %y, "$Pref::Avatar::RLegColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LLegColor", $normalColors, %x, %y,
+			"$Pref::Avatar::RLegColor");
 	}
 }
 
@@ -15442,11 +15473,13 @@ function Avatar_ClickLeftArmColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $basicColors, %x, %y, "$Pref::Avatar::RArmColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $basicColors, %x, %y,
+			"$Pref::Avatar::RArmColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $normalColors, %x, %y, "$Pref::Avatar::RArmColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LArmColor", $normalColors, %x, %y,
+			"$Pref::Avatar::RArmColor");
 	}
 }
 
@@ -15457,11 +15490,13 @@ function Avatar_ClickLeftHandColor ()
 
 	if ( $pref::Avatar::Authentic )
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $basicColors, %x, %y, "$Pref::Avatar::RHandColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $basicColors, %x, %y,
+			"$Pref::Avatar::RHandColor");
 	}
 	else
 	{
-		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $normalColors, %x, %y, "$Pref::Avatar::RHandColor");
+		AvatarGui_CreateColorMenu ("$Pref::Avatar::LHandColor", $normalColors, %x, %y,
+			"$Pref::Avatar::RHandColor");
 	}
 }
 
@@ -15499,7 +15534,7 @@ function Avatar_HideAllPartMenus ()
 
 function Avatar_SetFace ( %index, %imageObj )
 {
-	$Pref::Avatar::FaceName = $face[%index];
+	$Pref::Avatar::FaceName  = $face[%index];
 	$pref::Avatar::FaceColor = %index;
 
 	Avatar_FaceMenu.setVisible (false);
@@ -15508,7 +15543,7 @@ function Avatar_SetFace ( %index, %imageObj )
 
 function Avatar_SetDecal ( %index, %imageObj )
 {
-	$Pref::Avatar::DecalName = $decal[%index];
+	$Pref::Avatar::DecalName  = $decal[%index];
 	$pref::Avatar::DecalColor = %index;
 
 	Avatar_DecalMenu.setVisible (false);
@@ -15540,7 +15575,9 @@ function Avatar_SetHat ( %index, %imageObj )
 	%x = getWord (Avatar_AccentPreview.position, 0) + 64;
 	%y = getWord (Avatar_AccentPreview.position, 1);
 
-	AvatarGui_CreateSubPartMenu ("Avatar_AccentMenu", "Avatar_SetAccent", $accentsAllowed[$hat[%index]], %x, %y);
+	AvatarGui_CreateSubPartMenu ("Avatar_AccentMenu", "Avatar_SetAccent",
+		$accentsAllowed[$hat[%index]], %x, %y);
+
 	Avatar_UpdatePreview ();
 }
 
@@ -15638,6 +15675,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $pack[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["SecondPack"]; %i++ )
 	{
 		if ( $SecondPack[%i] !$= "None" )
@@ -15645,6 +15683,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $SecondPack[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["Hat"]; %i++ )
 	{
 		if ( $hat[%i] !$= "None" )
@@ -15652,6 +15691,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $hat[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["Accent"]; %i++ )
 	{
 		if ( $Accent[%i] !$= "None" )
@@ -15659,6 +15699,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $Accent[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["Chest"]; %i++ )
 	{
 		if ( $Chest[%i] !$= "None" )
@@ -15666,6 +15707,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $Chest[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["Hip"]; %i++ )
 	{
 		if ( $Hip[%i] !$= "None" )
@@ -15673,6 +15715,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $Hip[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["RArm"]; %i++ )
 	{
 		if ( $RArm[%i] !$= "None" )
@@ -15680,6 +15723,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $RArm[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["LArm"]; %i++ )
 	{
 		if ( $LArm[%i] !$= "None" )
@@ -15687,6 +15731,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $LArm[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["RHand"]; %i++ )
 	{
 		if ( $RHand[%i] !$= "None" )
@@ -15694,6 +15739,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $RHand[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["LHand"]; %i++ )
 	{
 		if ( $LHand[%i] !$= "None" )
@@ -15701,6 +15747,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $LHand[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["RLeg"]; %i++ )
 	{
 		if ( $RLeg[%i] !$= "None" )
@@ -15708,6 +15755,7 @@ function Avatar_UpdatePreview ()
 			Avatar_Preview.hideNode ("", $RLeg[%i]);
 		}
 	}
+
 	for ( %i = 0; %i < $num["LLeg"]; %i++ )
 	{
 		if ( $LLeg[%i] !$= "None" )
@@ -15741,56 +15789,70 @@ function Avatar_UpdatePreview ()
 		Avatar_Preview.unHideNode ("", %AccentName);
 		Avatar_Preview.setNodeColor ("", %AccentName, $pref::Avatar::AccentColor);
 	}
+
 	if ( $pack[$pref::Avatar::Pack] !$= "" && $pack[$pref::Avatar::Pack] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $pack[$pref::Avatar::Pack]);
 		Avatar_Preview.setNodeColor ("", $pack[$pref::Avatar::Pack], $pref::Avatar::PackColor);
 	}
-	if ( $SecondPack[$Pref::Avatar::SecondPack] !$= "" && $SecondPack[$Pref::Avatar::SecondPack] !$= "none" )
+
+	if ( $SecondPack[$Pref::Avatar::SecondPack] !$= "" &&
+		 $SecondPack[$Pref::Avatar::SecondPack] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $SecondPack[$Pref::Avatar::SecondPack]);
-		Avatar_Preview.setNodeColor ("", $SecondPack[$Pref::Avatar::SecondPack], $pref::Avatar::SecondPackColor);
+
+		Avatar_Preview.setNodeColor ("", $SecondPack[$Pref::Avatar::SecondPack],
+			$pref::Avatar::SecondPackColor);
 	}
+
 	if ( $Chest[$Pref::Avatar::Chest] !$= "" && $Chest[$Pref::Avatar::Chest] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $Chest[$Pref::Avatar::Chest]);
 		Avatar_Preview.setNodeColor ("", $Chest[$Pref::Avatar::Chest], $pref::Avatar::TorsoColor);
 	}
+
 	if ( $Hip[$Pref::Avatar::Hip] !$= "" && $Hip[$Pref::Avatar::Hip] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $Hip[$Pref::Avatar::Hip]);
 		Avatar_Preview.setNodeColor ("", $Hip[$Pref::Avatar::Hip], $pref::Avatar::HipColor);
 	}
+
 	if ( $RArm[$Pref::Avatar::RArm] !$= "" && $RArm[$Pref::Avatar::RArm] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $RArm[$Pref::Avatar::RArm]);
 		Avatar_Preview.setNodeColor ("", $RArm[$Pref::Avatar::RArm], $pref::Avatar::RArmColor);
 	}
+
 	if ( $LArm[$Pref::Avatar::LArm] !$= "" && $LArm[$Pref::Avatar::LArm] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $LArm[$Pref::Avatar::LArm]);
 		Avatar_Preview.setNodeColor ("", $LArm[$Pref::Avatar::LArm], $pref::Avatar::LArmColor);
 	}
+
 	if ( $RHand[$Pref::Avatar::RHand] !$= "" && $RHand[$Pref::Avatar::RHand] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $RHand[$Pref::Avatar::RHand]);
 		Avatar_Preview.setNodeColor ("", $RHand[$Pref::Avatar::RHand], $pref::Avatar::RHandColor);
 	}
+
 	if ( $LHand[$Pref::Avatar::LHand] !$= "" && $LHand[$Pref::Avatar::LHand] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $LHand[$Pref::Avatar::LHand]);
 		Avatar_Preview.setNodeColor ("", $LHand[$Pref::Avatar::LHand], $pref::Avatar::LHandColor);
 	}
+
 	if ( $RLeg[$Pref::Avatar::RLeg] !$= "" && $RLeg[$Pref::Avatar::RLeg] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $RLeg[$Pref::Avatar::RLeg]);
 		Avatar_Preview.setNodeColor ("", $RLeg[$Pref::Avatar::RLeg], $pref::Avatar::RLegColor);
 	}
+
 	if ( $LLeg[$Pref::Avatar::LLeg] !$= "" && $LLeg[$Pref::Avatar::LLeg] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $LLeg[$Pref::Avatar::LLeg]);
 		Avatar_Preview.setNodeColor ("", $LLeg[$Pref::Avatar::LLeg], $pref::Avatar::LLegColor);
 	}
+
 	if ( $Hip[$Pref::Avatar::Hip] !$= "" && $Hip[$Pref::Avatar::Hip] !$= "none" )
 	{
 		Avatar_Preview.unHideNode ("", $Hip[$Pref::Avatar::Hip]);
@@ -15800,8 +15862,10 @@ function Avatar_UpdatePreview ()
 		{
 			Avatar_Preview.unHideNode ("", "SkirtTrimLeft");
 			Avatar_Preview.unHideNode ("", "SkirtTrimRight");
+
 			Avatar_Preview.setNodeColor ("", "SkirtTrimLeft", $pref::Avatar::LLegColor);
 			Avatar_Preview.setNodeColor ("", "SkirtTrimRight", $pref::Avatar::RLegColor);
+
 			Avatar_Preview.hideNode ("", $RLeg[$Pref::Avatar::RLeg]);
 			Avatar_Preview.hideNode ("", $LLeg[$Pref::Avatar::LLeg]);
 		}
@@ -15819,9 +15883,12 @@ function Avatar_UpdatePreview ()
 
 	Avatar_Preview.setIflFrame ("", decal, $pref::Avatar::DecalColor);
 	Avatar_Preview.setIflFrame ("", face, $pref::Avatar::FaceColor);
+
 	Avatar_TorsoColor.setColor ($pref::Avatar::TorsoColor);
 	Avatar_ChestPreview.setColor ($pref::Avatar::TorsoColor);
+
 	Avatar_ColorAllIcons (Avatar_ChestMenuBG, $pref::Avatar::TorsoColor);
+
 	Avatar_DecalBG.setColor ($pref::Avatar::TorsoColor);
 	Avatar_DecalMenuBG.setColor ($pref::Avatar::TorsoColor);
 	Avatar_HeadColor.setColor ($pref::Avatar::HeadColor);
@@ -15829,44 +15896,68 @@ function Avatar_UpdatePreview ()
 	Avatar_faceMenuBG.setColor ($pref::Avatar::HeadColor);
 	Avatar_HipColor.setColor ($pref::Avatar::HipColor);
 	Avatar_HipPreview.setColor ($pref::Avatar::HipColor);
+
 	Avatar_ColorAllIcons (Avatar_HipMenuBG, $pref::Avatar::HipColor);
+
 	Avatar_LeftArmColor.setColor ($pref::Avatar::LArmColor);
 	Avatar_LArmPreview.setColor ($pref::Avatar::LArmColor);
+
 	Avatar_ColorAllIcons (Avatar_LarmMenuBG, $pref::Avatar::LArmColor);
+
 	Avatar_LeftHandColor.setColor ($pref::Avatar::LHandColor);
 	Avatar_LHandPreview.setColor ($pref::Avatar::LHandColor);
+
 	Avatar_ColorAllIcons (Avatar_LHandMenuBG, $pref::Avatar::LHandColor);
+
 	Avatar_LeftLegColor.setColor ($pref::Avatar::LLegColor);
 	Avatar_LLegPreview.setColor ($pref::Avatar::LLegColor);
+
 	Avatar_ColorAllIcons (Avatar_LLegMenuBG, $pref::Avatar::LLegColor);
+
 	Avatar_RightArmColor.setColor ($pref::Avatar::RArmColor);
 	Avatar_RArmPreview.setColor ($pref::Avatar::RArmColor);
+
 	Avatar_ColorAllIcons (Avatar_RarmMenuBG, $pref::Avatar::RArmColor);
+
 	Avatar_RightHandColor.setColor ($pref::Avatar::RHandColor);
 	Avatar_RHandPreview.setColor ($pref::Avatar::RHandColor);
+
 	Avatar_ColorAllIcons (Avatar_RHandMenuBG, $pref::Avatar::RHandColor);
+
 	Avatar_RightLegColor.setColor ($pref::Avatar::RLegColor);
 	Avatar_RLegPreview.setColor ($pref::Avatar::RLegColor);
+
 	Avatar_ColorAllIcons (Avatar_RLegMenuBG, $pref::Avatar::RLegColor);
+
 	Avatar_HatColor.setColor ($pref::Avatar::HatColor);
 	Avatar_HatPreview.setColor ($pref::Avatar::HatColor);
+
 	Avatar_ColorAllIcons (Avatar_HatMenuBG, $pref::Avatar::HatColor);
+
 	Avatar_AccentColor.setColor ($pref::Avatar::AccentColor);
 	Avatar_AccentPreview.setColor ($pref::Avatar::AccentColor);
+
 	Avatar_ColorAllIcons (Avatar_AccentMenuBG, $pref::Avatar::AccentColor);
+
 	Avatar_PackColor.setColor ($pref::Avatar::PackColor);
 	Avatar_PackPreview.setColor ($pref::Avatar::PackColor);
+
 	Avatar_ColorAllIcons (Avatar_PackMenuBG, $pref::Avatar::PackColor);
+
 	Avatar_SecondPackColor.setColor ($pref::Avatar::SecondPackColor);
 	Avatar_SecondPackPreview.setColor ($pref::Avatar::SecondPackColor);
+
 	Avatar_ColorAllIcons (Avatar_SecondPackMenuBG, $pref::Avatar::SecondPackColor);
 
 	%iconDir = "base/client/ui/avatarIcons/";
-	%thumb = filePath ($face[$pref::Avatar::FaceColor]) @ "/thumbs/" @ fileBase ($face[$pref::Avatar::FaceColor]);
+
+	%thumb = filePath ($face[$pref::Avatar::FaceColor]) @ "/thumbs/"
+	       @ fileBase ($face[$pref::Avatar::FaceColor]);
 
 	Avatar_FacePreview.setBitmap (%thumb);
 
-	%thumb = filePath ($decal[$pref::Avatar::DecalColor]) @ "/thumbs/" @ fileBase ($decal[$pref::Avatar::DecalColor]);
+	%thumb = filePath ($decal[$pref::Avatar::DecalColor]) @ "/thumbs/"
+	       @ fileBase ($decal[$pref::Avatar::DecalColor]);
 
 	Avatar_DecalPreview.setBitmap ($decal[$pref::Avatar::DecalColor]);
 
@@ -15879,7 +15970,9 @@ function Avatar_UpdatePreview ()
 		Avatar_PackPreview.setBitmap (%iconDir @ "pack/" @ $pack[$pref::Avatar::Pack]);
 	}
 
-	Avatar_SecondPackPreview.setBitmap (%iconDir @ "secondPack/" @ $SecondPack[$Pref::Avatar::SecondPack]);
+	Avatar_SecondPackPreview.setBitmap (%iconDir @ "secondPack/"
+		@ $SecondPack[$Pref::Avatar::SecondPack]);
+
 	Avatar_HatPreview.setBitmap (%iconDir @ "hat/" @ $hat[$pref::Avatar::Hat]);
 	Avatar_ChestPreview.setBitmap (%iconDir @ "chest/" @ $Chest[$Pref::Avatar::Chest]);
 	Avatar_HipPreview.setBitmap (%iconDir @ "hip/" @ $Hip[$Pref::Avatar::Hip]);
@@ -15891,7 +15984,7 @@ function Avatar_UpdatePreview ()
 	Avatar_RLegPreview.setBitmap (%iconDir @ "Rleg/" @ $RLeg[$Pref::Avatar::RLeg]);
 
 	%accentList = $accentsAllowed[$hat[$pref::Avatar::Hat]];
-	%accent = getWord (%accentList, $pref::Avatar::Accent);
+	%accent     = getWord (%accentList, $pref::Avatar::Accent);
 
 	if ( %accent $= "" )
 	{
@@ -15923,10 +16016,11 @@ $AvatarRandomizeCount = 0;
 
 function Avatar_Randomize ()
 {
-	$pref::Avatar::FaceColor = getRandom ($numFace - 1);
-	$Pref::Avatar::FaceName = fileBase ($face[$pref::Avatar::FaceColor]);
+	$pref::Avatar::FaceColor  = getRandom ($numFace - 1);
+	$Pref::Avatar::FaceName   = fileBase ($face[$pref::Avatar::FaceColor]);
 	$pref::Avatar::DecalColor = getRandom ($numDecal - 1);
-	$Pref::Avatar::DecalName = fileBase ($decal[$pref::Avatar::DecalColor]);
+	$Pref::Avatar::DecalName  = fileBase ($decal[$pref::Avatar::DecalColor]);
+
 	$AvatarRandomizeCount++;
 
 	if ( $AvatarRandomizeCount == 10 )
@@ -15934,17 +16028,19 @@ function Avatar_Randomize ()
 		steamGetAchievement ("ACH_GAY_PIRATE", "steamGetAchievement");
 	}
 
-	$pref::Avatar::Hat = getRandom ($numHat - 1);
-	$pref::Avatar::Pack = getRandom ($numPack - 1);
+	$pref::Avatar::Hat        = getRandom ($numHat - 1);
+	$pref::Avatar::Pack       = getRandom ($numPack - 1);
 	$Pref::Avatar::SecondPack = getRandom ($numSecondPack - 1);
-	$Pref::Avatar::LArm = getRandom ($numLArm - 1);
-	$Pref::Avatar::RArm = $Pref::Avatar::LArm;
-	%chance = getRandom (100);
-	%normalHands = 0;
+	$Pref::Avatar::LArm       = getRandom ($numLArm - 1);
+	$Pref::Avatar::RArm       = $Pref::Avatar::LArm;
+
+	%chance      = getRandom (100);
+	%normalHands = false;
 
 	if ( %chance < 70 )
 	{
-		%normalHands = 1;
+		%normalHands = true;
+
 		$Pref::Avatar::LHand = 0;
 		$Pref::Avatar::RHand = 0;
 	}
@@ -15968,6 +16064,7 @@ function Avatar_Randomize ()
 	}
 
 	$Pref::Avatar::Chest = getRandom ($numChest - 1);
+
 	%chance = getRandom (100);
 
 	if ( %chance < 70 )
@@ -15978,9 +16075,11 @@ function Avatar_Randomize ()
 	{
 		$Pref::Avatar::Hip = getRandom ($numHip - 1);
 	}
+
 	if ( $Chest[$Pref::Avatar::Chest] $= "femchest" )
 	{
-		if ( $Pref::Avatar::FaceName !$= "smiley" && $Pref::Avatar::FaceName !$= "smileyCreepy" && strstr (strlwr ($Pref::Avatar::FaceName), "female") == -1 )
+		if ( $Pref::Avatar::FaceName !$= "smiley" && $Pref::Avatar::FaceName !$= "smileyCreepy"
+		  && strstr (strlwr ($Pref::Avatar::FaceName), "female") == -1 )
 		{
 			$Pref::Avatar::Chest = 0;
 		}
@@ -15991,7 +16090,7 @@ function Avatar_Randomize ()
 	}
 
 	%partList = $accentsAllowed[$hat[$pref::Avatar::Hat]];
-	%count = getWordCount (%partList) - 1;
+	%count    = getWordCount (%partList) - 1;
 
 	if ( %count > 0 )
 	{
@@ -16013,29 +16112,37 @@ function Avatar_Randomize ()
 
 	%x = getWord (Avatar_AccentPreview.position, 0) + 64;
 	%y = getWord (Avatar_AccentPreview.position, 1);
-	%hatName = $hat[$pref::Avatar::Hat];
+
+	%hatName     = $hat[$pref::Avatar::Hat];
 	%AccentArray = $accentsAllowed[%hatName];
-	%AccentName = getWord (%AccentArray, $pref::Avatar::Accent);
+	%AccentName  = getWord (%AccentArray, $pref::Avatar::Accent);
 
 	AvatarGui_CreateSubPartMenu ("Avatar_AccentMenu", "Avatar_SetAccent", %AccentArray, %x, %y);
 
 	%count = getWordCount (%torsoColorList) - 1;
-	$pref::Avatar::TorsoColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::TorsoColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%packColorList) - 1;
-	$pref::Avatar::PackColor = Avatar_GetRandomColor (0);
-	$pref::Avatar::SecondPackColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::PackColor       = Avatar_GetRandomColor (false);
+	$pref::Avatar::SecondPackColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%hatColorList) - 1;
-	$pref::Avatar::HatColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::HatColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%accentColorList) - 1;
-	$pref::Avatar::AccentColor = Avatar_GetRandomColor (1);
+	$pref::Avatar::AccentColor = Avatar_GetRandomColor (true);
+
 	%count = getWordCount (%hipColorList) - 1;
-	$pref::Avatar::HipColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::HipColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%LLegColorList) - 1;
-	$pref::Avatar::LLegColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::LLegColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%LArmColorList) - 1;
-	$pref::Avatar::LArmColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::LArmColor = Avatar_GetRandomColor (false);
+
 	%count = getWordCount (%LHandColorList) - 1;
-	$pref::Avatar::LHandColor = Avatar_GetRandomColor (0);
+	$pref::Avatar::LHandColor = Avatar_GetRandomColor (false);
 
 	if ( %normalHands )
 	{
@@ -16044,20 +16151,23 @@ function Avatar_Randomize ()
 			$pref::Avatar::LHandColor = $pref::Avatar::HeadColor;
 		}
 	}
+
 	if ( $pref::Player::Symmetry == 1 )
 	{
-		$pref::Avatar::RLegColor = $pref::Avatar::LLegColor;
-		$pref::Avatar::RArmColor = $pref::Avatar::LArmColor;
+		$pref::Avatar::RLegColor  = $pref::Avatar::LLegColor;
+		$pref::Avatar::RArmColor  = $pref::Avatar::LArmColor;
 		$pref::Avatar::RHandColor = $pref::Avatar::LHandColor;
 	}
 	else
 	{
 		%count = getWordCount (%RLegColorList) - 1;
-		$pref::Avatar::RLegColor = Avatar_GetRandomColor (0);
+		$pref::Avatar::RLegColor = Avatar_GetRandomColor (false);
+
 		%count = getWordCount (%RArmColorList) - 1;
-		$pref::Avatar::RArmColor = Avatar_GetRandomColor (0);
+		$pref::Avatar::RArmColor = Avatar_GetRandomColor (false);
+
 		%count = getWordCount (%RHandColorList) - 1;
-		$pref::Avatar::RHandColor = Avatar_GetRandomColor (0);
+		$pref::Avatar::RHandColor = Avatar_GetRandomColor (false);
 	}
 
 	Avatar_UpdatePreview ();
@@ -16089,6 +16199,7 @@ function Avatar_Done ()
 	Canvas.popDialog (optionsDlg);
 
 	$Pref::Avatar::HatList = "testHat";
+
 	$HatTicket = "";
 
 	export ("$pref::*", "config/client/prefs.cs", False);
@@ -16121,12 +16232,12 @@ function AvatarGui::clickSetFavs ( %this )
 
 function AvatarGui::ClickFav ( %this, %idx )
 {
-	%idx = mFloor (%idx);
+	%idx      = mFloor (%idx);
 	%filename = "config/client/AvatarFavorites/" @ %idx @ ".cs";
 
 	if ( AV_FavsHelper.isVisible () )
 	{
-		export ("$Pref::Avatar::*", %filename, 0);
+		export ("$Pref::Avatar::*", %filename, false);
 		AV_FavsHelper.setVisible (false);
 	}
 	else
@@ -16156,16 +16267,15 @@ function AvatarGui::ClickFav ( %this, %idx )
 			if ( fileBase ($decal[%i]) $= fileBase ($Pref::Avatar::DecalName) )
 			{
 				$pref::Avatar::DecalColor = %i;
-
 				break;
 			}
 		}
+
 		for ( %i = 0; %i < $numFace; %i++ )
 		{
 			if ( fileBase ($face[%i]) $= fileBase ($Pref::Avatar::FaceName) )
 			{
 				$pref::Avatar::FaceColor = %i;
-
 				break;
 			}
 		}
@@ -16180,36 +16290,36 @@ function AvatarGui::ClickFav ( %this, %idx )
 
 function transferOldAvatarPrefs ()
 {
-	$pref::Avatar::Accent = $Pref::Player::Accent;
-	$pref::Avatar::AccentColor = $Pref::Player::AccentColor;
-	$Pref::Avatar::Chest = $Pref::Player::Chest;
-	$pref::Avatar::ChestColor = $Pref::Player::ChestColor;
-	$pref::Avatar::DecalColor = $Pref::Player::DecalColor;
-	$Pref::Avatar::DecalName = $Pref::Player::DecalName;
-	$pref::Avatar::FaceColor = $Pref::Player::FaceColor;
-	$Pref::Avatar::FaceName = $Pref::Player::FaceName;
-	$pref::Avatar::Hat = $Pref::Player::Hat;
-	$pref::Avatar::HatColor = $Pref::Player::HatColor;
-	$pref::Avatar::HeadColor = $Pref::Player::HeadColor;
-	$Pref::Avatar::Hip = $Pref::Player::Hip;
-	$pref::Avatar::HipColor = $Pref::Player::HipColor;
-	$Pref::Avatar::LArm = $Pref::Player::LArm;
-	$pref::Avatar::LArmColor = $Pref::Player::LArmColor;
-	$Pref::Avatar::LHand = $Pref::Player::LHand;
-	$pref::Avatar::LHandColor = $Pref::Player::LHandColor;
-	$Pref::Avatar::LLeg = $Pref::Player::LLeg;
-	$pref::Avatar::LLegColor = $Pref::Player::LLegColor;
-	$pref::Avatar::Pack = $Pref::Player::Pack;
-	$pref::Avatar::PackColor = $Pref::Player::PackColor;
-	$Pref::Avatar::RArm = $Pref::Player::RArm;
-	$pref::Avatar::RArmColor = $Pref::Player::RArmColor;
-	$Pref::Avatar::RHand = $Pref::Player::RHand;
-	$pref::Avatar::RHandColor = $Pref::Player::RHandColor;
-	$Pref::Avatar::RLeg = $Pref::Player::RLeg;
-	$pref::Avatar::RLegColor = $Pref::Player::RLegColor;
-	$Pref::Avatar::SecondPack = $Pref::Player::SecondPack;
+	$pref::Avatar::Accent          = $Pref::Player::Accent;
+	$pref::Avatar::AccentColor     = $Pref::Player::AccentColor;
+	$Pref::Avatar::Chest           = $Pref::Player::Chest;
+	$pref::Avatar::ChestColor      = $Pref::Player::ChestColor;
+	$pref::Avatar::DecalColor      = $Pref::Player::DecalColor;
+	$Pref::Avatar::DecalName       = $Pref::Player::DecalName;
+	$pref::Avatar::FaceColor       = $Pref::Player::FaceColor;
+	$Pref::Avatar::FaceName        = $Pref::Player::FaceName;
+	$pref::Avatar::Hat             = $Pref::Player::Hat;
+	$pref::Avatar::HatColor        = $Pref::Player::HatColor;
+	$pref::Avatar::HeadColor       = $Pref::Player::HeadColor;
+	$Pref::Avatar::Hip             = $Pref::Player::Hip;
+	$pref::Avatar::HipColor        = $Pref::Player::HipColor;
+	$Pref::Avatar::LArm            = $Pref::Player::LArm;
+	$pref::Avatar::LArmColor       = $Pref::Player::LArmColor;
+	$Pref::Avatar::LHand           = $Pref::Player::LHand;
+	$pref::Avatar::LHandColor      = $Pref::Player::LHandColor;
+	$Pref::Avatar::LLeg            = $Pref::Player::LLeg;
+	$pref::Avatar::LLegColor       = $Pref::Player::LLegColor;
+	$pref::Avatar::Pack            = $Pref::Player::Pack;
+	$pref::Avatar::PackColor       = $Pref::Player::PackColor;
+	$Pref::Avatar::RArm            = $Pref::Player::RArm;
+	$pref::Avatar::RArmColor       = $Pref::Player::RArmColor;
+	$Pref::Avatar::RHand           = $Pref::Player::RHand;
+	$pref::Avatar::RHandColor      = $Pref::Player::RHandColor;
+	$Pref::Avatar::RLeg            = $Pref::Player::RLeg;
+	$pref::Avatar::RLegColor       = $Pref::Player::RLegColor;
+	$Pref::Avatar::SecondPack      = $Pref::Player::SecondPack;
 	$pref::Avatar::SecondPackColor = $Pref::Player::SecondPackColor;
-	$pref::Avatar::TorsoColor = $Pref::Player::TorsoColor;
+	$pref::Avatar::TorsoColor      = $Pref::Player::TorsoColor;
 
 	deleteVariables ("$pref::Player::Accent");
 	deleteVariables ("$pref::Player::AccentColor");
@@ -16280,62 +16390,70 @@ function MainMenuGui::onWake ( %this )
 	if ( MainMenuGui.screenShotCount > 0 )
 	{
 		%pic = MainMenuGui.screenShot[getRandom (MainMenuGui.screenShotCount)];
-		mm_Fade.pic = %pic;
 
+		mm_Fade.pic = %pic;
 		mm_Fade.setBitmap (%pic);
 	}
+
 	if ( $Version $= "Pre-v9" )
 	{
-		$Pref::Net::ConnectionType = 1;
+		$Pref::Net::ConnectionType     = 1;
 		$Pref::Input::SelectedDefaults = 1;
 	}
 
-	%showButtons = 1;
+	%showButtons = true;
 
 	if ( isMacintosh () )
 	{
 		if ( gotProtoURL () )
 		{
-			%showButtons = 0;
-
+			%showButtons = false;
 			parseProtocol (getProtoURL ());
 		}
 	}
+
 	if ( $connectArg )
 	{
 		Connecting_Text.setText ("Connecting to " @ $connectArg);
 		Canvas.pushDialog (connectingGui);
 
-		%showButtons = 0;
+		%showButtons = false;
 	}
 	else
 	{
-		%showButtons = 1;
+		%showButtons = true;
 	}
+
 	if ( $useSteam && $steamLobbyArg )
 	{
-		%showButtons = 0;
+		%showButtons = false;
 	}
+
 	if ( isObject (GuiEditorGui) )
 	{
 		if ( GuiEditorGui.isAwake () )
 		{
-			%showButtons = 0;
+			%showButtons = false;
 		}
 	}
+
 	if ( Canvas.getContent ().getName () $= "GuiEditorGui" )
 	{
-		%showButtons = 0;
+		%showButtons = false;
 	}
+
 	if ( %showButtons )
 	{
 		Canvas.pushDialog (MainMenuButtonsGui);
 	}
-	if ( $Pref::Input::SelectedDefaults == 0 || !isFile ("config/client/config.cs") || moveMap.getNumBinds () < 5 )
+
+	if ( $Pref::Input::SelectedDefaults == 0 || !isFile ("config/client/config.cs")
+	  || moveMap.getNumBinds () < 5 )
 	{
 		vendorSpecificDefaults ();
 		Canvas.pushDialog (defaultControlsGui);
 	}
+
 	if ( $Pref::Net::ConnectionType <= 0 )
 	{
 		Canvas.pushDialog (SelectNetworkGui);
@@ -16363,6 +16481,7 @@ function MainMenuGui::onWake ( %this )
 	}
 
 	optionsDlg.setShaderQuality ($Pref::ShaderQuality);
+
 	MM_AuthNameButton.setVisible (false);
 	MM_AuthRetryButton.setVisible (false);
 
@@ -16370,6 +16489,7 @@ function MainMenuGui::onWake ( %this )
 	{
 		MM_AuthNameButton.setVisible (true);
 	}
+
 	if ( !$authed || strlen ($pref::Player::NetName) <= 0 )
 	{
 		auth_Init_Client ();
@@ -16399,10 +16519,12 @@ function MainMenuGui::onWake ( %this )
 
 		return;
 	}
+
 	if ( $Pref::Player::HeadColor !$= "" )
 	{
 		transferOldAvatarPrefs ();
 	}
+
 	if ( isFile ("config/server/ADD_ON_LIST.cs") )
 	{
 		exec ("config/server/ADD_ON_LIST.cs");
@@ -16411,14 +16533,17 @@ function MainMenuGui::onWake ( %this )
 		{
 			$AddOn__Brick_Treasure_Chest = 1;
 		}
+
 		if ( $AddOn__Brick_Halloween $= "" )
 		{
 			$AddOn__Brick_Halloween = 1;
 		}
+
 		if ( $AddOn__Brick_Teledoor $= "" )
 		{
 			$AddOn__Brick_Teledoor = 1;
 		}
+
 		if ( $AddOn__Brick_Christmas_Tree $= "" )
 		{
 			$AddOn__Brick_Christmas_Tree = 1;
@@ -16426,29 +16551,35 @@ function MainMenuGui::onWake ( %this )
 
 		export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
 	}
+
 	if ( $Version $= $Pref::ScriptVersion )
 	{
 		return;
 	}
+
 	if ( $Version <= 1.02 )
 	{
 		$Pref::Net::DownloadSounds = 0;
 	}
+
 	if ( $Version <= 1.03 )
 	{
 		$Pref::Server::BrickPublicDomainTimeout = -1;
-		$pref::OpenGL::noVertexBufferObjects = 0;
+		$pref::OpenGL::noVertexBufferObjects    = 0;
 	}
+
 	if ( $Version $= 10 || $Version $= "10m" )
 	{
-		$Pref::Net::DownloadMusic = 0;
+		$Pref::Net::DownloadMusic  = 0;
 		$Pref::Net::DownloadSounds = 0;
 	}
+
 	if ( $Version $= 11 || $Version $= "11m" )
 	{
-		$pref::ParticleFalloffMaxLevel = 3;
+		$pref::ParticleFalloffMaxLevel    = 3;
 		$pref::ParticleFalloffMinDistance = "35.0";
 	}
+
 	if ( $Version $= 12 )
 	{
 		if ( isFile ("config/server/ADD_ON_LIST.cs") )
@@ -16460,6 +16591,7 @@ function MainMenuGui::onWake ( %this )
 			export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
 		}
 	}
+
 	if ( $Version $= 13 )
 	{
 		$Pref::Net::DownloadTextures = 0;
@@ -16468,12 +16600,13 @@ function MainMenuGui::onWake ( %this )
 		{
 			exec ("config/server/ADD_ON_LIST.cs");
 
-			$AddOn__Particle_Tools = 1;
+			$AddOn__Particle_Tools           = 1;
 			$AddOn__Script_TerrainBuildRules = -1;
 
 			export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
 		}
 	}
+
 	if ( $Version $= 14 )
 	{
 		$pref::OpenGL::noVertexBufferObjects = 0;
@@ -16482,12 +16615,13 @@ function MainMenuGui::onWake ( %this )
 		{
 			exec ("config/server/ADD_ON_LIST.cs");
 
-			$AddOn__Vehicle_Rowboat = 1;
+			$AddOn__Vehicle_Rowboat       = 1;
 			$AddOn__Vehicle_Pirate_Cannon = 1;
 
 			export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
 		}
 	}
+
 	if ( $Version $= 15 )
 	{
 		if ( $Pref::Server::BrickRespawnTime < 30000 )
@@ -16506,24 +16640,25 @@ function MainMenuGui::onWake ( %this )
 			export ("$AddOn__*", "config/server/ADD_ON_LIST.cs");
 		}
 	}
+
 	if ( $Version $= 16 )
 	{
 		if ( $Pref::Net::ConnectionType >= 4 )
 		{
 			$Pref::Net::ConnectionType = 4;
-
 			SetConnectionType ($Pref::Net::ConnectionType);
 		}
 	}
+
 	if ( $Version $= 17 )
 	{
 		if ( $Pref::Net::ConnectionType <= 3 )
 		{
 			$Pref::Net::ConnectionType = 3;
-
 			SetConnectionType ($Pref::Net::ConnectionType);
 		}
 	}
+
 	if ( $Version $= 21 )
 	{
 		if ( isFile ("saves/Bedroom/A.T.C. Fort.bls") )
@@ -16624,21 +16759,21 @@ function MainMenuGui::showButtons ( %this )
 
 function getOldSaves ()
 {
-	%pattern = "base/saves/*.bls";
+	%pattern   = "base/saves/*.bls";
 	%fileCount = getFileCount (%pattern);
-	%filename = findFirstFile (%pattern);
+	%filename  = findFirstFile (%pattern);
 
 	echo ("Getting old save files from base/saves/ ...");
 	echo ("  " @ %fileCount @ " files found");
 
 	for ( %i = 0; %i < %fileCount; %i++ )
 	{
-		%path = filePath (%filename);
+		%path    = filePath (%filename);
 		%dirName = getSubStr (%path, strlen ("base/saves/"), strlen (%path) - strlen ("base/saves/"));
 
 		echo ("  dirName: " @ %dirName);
 
-		%base = fileBase (%filename);
+		%base        = fileBase (%filename);
 		%newFileName = "saves/" @ %dirName @ "/" @ %base @ ".bls";
 
 		if ( !isFile (%newFileName) )
@@ -16656,27 +16791,24 @@ function copyTextFile ( %source, %destination )
 	if ( !isFile (%source) )
 	{
 		error ("ERROR: copyFile: source file \"" @ %source @ "\" does not exist");
-
 		return;
 	}
 
-	%sourceFile = new FileObject ("");
-
+	%sourceFile = new FileObject ();
 	%sourceFile.openForRead (%source);
 
-	%destFile = new FileObject ("");
-
+	%destFile = new FileObject ();
 	%destFile.openForWrite (%destination);
 
 	while ( !%sourceFile.isEOF () )
 	{
 		%line = %sourceFile.readLine ();
-
 		%destFile.writeLine (%line);
 	}
 
 	%destFile.close ();
 	%destFile.delete ();
+
 	%sourceFile.close ();
 	%sourceFile.delete ();
 }
@@ -16704,20 +16836,17 @@ function MainMenuGui::buildScreenshotList ( %this )
 	}
 
 	%i = -1;
-	%file = findFirstFile ("screenshots/*.png");
 
-	while ( %file !$= "" )
+	for ( %file = findFirstFile ("screenshots/*.png"); %file !$= "";
+		  %file = findNextFile ("screenshots/*.png") )
 	{
 		%this.screenShot[%i++] = %file;
-		%file = findNextFile ("screenshots/*.png");
 	}
 
-	%file = findFirstFile ("screenshots/*.jpg");
-
-	while ( %file !$= "" )
+	for ( %file = findFirstFile ("screenshots/*.jpg"); %file !$= "";
+	      %file = findNextFile ("screenshots/*.jpg") )
 	{
 		%this.screenShot[%i++] = %file;
-		%file = findNextFile ("screenshots/*.jpg");
 	}
 
 	%this.screenShotCount = %i;
@@ -16736,9 +16865,10 @@ function mm_Fade::onDone ( %this )
 	}
 
 	%pic = MainMenuGui.screenShot[getRandom (MainMenuGui.screenShotCount)];
-	mm_Fade.pic = %pic;
 
+	mm_Fade.pic = %pic;
 	mm_Fade.setBitmap (%pic);
+
 	%this.reset ();
 }
 
@@ -16750,46 +16880,35 @@ function buildIFLs ()
 	}
 
 	$BuiltIFLs = 1;
-	%file = new FileObject ("");
+
+	%file = new FileObject ();
 
 	%file.openForWrite ("base/data/shapes/player/decal.ifl");
 	%file.writeLine ("base/data/shapes/player/decals/AAA-None.png");
 
 	%search = "Add-Ons/Decal_*/*.png";
-	%fullPath = findFirstFile (%search);
 
-	while ( %fullPath !$= "" )
+	for ( %fullPath = findFirstFile (%search); %fullPath !$= ""; %fullPath = findNextFile (%search) )
 	{
-		if ( !isValidDecal (%fullPath) )
-		{
-			%fullPath = findNextFile (%search);
-		}
-		else
+		if ( isValidDecal (%fullPath) )
 		{
 			%file.writeLine (%fullPath);
-
-			%fullPath = findNextFile (%search);
 		}
 	}
 
 	%file.close ();
+
 	%file.openForWrite ("base/data/shapes/player/face.ifl");
 	%file.writeLine ("base/data/shapes/player/faces/smiley.png");
 
 	%search = "Add-Ons/Face_*/*.png";
-	%fullPath = findFirstFile (%search);
 
-	while ( %fullPath !$= "" )
+	while ( %fullPath = findFirstFile (%search); %fullPath !$= ""
+	        %fullPath = findNextFile (%search) )
 	{
-		if ( !isValidDecal (%fullPath) )
-		{
-			%fullPath = findNextFile (%search);
-		}
-		else
+		if ( isValidDecal (%fullPath) )
 		{
 			%file.writeLine (%fullPath);
-
-			%fullPath = findNextFile (%search);
 		}
 	}
 
@@ -16799,57 +16918,63 @@ function buildIFLs ()
 
 function isValidDecal ( %file )
 {
-	%path = filePath (%file);
-	%dirName = getSubStr (%path, strlen ("Add-Ons/"), strlen (%path) - strlen ("Add-Ons/"));
+	%path     = filePath (%file);
+	%dirName  = getSubStr (%path, strlen ("Add-Ons/"), strlen (%path) - strlen ("Add-Ons/"));
 	%fileBase = fileBase (%file);
 
 	if ( !isFile (%file) )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strstr (%dirName, "/") != -1 )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strstr (%dirName, "_") == -1 )
 	{
-		return 0;
+		return false;
 	}
 
 	%thumbName = "Add-Ons/" @ %dirName @ "/" @ %fileBase @ ".png";
 
 	if ( !isFile (%thumbName) )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strstr (%dirName, "Copy of") != -1 || strstr (%dirName, "- Copy") != -1 )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strstr (%dirName, "(") != -1 || strstr (%dirName, ")") != -1 )
 	{
-		return 0;
+		return false;
 	}
 
 	%wordCount = getWordCount (%dirName);
 
 	if ( %wordCount > 1 )
 	{
-		%lastWord = getWord (%dirName, %wordCount - 1);
+		%lastWord      = getWord (%dirName, %wordCount - 1);
 		%floorLastWord = mFloor (%lastWord);
 
 		if ( %floorLastWord $= %lastWord )
 		{
-			return 0;
+			return false;
 		}
 	}
+
 	if ( strstr (%dirName, "+") != -1 )
 	{
-		return 0;
+		return false;
 	}
+
 	if ( strstr (%dirName, "[") != -1 || strstr (%dirName, "]") != -1 )
 	{
-		return 0;
+		return false;
 	}
 
 	%spaceName = strreplace (%dirName, "_", " ");
@@ -16857,18 +16982,18 @@ function isValidDecal ( %file )
 
 	if ( mFloor (%firstWord) $= %firstWord )
 	{
-		return 0;
+		return false;
 	}
 
 	%wordCount = getWordCount (%spaceName);
-	%lastWord = getWord (%spaceName, %wordCount - 1);
+	%lastWord  = getWord (%spaceName, %wordCount - 1);
 
 	if ( mFloor (%lastWord) $= %lastWord )
 	{
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
 
 function MainMenuGui::clickStart ( %this )
@@ -16926,9 +17051,9 @@ function MainMenuGui::clickNameButton ( %this )
 	if ( !SteamEnabled () )
 	{
 		MessageBoxOK ("Steam Required", "You need to have Steam running to register a name");
-
 		return;
 	}
+
 	if ( $Auth::blidCount > 1 )
 	{
 		MM_AuthText.setText ("Select BLID...");
@@ -16941,7 +17066,8 @@ function MainMenuGui::clickNameButton ( %this )
 	}
 	else
 	{
-		MessageBoxOK ("Name registered", "Your name is already registered as \"" @ $Auth::name[0] @ "\"");
+		MessageBoxOK ("Name registered", "Your name is already registered as \""
+			@ $Auth::name[0] @ "\"");
 	}
 }
 
@@ -16952,11 +17078,11 @@ function WhoTalk_Init ()
 		$WhoTalkSO.delete ();
 	}
 
-	$WhoTalkSO = new ScriptObject ("")
+	$WhoTalkSO = new ScriptObject ()
 	{
-		class = WhoTalkSO;
+		class   = WhoTalkSO;
 		textObj = chatWhosTalkingText.getId ();
-		count = 0;
+		count   = 0;
 	};
 }
 
@@ -17014,7 +17140,6 @@ function WhoTalkSO::removeID ( %this, %client )
 			}
 
 			%this.count--;
-
 			%this.Display ();
 
 			return;
@@ -17028,11 +17153,11 @@ function WhoTalkSO::HasID ( %this, %client )
 	{
 		if ( %this.id[%i] == %client )
 		{
-			return 1;
+			return true;
 		}
 	}
 
-	return 0;
+	return false;
 }
 
 function WhoTalkSO::Display ( %this )
@@ -17061,9 +17186,9 @@ function newMessageHud::onWake ( %this )
 	if ( !isObject (NoShiftMoveMap) )
 	{
 		new ActionMap (NoShiftMoveMap);
-
 		NoShiftMoveMap.bind ("keyboard0", "lshift", "");
 	}
+
 	if ( $pref::Chat::ChatRepeat )
 	{
 		NMH_Type.historySize = 10;
@@ -17097,20 +17222,24 @@ function newMessageHud::open ( %this, %channel )
 	else
 	{
 		error ("ERROR(): newMessageHud::open() - unknown channel \"" @ %channel @ "\"");
-
 		return;
 	}
+
 	if ( !%this.isAwake () )
 	{
 		NMH_Type.setValue ("");
+
 		Canvas.pushDialog (%this);
+
 		%this.updatePosition ();
 		%this.schedule (10, updateTypePosition);
 	}
+
 	if ( MiniGameInviteGui.isAwake () )
 	{
 		Canvas.pushToBack (MiniGameInviteGui);
 	}
+
 	if ( TrustInviteGui.isAwake () )
 	{
 		Canvas.pushToBack (TrustInviteGui);
@@ -17124,13 +17253,13 @@ function newMessageHud::updateTypePosition ( %this )
 	if ( %pixelWidth < 5 )
 	{
 		%this.schedule (100, updateTypePosition);
-
 		return;
 	}
 
 	%x = getWord (NMH_Channel.getPosition (), 0);
 	%x += %pixelWidth + 2;
 	%y = 0;
+
 	%w = (getWord (NMH_Box.getExtent (), 0) - %x) - 2;
 	%h = getWord (NMH_Type.getExtent (), 1);
 
@@ -17147,6 +17276,7 @@ function newMessageHud::updatePosition ( %this )
 	%x = getWord (NMH_Box.getPosition (), 0);
 	%y = getWord (newChatText.getPosition (), 1);
 	%y += getWord (newChatText.getExtent (), 1);
+
 	%w = getWord (NMH_Box.getExtent (), 0);
 	%h = getWord (NMH_Type.getExtent (), 1);
 
@@ -17168,13 +17298,14 @@ function NMH_Type::type ( %this )
 
 function NMH_Type::send ( %this )
 {
-	%text = %this.getValue ();
+	%text      = %this.getValue ();
 	%firstChar = getSubStr (%text, 0, 1);
 
 	if ( %firstChar $= "/" )
 	{
 		%newText = getSubStr (%text, 1, 256);
 		%command = getWord (%newText, 0);
+
 		%cmd = "commandToServer(addTaggedString(%command)";
 
 		if ( %command $= "greenlight" )
@@ -17201,7 +17332,6 @@ function NMH_Type::send ( %this )
 		if ( strlen (trim (%text)) <= 0 )
 		{
 			Canvas.popDialog (newMessageHud);
-
 			return;
 		}
 
@@ -17210,8 +17340,8 @@ function NMH_Type::send ( %this )
 		if ( %firstPos != -1 )
 		{
 			%posChain = "";
-			%offset = %firstPos + 1;
-			%len = strlen (%text);
+			%offset   = %firstPos + 1;
+			%len      = strlen (%text);
 
 			while ( %offset < %len )
 			{
@@ -17223,18 +17353,21 @@ function NMH_Type::send ( %this )
 				}
 
 				%relativePos = %pos - %firstPos;
-				%posChain = %posChain SPC %relativePos;
-				%offset = %pos + 1;
+				%posChain    = %posChain SPC %relativePos;
+				%offset      = %pos + 1;
 			}
 
 			if ( strpos (%posChain, "5 10") != -1 )
 			{
-				MessageBoxOK ("WARNING - CHAT BLOCKED", "You just tried to say something that looks a lot like a Blockland Authentication key.\n\nDo not give out your key to anyone.");
+				MessageBoxOK ("WARNING - CHAT BLOCKED",
+					"You just tried to say something that looks a lot like a Blockland Authentication key.\n\nDo not give out your key to anyone.");
+
 				Canvas.popDialog (newMessageHud);
 
 				return;
 			}
 		}
+
 		if ( newMessageHud.channel $= "SAY" )
 		{
 			commandToServer ('messageSent', %text);
@@ -17291,26 +17424,31 @@ function newChatHud_Init ()
 {
 	if ( $Pref::Chat::CacheLines $= "" )
 	{
-		$Pref::Chat::CacheLines = 1000;
+		$Pref::Chat::CacheLines      = 1000;
 		$Pref::Chat::MaxDisplayLines = 10;
-		$Pref::Chat::LineTime = 4000;
+		$Pref::Chat::LineTime        = 4000;
 	}
+
 	if ( $Pref::Chat::CacheLines < 100 )
 	{
 		$Pref::Chat::CacheLines = 100;
 	}
+
 	if ( $Pref::Chat::CacheLines > 50000 )
 	{
 		$Pref::Chat::CacheLines = 50000;
 	}
+
 	if ( $Pref::Chat::MaxDisplayLines < 4 )
 	{
 		$Pref::Chat::MaxDisplayLines = 4;
 	}
+
 	if ( $Pref::Chat::MaxDisplayLines > 100 )
 	{
 		$Pref::Chat::MaxDisplayLines = 100;
 	}
+
 	if ( $Pref::Chat::LineTime > 30000 )
 	{
 		$Pref::Chat::LineTime = 30000;
@@ -17318,12 +17456,15 @@ function newChatHud_Init ()
 
 	$NewChatSO = new ScriptObject (NewChatSO)
 	{
-		size = $Pref::Chat::CacheLines;
+		size     = $Pref::Chat::CacheLines;
 		maxLines = $Pref::Chat::MaxDisplayLines;
 		lineTime = $Pref::Chat::LineTime;
+
 		head = 0;
 		tail = 0;
+
 		textObj = newChatText.getId ();
+
 		pageUpEnd = -1;
 	};
 
@@ -17331,6 +17472,7 @@ function newChatHud_Init ()
 	{
 		$NewChatSO.pageUpEnd = 0;
 	}
+
 	if ( $Pref::Gui::ChatSize $= "" )
 	{
 		$Pref::Gui::ChatSize = 1;
@@ -17357,8 +17499,11 @@ function newChatHud_UpdateIndicatorPosition ()
 {
 	%w = getWord (chatScrollDownIndicator.getExtent (), 0);
 	%h = getWord (chatScrollDownIndicator.getExtent (), 1);
+
 	%x = getWord (chatScrollDownIndicator.getPosition (), 0);
-	%y = (getWord ($NewChatSO.textObj.getPosition (), 1) + getWord ($NewChatSO.textObj.getExtent (), 1)) - %h;
+
+	%y = (getWord ($NewChatSO.textObj.getPosition (), 1)
+	   + getWord ($NewChatSO.textObj.getExtent (), 1)) - %h;
 
 	chatScrollDownIndicator.resize (%x, %y, %w, %h);
 }
@@ -17369,10 +17514,12 @@ function newChatHud_AddLine ( %line )
 	{
 		newChatHud_Init ();
 	}
+
 	if ( strstr (%line, "<a:") != -1 )
 	{
 		%line = %line @ "</a>";
 	}
+
 	if ( $Pref::Chat::CurseFilter )
 	{
 		%line = censorString (%line);
@@ -17392,7 +17539,7 @@ function newChatHud_AddLine ( %line )
 function getCensor ( %word )
 {
 	%numChars = strlen (%word);
-	%censor = "";
+	%censor   = "";
 
 	for ( %i = 0; %i < %numChars; %i++ )
 	{
@@ -17415,8 +17562,9 @@ function censorString ( %line )
 {
 	%badList = $Pref::Chat::CurseList;
 	%lwrText = strlwr (%line) @ " ";
-	%offset = 0;
-	%max = strlen (%badList) - 1;
+	%offset  = 0;
+	%max     = strlen (%badList) - 1;
+
 	%i = 0;
 
 	while ( %offset < %max )
@@ -17426,7 +17574,6 @@ function censorString ( %line )
 		if ( %i >= 1000 )
 		{
 			error ("ERROR: newChatHud_AddLine() - loop safety hit");
-
 			return 1;
 		}
 
@@ -17438,17 +17585,19 @@ function censorString ( %line )
 		}
 
 		%wordLen = %nextDelim - %offset;
-		%word = getSubStr (%badList, %offset, %wordLen);
-		%badPos = strstr (%lwrText, %word);
+		%word    = getSubStr (%badList, %offset, %wordLen);
+		%badPos  = strstr (%lwrText, %word);
 
 		if ( %badPos != -1 )
 		{
-			%start = getSubStr (%line, 0, %badPos);
+			%start  = getSubStr (%line, 0, %badPos);
 			%censor = getCensor (%word);
+
 			%endPos = mClamp (%badPos + strlen (%word), 0, strlen (%line));
 			%endLen = mClamp (strlen (%line) - (%badPos + strlen (%word)), 0, strlen (%line));
-			%end = getSubStr (%line, %endPos, %endLen);
-			%line = %start @ %censor @ %end;
+			%end    = getSubStr (%line, %endPos, %endLen);
+
+			%line    = %start @ %censor @ %end;
 			%lwrText = strlwr (%line) @ " ";
 		}
 		else
@@ -17471,7 +17620,7 @@ function NewChatSO::displayLatest ( %this )
 
 	if ( isObject (%text) )
 	{
-		%buff = "";
+		%buff     = "";
 		%currTime = getSimTime ();
 
 		for ( %i = 0; %i < %this.maxLines; %i++ )
@@ -17482,11 +17631,14 @@ function NewChatSO::displayLatest ( %this )
 			{
 				%pos = %this.size + %pos;
 			}
+
 			if ( $Pref::Chat::LineTime <= 0 )
 			{
 				break;
 			}
-			if ( %currTime - %this.time[%pos] > $Pref::Chat::LineTime || %i == %this.maxLines - 1 || (%pos + 1) % %this.size == %this.tail )
+
+			if ( %currTime - %this.time[%pos] > $Pref::Chat::LineTime || %i == %this.maxLines - 1
+			  || (%pos + 1) % %this.size == %this.tail )
 			{
 				if ( %pos != %this.head - 1 )
 				{
@@ -17536,6 +17688,7 @@ function NewChatSO::displayLatest ( %this )
 	{
 		error ("ERROR: NewChatSO::displayLatest() - %this.textObj not defined");
 	}
+
 	if ( isObject (ServerConnection) )
 	{
 		if ( ServerConnection.isLocal () )
@@ -17546,18 +17699,19 @@ function NewChatSO::displayLatest ( %this )
 			}
 		}
 	}
+
 	if ( %showMouseTip && $pref::HUD::showToolTips )
 	{
 		MouseToolTip.setVisible (true);
 
 		%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
-
 		MouseToolTip.setValue ("\c6TIP: Press " @ %key @ " to toggle mouse and click on links");
 	}
 	else if ( !Canvas.isCursorOn () )
 	{
 		MouseToolTip.setVisible (false);
 	}
+
 	if ( MouseToolTip.isVisible () )
 	{
 		if ( $NewChatSO.textObj.isAwake () )
@@ -17567,8 +17721,10 @@ function NewChatSO::displayLatest ( %this )
 
 		%w = getWord (MouseToolTip.getExtent (), 0);
 		%h = getWord (MouseToolTip.getExtent (), 1);
+
 		%x = getWord (MouseToolTip.getPosition (), 0);
-		%y = getWord ($NewChatSO.textObj.getPosition (), 1) + getWord ($NewChatSO.textObj.getExtent (), 1) + %h;
+		%y = getWord ($NewChatSO.textObj.getPosition (), 1)
+		   + getWord ($NewChatSO.textObj.getExtent (), 1) + %h;
 
 		MouseToolTip.resize (%x, %y, %w, %h);
 	}
@@ -17587,13 +17743,15 @@ function NewChatSO::addLine ( %this, %line )
 	}
 
 	%line = "<spush>" @ %line @ "<spop>";
+
 	%this.line[%this.head] = %line;
 	%this.time[%this.head] = getSimTime ();
-	%doPage = 0;
+
+	%doPage = false;
 
 	if ( %this.pageUpEnd == %this.head )
 	{
-		%doPage = 1;
+		%doPage = true;
 	}
 
 	%this.head++;
@@ -17602,28 +17760,30 @@ function NewChatSO::addLine ( %this, %line )
 	{
 		%this.head = 0;
 	}
+
 	if ( %this.head == %this.tail )
 	{
 		%this.tail++;
 	}
+
 	if ( %this.tail >= %this.size )
 	{
 		%this.tail = 0;
 	}
+
 	if ( %this.pageUpEnd == -1 )
 	{
 		%this.displayLatest ();
 	}
-	else if (  ((%this.pageUpEnd - %this.maxLines) + 1) % %this.size == %this.tail )
+	else if ( ((%this.pageUpEnd - %this.maxLines) + 1) % %this.size == %this.tail )
 	{
 		%this.pageUpEnd = (%this.pageUpEnd + 1) % %this.size;
-
 		%this.displayPage ();
 	}
+
 	if ( %doPage )
 	{
 		%this.pageUpEnd = %this.head;
-
 		%this.displayPage ();
 	}
 }
@@ -17634,6 +17794,7 @@ function NewChatSO::pageUp ( %this )
 	{
 		cancel (%this.displaySchedule);
 	}
+
 	if ( %this.pageUpEnd == -1 )
 	{
 		%this.pageUpEnd = %this.head;
@@ -17645,7 +17806,7 @@ function NewChatSO::pageUp ( %this )
 		{
 			if ( %this.head <= %this.tail + %this.maxLines )
 			{
-
+				// Probably commented out.
 			}
 			else
 			{
@@ -17667,6 +17828,7 @@ function NewChatSO::pageUp ( %this )
 			{
 				%pos += %this.size;
 			}
+
 			if ( %pos == %this.tail )
 			{
 				break;
@@ -17682,6 +17844,7 @@ function NewChatSO::pageUp ( %this )
 	}
 
 	newChatHud_UpdateScrollDownIndicator ();
+
 	%this.displayPage ();
 
 	if ( %this.textObj.isAwake () )
@@ -17697,7 +17860,6 @@ function NewChatSO::pageDown ( %this )
 	if ( %this.pageUpEnd == %this.head || %this.pageUpEnd == -1 )
 	{
 		%this.pageUpEnd = -1;
-
 		%this.displayLatest ();
 
 		$Pref::Chat::ShowAllLines = 0;
@@ -17717,6 +17879,7 @@ function NewChatSO::pageDown ( %this )
 			{
 				%pos -= %this.size;
 			}
+
 			if ( %pos == %this.head )
 			{
 				break;
@@ -17724,7 +17887,6 @@ function NewChatSO::pageDown ( %this )
 		}
 
 		%this.pageUpEnd = %pos;
-
 		%this.displayPage ();
 	}
 
@@ -17737,7 +17899,8 @@ function NewChatSO::displayPage ( %this )
 
 	if ( !isObject (%text) )
 	{
-		error ("ERROR: NewChatSO::DisplayPage() - textObj is not defined for object " @ %this.getName () @ " (" @ %this @ ")");
+		error ("ERROR: NewChatSO::DisplayPage() - textObj is not defined for object "
+			@ %this.getName () @ " (" @ %this @ ")");
 
 		return;
 	}
@@ -17750,6 +17913,7 @@ function NewChatSO::displayPage ( %this )
 	}
 
 	%showMouseTip = 0;
+
 	%buff = "";
 
 	for ( %i = 0; %i < %this.maxLines; %i++ )
@@ -17760,6 +17924,7 @@ function NewChatSO::displayPage ( %this )
 		{
 			%buff = %buff @ %this.line[%pos] @ "\n";
 		}
+
 		if ( %showMouseTip == 0 )
 		{
 			if ( strstr (%this.line[%pos], "<a:") != -1 )
@@ -17781,6 +17946,7 @@ function NewChatSO::displayPage ( %this )
 			}
 		}
 	}
+
 	if ( %showMouseTip && $pref::HUD::showToolTips && $Pref::Chat::LineTime > 0 )
 	{
 		if ( %text.isAwake () )
@@ -17791,17 +17957,18 @@ function NewChatSO::displayPage ( %this )
 		MouseToolTip.setVisible (true);
 
 		%key = strupr (getWord (moveMap.getBinding ("toggleCursor"), 1));
-
 		MouseToolTip.setValue ("\c6TIP: Press " @ %key @ " to toggle mouse and click on links");
 	}
 	else if ( !Canvas.isCursorOn () )
 	{
 		MouseToolTip.setVisible (false);
 	}
+
 	if ( $Pref::Chat::LineTime <= 0 )
 	{
 		MouseToolTip.setVisible (false);
 	}
+
 	if ( MouseToolTip.isVisible () )
 	{
 		if ( $NewChatSO.textObj.isAwake () )
@@ -17811,8 +17978,11 @@ function NewChatSO::displayPage ( %this )
 
 		%w = getWord (MouseToolTip.getExtent (), 0);
 		%h = getWord (MouseToolTip.getExtent (), 1);
+
 		%x = getWord (MouseToolTip.getPosition (), 0);
-		%y = getWord ($NewChatSO.textObj.getPosition (), 1) + getWord ($NewChatSO.textObj.getExtent (), 1) + %h;
+
+		%y = getWord ($NewChatSO.textObj.getPosition (), 1)
+		   + getWord ($NewChatSO.textObj.getExtent (), 1) + %h;
 
 		MouseToolTip.resize (%x, %y, %w, %h);
 	}
@@ -17854,7 +18024,7 @@ function NewChatSO::dumpLines ( %this )
 
 function SelectNetworkGui::onWake ( %this )
 {
-
+	// Stub method
 }
 
 function SelectNetworkGui::onSleep ( %this )
@@ -17873,14 +18043,18 @@ function defaultControlsGui::onWake ()
 	OPT_Mouse0.setValue (0);
 	OPT_Mouse1.setValue (0);
 	OPT_Mouse2.setValue (1);
+
 	OPT_Keyboard0.setValue (1);
 	OPT_Keyboard1.setValue (0);
-	DefaultControls_CancelBlocker.setVisible (!$Pref::Input::SelectedDefaults || !isFile ("config/client/config.cs") || moveMap.getNumBinds () < 5);
+
+	DefaultControls_CancelBlocker.setVisible (!$Pref::Input::SelectedDefaults
+		|| !isFile ("config/client/config.cs") || moveMap.getNumBinds () < 5);
 }
 
 function defaultControlsGui::onSleep ()
 {
-	if ( $Pref::Input::SelectedDefaults == 0 || !isFile ("config/client/config.cs") || moveMap.getNumBinds () < 5 )
+	if ( $Pref::Input::SelectedDefaults == 0 || !isFile ("config/client/config.cs")
+	  || moveMap.getNumBinds () < 5 )
 	{
 		$Pref::Input::SelectedDefaults = 1;
 
@@ -17893,22 +18067,25 @@ function defaultControlsGui::onSleep ()
 		}
 
 		echo ("Exporting initial client prefs");
-		export ("$pref::*", "config/client/prefs.cs", 0);
+		export ("$pref::*", "config/client/prefs.cs", false);
 		echo ("Exporting client config");
 
 		if ( isObject (moveMap) )
 		{
 			moveMap.save ("config/client/config.cs", 0);
 		}
+
 		if ( !isFile ("config/client/prefs.cs") )
 		{
 			if ( isMacintosh () )
 			{
-				MessageBoxOK ("File Error", "Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory, mounted image or CD-ROM.\n\nMake sure you have copied the Blockland folder to your applications folder and are running the game from there.\n\nDo not run the game directly from the dmg file.");
+				MessageBoxOK ("File Error",
+					"Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory, mounted image or CD-ROM.\n\nMake sure you have copied the Blockland folder to your applications folder and are running the game from there.\n\nDo not run the game directly from the dmg file.");
 			}
 			else
 			{
-				MessageBoxOK ("File Error", "Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory or CD-ROM.");
+				MessageBoxOK ("File Error",
+					"Blockland could not save your preferences.\n\nThis can be caused by running the game from a read-only directory or CD-ROM.");
 			}
 		}
 	}
@@ -17937,7 +18114,6 @@ function defaultControlsGui::apply ()
 	else
 	{
 		MessageBoxOK ("Error", "Please select a mouse type.");
-
 		return;
 	}
 
@@ -17954,7 +18130,6 @@ function defaultControlsGui::apply ()
 	else
 	{
 		MessageBoxOK ("Error", "Please select a keyboard type.");
-
 		return;
 	}
 
@@ -18004,6 +18179,7 @@ function defaultControlsGui::apply ()
 	{
 		moveMap.bind (keyboard, "cmd z", undoBrick);
 	}
+
 	if ( isWindows () )
 	{
 		moveMap.bind (keyboard, "lalt", toggleSuperShift);
@@ -18123,6 +18299,7 @@ function defaultControlsGui::apply ()
 		moveMap.bind (keyboard, "alt p", superShiftBrickUpProxy);
 		moveMap.bind (keyboard, "alt ;", superShiftBrickDownProxy);
 	}
+
 	if ( %mouse == 0 )
 	{
 		$pref::Input::noobjet = 1;
@@ -18152,6 +18329,7 @@ function defaultControlsGui::apply ()
 		moveMap.bind (mouse0, "zaxis", scrollInventory);
 		moveMap.bind (keyboard, "ctrl E", invLeft);
 	}
+
 	if ( Canvas.getContent ().getName () !$= "MainMenuGui" )
 	{
 		moveMap.push ();
@@ -18163,7 +18341,8 @@ function defaultControlsGui::apply ()
 
 function defaultControlsGui::clickClose ()
 {
-	if ( !$Pref::Input::SelectedDefaults || !isFile ("config/client/config.cs") || moveMap.getNumBinds () < 5 )
+	if ( !$Pref::Input::SelectedDefaults || !isFile ("config/client/config.cs")
+	  || moveMap.getNumBinds () < 5 )
 	{
 		defaultControlsGui.apply ();
 	}
@@ -18175,7 +18354,7 @@ function defaultControlsGui::clickClose ()
 
 function SavingGui::onWake ( %this )
 {
-
+	// Stub method
 }
 
 function SavingGui::onRender ( %this )
@@ -18192,7 +18371,7 @@ function SavingGui::save ( %this )
 	{
 		saveBricks ($SaveBricksPath, $SaveBricksDescription);
 
-		$SaveBricksPath = "";
+		$SaveBricksPath        = "";
 		$SaveBricksDescription = "";
 	}
 }
@@ -18202,6 +18381,7 @@ function clientCmdOpenWrenchDlg ( %id, %allowNamedTargets, %adminOverride, %admi
 	ServerConnection.allowNamedTargets = %allowNamedTargets;
 
 	Wrench_Window.setText ("Wrench - " @ %id);
+
 	Canvas.pushDialog (wrenchDlg);
 	Wrench_SendBlocker.setVisible (%adminOverride);
 
@@ -18214,7 +18394,7 @@ function clientCmdOpenWrenchDlg ( %id, %allowNamedTargets, %adminOverride, %admi
 		Wrench_EventsBlocker.setVisible (%adminOnlyEvents);
 	}
 }
-
+// ->>> Bookmark
 function clientCmdSetWrenchData ( %data )
 {
 	%fieldCount = getFieldCount (%data);
@@ -25191,7 +25371,7 @@ function EnvGui::CreateIconMenu ( %this, %parentGui, %name, %cmdString, %imgArra
 	%newScroll.add (%newBox);
 	%newBox.setBitmap ("base/client/ui/btnDecalBG");
 
-	%newBox.wrap = 1;
+	%newBox.wrap = true;
 
 	%newBox.resize (0, 0, 64, 64);
 	%newBox.setName (%name @ "BG");
