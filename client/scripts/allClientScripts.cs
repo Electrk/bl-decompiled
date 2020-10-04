@@ -18394,7 +18394,7 @@ function clientCmdOpenWrenchDlg ( %id, %allowNamedTargets, %adminOverride, %admi
 		Wrench_EventsBlocker.setVisible (%adminOnlyEvents);
 	}
 }
-// ->>> Bookmark
+
 function clientCmdSetWrenchData ( %data )
 {
 	%fieldCount = getFieldCount (%data);
@@ -18402,200 +18402,183 @@ function clientCmdSetWrenchData ( %data )
 	for ( %j = 0; %j < %fieldCount; %j++ )
 	{
 		%field = getField (%data, %j);
-		%type = getWord (%field, 0);
+		%type  = getWord (%field, 0);
 
-		if ( %type $= "N" )
+		switch$ ( %type )
 		{
-			%name = trim (getSubStr (%field, 2 + 1, strlen (%field) - 2));
+			case "N":
+				%name = trim (getSubStr (%field, 2 + 1, strlen (%field) - 2));
 
-			if ( !WrenchLock_Name.getValue () )
-			{
-				Wrench_Name.setText (%name);
-			}
-			if ( !WrenchSoundLock_Name.getValue () )
-			{
-				WrenchSound_Name.setText (%name);
-			}
-			if ( !WrenchVehicleSpawnLock_Name.getValue () )
-			{
-				WrenchVehicleSpawn_Name.setText (%name);
-			}
-		}
-		else if ( %type $= "LDB" )
-		{
-			if ( !WrenchLock_Lights.getValue () )
-			{
-				%db = getWord (%field, 1);
-
-				Wrench_Lights.setSelected (%db);
-			}
-		}
-		else if ( %type $= "EDB" )
-		{
-			if ( !WrenchLock_Emitters.getValue () )
-			{
-				%db = getWord (%field, 1);
-
-				Wrench_Emitters.setSelected (%db);
-			}
-		}
-		else if ( %type $= "EDIR" )
-		{
-			if ( !WrenchLock_EmitterDir.getValue () )
-			{
-				%idx = getWord (%field, 1);
-				%obj = "Wrench_EmitterDir" @ %idx;
-
-				if ( isObject (%obj) )
+				if ( !WrenchLock_Name.getValue () )
 				{
-					for ( %i = 0; %i < 6; %i++ )
+					Wrench_Name.setText (%name);
+				}
+
+				if ( !WrenchSoundLock_Name.getValue () )
+				{
+					WrenchSound_Name.setText (%name);
+				}
+
+				if ( !WrenchVehicleSpawnLock_Name.getValue () )
+				{
+					WrenchVehicleSpawn_Name.setText (%name);
+				}
+
+			case "LDB":
+				if ( !WrenchLock_Lights.getValue () )
+				{
+					%db = getWord (%field, 1);
+					Wrench_Lights.setSelected (%db);
+				}
+
+			case "EDB":
+				if ( !WrenchLock_Emitters.getValue () )
+				{
+					%db = getWord (%field, 1);
+					Wrench_Emitters.setSelected (%db);
+				}
+
+			case "EDIR":
+				if ( !WrenchLock_EmitterDir.getValue () )
+				{
+					%idx = getWord (%field, 1);
+					%obj = "Wrench_EmitterDir" @ %idx;
+
+					if ( isObject (%obj) )
 					{
-						%clearObj = "Wrench_EmitterDir" @ %i;
+						for ( %i = 0; %i < 6; %i++ )
+						{
+							%clearObj = "Wrench_EmitterDir" @ %i;
+							%clearObj.setValue (0);
+						}
 
-						%clearObj.setValue (0);
+						%obj.setValue (1);
 					}
-
-					%obj.setValue (1);
-				}
-				else
-				{
-					error ("ERROR: clientCmdSetWrenchData() - Bad emitter direction \"" @ %idx @ "\"");
-				}
-			}
-		}
-		else if ( %type $= "IDB" )
-		{
-			if ( !WrenchLock_Items.getValue () )
-			{
-				%db = getWord (%field, 1);
-
-				Wrench_Items.setSelected (%db);
-			}
-		}
-		else if ( %type $= "IPOS" )
-		{
-			if ( !WrenchLock_ItemPos.getValue () )
-			{
-				%idx = getWord (%field, 1);
-				%obj = "Wrench_ItemPos" @ %idx;
-
-				if ( isObject (%obj) )
-				{
-					for ( %i = 0; %i < 6; %i++ )
+					else
 					{
-						%clearObj = "Wrench_ItemPos" @ %i;
-
-						%clearObj.setValue (0);
+						error ("ERROR: clientCmdSetWrenchData() - Bad emitter direction \"" @ %idx @ "\"");
 					}
-
-					%obj.setValue (1);
 				}
-				else
-				{
-					error ("ERROR: clientCmdSetWrenchData() - Bad item position \"" @ %idx @ "\"");
-				}
-			}
-		}
-		else if ( %type $= "IDIR" )
-		{
-			if ( !WrenchLock_ItemDir.getValue () )
-			{
-				%idx = getWord (%field, 1);
-				%obj = "Wrench_ItemDir" @ %idx;
 
-				if ( isObject (%obj) )
+			case "IDB":
+				if ( !WrenchLock_Items.getValue () )
 				{
-					for ( %i = 2; %i < 6; %i++ )
+					%db = getWord (%field, 1);
+					Wrench_Items.setSelected (%db);
+				}
+
+			case "IPOS":
+				if ( !WrenchLock_ItemPos.getValue () )
+				{
+					%idx = getWord (%field, 1);
+					%obj = "Wrench_ItemPos" @ %idx;
+
+					if ( isObject (%obj) )
 					{
-						%clearObj = "Wrench_ItemDir" @ %i;
+						for ( %i = 0; %i < 6; %i++ )
+						{
+							%clearObj = "Wrench_ItemPos" @ %i;
+							%clearObj.setValue (0);
+						}
 
-						%clearObj.setValue (0);
+						%obj.setValue (1);
 					}
-
-					%obj.setValue (1);
+					else
+					{
+						error ("ERROR: clientCmdSetWrenchData() - Bad item position \"" @ %idx @ "\"");
+					}
 				}
-				else
+
+			case "IDIR":
+				if ( !WrenchLock_ItemDir.getValue () )
 				{
-					error ("ERROR: clientCmdSetWrenchData() - Bad item direction \"" @ %idx @ "\"");
+					%idx = getWord (%field, 1);
+					%obj = "Wrench_ItemDir" @ %idx;
+
+					if ( isObject (%obj) )
+					{
+						for ( %i = 2; %i < 6; %i++ )
+						{
+							%clearObj = "Wrench_ItemDir" @ %i;
+							%clearObj.setValue (0);
+						}
+
+						%obj.setValue (1);
+					}
+					else
+					{
+						error ("ERROR: clientCmdSetWrenchData() - Bad item direction \"" @ %idx @ "\"");
+					}
 				}
-			}
-		}
-		else if ( %type $= "IRT" )
-		{
-			if ( !WrenchLock_ItemRespawnTime.getValue () )
-			{
-				Wrench_ItemRespawnTime.setText (getWord (%field, 1));
-			}
-		}
-		else if ( %type $= "SDB" )
-		{
-			if ( !WrenchSoundLock_Sounds.getValue () )
-			{
-				%db = getWord (%field, 1);
 
-				WrenchSound_Sounds.setSelected (%db);
-			}
-		}
-		else if ( %type $= "VDB" )
-		{
-			if ( !WrenchVehicleSpawnLock_Vehicles.getValue () )
-			{
-				%db = getWord (%field, 1);
+			case "IRT":
+				if ( !WrenchLock_ItemRespawnTime.getValue () )
+				{
+					Wrench_ItemRespawnTime.setText (getWord (%field, 1));
+				}
 
-				WrenchVehicleSpawn_Vehicles.setSelected (%db);
-			}
-		}
-		else if ( %type $= "RCV" )
-		{
-			if ( !WrenchVehicleSpawnLock_ReColorVehicle.getValue () )
-			{
+			case "SDB":
+				if ( !WrenchSoundLock_Sounds.getValue () )
+				{
+					%db = getWord (%field, 1);
+					WrenchSound_Sounds.setSelected (%db);
+				}
+
+			case "VDB":
+				if ( !WrenchVehicleSpawnLock_Vehicles.getValue () )
+				{
+					%db = getWord (%field, 1);
+					WrenchVehicleSpawn_Vehicles.setSelected (%db);
+				}
+
+			case "RCV":
+				if ( !WrenchVehicleSpawnLock_ReColorVehicle.getValue () )
+				{
+					%val = getWord (%field, 1);
+					WrenchVehicleSpawn_ReColorVehicle.setValue (%val);
+				}
+
+			case "RC":
 				%val = getWord (%field, 1);
 
-				WrenchVehicleSpawn_ReColorVehicle.setValue (%val);
-			}
-		}
-		else if ( %type $= "RC" )
-		{
-			%val = getWord (%field, 1);
+				if ( !WrenchLock_RayCasting.getValue () )
+				{
+					Wrench_RayCasting.setValue (%val);
+				}
 
-			if ( !WrenchLock_RayCasting.getValue () )
-			{
-				Wrench_RayCasting.setValue (%val);
-			}
-			if ( !WrenchVehicleSpawnLock_RayCasting.getValue () )
-			{
-				WrenchVehicleSpawn_RayCasting.setValue (%val);
-			}
-		}
-		else if ( %type $= "C" )
-		{
-			%val = getWord (%field, 1);
+				if ( !WrenchVehicleSpawnLock_RayCasting.getValue () )
+				{
+					WrenchVehicleSpawn_RayCasting.setValue (%val);
+				}
 
-			if ( !WrenchLock_Collision.getValue () )
-			{
-				Wrench_Collision.setValue (%val);
-			}
-			if ( !WrenchVehicleSpawnLock_Collision.getValue () )
-			{
-				WrenchVehicleSpawn_Collision.setValue (%val);
-			}
-		}
-		else if ( %type $= "R" )
-		{
-			%val = getWord (%field, 1);
+			case "C":
+				%val = getWord (%field, 1);
 
-			if ( !WrenchLock_Rendering.getValue () )
-			{
-				Wrench_Rendering.setValue (%val);
-			}
-			if ( !WrenchVehicleSpawnLock_Rendering.getValue () )
-			{
-				WrenchVehicleSpawn_Rendering.setValue (%val);
-			}
-		}
-		else
-		{
-			error ("ERROR: clientCmdSetWrenchData() - unknown field type \"" @ %field @ "\"");
+				if ( !WrenchLock_Collision.getValue () )
+				{
+					Wrench_Collision.setValue (%val);
+				}
+
+				if ( !WrenchVehicleSpawnLock_Collision.getValue () )
+				{
+					WrenchVehicleSpawn_Collision.setValue (%val);
+				}
+
+			case "R":
+				%val = getWord (%field, 1);
+
+				if ( !WrenchLock_Rendering.getValue () )
+				{
+					Wrench_Rendering.setValue (%val);
+				}
+
+				if ( !WrenchVehicleSpawnLock_Rendering.getValue () )
+				{
+					WrenchVehicleSpawn_Rendering.setValue (%val);
+				}
+
+			default:
+				error ("ERROR: clientCmdSetWrenchData() - unknown field type \"" @ %field @ "\"");
 		}
 	}
 }
@@ -18612,16 +18595,17 @@ function clientCmdWrench_LoadMenus ()
 
 function wrenchDlg::LoadDataBlocks ()
 {
-	%oldLight = Wrench_Lights.getText ();
+	%oldLight   = Wrench_Lights.getText ();
 	%oldEmitter = Wrench_Emitters.getText ();
-	%oldItem = Wrench_Items.getText ();
-	%oldSound = WrenchSound_Sounds.getText ();
+	%oldItem    = Wrench_Items.getText ();
+	%oldSound   = WrenchSound_Sounds.getText ();
 
 	Wrench_Lights.clear ();
 	Wrench_Emitters.clear ();
 	Wrench_Items.clear ();
 	WrenchSound_Sounds.clear ();
 	WrenchVehicleSpawn_Vehicles.clear ();
+
 	Wrench_Lights.add (" NONE", 0);
 	Wrench_Emitters.add (" NONE", 0);
 	Wrench_Items.add (" NONE", 0);
@@ -18632,56 +18616,51 @@ function wrenchDlg::LoadDataBlocks ()
 
 	for ( %i = 0; %i < %dbCount; %i++ )
 	{
-		%db = getDataBlock (%i);
+		%db      = getDataBlock (%i);
 		%dbClass = %db.getClassName ();
 
 		if ( %db.uiName !$= "" )
 		{
-			if ( %dbClass $= "FxLightData" )
+			switch$ ( %dbClass )
 			{
-				Wrench_Lights.add (%db.uiName, %db);
-			}
-			else if ( %dbClass $= "ParticleEmitterData" )
-			{
-				Wrench_Emitters.add (%db.uiName, %db);
-			}
-			else if ( %dbClass $= "ItemData" )
-			{
-				Wrench_Items.add (%db.uiName, %db);
-			}
-			else if ( %dbClass $= "AudioProfile" )
-			{
-				if ( %db.getDescription ().isLooping )
-				{
-					WrenchSound_Sounds.add (%db.uiName, %db);
-				}
-			}
-			else if ( %dbClass $= "PlayerData" )
-			{
-				if ( %db.uiName !$= "" && %db.rideAble )
-				{
-					WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
-				}
-			}
-			else if ( %dbClass $= "WheeledVehicleData" )
-			{
-				if ( %db.uiName !$= "" && %db.rideAble )
-				{
-					WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
-				}
-			}
-			else if ( %dbClass $= "FlyingVehicleData" )
-			{
-				if ( %db.uiName !$= "" && %db.rideAble )
-				{
-					WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
-				}
-			}
-			else if ( %dbClass $= "HoverVehicleData" )
-			{
-				if ( %db.uiName !$= "" && %db.rideAble )
-				{
-					WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
+				case "FxLightData":
+					Wrench_Lights.add (%db.uiName, %db);
+
+				case "ParticleEmitterData":
+					Wrench_Emitters.add (%db.uiName, %db);
+
+				case "ItemData":
+					Wrench_Items.add (%db.uiName, %db);
+
+				case "AudioProfile":
+					if ( %db.getDescription ().isLooping )
+					{
+						WrenchSound_Sounds.add (%db.uiName, %db);
+					}
+
+				case "PlayerData":
+					if ( %db.uiName !$= "" && %db.rideAble )
+					{
+						WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
+					}
+
+				case "WheeledVehicleData":
+					if ( %db.uiName !$= "" && %db.rideAble )
+					{
+						WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
+					}
+
+				case "FlyingVehicleData":
+					if ( %db.uiName !$= "" && %db.rideAble )
+					{
+						WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
+					}
+
+				case "HoverVehicleData":
+					if ( %db.uiName !$= "" && %db.rideAble )
+					{
+						WrenchVehicleSpawn_Vehicles.add (%db.uiName, %db);
+					}
 				}
 			}
 		}
@@ -18692,6 +18671,7 @@ function wrenchDlg::LoadDataBlocks ()
 	Wrench_Items.sort ();
 	WrenchSound_Sounds.sort ();
 	WrenchVehicleSpawn_Vehicles.sort ();
+
 	Wrench_Lights.setSelected (Wrench_Lights.findText (%oldLight));
 	Wrench_Emitters.setSelected (Wrench_Emitters.findText (%oldEmitter));
 	Wrench_Items.setSelected (Wrench_Items.findText (%oldItem));
@@ -18703,7 +18683,6 @@ function wrenchDlg::onWake ( %this )
 	if ( !isObject (NoShiftMoveMap) )
 	{
 		new ActionMap (NoShiftMoveMap);
-
 		NoShiftMoveMap.bind ("keyboard0", "lshift", "");
 	}
 
@@ -18730,10 +18709,11 @@ function wrenchDlg::send ( %this )
 		%data = %data TAB "N" SPC " ";
 	}
 
-	%lightDB = Wrench_Lights.getSelected ();
-	%data = %data TAB "LDB" SPC %lightDB;
+	%lightDB   = Wrench_Lights.getSelected ();
+	%data      = %data TAB "LDB" SPC %lightDB;
 	%emitterDB = Wrench_Emitters.getSelected ();
-	%data = %data TAB "EDB" SPC %emitterDB;
+	%data      = %data TAB "EDB" SPC %emitterDB;
+
 	%emitterDir = 0;
 
 	for ( %i = 0; %i < 6; %i++ )
@@ -18743,14 +18723,14 @@ function wrenchDlg::send ( %this )
 		if ( %obj.getValue () )
 		{
 			%emitterDir = %i;
-
 			break;
 		}
 	}
 
-	%data = %data TAB "EDIR" SPC %emitterDir;
+	%data   = %data TAB "EDIR" SPC %emitterDir;
 	%itemDB = Wrench_Items.getSelected ();
-	%data = %data TAB "IDB" SPC %itemDB;
+	%data   = %data TAB "IDB" SPC %itemDB;
+
 	%itemPos = 0;
 
 	for ( %i = 0; %i < 6; %i++ )
@@ -18760,12 +18740,12 @@ function wrenchDlg::send ( %this )
 		if ( %obj.getValue () )
 		{
 			%itemPos = %i;
-
 			break;
 		}
 	}
 
 	%data = %data TAB "IPOS" SPC %itemPos;
+
 	%itemDir = 0;
 
 	for ( %i = 2; %i < 6; %i++ )
@@ -18775,20 +18755,22 @@ function wrenchDlg::send ( %this )
 		if ( %obj.getValue () )
 		{
 			%itemDir = %i;
-
 			break;
 		}
 	}
 
 	%data = %data TAB "IDIR" SPC %itemDir;
+
 	%val = mFloor (Wrench_ItemRespawnTime.getValue ());
+
 	%data = %data TAB "IRT" SPC %val;
-	%data = %data TAB "RC" SPC Wrench_RayCasting.getValue ();
-	%data = %data TAB "C" SPC Wrench_Collision.getValue ();
-	%data = %data TAB "R" SPC Wrench_Rendering.getValue ();
+	%data = %data TAB "RC"  SPC Wrench_RayCasting.getValue ();
+	%data = %data TAB "C"   SPC Wrench_Collision.getValue ();
+	%data = %data TAB "R"   SPC Wrench_Rendering.getValue ();
 	%data = trim (%data);
 
 	commandToServer ('SetWrenchData', %data);
+
 	Canvas.popDialog (wrenchDlg);
 }
 
@@ -18815,7 +18797,6 @@ function wrenchSoundDlg::onWake ( %this )
 	if ( !isObject (NoShiftMoveMap) )
 	{
 		new ActionMap (NoShiftMoveMap);
-
 		NoShiftMoveMap.bind ("keyboard0", "lshift", "");
 	}
 
@@ -18842,10 +18823,11 @@ function wrenchSoundDlg::send ( %this )
 	}
 
 	%soundDB = WrenchSound_Sounds.getSelected ();
-	%data = %data TAB "SDB" SPC %soundDB;
-	%data = trim (%data);
+	%data    = %data TAB "SDB" SPC %soundDB;
+	%data    = trim (%data);
 
 	commandToServer ('SetWrenchData', %data);
+
 	Canvas.popDialog (wrenchSoundDlg);
 }
 
@@ -18872,7 +18854,6 @@ function wrenchVehicleSpawnDlg::onWake ( %this )
 	if ( !isObject (NoShiftMoveMap) )
 	{
 		new ActionMap (NoShiftMoveMap);
-
 		NoShiftMoveMap.bind ("keyboard0", "lshift", "");
 	}
 
@@ -18905,15 +18886,18 @@ function wrenchVehicleSpawnDlg::send ( %this )
 	}
 
 	%vehicleDB = mFloor (WrenchVehicleSpawn_Vehicles.getSelected ());
-	%data = %data TAB "VDB" SPC %vehicleDB;
+	%data      = %data TAB "VDB" SPC %vehicleDB;
+
 	%val = WrenchVehicleSpawn_ReColorVehicle.getValue ();
+
 	%data = %data TAB "RCV" SPC %val;
-	%data = %data TAB "RC" SPC WrenchVehicleSpawn_RayCasting.getValue ();
-	%data = %data TAB "C" SPC WrenchVehicleSpawn_Collision.getValue ();
-	%data = %data TAB "R" SPC WrenchVehicleSpawn_Rendering.getValue ();
+	%data = %data TAB "RC"  SPC WrenchVehicleSpawn_RayCasting.getValue ();
+	%data = %data TAB "C"   SPC WrenchVehicleSpawn_Collision.getValue ();
+	%data = %data TAB "R"   SPC WrenchVehicleSpawn_Rendering.getValue ();
 	%data = trim (%data);
 
 	commandToServer ('SetWrenchData', %data);
+
 	Canvas.popDialog (wrenchVehicleSpawnDlg);
 }
 
@@ -18937,16 +18921,25 @@ function auth_Init_Client ()
 
 	new TCPObject (authTCPobj_Client);
 
-	authTCPobj_Client.site = "master3.blockland.us";
-	authTCPobj_Client.port = 80;
-	authTCPobj_Client.done = 0;
-	authTCPobj_Client.success = 0;
+	authTCPobj_Client.site     = "master3.blockland.us";
+	authTCPobj_Client.port     = 80;
+	authTCPobj_Client.done     = false;
+	authTCPobj_Client.success  = false;
 	authTCPobj_Client.filePath = "/authSteam.php";
+
 	%postText = "steamTicket=" @ SteamGetAuthSessionTicket ();
 	%postText = %postText @ "&build=" @ urlEnc (getBuildNumber ());
-	authTCPobj_Client.postText = %postText;
+
+	authTCPobj_Client.postText    = %postText;
 	authTCPobj_Client.postTextLen = strlen (%postText);
-	authTCPobj_Client.cmd = "POST " @ authTCPobj_Client.filePath @ " HTTP/1.0\r\n" @ "Host: " @ authTCPobj_Client.site @ "\r\n" @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n" @ "Content-Type: application/x-www-form-urlencoded\r\n" @ "Content-Length: " @ authTCPobj_Client.postTextLen @ "\r\n" @ "\r\n" @ authTCPobj_Client.postText @ "\r\n";
+
+	authTCPobj_Client.cmd = "POST "  @ authTCPobj_Client.filePath @ " HTTP/1.0\r\n"
+	                      @ "Host: " @ authTCPobj_Client.site     @ "\r\n"
+	                      @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n"
+	                      @ "Content-Type: application/x-www-form-urlencoded\r\n"
+	                      @ "Content-Length: " @ authTCPobj_Client.postTextLen @ "\r\n"
+	                      @ "\r\n"
+	                      @ authTCPobj_Client.postText @ "\r\n";
 
 	authTCPobj_Client.connect (authTCPobj_Client.site @ ":" @ authTCPobj_Client.port);
 }
@@ -18955,6 +18948,7 @@ function authTCPobj_Client::onDNSFailed ( %this )
 {
 	echo ("Client Auth DNS Failed");
 	MM_AuthText.setText ("Offline Mode (DNS Failed)");
+
 	MM_AuthBar.blinkSuccess ();
 	MM_AuthRetryButton.setVisible (true);
 }
@@ -18968,6 +18962,7 @@ function authTCPobj_Client::onConnectFailed ( %this )
 	{
 		echo ("Client auth connection failed, setting demo mode");
 		MM_AuthText.setText ("Offline Mode (Connection Failed)");
+
 		MM_AuthBar.blinkSuccess ();
 		MM_AuthRetryButton.setVisible (true);
 	}
@@ -18975,6 +18970,7 @@ function authTCPobj_Client::onConnectFailed ( %this )
 	{
 		echo ("Retrying client auth...");
 		MM_AuthText.setText ("Retrying connection...");
+
 		%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
 	}
 }
@@ -18982,15 +18978,13 @@ function authTCPobj_Client::onConnectFailed ( %this )
 function authTCPobj_Client::onConnected ( %this )
 {
 	%this.send (%this.cmd);
-
 	$Auth::blidCount = 0;
-
 	MM_AuthText.setText ("Authentication: Connected...");
 }
 
 function authTCPobj_Client::onDisconnect ( %this )
 {
-
+	// Empty callback
 }
 
 function authTCPobj_Client::onLine ( %this, %line )
@@ -19002,268 +18996,245 @@ function authTCPobj_Client::onLine ( %this, %line )
 
 	%word = getWord (%line, 0);
 
-	if ( %word $= "HTTP/1.1" )
+	switch$ ( %word )
 	{
-		%code = getWord (%line, 1);
+		case "HTTP/1.1":
+			%code = getWord (%line, 1);
 
-		if ( %code != 200 )
-		{
-			warn ("WARNING: authTCPobj_Client - got non-200 http response \"" @ %code @ "\"");
-		}
-		if ( %code >= 400 && %code <= 499 )
-		{
-			warn ("WARNING: 4xx error on authTCPobj_Client, retrying");
+			if ( %code != 200 )
+			{
+				warn ("WARNING: authTCPobj_Client - got non-200 http response \"" @ %code @ "\"");
+			}
+
+			if ( %code >= 400 && %code <= 499 )
+			{
+				warn ("WARNING: 4xx error on authTCPobj_Client, retrying");
+
+				%this.schedule (0, disconnect);
+				%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
+			}
+
+			if ( %code >= 300 && %code <= 399 )
+			{
+				warn ("WARNING: 3xx error on authTCPobj_Client, will wait for location header");
+			}
+
+		case "Location:":
+			%url = getWords (%line, 1);
+
+			warn ("WARNING: authTCPobj_Client - Location redirect to " @ %url);
+
+			%this.filePath = %url;
+			%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+
 			%this.schedule (0, disconnect);
 			%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
-		}
-		if ( %code >= 300 && %code <= 399 )
-		{
-			warn ("WARNING: 3xx error on authTCPobj_Client, will wait for location header");
-		}
-	}
-	else if ( %word $= "Location:" )
-	{
-		%url = getWords (%line, 1);
 
-		warn ("WARNING: authTCPobj_Client - Location redirect to " @ %url);
+		case "Content-Location:":
+			%url = getWords (%line, 1);
 
-		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+			warn ("WARNING: authTCPobj_Client - Content-Location redirect to " @ %url);
 
-		%this.schedule (0, disconnect);
-		%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
-	}
-	else if ( %word $= "Content-Location:" )
-	{
-		%url = getWords (%line, 1);
+			%this.filePath = %url;
+			%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
 
-		warn ("WARNING: authTCPobj_Client - Content-Location redirect to " @ %url);
+			%this.schedule (0, disconnect);
+			%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
 
-		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+		case "SEND_OGL_EXT":
+			$sendOGLExt = 1;
 
-		%this.schedule (0, disconnect);
-		%this.schedule (5000, connect, %this.site @ ":" @ %this.port);
-	}
-	else if ( %word $= "SEND_OGL_EXT" )
-	{
-		$sendOGLExt = 1;
-	}
-	else if ( %word $= "FAIL" )
-	{
-		%reason = getSubStr (%line, 5, strlen (%line) - 5);
+		case "FAIL":
+			%reason = getSubStr (%line, 5, strlen (%line) - 5);
 
-		echo ("Authentication FAILED: " @ %reason);
+			echo ("Authentication FAILED: " @ %reason);
 
-		if ( getWord (%reason, 0) $= "MSG" )
-		{
-			%reason = getSubStr (%reason, 4, strlen (%reason) - 4);
-
-			MessageBoxOK ("Authentication FAILED", %reason);
-		}
-
-		MM_AuthText.setText ("Authentication FAILED: " @ %reason);
-		MM_AuthBar.blinkFail ();
-
-		return;
-	}
-	else if ( %word $= "SUCCESS" )
-	{
-		echo ("Authentication SUCCESS");
-
-		if ( $Auth::blidCount <= 0 )
-		{
-			echo ("ERROR: Success but no BLID?");
-		}
-		else if ( $Auth::blidCount == 1 )
-		{
-			if ( strlen ($Auth::name[0]) <= 0 )
+			if ( getWord (%reason, 0) $= "MSG" )
 			{
-				MM_AuthText.setText ("Enter Name...");
-				setMyBLID ($Auth::blid[0]);
-				Canvas.pushDialog ("regNameGui");
+				%reason = getSubStr (%reason, 4, strlen (%reason) - 4);
+				MessageBoxOK ("Authentication FAILED", %reason);
 			}
-			else
-			{
-				$pref::Player::NetName = $Auth::name[0];
 
-				setMyBLID ($Auth::blid[0]);
-				MM_AuthText.setText ("Welcome, " @ $pref::Player::NetName);
-				MM_AuthBar.blinkSuccess ();
+			MM_AuthText.setText ("Authentication FAILED: " @ %reason);
+			MM_AuthBar.blinkFail ();
+
+			return;
+
+		case "SUCCESS":
+			echo ("Authentication SUCCESS");
+
+			if ( $Auth::blidCount <= 0 )
+			{
+				echo ("ERROR: Success but no BLID?");
 			}
-		}
-		else if ( $Pref::Player::SelectedBLID > 0 )
-		{
-			for ( %i = 0; %i < $Auth::blidCount; %i++ )
+			else if ( $Auth::blidCount == 1 )
 			{
-				if ( $Auth::blid[%i] != $Pref::Player::SelectedBLID )
+				if ( strlen ($Auth::name[0]) <= 0 )
 				{
-					continue;
-				}
-
-				if ( strlen ($Auth::name[%i]) > 0 )
-				{
-					$pref::Player::NetName = $Auth::name[%i];
-
-					setMyBLID ($Auth::blid[%i]);
-					MM_AuthText.setText ("Welcome, " @ $pref::Player::NetName);
-					MM_AuthBar.blinkSuccess ();
+					MM_AuthText.setText ("Enter Name...");
+					setMyBLID ($Auth::blid[0]);
+					Canvas.pushDialog ("regNameGui");
 				}
 				else
 				{
-					MM_AuthText.setText ("Select BLID...");
-					Canvas.pushDialog ("selectBLIDGui");
-					MM_AuthNameButton.setVisible (true);
+					$pref::Player::NetName = $Auth::name[0];
+
+					setMyBLID ($Auth::blid[0]);
+					MM_AuthText.setText ("Welcome, " @ $pref::Player::NetName);
+					MM_AuthBar.blinkSuccess ();
 				}
 			}
-		}
-		else
-		{
-			MM_AuthText.setText ("Select BLID...");
-			Canvas.pushDialog ("selectBLIDGui");
-			MM_AuthNameButton.setVisible (true);
-		}
-
-		$authed = 1;
-		%this.success = 1;
-
-		JS_QueryInternetBlocker.setVisible (false);
-
-		return;
-	}
-	else if ( %word $= "Set-Cookie:" )
-	{
-		%this.cookie = getSubStr (%line, 12, strlen (%line) - 12);
-	}
-	else if ( %word $= "CRAPON_START" )
-	{
-		%file = new FileObject ("");
-
-		%file.openForWrite ("base/server/crapOns_Cache.cs");
-		%file.writeLine ("");
-		%file.close ();
-		%file.delete ();
-	}
-	else if ( %word $= "CRAPON_CRC" )
-	{
-		%val = getWord (%line, 1);
-
-		appendCrapOnCache ("$CrapOnCRC_[\"" @ %val @ "\"] = true;");
-	}
-	else if ( %word $= "CRAPON_NAME" )
-	{
-		%val = getWord (%line, 1);
-
-		appendCrapOnCache ("$CrapOnName_[\"" @ %val @ "\"] = true;");
-	}
-	else if ( %word $= "CRAPON_DEDICATEDNAME" )
-	{
-		%val = getWord (%line, 1);
-
-		appendCrapOnCache ("$CrapOnDedicatedName_[\"" @ %val @ "\"] = true;");
-	}
-	else if ( %word $= "MATCHMAKER" )
-	{
-		%val = getWord (%line, 1);
-
-		setMatchMakerIP (%val);
-	}
-	else if ( %word $= "MMTOK" )
-	{
-		%val = getWord (%line, 1);
-
-		setMatchMakerToken (%val);
-
-		if ( isMacintosh () )
-		{
-			if ( gotProtoURL () )
+			else if ( $Pref::Player::SelectedBLID > 0 )
 			{
-				MainMenuGui.hideButtons ();
-				parseProtocol (getProtoURL ());
+				for ( %i = 0; %i < $Auth::blidCount; %i++ )
+				{
+					if ( $Auth::blid[%i] != $Pref::Player::SelectedBLID )
+					{
+						continue;
+					}
+
+					if ( strlen ($Auth::name[%i]) > 0 )
+					{
+						$pref::Player::NetName = $Auth::name[%i];
+
+						setMyBLID ($Auth::blid[%i]);
+						MM_AuthText.setText ("Welcome, " @ $pref::Player::NetName);
+						MM_AuthBar.blinkSuccess ();
+					}
+					else
+					{
+						MM_AuthText.setText ("Select BLID...");
+						Canvas.pushDialog ("selectBLIDGui");
+						MM_AuthNameButton.setVisible (true);
+					}
+				}
 			}
-		}
-		if ( $connectArg !$= "" && !$Server::Dedicated )
-		{
-			ConnectToServer ($connectArg, $passwordArg, 1, 1);
-			Connecting_Text.setText ("Connecting to " @ $connectArg);
-			Canvas.pushDialog (connectingGui);
-		}
-		if ( $steamLobbyArg !$= "" )
-		{
-			SteamJoinLobby ($steamLobbyArg);
-		}
-	}
-	else if ( %word $= "PREVIEWURL" )
-	{
-		%val = getWord (%line, 1);
+			else
+			{
+				MM_AuthText.setText ("Select BLID...");
+				Canvas.pushDialog ("selectBLIDGui");
+				MM_AuthNameButton.setVisible (true);
+			}
 
-		setPreviewURL (%val);
-	}
-	else if ( %word $= "PREVIEWWORK" )
-	{
-		%val = getWord (%line, 1);
+			$authed       = true;
+			%this.success = true;
 
-		setRayTracerWork (%val);
-	}
-	else if ( %word $= "CDNURL" )
-	{
-		%val = getWord (%line, 1);
+			JS_QueryInternetBlocker.setVisible (false);
 
-		setCDNURL (%val);
-	}
-	else if ( %word $= "YOURIP" )
-	{
-		$MyTCPIPAddress = getWord (%line, 1);
-	}
-	else if ( %word $= "NOTE" )
-	{
-		%val = getWords (%line, 1, 99);
+			return;
 
-		echo ("NOTE: " @ %val);
-	}
-	else if ( %word $= "TIMESTAMP" )
-	{
-		%val = getWord (%line, 1);
+		case "Set-Cookie:":
+			%this.cookie = getSubStr (%line, 12, strlen (%line) - 12);
 
-		setUTC (%val);
-	}
-	else if ( %word $= "HATLIST" )
-	{
-		%wordCount = getWordCount (%line);
+		case "CRAPON_START":
+			%file = new FileObject ();
 
-		for ( %i = 1; %i < %wordCount; %i++ )
-		{
-			%hat = getWord (%line, %i);
-		}
-	}
-	else if ( %word $= "BLID" )
-	{
-		%wordCount = getWordCount (%line);
-		%blid = getWord (%line, 1);
-		%name = getWords (%line, 2, 99);
-		$Auth::blidCount = mFloor ($Auth::blidCount);
-		$Auth::name[$Auth::blidCount] = %name;
-		$Auth::blid[$Auth::blidCount] = %blid;
-		$Auth::blidCount++;
-	}
-	else if ( %word $= "ERROR:" )
-	{
-		echo ("Client Auth " @ %line);
-		MM_AuthText.setText (%line);
-		MM_AuthBar.blinkFail ();
-	}
-	else if ( %word $= "DONE" )
-	{
+			%file.openForWrite ("base/server/crapOns_Cache.cs");
+			%file.writeLine ("");
 
+			%file.close ();
+			%file.delete ();
+
+		case "CRAPON_CRC":
+			%val = getWord (%line, 1);
+			appendCrapOnCache ("$CrapOnCRC_[\"" @ %val @ "\"] = true;");
+
+		case "CRAPON_NAME":
+			%val = getWord (%line, 1);
+			appendCrapOnCache ("$CrapOnName_[\"" @ %val @ "\"] = true;");
+
+		case "CRAPON_DEDICATEDNAME":
+			%val = getWord (%line, 1);
+			appendCrapOnCache ("$CrapOnDedicatedName_[\"" @ %val @ "\"] = true;");
+
+		case "MATCHMAKER":
+			%val = getWord (%line, 1);
+			setMatchMakerIP (%val);
+
+		case "MMTOK":
+			%val = getWord (%line, 1);
+			setMatchMakerToken (%val);
+
+			if ( isMacintosh () )
+			{
+				if ( gotProtoURL () )
+				{
+					MainMenuGui.hideButtons ();
+					parseProtocol (getProtoURL ());
+				}
+			}
+
+			if ( $connectArg !$= "" && !$Server::Dedicated )
+			{
+				ConnectToServer ($connectArg, $passwordArg, 1, 1);
+				Connecting_Text.setText ("Connecting to " @ $connectArg);
+				Canvas.pushDialog (connectingGui);
+			}
+
+			if ( $steamLobbyArg !$= "" )
+			{
+				SteamJoinLobby ($steamLobbyArg);
+			}
+
+		case "PREVIEWURL":
+			%val = getWord (%line, 1);
+			setPreviewURL (%val);
+
+		case "PREVIEWWORK":
+			%val = getWord (%line, 1);
+			setRayTracerWork (%val);
+
+		case "CDNURL":
+			%val = getWord (%line, 1);
+			setCDNURL (%val);
+
+		case "YOURIP":
+			$MyTCPIPAddress = getWord (%line, 1);
+
+		case "NOTE":
+			%val = getWords (%line, 1, 99);
+			echo ("NOTE: " @ %val);
+
+		case "TIMESTAMP":
+			%val = getWord (%line, 1);
+			setUTC (%val);
+
+		case "HATLIST":
+			%wordCount = getWordCount (%line);
+
+			for ( %i = 1; %i < %wordCount; %i++ )
+			{
+				%hat = getWord (%line, %i);
+			}
+
+		case "BLID":
+			%wordCount = getWordCount (%line);
+			%blid      = getWord (%line, 1);
+			%name      = getWords (%line, 2, 99);
+
+			$Auth::blidCount              = mFloor ($Auth::blidCount);
+			$Auth::name[$Auth::blidCount] = %name;
+			$Auth::blid[$Auth::blidCount] = %blid;
+			$Auth::blidCount++;
+
+		case "ERROR:":
+			echo ("Client Auth " @ %line);
+
+			MM_AuthText.setText (%line);
+			MM_AuthBar.blinkFail ();
+
+		case "DONE":
+			// Not sure if empty or commented out
 	}
 }
 
 function appendCrapOnCache ( %line )
 {
-	%file = new FileObject ("");
+	%file = new FileObject ();
 
 	%file.openForAppend ("base/server/crapOns_Cache.cs");
 	%file.writeLine (%line);
+
 	%file.close ();
 	%file.delete ();
 }
@@ -19272,6 +19243,7 @@ function MM_AuthBar::blinkFail ( %obj )
 {
 	MM_AuthNameButton.setVisible (false);
 	MM_AuthRetryButton.setVisible (true);
+
 	MM_AuthBar.setBitmap ("base/client/ui/authBarFail");
 	MM_AuthBar.schedule (250, setBitmap, "base/client/ui/authBar");
 	MM_AuthBar.schedule (500, setBitmap, "base/client/ui/authBarFail");
@@ -19286,6 +19258,7 @@ function MM_AuthBar::blinkSuccess ( %obj )
 	}
 
 	MM_AuthRetryButton.setVisible (false);
+
 	MM_AuthBar.setBitmap ("base/client/ui/authBarWin");
 	MM_AuthBar.schedule (250, setBitmap, "base/client/ui/authBar");
 }
@@ -19304,7 +19277,7 @@ function selectBLIDGui::onWake ()
 
 function selectBLIDGui::onSleep ()
 {
-
+	// Empty callback
 }
 
 function selectBLIDGui::select ()
@@ -19314,12 +19287,13 @@ function selectBLIDGui::select ()
 		selectBLID_list.setSelectedRow (0);
 	}
 
-	%row = selectBLID_list.getRowTextById (selectBLID_list.getSelectedId ());
+	%row  = selectBLID_list.getRowTextById (selectBLID_list.getSelectedId ());
 	%blid = getField (%row, 0);
 
 	setMyBLID (%blid);
 
 	$Pref::Player::SelectedBLID = %blid;
+
 	%name = getField (%row, 1);
 
 	if ( strlen (%name) <= 0 )
@@ -19329,8 +19303,8 @@ function selectBLIDGui::select ()
 	else
 	{
 		$pref::Player::NetName = %name;
-
 		MM_AuthText.setText ("Welcome, " @ %name);
+
 		MM_AuthBar.blinkSuccess ();
 	}
 
@@ -19340,13 +19314,14 @@ function selectBLIDGui::select ()
 function regNameGui::onWake ()
 {
 	regName_registerWindow.setVisible (false);
+
 	regName_message.setText ("");
 	regName_blid.setText (getMyBLID ());
 	regName_steamID.setText (getSteamId ());
 	regName_actionButton.setText ("Check Availability");
 
-	regName_actionButton.enabled = 0;
-	regName_actionButton.mColor = "255 255 255 128";
+	regName_actionButton.enabled = false;
+	regName_actionButton.mColor  = "255 255 255 128";
 
 	if ( !SteamEnabled () )
 	{
@@ -19357,7 +19332,7 @@ function regNameGui::onWake ()
 
 function regNameGui::onSleep ()
 {
-
+	// Empty callback
 }
 
 function regNameGui::register ()
@@ -19365,14 +19340,14 @@ function regNameGui::register ()
 	if ( strlen (regName_newName.getValue ()) <= 0 )
 	{
 		regName_message.setText ("Empty name!");
-
 		return;
 	}
+
 	if ( regName_actionButton.getText () $= "Check Availability" )
 	{
-		regName_actionButton.enabled = 0;
-		regName_actionButton.mColor = "255 255 255 128";
-		regName_newName.enabled = 0;
+		regName_actionButton.enabled = false;
+		regName_actionButton.mColor  = "255 255 255 128";
+		regName_newName.enabled      = false;
 
 		regName_message.setText ("Connecting...");
 
@@ -19383,21 +19358,30 @@ function regNameGui::register ()
 
 		new TCPObject (regName_tcpObj);
 
-		regName_tcpObj.site = "master3.blockland.us";
-		regName_tcpObj.port = 80;
+		regName_tcpObj.site     = "master3.blockland.us";
+		regName_tcpObj.port     = 80;
 		regName_tcpObj.filePath = "/nameAvailable.php";
+
 		%postText = "name=" @ regName_newName.getValue ();
-		regName_tcpObj.postText = %postText;
+
+		regName_tcpObj.postText    = %postText;
 		regName_tcpObj.postTextLen = strlen (%postText);
-		regName_tcpObj.cmd = "POST " @ regName_tcpObj.filePath @ " HTTP/1.0\r\n" @ "Host: " @ regName_tcpObj.site @ "\r\n" @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n" @ "Content-Type: application/x-www-form-urlencoded\r\n" @ "Content-Length: " @ regName_tcpObj.postTextLen @ "\r\n" @ "\r\n" @ regName_tcpObj.postText @ "\r\n";
+
+		regName_tcpObj.cmd = "POST "  @ regName_tcpObj.filePath @ " HTTP/1.0\r\n"
+		                   @ "Host: " @ regName_tcpObj.site     @ "\r\n"
+		                   @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n"
+		                   @ "Content-Type: application/x-www-form-urlencoded\r\n"
+		                   @ "Content-Length: " @ regName_tcpObj.postTextLen @ "\r\n"
+		                   @ "\r\n"
+		                   @ regName_tcpObj.postText @ "\r\n";
 
 		regName_tcpObj.connect (regName_tcpObj.site @ ":" @ regName_tcpObj.port);
 	}
 	else if ( regName_actionButton.getText () $= "Register" )
 	{
-		regName_actionButton.enabled = 0;
-		regName_actionButton.mColor = "255 255 255 128";
-		regName_newName.enabled = 0;
+		regName_actionButton.enabled = false;
+		regName_actionButton.mColor  = "255 255 255 128";
+		regName_newName.enabled      = false;
 
 		regName_message.setText ("Connecting...");
 
@@ -19408,15 +19392,24 @@ function regNameGui::register ()
 
 		new TCPObject (regName_tcpObj);
 
-		regName_tcpObj.site = "master3.blockland.us";
-		regName_tcpObj.port = 80;
+		regName_tcpObj.site     = "master3.blockland.us";
+		regName_tcpObj.port     = 80;
 		regName_tcpObj.filePath = "/nameSet.php";
-		%postText = "name=" @ regName_newName.getValue ();
-		%postText = %postText @ "&blid=" @ getMyBLID ();
+
+		%postText = "name="   @ regName_newName.getValue ();
+		%postText = %postText @ "&blid="        @ getMyBLID ();
 		%postText = %postText @ "&steamTicket=" @ SteamGetAuthSessionTicket ();
-		regName_tcpObj.postText = %postText;
+
+		regName_tcpObj.postText    = %postText;
 		regName_tcpObj.postTextLen = strlen (%postText);
-		regName_tcpObj.cmd = "POST " @ regName_tcpObj.filePath @ " HTTP/1.0\r\n" @ "Host: " @ regName_tcpObj.site @ "\r\n" @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n" @ "Content-Type: application/x-www-form-urlencoded\r\n" @ "Content-Length: " @ regName_tcpObj.postTextLen @ "\r\n" @ "\r\n" @ regName_tcpObj.postText @ "\r\n";
+
+		regName_tcpObj.cmd = "POST "  @ regName_tcpObj.filePath @ " HTTP/1.0\r\n"
+		                   @ "Host: " @ regName_tcpObj.site     @ "\r\n"
+		                   @ "User-Agent: Blockland-r" @ getBuildNumber () @ "\r\n"
+		                   @ "Content-Type: application/x-www-form-urlencoded\r\n"
+		                   @ "Content-Length: " @ regName_tcpObj.postTextLen @ "\r\n"
+		                   @ "\r\n"
+		                   @ regName_tcpObj.postText @ "\r\n";
 
 		regName_tcpObj.connect (regName_tcpObj.site @ ":" @ regName_tcpObj.port);
 	}
@@ -19428,10 +19421,10 @@ function regNameGui::register ()
 
 function regNameGui::onType ()
 {
-	regName_actionButton.enabled = 1;
-	regName_actionButton.mColor = "255 255 255 255";
-
+	regName_actionButton.enabled = true;
+	regName_actionButton.mColor  = "255 255 255 255";
 	regName_actionButton.setText ("Check Availability");
+
 	regName_message.setText ("");
 }
 
@@ -19440,9 +19433,9 @@ function regName_tcpObj::onDNSFailed ( %this )
 	echo ("Reg Name: DNS Failed");
 	regName_message.setText ("Error: DNS Failed");
 
-	regName_actionButton.enabled = 1;
-	regName_actionButton.mColor = "255 255 255 255";
-	regName_newName.enabled = 1;
+	regName_actionButton.enabled = true;
+	regName_actionButton.mColor  = "255 255 255 255";
+	regName_newName.enabled      = true;
 }
 
 function regName_tcpObj::onConnectFailed ( %this )
@@ -19450,9 +19443,9 @@ function regName_tcpObj::onConnectFailed ( %this )
 	echo ("Reg Name: Connection Failed");
 	regName_message.setText ("Error: Connection Failed");
 
-	regName_actionButton.enabled = 1;
-	regName_actionButton.mColor = "255 255 255 255";
-	regName_newName.enabled = 1;
+	regName_actionButton.enabled = true;
+	regName_actionButton.mColor  = "255 255 255 255";
+	regName_newName.enabled      = true;
 }
 
 function regName_tcpObj::onConnected ( %this )
@@ -19463,7 +19456,7 @@ function regName_tcpObj::onConnected ( %this )
 
 function regName_tcpObj::onDisconnect ( %this )
 {
-
+	// Empty callback
 }
 
 function regName_tcpObj::onLine ( %this, %line )
@@ -19475,102 +19468,99 @@ function regName_tcpObj::onLine ( %this, %line )
 
 	%word = getWord (%line, 0);
 
-	if ( %word $= "HTTP/1.1" )
+	switch$ ( %word )
 	{
-		%code = getWord (%line, 1);
+		case "HTTP/1.1":
+			%code = getWord (%line, 1);
 
-		if ( %code != 200 )
-		{
-			warn ("WARNING: regName_tcpObj - got non-200 http response \"" @ %code @ "\"");
-		}
-		if ( %code >= 400 && %code <= 499 )
-		{
-			warn ("WARNING: 4xx error on regName_tcpObj, retrying");
-			%this.schedule (0, disconnect);
-			%this.schedule (500, connect, %this.site @ ":" @ %this.port);
-			regName_message.setText ("Retrying...");
-		}
-		if ( %code >= 300 && %code <= 399 )
-		{
-			warn ("WARNING: 3xx error on regName_tcpObj, will wait for location header");
-		}
-	}
-	else if ( %word $= "Location:" )
-	{
-		%url = getWords (%line, 1);
-
-		warn ("WARNING: regName_tcpObj - Location redirect to " @ %url);
-
-		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
-
-		%this.schedule (0, disconnect);
-		%this.schedule (500, connect, %this.site @ ":" @ %this.port);
-	}
-	else if ( %word $= "Content-Location:" )
-	{
-		%url = getWords (%line, 1);
-
-		warn ("WARNING: regName_tcpObj - Content-Location redirect to " @ %url);
-
-		%this.filePath = %url;
-		%this.cmd = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
-
-		%this.schedule (0, disconnect);
-		%this.schedule (500, connect, %this.site @ ":" @ %this.port);
-	}
-	else if ( %word $= "ERROR:" )
-	{
-		error ("regName_tcpObj - " @ %line);
-		MessageBoxOK ("Register Name Error", %line);
-	}
-	else if ( %word $= "YES" )
-	{
-		regName_message.setText ("Name available! ");
-
-		regName_actionButton.enabled = 1;
-		regName_actionButton.mColor = "255 255 255 255";
-
-		regName_actionButton.setText ("Register");
-
-		regName_newName.enabled = 1;
-	}
-	else if ( %word $= "NO" )
-	{
-		%reason = getWords (%line, 1, 99);
-
-		regName_message.setText (%reason);
-		regName_actionButton.setText (%reason);
-
-		regName_newName.enabled = 1;
-	}
-	else if ( %word $= "NAMEFAIL" )
-	{
-		%reason = getWords (%line, 1, 99);
-
-		regName_message.setText (%reason);
-
-		regName_newName.enabled = 1;
-	}
-	else if ( %word $= "NAMESUCCESS" )
-	{
-		%name = getWords (%line, 1, 99);
-
-		for ( %i = 0; %i < $Auth::blidCount; %i++ )
-		{
-			if ( $Auth::blid[%i] != regName_blid.getValue () )
+			if ( %code != 200 )
 			{
-				continue;
+				warn ("WARNING: regName_tcpObj - got non-200 http response \"" @ %code @ "\"");
 			}
 
-			$Auth::name[%i] = %name;
+			if ( %code >= 400 && %code <= 499 )
+			{
+				warn ("WARNING: 4xx error on regName_tcpObj, retrying");
+
+				%this.schedule (0, disconnect);
+				%this.schedule (500, connect, %this.site @ ":" @ %this.port);
+
+				regName_message.setText ("Retrying...");
+			}
+
+			if ( %code >= 300 && %code <= 399 )
+			{
+				warn ("WARNING: 3xx error on regName_tcpObj, will wait for location header");
+			}
+
+		case "Location:":
+			%url = getWords (%line, 1);
+			warn ("WARNING: regName_tcpObj - Location redirect to " @ %url);
+
+			%this.filePath = %url;
+			%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+
+			%this.schedule (0, disconnect);
+			%this.schedule (500, connect, %this.site @ ":" @ %this.port);
+
+		case "Content-Location:":
+			%url = getWords (%line, 1);
+			warn ("WARNING: regName_tcpObj - Content-Location redirect to " @ %url);
+
+			%this.filePath = %url;
+			%this.cmd      = "GET " @ %this.filePath @ " HTTP/1.0\r\nHost: " @ %this.site @ "\r\n\r\n";
+
+			%this.schedule (0, disconnect);
+			%this.schedule (500, connect, %this.site @ ":" @ %this.port);
+
+		case "ERROR:":
+			error ("regName_tcpObj - " @ %line);
+			MessageBoxOK ("Register Name Error", %line);
+
+		case "YES":
+			regName_message.setText ("Name available! ");
+
+			regName_actionButton.enabled = true;
+			regName_actionButton.mColor  = "255 255 255 255";
+
+			regName_actionButton.setText ("Register");
+
+			regName_newName.enabled = true;
+
+		case "NO":
+			%reason = getWords (%line, 1, 99);
+
+			regName_message.setText (%reason);
+			regName_actionButton.setText (%reason);
+
+			regName_newName.enabled = true;
+
+		case "NAMEFAIL":
+			%reason = getWords (%line, 1, 99);
+			regName_message.setText (%reason);
+
+			regName_newName.enabled = true;
+
+		case "NAMESUCCESS":
+			%name = getWords (%line, 1, 99);
+
+			for ( %i = 0; %i < $Auth::blidCount; %i++ )
+			{
+				if ( $Auth::blid[%i] != regName_blid.getValue () )
+				{
+					continue;
+				}
+
+				$Auth::name[%i] = %name;
+			}
+
+			$pref::Player::NetName = %name;
+			MM_AuthText.setText ("Welcome, " @ %name);
+
+			MM_AuthBar.blinkSuccess ();
+
+			Canvas.popDialog ("regNameGui");
 		}
-
-		$pref::Player::NetName = %name;
-
-		MM_AuthText.setText ("Welcome, " @ %name);
-		MM_AuthBar.blinkSuccess ();
-		Canvas.popDialog ("regNameGui");
 	}
 }
 
@@ -19580,6 +19570,7 @@ function regNameGui::onClose ()
 	{
 		Canvas.popDialog ("regNameGui");
 		Canvas.pushDialog ("selectBLIDGui");
+
 		MM_AuthNameButton.setVisible (true);
 	}
 }
@@ -19592,15 +19583,16 @@ $ColorGui_Mode = 0;
 function colorGui::popUp ( %this, %targetVar, %targetSwatch, %callback, %alpha )
 {
 	%targetVar = %targetVar;
-	%cmd = "%val = " @ %targetVar @ ";";
+	%cmd       = "%val = " @ %targetVar @ ";";
 
 	eval (%cmd);
 
 	%color = getColorF (%val);
-	%r = getWord (%color, 0);
-	%g = getWord (%color, 1);
-	%b = getWord (%color, 2);
-	%a = getWord (%color, 3);
+	%r     = getWord (%color, 0);
+	%g     = getWord (%color, 1);
+	%b     = getWord (%color, 2);
+	%a     = getWord (%color, 3);
+
 	%this.initialColor = %color;
 
 	if ( %alpha )
@@ -19610,13 +19602,12 @@ function colorGui::popUp ( %this, %targetVar, %targetSwatch, %callback, %alpha )
 	else
 	{
 		%a = 1;
-
 		ColorGui_Slider3.setVisible (false);
 	}
 
-	%this.callBack = %callback;
+	%this.callBack     = %callback;
 	%this.targetSwatch = %targetSwatch;
-	%this.targetVar = %targetVar;
+	%this.targetVar    = %targetVar;
 
 	if ( $ColorGui_Mode == $COLORMODE_RGB )
 	{
@@ -19628,9 +19619,9 @@ function colorGui::popUp ( %this, %targetVar, %targetSwatch, %callback, %alpha )
 	else
 	{
 		%hsv = RGBtoHSV (%r, %g, %b);
-		%h = getWord (%hsv, 0);
-		%s = getWord (%hsv, 1);
-		%v = getWord (%hsv, 2);
+		%h   = getWord (%hsv, 0);
+		%s   = getWord (%hsv, 1);
+		%v   = getWord (%hsv, 2);
 
 		ColorGui_Slider0.setValue (%h);
 		ColorGui_Slider1.setValue (%s);
@@ -19653,7 +19644,7 @@ function colorGui::onWake ( %this )
 
 function colorGui::onSleep ( %this )
 {
-
+	// Empty callback
 }
 
 function colorGui::setMode ( %this, %mode )
@@ -19672,14 +19663,16 @@ function colorGui::setMode ( %this, %mode )
 			%s = ColorGui_Slider1.getValue ();
 			%v = ColorGui_Slider2.getValue ();
 			%a = ColorGui_Slider3.getValue ();
+
 			%RGB = HSVtoRGB (%h, %s, %v);
-			%r = getWord (%RGB, 0);
-			%g = getWord (%RGB, 1);
-			%b = getWord (%RGB, 2);
+			%r   = getWord (%RGB, 0);
+			%g   = getWord (%RGB, 1);
+			%b   = getWord (%RGB, 2);
 
 			ColorGui_Slider0.setValue (%r);
 			ColorGui_Slider1.setValue (%g);
 			ColorGui_Slider2.setValue (%b);
+
 			ColorGui_Result.setColor (%r SPC %g SPC %b SPC %a);
 		}
 	}
@@ -19695,11 +19688,13 @@ function colorGui::setMode ( %this, %mode )
 			%g = ColorGui_Slider1.getValue ();
 			%b = ColorGui_Slider2.getValue ();
 			%a = ColorGui_Slider3.getValue ();
+
 			%hsv = RGBtoHSV (%r, %g, %b);
 
 			ColorGui_Slider0.setValue (getWord (%hsv, 0));
 			ColorGui_Slider1.setValue (getWord (%hsv, 1));
 			ColorGui_Slider2.setValue (getWord (%hsv, 2));
+
 			ColorGui_Result.setColor (%r SPC %g SPC %b SPC %a);
 		}
 	}
@@ -19719,26 +19714,29 @@ function colorGui::update ( %this )
 	{
 		%mode = $COLORMODE_RGB;
 	}
+
 	if ( %mode == $COLORMODE_RGB )
 	{
 		%r = ColorGui_Slider0.getValue ();
 		%g = ColorGui_Slider1.getValue ();
 		%b = ColorGui_Slider2.getValue ();
 	}
+
 	else if ( %mode == $COLORMODE_HSV )
 	{
 		%h = ColorGui_Slider0.getValue ();
 		%s = ColorGui_Slider1.getValue ();
 		%v = ColorGui_Slider2.getValue ();
+
 		%RGB = HSVtoRGB (%h, %s, %v);
-		%r = getWord (%RGB, 0);
-		%g = getWord (%RGB, 1);
-		%b = getWord (%RGB, 2);
+		%r   = getWord (%RGB, 0);
+		%g   = getWord (%RGB, 1);
+		%b   = getWord (%RGB, 2);
 	}
 
 	%a = ColorGui_Slider3.getValue ();
-
 	ColorGui_Result.setColor (%r SPC %g SPC %b SPC %a);
+
 	%this.doCallbacks ();
 }
 
@@ -19746,10 +19744,10 @@ function colorGui::doCallbacks ( %this )
 {
 	if ( $ColorGui_Mode == $COLORMODE_RGB )
 	{
-		%r = ColorGui_Slider0.getValue ();
-		%g = ColorGui_Slider1.getValue ();
-		%b = ColorGui_Slider2.getValue ();
-		%a = ColorGui_Slider3.getValue ();
+		%r    = ColorGui_Slider0.getValue ();
+		%g    = ColorGui_Slider1.getValue ();
+		%b    = ColorGui_Slider2.getValue ();
+		%a    = ColorGui_Slider3.getValue ();
 		%rgba = %r SPC %g SPC %b SPC %a;
 	}
 	else
@@ -19758,14 +19756,14 @@ function colorGui::doCallbacks ( %this )
 		%s = ColorGui_Slider1.getValue ();
 		%v = ColorGui_Slider2.getValue ();
 		%a = ColorGui_Slider3.getValue ();
+
 		%rgba = HSVtoRGB (%h, %s, %v) SPC %a;
-		%r = getWord (%rgba, 0);
-		%g = getWord (%rgba, 1);
-		%b = getWord (%rgba, 2);
+		%r    = getWord (%rgba, 0);
+		%g    = getWord (%rgba, 1);
+		%b    = getWord (%rgba, 2);
 	}
 
 	%cmd = %this.targetVar @ " = \"" @ %rgba @ "\";";
-
 	eval (%cmd);
 
 	%rgbaUB = mFloor (%r * 255) SPC mFloor (%g * 255) SPC mFloor (%b * 255) SPC mFloor (%a * 255);
@@ -19783,7 +19781,7 @@ function colorGui::done ( %this )
 function colorGui::clickCancel ( %this )
 {
 	%rgba = %this.initialColor;
-	%cmd = %this.targetVar @ " = \"" @ %rgba @ "\";";
+	%cmd  = %this.targetVar @ " = \"" @ %rgba @ "\";";
 
 	eval (%cmd);
 
@@ -19791,7 +19789,9 @@ function colorGui::clickCancel ( %this )
 	%g = getWord (%rgba, 1);
 	%b = getWord (%rgba, 2);
 	%a = getWord (%rgba, 3);
+
 	%rgbaUB = mFloor (%r * 255) SPC mFloor (%g * 255) SPC mFloor (%b * 255) SPC mFloor (%a * 255);
+
 	%this.targetSwatch.color = %rgbaUB;
 
 	eval (%this.callBack);
@@ -19802,8 +19802,7 @@ function ColorSetGui::onWake ( %this )
 {
 	if ( !%this.initialized )
 	{
-		%this.initialized = 1;
-
+		%this.initialized = true;
 		%this.load ();
 	}
 
@@ -19819,7 +19818,7 @@ function ColorSetGui::onWake ( %this )
 
 function ColorSetGui::onSleep ( %this )
 {
-
+	// Empty callback
 }
 
 function ColorSetGui::save ( %this )
@@ -19845,6 +19844,7 @@ function ColorSetGui::defaults ( %this )
 	deleteVariables ("$Avatar::*");
 
 	%i = -1;
+
 	$Avatar::Color[%i++] = "0.900 0.000 0.000 1.000";
 	$Avatar::Color[%i++] = "0.900 0.900 0.000 1.000";
 	$Avatar::Color[%i++] = "0.000 0.500 0.250 1.000";
@@ -19853,6 +19853,7 @@ function ColorSetGui::defaults ( %this )
 	$Avatar::Color[%i++] = "0.750 0.750 0.750 1.000";
 	$Avatar::Color[%i++] = "0.500 0.500 0.500 1.000";
 	$Avatar::Color[%i++] = "0.200 0.200 0.200 1.000";
+
 	$Avatar::Color[%i++] = IColorToFColor ("100 50 0 255");
 	$Avatar::Color[%i++] = IColorToFColor ("230 87 20 255");
 	$Avatar::Color[%i++] = IColorToFColor ("191 46 123 255");
@@ -19872,15 +19873,19 @@ function ColorSetGui::defaults ( %this )
 	$Avatar::Color[%i++] = IColorToFColor ("143 237 245 255");
 	$Avatar::Color[%i++] = IColorToFColor ("178 169 231 255");
 	$Avatar::Color[%i++] = IColorToFColor ("224 143 244 255");
+
 	$Avatar::Color[%i++] = "0.667 0.000 0.000 0.700";
 	$Avatar::Color[%i++] = "1.000 0.500 0.000 0.700";
 	$Avatar::Color[%i++] = "0.990 0.960 0.000 0.700";
 	$Avatar::Color[%i++] = "0.000 0.471 0.196 0.700";
 	$Avatar::Color[%i++] = "0.000 0.200 0.640 0.700";
+
 	$Avatar::Color[%i++] = IColorToFColor ("152 41 100 178");
+
 	$Avatar::Color[%i++] = "0.550 0.700 1.000 0.700";
 	$Avatar::Color[%i++] = "0.850 0.850 0.850 0.700";
 	$Avatar::Color[%i++] = "0.100 0.100 0.100 0.700";
+
 	$Avatar::NumColors = %i++;
 
 	%this.Display ();
@@ -19891,7 +19896,6 @@ function ColorSetGui::Display ( %this )
 	if ( isObject (ColorSet_Box) )
 	{
 		ColorSet_Box.clear ();
-
 		%newBox = ColorSet_Box;
 	}
 	else
@@ -19899,21 +19903,22 @@ function ColorSetGui::Display ( %this )
 		ColorSet_Scroll.clear ();
 
 		%newBox = new GuiSwatchCtrl (ColorSet_Box);
-
 		ColorSet_Scroll.add (%newBox);
+
 		%newBox.setColor ("0 0 0 0");
 		%newBox.resize (0, 0, 32, 32);
 	}
 
 	%itemCount = 0;
-	%rowLimit = 6;
+	%rowLimit  = 6;
 
 	for ( %i = 0; %i < $Avatar::NumColors; %i++ )
 	{
 		%color = $Avatar::Color[%i];
-		%newSwatch = new GuiSwatchCtrl (("ColorSetSwatch" @ %i));
 
+		%newSwatch = new GuiSwatchCtrl ("ColorSetSwatch" @ %i);
 		%newBox.add (%newSwatch);
+
 		%newSwatch.setColor (%color);
 
 		%x = (%itemCount % %rowLimit) * 32;
@@ -19921,14 +19926,15 @@ function ColorSetGui::Display ( %this )
 
 		%newSwatch.resize (%x, %y, 32, 32);
 
-		%newButton = new GuiBitmapButtonCtrl ("");
-
+		%newButton = new GuiBitmapButtonCtrl ();
 		%newBox.add (%newButton);
+
 		%newButton.setBitmap ("base/client/ui/btnColor");
 		%newButton.setText (" ");
 		%newButton.resize (%x, %y, 32, 32);
 
 		%newButton.command = "colorSetGui.selectColor(" @ %i @ ");";
+
 		%itemCount++;
 	}
 
@@ -19971,10 +19977,12 @@ function ColorSetGui::deleteColor ( %this )
 	{
 		return;
 	}
+
 	if ( $Avatar::Color[%idx] $= "" )
 	{
 		return;
 	}
+
 	if ( %idx + 1 < $Avatar::NumColors )
 	{
 		for ( %i = %idx + 1; %i < $Avatar::NumColors; %i++ )
@@ -19992,10 +20000,10 @@ function ColorSetGui::deleteColor ( %this )
 function ColorSetGui::selectColor ( %this, %idx )
 {
 	%color = $Avatar::Color[%idx];
-
 	colorSet_Result.setColor (%color);
 
 	%this.currColor = %idx;
+
 	%r = getWord (%color, 0);
 	%g = getWord (%color, 1);
 	%b = getWord (%color, 2);
@@ -20011,9 +20019,9 @@ function ColorSetGui::selectColor ( %this, %idx )
 	else
 	{
 		%hsv = RGBtoHSV (%r, %g, %b);
-		%h = getWord (%hsv, 0);
-		%s = getWord (%hsv, 1);
-		%v = getWord (%hsv, 2);
+		%h   = getWord (%hsv, 0);
+		%s   = getWord (%hsv, 1);
+		%v   = getWord (%hsv, 2);
 
 		ColorSetGui_Slider0.setValue (%h);
 		ColorSetGui_Slider1.setValue (%s);
@@ -20036,10 +20044,11 @@ function ColorSetGui::setMode ( %this, %mode )
 			%s = ColorSetGui_Slider1.getValue ();
 			%v = ColorSetGui_Slider2.getValue ();
 			%a = ColorSetGui_Slider3.getValue ();
+
 			%RGB = HSVtoRGB (%h, %s, %v);
-			%r = getWord (%RGB, 0);
-			%g = getWord (%RGB, 1);
-			%b = getWord (%RGB, 2);
+			%r   = getWord (%RGB, 0);
+			%g   = getWord (%RGB, 1);
+			%b   = getWord (%RGB, 2);
 
 			ColorSetGui_Slider0.setValue (%r);
 			ColorSetGui_Slider1.setValue (%g);
@@ -20050,7 +20059,6 @@ function ColorSetGui::setMode ( %this, %mode )
 			colorSet_Result.setColor (%r SPC %g SPC %b SPC %a);
 
 			%obj = ColorSetSwatch @ ColorSetGui.currColor;
-
 			%obj.setColor (%r SPC %g SPC %b SPC %a);
 		}
 	}
@@ -20066,6 +20074,7 @@ function ColorSetGui::setMode ( %this, %mode )
 			%g = ColorSetGui_Slider1.getValue ();
 			%b = ColorSetGui_Slider2.getValue ();
 			%a = ColorSetGui_Slider3.getValue ();
+
 			%hsv = RGBtoHSV (%r, %g, %b);
 
 			ColorSetGui_Slider0.setValue (getWord (%hsv, 0));
@@ -20077,7 +20086,6 @@ function ColorSetGui::setMode ( %this, %mode )
 			colorSet_Result.setColor (%r SPC %g SPC %b SPC %a);
 
 			%obj = ColorSetSwatch @ ColorSetGui.currColor;
-
 			%obj.setColor (%r SPC %g SPC %b SPC %a);
 		}
 	}
@@ -20097,6 +20105,7 @@ function ColorSetGui::update ()
 	{
 		%mode = $COLORMODE_RGB;
 	}
+
 	if ( %mode == $COLORMODE_RGB )
 	{
 		%r = ColorSetGui_Slider0.getValue ();
@@ -20108,10 +20117,11 @@ function ColorSetGui::update ()
 		%h = ColorSetGui_Slider0.getValue ();
 		%s = ColorSetGui_Slider1.getValue ();
 		%v = ColorSetGui_Slider2.getValue ();
+
 		%RGB = HSVtoRGB (%h, %s, %v);
-		%r = getWord (%RGB, 0);
-		%g = getWord (%RGB, 1);
-		%b = getWord (%RGB, 2);
+		%r   = getWord (%RGB, 0);
+		%g   = getWord (%RGB, 1);
+		%b   = getWord (%RGB, 2);
 	}
 
 	%a = ColorSetGui_Slider3.getValue ();
@@ -20120,7 +20130,6 @@ function ColorSetGui::update ()
 	colorSet_Result.setColor ($Avatar::Color[ColorSetGui.currColor]);
 
 	%obj = ColorSetSwatch @ ColorSetGui.currColor;
-
 	%obj.setColor ($Avatar::Color[ColorSetGui.currColor]);
 }
 
@@ -20130,6 +20139,7 @@ function IColorToFColor ( %IColor )
 	%g = getWord (%IColor, 1);
 	%b = getWord (%IColor, 2);
 	%a = getWord (%IColor, 3);
+
 	%r /= 255;
 	%g /= 255;
 	%b /= 255;
@@ -20140,10 +20150,10 @@ function IColorToFColor ( %IColor )
 
 function RGBtoHSV ( %r, %g, %b )
 {
-	%min = getMin (%r, getMin (%g, %b));
-	%max = getMax (%r, getMax (%g, %b));
+	%min   = getMin (%r, getMin (%g, %b));
+	%max   = getMax (%r, getMax (%g, %b));
 	%delta = %max - %min;
-	%v = %max;
+	%v     = %max;
 
 	if ( %max != 0 )
 	{
@@ -20190,7 +20200,6 @@ function HSVtoRGB ( %h, %s, %v )
 	if ( %s == 0 )
 	{
 		%r = %g = %b = %v;
-
 		return %r SPC %g SPC %b;
 	}
 
@@ -20202,47 +20211,44 @@ function HSVtoRGB ( %h, %s, %v )
 	}
 
 	%h /= 60;
+
 	%i = mFloor (%h);
 	%f = %h - %i;
 	%p = %v * (1 - %s);
 	%q = %v * (1 - %s * %f);
 	%t = %v * (1 - %s * (1 - %f));
 
-	if ( %i == 0 )
+	switch ( %i )
 	{
-		%r = %v;
-		%g = %t;
-		%b = %p;
-	}
-	else if ( %i == 1 )
-	{
-		%r = %q;
-		%g = %v;
-		%b = %p;
-	}
-	else if ( %i == 2 )
-	{
-		%r = %p;
-		%g = %v;
-		%b = %t;
-	}
-	else if ( %i == 3 )
-	{
-		%r = %p;
-		%g = %q;
-		%b = %v;
-	}
-	else if ( %i == 4 )
-	{
-		%r = %t;
-		%g = %p;
-		%b = %v;
-	}
-	else
-	{
-		%r = %v;
-		%g = %p;
-		%b = %q;
+		case 0:
+			%r = %v;
+			%g = %t;
+			%b = %p;
+
+		case 1:
+			%r = %q;
+			%g = %v;
+			%b = %p;
+
+		case 2:
+			%r = %p;
+			%g = %v;
+			%b = %t;
+
+		case 3:
+			%r = %p;
+			%g = %q;
+			%b = %v;
+
+		case 4:
+			%r = %t;
+			%g = %p;
+			%b = %v;
+
+		default:
+			%r = %v;
+			%g = %p;
+			%b = %q;
 	}
 
 	return %r SPC %g SPC %b;
@@ -20254,11 +20260,12 @@ function ToggleBuildMacroRecording ( %val )
 	{
 		return;
 	}
+
 	if ( $RecordingBuildMacro && isObject ($BuildMacroSO) )
 	{
-		$RecordingBuildMacro = 0;
-
+		$RecordingBuildMacro = false;
 		$BuildMacroSO.compress ();
+
 		clientCmdCenterPrint ("<color:FF0000>Build Macro Recording STOPPED", 2);
 	}
 	else
@@ -20268,14 +20275,16 @@ function ToggleBuildMacroRecording ( %val )
 			$BuildMacroSO.delete ();
 		}
 
-		$BuildMacroSO = new ScriptObject ("")
+		$BuildMacroSO = new ScriptObject ()
 		{
-			class = BuildMacroSO;
+			class     = BuildMacroSO;
 			numEvents = 0;
 		};
-		$RecordingBuildMacro = 1;
+
+		$RecordingBuildMacro = true;
 
 		clientCmdCenterPrint ("<color:00FF00>Build Macro Recording STARTED", 2);
+
 		$BuildMacroSO.pushEvent ("Server", 'useSprayCan', $currSprayCanIndex);
 	}
 }
@@ -20286,6 +20295,7 @@ function PlayBackBuildMacro ( %val )
 	{
 		return;
 	}
+
 	if ( isObject ($BuildMacroSO) )
 	{
 		$BuildMacroSO.PlayBack ();
@@ -20302,13 +20312,15 @@ function BuildMacroSO::pushEvent ( %this, %eventType, %event, %arg1, %arg2, %arg
 
 		return;
 	}
+
 	if ( %eventType $= "Client" )
 	{
 		%val = %eventType TAB %event TAB %arg1 TAB %arg2 TAB %arg3 TAB %arg4 TAB %arg5 TAB %arg6;
 	}
 	else if ( %eventType $= "Server" )
 	{
-		%val = %eventType TAB getTaggedString (%event) TAB %arg1 TAB %arg2 TAB %arg3 TAB %arg4 TAB %arg5 TAB %arg6;
+		%val = %eventType TAB getTaggedString (%event) TAB %arg1 TAB %arg2 TAB %arg3 TAB %arg4
+		   TAB %arg5      TAB %arg6;
 	}
 	else
 	{
@@ -20324,130 +20336,129 @@ function BuildMacroSO::compress ( %this )
 	for ( %i = 0; %i < %this.numEvents; %i++ )
 	{
 		%string = %this.event[%i];
-		%event = getField (%string, 1);
+		%event  = getField (%string, 1);
 
-		if ( %event $= "PlantBrick" )
+		switch$ ( %event )
 		{
-			%j = %i + 1;
+			case "PlantBrick":
+				%j = %i + 1;
 
-			while ( %j < %this.numEvents )
-			{
-				%stringB = %this.event[%j];
-				%eventB = getField (%stringB, 1);
+				while ( %j < %this.numEvents )
+				{
+					%stringB = %this.event[%j];
+					%eventB  = getField (%stringB, 1);
 
-				if ( %eventB $= "PlantBrick" )
-				{
-					%this.deleteEvent (%j);
+					if ( %eventB $= "PlantBrick" )
+					{
+						%this.deleteEvent (%j);
+					}
+					else
+					{
+						break;
+					}
 				}
-				else
-				{
-					break;
-				}
-			}
-		}
-		else if ( %event $= "ShiftBrick" )
-		{
-			%x = getField (%string, 2);
-			%y = getField (%string, 3);
-			%z = getField (%string, 4);
-			%j = %i + 1;
 
-			while ( %j < %this.numEvents )
-			{
-				%stringB = %this.event[%j];
-				%eventB = getField (%stringB, 1);
+			case "ShiftBrick":
+				%x = getField (%string, 2);
+				%y = getField (%string, 3);
+				%z = getField (%string, 4);
+				%j = %i + 1;
 
-				if ( %eventB $= "ShiftBrick" )
+				while ( %j < %this.numEvents )
 				{
-					%x += getField (%stringB, 2);
-					%y += getField (%stringB, 3);
-					%z += getField (%stringB, 4);
+					%stringB = %this.event[%j];
+					%eventB  = getField (%stringB, 1);
 
-					%this.deleteEvent (%j);
-				}
-				else if ( %eventB $= "UseInventory" )
-				{
-					%j++;
-				}
-				else if ( %eventB $= "UseSprayCan" )
-				{
-					%j++;
-				}
-				else
-				{
-					break;
-				}
-			}
+					if ( %eventB $= "ShiftBrick" )
+					{
+						%x += getField (%stringB, 2);
+						%y += getField (%stringB, 3);
+						%z += getField (%stringB, 4);
 
-			%this.event[%i] = "Server" TAB "ShiftBrick" TAB %x TAB %y TAB %z;
-		}
-		else if ( %event $= "UseSprayCan" )
-		{
-			%canIndex = getField (%string, 2);
-			%j = %i + 1;
+						%this.deleteEvent (%j);
+					}
+					else if ( %eventB $= "UseInventory" )
+					{
+						%j++;
+					}
+					else if ( %eventB $= "UseSprayCan" )
+					{
+						%j++;
+					}
+					else
+					{
+						break;
+					}
+				}
 
-			while ( %j < %this.numEvents )
-			{
-				%stringB = %this.event[%j];
-				%eventB = getField (%stringB, 1);
+				%this.event[%i] = "Server" TAB "ShiftBrick" TAB %x TAB %y TAB %z;
 
-				if ( %eventB $= "ShiftBrick" )
-				{
-					%j++;
-				}
-				else if ( %eventB $= "SuperShiftBrick" )
-				{
-					%j++;
-				}
-				else if ( %eventB $= "RotateBrick" )
-				{
-					%j++;
-				}
-				else if ( %eventB $= "UseInventory" )
-				{
-					%j++;
-				}
-				else if ( %eventB $= "UseSprayCan" )
-				{
-					%canIndex = getField (%stringB, 2);
+			case "UseSprayCan":
 
-					%this.deleteEvent (%j);
-				}
-				else
+				%canIndex = getField (%string, 2);
+
+				%j = %i + 1;
+
+				while ( %j < %this.numEvents )
 				{
-					break;
+					%stringB = %this.event[%j];
+					%eventB  = getField (%stringB, 1);
+
+					if ( %eventB $= "ShiftBrick" )
+					{
+						%j++;
+					}
+					else if ( %eventB $= "SuperShiftBrick" )
+					{
+						%j++;
+					}
+					else if ( %eventB $= "RotateBrick" )
+					{
+						%j++;
+					}
+					else if ( %eventB $= "UseInventory" )
+					{
+						%j++;
+					}
+					else if ( %eventB $= "UseSprayCan" )
+					{
+						%canIndex = getField (%stringB, 2);
+						%this.deleteEvent (%j);
+					}
+					else
+					{
+						break;
+					}
 				}
-			}
 
-			%this.event[%i] = "Server" TAB "UseSprayCan" TAB %canIndex;
-		}
-		else if ( %event $= "UseInventory" )
-		{
-			%idx = getField (%string, 2);
-			%j = %i + 1;
+				%this.event[%i] = "Server" TAB "UseSprayCan" TAB %canIndex;
 
-			while ( %j < %this.numEvents )
-			{
-				%stringB = %this.event[%j];
-				%eventB = getField (%stringB, 1);
+			case "UseInventory":
+				%idx = getField (%string, 2);
 
-				if ( %eventB $= "UseInventory" )
+				%j = %i + 1;
+
+				while ( %j < %this.numEvents )
 				{
-					%idx = getField (%stringB, 2);
+					%stringB = %this.event[%j];
+					%eventB  = getField (%stringB, 1);
 
-					%this.deleteEvent (%j);
+					if ( %eventB $= "UseInventory" )
+					{
+						%idx = getField (%stringB, 2);
+						%this.deleteEvent (%j);
+					}
+					else if ( %eventB $= "UseSprayCan" )
+					{
+						%j++;
+					}
+					else
+					{
+						break;
+					}
 				}
-				else if ( %eventB $= "UseSprayCan" )
-				{
-					%j++;
-				}
-				else
-				{
-					break;
-				}
-			}
 
-			%this.event[%i] = "Server" TAB "UseInventory" TAB %idx;
+				%this.event[%i] = "Server" TAB "UseInventory" TAB %idx;
 		}
 	}
 }
@@ -20470,7 +20481,6 @@ function BuildMacroSO::PlayBack ( %this, %line )
 	}
 
 	%line = mFloor (%line);
-
 	%this.PlayEvent (%line);
 
 	if ( getField (%this.event[%line], 1) $= "PlantBrick" )
@@ -20481,10 +20491,12 @@ function BuildMacroSO::PlayBack ( %this, %line )
 	{
 		%time = 10;
 	}
+
 	if ( $IamAdmin )
 	{
 		%time = 1;
 	}
+
 	if ( %line + 1 < %this.numEvents )
 	{
 		%this.playBackEvent = %this.schedule (%time, PlayBack, %line++);
@@ -20493,25 +20505,26 @@ function BuildMacroSO::PlayBack ( %this, %line )
 
 function BuildMacroSO::PlayEvent ( %this, %eventNum )
 {
-	%string = %this.event[%eventNum];
+	%string    = %this.event[%eventNum];
 	%eventType = getField (%string, 0);
-	%event = getField (%string, 1);
-	%arg1 = getField (%string, 2);
-	%arg2 = getField (%string, 3);
-	%arg3 = getField (%string, 4);
-	%arg4 = getField (%string, 5);
-	%arg5 = getField (%string, 6);
-	%arg6 = getField (%string, 7);
+	%event     = getField (%string, 1);
+	%arg1      = getField (%string, 2);
+	%arg2      = getField (%string, 3);
+	%arg3      = getField (%string, 4);
+	%arg4      = getField (%string, 5);
+	%arg5      = getField (%string, 6);
+	%arg6      = getField (%string, 7);
 
 	if ( %eventType $= "Client" )
 	{
-		eval (%event @ "(" @ %arg1 @ "," @ %arg2 @ "," @ %arg3 @ "," @ %arg4 @ "," @ %arg5 @ "," @ %arg6 @ ");");
+		eval (%event @ "(" @ %arg1 @ "," @ %arg2 @ "," @ %arg3 @ "," @ %arg4 @ ","
+			@ %arg5  @ "," @ %arg6 @ ");");
 	}
 	else if ( %eventType $= "Server" )
 	{
 		%event = strreplace (%event, ";", "");
-
 		eval ("%tagEvent = \'" @ %event @ "\';");
+
 		commandToServer (%tagEvent, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6);
 	}
 }
@@ -20523,17 +20536,18 @@ function BuildMacroSO::dump ( %this )
 
 	for ( %i = 0; %i < %this.numEvents; %i++ )
 	{
-		%string = %this.event[%i];
+		%string    = %this.event[%i];
 		%eventType = getField (%string, 0);
-		%event = getField (%string, 1);
-		%arg1 = getField (%string, 2);
-		%arg2 = getField (%string, 3);
-		%arg3 = getField (%string, 4);
-		%arg4 = getField (%string, 5);
-		%arg5 = getField (%string, 6);
-		%arg6 = getField (%string, 7);
+		%event     = getField (%string, 1);
+		%arg1      = getField (%string, 2);
+		%arg2      = getField (%string, 3);
+		%arg3      = getField (%string, 4);
+		%arg4      = getField (%string, 5);
+		%arg5      = getField (%string, 6);
+		%arg6      = getField (%string, 7);
 
-		echo ("  " @ %i @ " - " @ %eventType TAB %event TAB %arg1 TAB %arg2 TAB %arg3 TAB %arg4 TAB %arg5 TAB %arg6);
+		echo ("  " @ %i @ " - " @ %eventType TAB %event TAB %arg1 TAB %arg2 TAB %arg3
+		  TAB %arg4 TAB %arg5 TAB %arg6);
 	}
 
 	echo ("----------------------------------------------");
@@ -20541,9 +20555,10 @@ function BuildMacroSO::dump ( %this )
 
 function wrenchEventsDlg::onWake ( %this )
 {
-	%res = getRes ();
+	%res  = getRes ();
 	%resW = getWord (%res, 0);
 	%resH = getWord (%res, 1);
+
 	%winW = getWord (WrenchEvents_Window.getExtent (), 0);
 	%winH = getWord (WrenchEvents_Window.getExtent (), 1);
 
@@ -20551,23 +20566,28 @@ function wrenchEventsDlg::onWake ( %this )
 	{
 		%w = getMin (%resW, %winW);
 		%h = getMin (%resH, %winH);
+
 		%x = %resW / 2 - %w / 2;
 		%y = %resH / 2 - %h / 2;
 
 		WrenchEvents_Window.resize (%x, %y, %w, %h);
 	}
+
 	if ( !isObject (ServerConnection) )
 	{
 		return;
 	}
+
 	if ( ServerConnection.isLocal () )
 	{
 		$GotInputEvents = 1;
 	}
+
 	if ( $GotInputEvents == 0 )
 	{
 		WrenchLock_Events.setValue (0);
 	}
+
 	if ( wrenchVehicleSpawnDlg.isAwake () )
 	{
 		WrenchEvents_SendBlocker.setVisible (WrenchVehicleSpawn_SendBlocker.isVisible ());
@@ -20580,6 +20600,7 @@ function wrenchEventsDlg::onWake ( %this )
 	{
 		WrenchEvents_SendBlocker.setVisible (Wrench_SendBlocker.isVisible ());
 	}
+
 	if ( WrenchLock_Events.getValue () )
 	{
 		return;
@@ -20588,18 +20609,19 @@ function wrenchEventsDlg::onWake ( %this )
 	wrenchEvents_Scroll.clear ();
 
 	%box = new GuiSwatchCtrl (WrenchEvents_Box);
-
 	wrenchEvents_Scroll.add (%box);
+
 	%box.setColor (200 / 255 SPC 200 / 255 SPC 200 / 255 SPC 64 / 255);
 
 	%x = 0;
 	%y = 0;
+
 	%w = getWord (wrenchEvents_Scroll.getExtent (), 0) - 12;
 	%h = 300;
 
 	%box.resize (%x, %y, %w, %h);
 
-	%box.vertSizing = "Bottom";
+	%box.vertSizing  = "Bottom";
 	%box.horizSizing = "Width";
 
 	WrenchEvents_LoadingWindow.setVisible (false);
@@ -20610,11 +20632,14 @@ function wrenchEventsDlg::onWake ( %this )
 	{
 		%requestEvents = 0;
 	}
+
 	if ( %requestEvents )
 	{
 		WrenchEvents_LoadingWindow.setVisible (True);
+
 		deleteVariables ("$InputEvent_*");
 		deleteVariables ("$OutputEvent_*");
+
 		commandToServer ('RequestEventTables');
 	}
 	else
@@ -20629,21 +20654,23 @@ function wrenchEventsDlg::clear ( %this )
 	wrenchEvents_Scroll.clear ();
 
 	%box = new GuiSwatchCtrl (WrenchEvents_Box);
-
 	wrenchEvents_Scroll.add (%box);
+
 	%box.setColor (200 / 255 SPC 200 / 255 SPC 200 / 255 SPC 64 / 255);
 
 	%x = 0;
 	%y = 0;
+
 	%w = getWord (wrenchEvents_Scroll.getExtent (), 0) - 12;
 	%h = 300;
 
 	%box.resize (%x, %y, %w, %h);
 
-	%box.vertSizing = "Bottom";
+	%box.vertSizing  = "Bottom";
 	%box.horizSizing = "Width";
 
 	WrenchEvents_LoadingWindow.setVisible (false);
+
 	%this.newEvent ();
 }
 
@@ -20671,7 +20698,7 @@ function ClientCmdRegisterInputEvent ( %class, %name, %targetList )
 	{
 		if ( $InputEvent_Name[%class, %i] $= %name )
 		{
-			$InputEvent_Name[%class, %i] = %name;
+			$InputEvent_Name[%class, %i]       = %name;
 			$InputEvent_TargetList[%class, %i] = %targetList;
 
 			return;
@@ -20679,8 +20706,10 @@ function ClientCmdRegisterInputEvent ( %class, %name, %targetList )
 	}
 
 	%i = mFloor ($InputEvent_Count[%class]);
-	$InputEvent_Name[%class, %i] = %name;
+
+	$InputEvent_Name[%class, %i]       = %name;
 	$InputEvent_TargetList[%class, %i] = %targetList;
+
 	$InputEvent_Count[%class]++;
 
 	if ( saveBricksGui.isAwake () )
@@ -20692,13 +20721,14 @@ function ClientCmdRegisterInputEvent ( %class, %name, %targetList )
 function ClientCmdRegisterOutputEvent ( %class, %name, %parameterListA, %parameterListB, %parameterListC, %parameterListD )
 {
 	%parameterList = %parameterListA @ %parameterListB @ %parameterListC @ %parameterListD;
+
 	$OutputEvent_Count[%class] = mFloor ($OutputEvent_Count[%class]);
 
 	for ( %i = 0; %i < $OutputEvent_Count[%class]; %i++ )
 	{
 		if ( $OutputEvent_Name[%class, %i] $= %name )
 		{
-			$OutputEvent_Name[%class, %i] = %name;
+			$OutputEvent_Name[%class, %i]          = %name;
 			$OutputEvent_parameterList[%class, %i] = %parameterList;
 
 			return;
@@ -20706,8 +20736,10 @@ function ClientCmdRegisterOutputEvent ( %class, %name, %parameterListA, %paramet
 	}
 
 	%i = mFloor ($OutputEvent_Count[%class]);
-	$OutputEvent_Name[%class, %i] = %name;
+
+	$OutputEvent_Name[%class, %i]          = %name;
 	$OutputEvent_parameterList[%class, %i] = %parameterList;
+
 	$OutputEvent_Count[%class]++;
 
 	if ( saveBricksGui.isAwake () )
@@ -20724,17 +20756,19 @@ function ClientCmdRegisterEventsDone ()
 	}
 	else
 	{
-		$GotInputEvents = 1;
+		$GotInputEvents = true;
 
 		WrenchEvents_LoadingWindow.setVisible (false);
 		wrenchEventsDlg.newEvent ();
+
 		commandToServer ('RequestWrenchEvents');
 	}
 }
 
 function wrenchEventsDlg::newEvent ( %this )
 {
-	%box = new GuiSwatchCtrl ("");
+	%box = new GuiSwatchCtrl ();
+
 	%this.numEvents = WrenchEvents_Box.getCount ();
 
 	WrenchEvents_Box.add (%box);
@@ -20742,18 +20776,19 @@ function wrenchEventsDlg::newEvent ( %this )
 
 	%w = getWord (wrenchEvents_Scroll.getExtent (), 0) - 12;
 	%h = 36;
+
 	%x = 0;
 	%y = (%h + 3) * %this.numEvents;
 
 	%box.resize (%x, %y, %w, %h);
-
 	%box.horizSizing = "Width";
-	%enabled = new GuiCheckBoxCtrl ("");
 
+	%enabled = new GuiCheckBoxCtrl ();
 	%box.add (%enabled);
 
 	%x = 0;
 	%y = 0;
+
 	%w = 36;
 	%h = 18;
 
@@ -20762,34 +20797,34 @@ function wrenchEventsDlg::newEvent ( %this )
 	%enabled.setValue (1);
 
 	%lastObject = %box.getObject (%box.getCount () - 1);
-	%delay = new GuiTextEditCtrl ("");
 
+	%delay = new GuiTextEditCtrl ();
 	%box.add (%delay);
 
 	%x = 2 + getWord (%lastObject.getPosition (), 0) + getWord (%lastObject.getExtent (), 0);
 	%y = 0;
+
 	%w = 36;
 	%h = 18;
 
 	%delay.resize (%x, %y, %w, %h);
-
 	%delay.command = "$ThisControl.setText(mClamp($ThisControl.getValue(), 0, 30000));";
-
 	%delay.setText (0);
 
 	%lastObject = %box.getObject (%box.getCount () - 1);
-	%input = new GuiPopUpMenuCtrl ("");
 
+	%input = new GuiPopUpMenuCtrl ();
 	%box.add (%input);
 
 	%x = 2 + getWord (%lastObject.getPosition (), 0) + getWord (%lastObject.getExtent (), 0);
 	%y = 0;
+
 	%w = 100;
 	%h = 18;
 
 	%input.resize (%x, %y, %w, %h);
-
 	%input.command = "wrenchEventsDlg.createTargetList(" @ %box @ "," @ %input @ ");";
+
 	%class = "fxDTSBrick";
 
 	%input.add ("-", -1);
@@ -20805,6 +20840,7 @@ function wrenchEventsDlg::newEvent ( %this )
 
 	%x = 0;
 	%y = 0;
+
 	%w = getWord (wrenchEvents_Scroll.getExtent (), 0) - 12;
 	%h = getWord (%box.getExtent (), 1) + getWord (%box.getPosition (), 1);
 
@@ -20815,6 +20851,7 @@ function wrenchEventsDlg::newEvent ( %this )
 function wrenchEventsDlg::reshuffleScrollbox ( %this, %target )
 {
 	%count = WrenchEvents_Box.getCount ();
+
 	%objList = "";
 
 	for ( %i = 0; %i < %count; %i++ )
@@ -20853,6 +20890,7 @@ function wrenchEventsDlg::reshuffleScrollbox ( %this, %target )
 
 		%w = getWord (%obj.getExtent (), 0);
 		%h = getWord (%obj.getExtent (), 1);
+
 		%x = 0;
 		%y = (%h + 3) * %i;
 
@@ -20863,7 +20901,7 @@ function wrenchEventsDlg::reshuffleScrollbox ( %this, %target )
 
 	for ( %i = 0; %i < %count; %i++ )
 	{
-		%obj = WrenchEvents_Box.getObject (%i);
+		%obj      = WrenchEvents_Box.getObject (%i);
 		%checkBox = %obj.getObject (0);
 
 		%checkBox.setText (%i);
@@ -20879,17 +20917,17 @@ function wrenchEventsDlg::createTargetList ( %this, %box, %inputMenu )
 	while ( %lastObject != %inputMenu )
 	{
 		%lastObject.delete ();
-
 		%lastObject = %box.getObject (%box.getCount () - 1);
 	}
 
-	%class = "fxDTSBrick";
+	%class    = "fxDTSBrick";
 	%selected = %inputMenu.getSelected ();
 
 	if ( %inputMenu.getText () $= "" )
 	{
 		return;
 	}
+
 	if ( %selected == -1 )
 	{
 		if ( %box != %box.getGroup ().getObject (%box.getGroup ().getCount () - 1) )
@@ -20902,28 +20940,29 @@ function wrenchEventsDlg::createTargetList ( %this, %box, %inputMenu )
 	else if ( !%inputMenu.createdNew )
 	{
 		%inputMenu.createdNew = 1;
-
 		%this.newEvent ();
 	}
 
-	%targetMenu = new GuiPopUpMenuCtrl ("");
-
+	%targetMenu = new GuiPopUpMenuCtrl ();
 	%box.add (%targetMenu);
 
 	%x = 2 + getWord (%lastObject.getPosition (), 0) + getWord (%lastObject.getExtent (), 0);
 	%y = getWord (%lastObject.getPosition (), 1);
+
 	%w = 100;
 	%h = 18;
 
 	%targetMenu.resize (%x, %y, %w, %h);
 
-	%targetMenu.command = "wrenchEventsDlg.createOutputList(" @ %box @ "," @ %targetMenu @ "," @ %selected @ ");";
+	%targetMenu.command = "wrenchEventsDlg.createOutputList(" @ %box @ "," @ %targetMenu
+	                    @ "," @ %selected @ ");";
+
 	%targetCount = getFieldCount ($InputEvent_TargetList[%class, %selected]);
 
 	for ( %i = 0; %i < %targetCount; %i++ )
 	{
 		%field = getField ($InputEvent_TargetList[%class, %selected], %i);
-		%name = getWord (%field, 0);
+		%name  = getWord (%field, 0);
 
 		%targetMenu.add (%name, %i);
 	}
@@ -20932,6 +20971,7 @@ function wrenchEventsDlg::createTargetList ( %this, %box, %inputMenu )
 	{
 		%targetMenu.add ("<NAMED BRICK>", -1);
 	}
+
 	if ( !$WrenchEventLoading )
 	{
 		%targetMenu.forceOnAction ();
@@ -20947,7 +20987,6 @@ function wrenchEventsDlg::CreateNamedBrickList ( %this, %box, %targetMenu, %inpu
 	while ( %lastObject != %targetMenu )
 	{
 		%lastObject.delete ();
-
 		%lastObject = %box.getObject (%box.getCount () - 1);
 	}
 
@@ -20955,25 +20994,26 @@ function wrenchEventsDlg::CreateNamedBrickList ( %this, %box, %targetMenu, %inpu
 	{
 		return;
 	}
+
 	if ( ServerConnection.allowNamedTargets )
 	{
 		%namedBrickMenu = new GuiPopUpMenuCtrl ("namedBrickList");
-
 		%box.add (%namedBrickMenu);
 
 		%x = getWord (%lastObject.getPosition (), 0);
 		%y = getWord (%lastObject.getPosition (), 1) + getWord (%lastObject.getExtent (), 1);
+
 		%w = 100;
 		%h = 18;
 
 		%namedBrickMenu.resize (%x, %y, %w, %h);
 
-		%namedBrickMenu.command = "wrenchEventsDlg.createOutputList(" @ %box @ "," @ %namedBrickMenu @ "," @ %inputEventIdx @ ", FxDTSBrick);";
+		%namedBrickMenu.command = "wrenchEventsDlg.createOutputList(" @ %box @ "," @ %namedBrickMenu
+		                        @ "," @ %inputEventIdx @ ", FxDTSBrick);";
 
 		for ( %i = 0; %i < ServerConnection.NTNameCount; %i++ )
 		{
 			%name = getSubStr (ServerConnection.NTName[%i], 1, strlen (ServerConnection.NTName[%i]) - 1);
-
 			%namedBrickMenu.add (%name, %i);
 		}
 
@@ -20986,13 +21026,14 @@ function wrenchEventsDlg::CreateNamedBrickList ( %this, %box, %targetMenu, %inpu
 	}
 	else
 	{
-		%namedBrickMenu = new GuiTextCtrl ("");
-
+		%namedBrickMenu = new GuiTextCtrl ();
 		%box.add (%namedBrickMenu);
+
 		%namedBrickMenu.setValue (0);
 
 		%x = getWord (%lastObject.getPosition (), 0) + 4;
 		%y = getWord (%lastObject.getPosition (), 1) + getWord (%lastObject.getExtent (), 1);
+
 		%w = 96;
 		%h = 18;
 
@@ -21010,7 +21051,6 @@ function wrenchEventsDlg::createOutputList ( %this, %box, %targetMenu, %inputEve
 		if ( %targetMenu.getSelected () == -1 )
 		{
 			%this.CreateNamedBrickList (%box, %targetMenu, %inputEventIdx);
-
 			return;
 		}
 	}
@@ -21019,9 +21059,10 @@ function wrenchEventsDlg::createOutputList ( %this, %box, %targetMenu, %inputEve
 
 	if ( %outputClass $= "" )
 	{
-		%selected = %targetMenu.getSelected ();
+		%selected    = %targetMenu.getSelected ();
 		%outputClass = getWord (getField ($InputEvent_TargetList[%class, %inputEventIdx], %selected), 1);
 	}
+
 	if ( %targetMenu.lastClass $= %outputClass )
 	{
 		if ( %targetMenu.getSelected () != -1 )
@@ -21053,12 +21094,12 @@ function wrenchEventsDlg::createOutputList ( %this, %box, %targetMenu, %inputEve
 	}
 
 	%targetMenu.lastClass = %outputClass;
+
 	%lastObject = %box.getObject (%box.getCount () - 1);
 
 	while ( %lastObject != %targetMenu )
 	{
 		%lastObject.delete ();
-
 		%lastObject = %box.getObject (%box.getCount () - 1);
 	}
 
@@ -21067,27 +21108,28 @@ function wrenchEventsDlg::createOutputList ( %this, %box, %targetMenu, %inputEve
 		if ( %targetMenu.getText () $= "" )
 		{
 			%targetMenu.lastClass = "";
-
 			return;
 		}
 	}
+
 	if ( %targetMenu.getClassName () $= "GuiTextCtrl" )
 	{
 		%lastObject = %box.getObject (%box.getCount () - 2);
 	}
 
-	%outputMenu = new GuiPopUpMenuCtrl ("");
-
+	%outputMenu = new GuiPopUpMenuCtrl ();
 	%box.add (%outputMenu);
 
 	%x = 2 + getWord (%lastObject.getPosition (), 0) + getWord (%lastObject.getExtent (), 0);
 	%y = 0;
+
 	%w = 100;
 	%h = 18;
 
 	%outputMenu.resize (%x, %y, %w, %h);
 
-	%outputMenu.command = "wrenchEventsDlg.createOutputParameters(" @ %box @ "," @ %outputMenu @ "," @ %outputClass @ ");";
+	%outputMenu.command = "wrenchEventsDlg.createOutputParameters(" @ %box @ "," @ %outputMenu
+	                    @ "," @ %outputClass @ ");";
 
 	for ( %i = 0; %i < $OutputEvent_Count[%outputClass]; %i++ )
 	{
@@ -21110,6 +21152,7 @@ function wrenchEventsDlg::VerifyInt ( %this, %textBox, %min, %max )
 	{
 		return;
 	}
+
 	if ( %min >= 0 )
 	{
 		%newVal = atoi (%val);
@@ -21124,7 +21167,7 @@ function wrenchEventsDlg::VerifyInt ( %this, %textBox, %min, %max )
 		%textBox.setText (%newVal);
 	}
 }
-
+// ->>> Bookmark
 function wrenchEventsDlg::createOutputParameters ( %this, %box, %outputMenu, %outputClass )
 {
 	%this.closeColorMenu ();
@@ -26315,16 +26358,16 @@ function ServerSettingsGui::onWake ( %this )
 		ServerSettingsGui.getVariablesFromFile ();
 		ServerSettingsGui.ApplyVariablesToGui ();
 
-		ServerSettingsGui_ServerTypeLabel.enabled = 1;
-		ServerSettingsGui_SinglePlayer.enabled = 1;
-		ServerSettingsGui_LAN.enabled = 1;
-		ServerSettingsGui_Internet.enabled = 1;
+		ServerSettingsGui_ServerTypeLabel.enabled = true;
+		ServerSettingsGui_SinglePlayer.enabled = true;
+		ServerSettingsGui_LAN.enabled = true;
+		ServerSettingsGui_Internet.enabled = true;
 
 		ServerSettingsGui_Select.setText ("LAUNCH GAME >> ");
 		ServerSettingsGui_Select.setVisible (true);
 
-		ServerSettingsGui_Internet.enabled = 1;
-		ServerSettingsGui_LAN.enabled = 1;
+		ServerSettingsGui_Internet.enabled = true;
+		ServerSettingsGui_LAN.enabled = true;
 	}
 	else
 	{
@@ -26340,22 +26383,22 @@ function ServerSettingsGui::onWake ( %this )
 		ServerSettingsGui_RTBLabel.setVisible (false);
 		ServerSettingsGui_UseRTB.setVisible (false);
 
-		ServerSettingsGui_ServerTypeLabel.enabled = 0;
-		ServerSettingsGui_SinglePlayer.enabled = 0;
-		ServerSettingsGui_LAN.enabled = 0;
-		ServerSettingsGui_Internet.enabled = 0;
+		ServerSettingsGui_ServerTypeLabel.enabled = false;
+		ServerSettingsGui_SinglePlayer.enabled = false;
+		ServerSettingsGui_LAN.enabled = false;
+		ServerSettingsGui_Internet.enabled = false;
 
 		ServerSettingsGui_Select.setText ("APPLY >> ");
 		ServerSettingsGui_Select.setVisible (false);
 
-		ServerSettingsGui_ServerName.enabled = 0;
-		ServerSettingsGui_MaxPlayers.enabled = 0;
-		ServerSettingsGui_JoinPassword.enabled = 0;
-		ServerSettingsGui_AdminPassword.enabled = 0;
-		ServerSettingsGui_ServerNameLabel.enabled = 0;
-		ServerSettingsGui_MaxPlayersLabel.enabled = 0;
-		ServerSettingsGui_JoinPasswordLabel.enabled = 0;
-		ServerSettingsGui_AdminPasswordLabel.enabled = 0;
+		ServerSettingsGui_ServerName.enabled = false;
+		ServerSettingsGui_MaxPlayers.enabled = false;
+		ServerSettingsGui_JoinPassword.enabled = false;
+		ServerSettingsGui_AdminPassword.enabled = false;
+		ServerSettingsGui_ServerNameLabel.enabled = false;
+		ServerSettingsGui_MaxPlayersLabel.enabled = false;
+		ServerSettingsGui_JoinPasswordLabel.enabled = false;
+		ServerSettingsGui_AdminPasswordLabel.enabled = false;
 	}
 }
 
@@ -26433,10 +26476,10 @@ function clientCmdServerSettingsGui_ApplyVariables ()
 {
 	if ( $IamAdmin == 2 )
 	{
-		ServerSettingsGui_JoinPassword.enabled = 1;
-		ServerSettingsGui_AdminPassword.enabled = 1;
-		ServerSettingsGui_JoinPasswordLabel.enabled = 1;
-		ServerSettingsGui_AdminPasswordLabel.enabled = 1;
+		ServerSettingsGui_JoinPassword.enabled = true;
+		ServerSettingsGui_AdminPassword.enabled = true;
+		ServerSettingsGui_JoinPasswordLabel.enabled = true;
+		ServerSettingsGui_AdminPasswordLabel.enabled = true;
 	}
 
 	ServerSettingsGui.ApplyVariablesToGui ();
@@ -26685,38 +26728,38 @@ function ServerSettingsGui::clickLaunchGame ( %this )
 
 function ServerSettingsGui::clickSinglePlayer ( %this )
 {
-	ServerSettingsGui_ServerName.enabled = 0;
-	ServerSettingsGui_JoinPassword.enabled = 0;
-	ServerSettingsGui_AdminPassword.enabled = 0;
-	ServerSettingsGui_MaxPlayers.enabled = 0;
-	ServerSettingsGui_ServerNameLabel.enabled = 0;
-	ServerSettingsGui_MaxPlayersLabel.enabled = 0;
-	ServerSettingsGui_JoinPasswordLabel.enabled = 0;
-	ServerSettingsGui_AdminPasswordLabel.enabled = 0;
+	ServerSettingsGui_ServerName.enabled = false;
+	ServerSettingsGui_JoinPassword.enabled = false;
+	ServerSettingsGui_AdminPassword.enabled = false;
+	ServerSettingsGui_MaxPlayers.enabled = false;
+	ServerSettingsGui_ServerNameLabel.enabled = false;
+	ServerSettingsGui_MaxPlayersLabel.enabled = false;
+	ServerSettingsGui_JoinPasswordLabel.enabled = false;
+	ServerSettingsGui_AdminPasswordLabel.enabled = false;
 }
 
 function ServerSettingsGui::clickLAN ( %this )
 {
-	ServerSettingsGui_ServerName.enabled = 1;
-	ServerSettingsGui_JoinPassword.enabled = 1;
-	ServerSettingsGui_AdminPassword.enabled = 1;
-	ServerSettingsGui_MaxPlayers.enabled = 1;
-	ServerSettingsGui_ServerNameLabel.enabled = 1;
-	ServerSettingsGui_MaxPlayersLabel.enabled = 1;
-	ServerSettingsGui_JoinPasswordLabel.enabled = 1;
-	ServerSettingsGui_AdminPasswordLabel.enabled = 1;
+	ServerSettingsGui_ServerName.enabled = true;
+	ServerSettingsGui_JoinPassword.enabled = true;
+	ServerSettingsGui_AdminPassword.enabled = true;
+	ServerSettingsGui_MaxPlayers.enabled = true;
+	ServerSettingsGui_ServerNameLabel.enabled = true;
+	ServerSettingsGui_MaxPlayersLabel.enabled = true;
+	ServerSettingsGui_JoinPasswordLabel.enabled = true;
+	ServerSettingsGui_AdminPasswordLabel.enabled = true;
 }
 
 function ServerSettingsGui::clickInternet ( %this )
 {
-	ServerSettingsGui_ServerName.enabled = 1;
-	ServerSettingsGui_JoinPassword.enabled = 1;
-	ServerSettingsGui_AdminPassword.enabled = 1;
-	ServerSettingsGui_MaxPlayers.enabled = 1;
-	ServerSettingsGui_ServerNameLabel.enabled = 1;
-	ServerSettingsGui_MaxPlayersLabel.enabled = 1;
-	ServerSettingsGui_JoinPasswordLabel.enabled = 1;
-	ServerSettingsGui_AdminPasswordLabel.enabled = 1;
+	ServerSettingsGui_ServerName.enabled = true;
+	ServerSettingsGui_JoinPassword.enabled = true;
+	ServerSettingsGui_AdminPassword.enabled = true;
+	ServerSettingsGui_MaxPlayers.enabled = true;
+	ServerSettingsGui_ServerNameLabel.enabled = true;
+	ServerSettingsGui_MaxPlayersLabel.enabled = true;
+	ServerSettingsGui_JoinPasswordLabel.enabled = true;
+	ServerSettingsGui_AdminPasswordLabel.enabled = true;
 }
 
 function CustomGameGui::onWake ( %this )
